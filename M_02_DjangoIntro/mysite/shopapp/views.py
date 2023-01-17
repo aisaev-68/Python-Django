@@ -8,5 +8,4 @@ def index(request: HttpRequest):
 
 def products(request: HttpRequest):
     product_lst = models.Product.objects.all()
-    print(product_lst)
     return render(request, 'shopapp/products.html', {"products": product_lst})

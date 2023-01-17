@@ -2,17 +2,10 @@
 
 {% block title %}Список ссылок{% endblock %}
 
-{% block content %}
+{% block body %}
 
 <div>
-    <ul>
-        <li>
-            <a href="{% url 'shopapp:index' %}">Home</a>
-        </li>
-        <li>
-            <a href="{% url 'shopapp:products' %}">Products</a>
-        </li>
-    </ul>
+    <a href="{% url 'shopapp:products' %}">Products</a>
 </div>
 
 

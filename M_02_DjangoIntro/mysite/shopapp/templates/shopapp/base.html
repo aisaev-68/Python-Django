@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+        {% block title %}
+            Base title
+        {% endblock %}
+    </title>
     <style>
         table, th, td {
         border: 1px solid black;
@@ -11,9 +15,12 @@
     </style>
 </head>
 <body>
-<div id="content">
-    {% block content %}
+    {% block body %}
+        Base body
     {% endblock %}
-</div>
+    <div>
+        <p></p>
+        Date: {% now 'H:i' %} {% now "Y-m-d" %}
+    </div>
 </body>
 </html>
