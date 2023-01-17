@@ -37,6 +37,48 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-3-jet"
+version = "1.0.7"
+description = "Modern template for Django admin interface with improved functionality"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-3-jet-1.0.7.tar.gz", hash = "sha256:9c2de40b41041509defacd4f35224904c6217bf774f6f20af7614e964fbe2e0a"},
+    {file = "django_3_jet-1.0.7-py3-none-any.whl", hash = "sha256:0eaf8f77ad8d61eb87c83b5bba048e3321f1944b7bd911f3f8d36b117d48a7a7"},
+]
+
+[package.dependencies]
+Django = "*"
+six = "*"
+
+[[package]]
+name = "django-jet"
+version = "1.0.8"
+description = "Modern template for Django admin interface with improved functionality"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-jet-1.0.8.tar.gz", hash = "sha256:f521dc0873023afa198d2b57687e0593ee62022bd50fa59506dfce69b101cd9e"},
+]
+
+[package.dependencies]
+Django = "*"
+
+[[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+
+[[package]]
 name = "sqlparse"
 version = "0.4.3"
 description = "A non-validating SQL parser."
@@ -63,4 +105,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "8070a9888290f52ebd017534a68014a5724f63a94dfed4c513488df1f2c31d0f"
+content-hash = "b21105ebecba1005cd3b104554665a062faadd8f2143b293ac8134437562f9b2"

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+from . import models
+
+def index(request: HttpRequest):
+    return render(request, 'shopapp/shop.html')
 
 
-def shop_index(request: HttpRequest):
-    return HttpResponse("Shop")
-
-
-def products_list(request: HttpRequest):
-    return HttpResponse("Produsts")
+def products(request: HttpRequest):
+    product_lst = models.Product.objects.all()
+    print(product_lst)
+    return render(request, 'shopapp/products.html', {"products": product_lst})

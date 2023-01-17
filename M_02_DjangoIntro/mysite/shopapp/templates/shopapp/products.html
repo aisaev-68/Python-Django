@@ -1,0 +1,24 @@
+{% extends "shopapp/base.html" %}
+
+{% block title %}Products all{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>Name product</th>
+        <th>Discription</th>
+        <th>Price</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
