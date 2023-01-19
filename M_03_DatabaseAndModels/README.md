@@ -146,3 +146,9 @@
 ### Как отправить работу на проверку
 
 Сдайте практическую работу этого модуля через систему контроля версий Git сервиса Skillbox GitLab. В материалах с практической работой напишите «Сделано» и прикрепите ссылку на репозиторий.
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python3 manage.py create_products
+python3 manage.py create_orders
