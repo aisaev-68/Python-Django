@@ -7,9 +7,10 @@ from shopapp.models import Product
 
 
 class Command(BaseCommand):
-    help = 'Import data from csv file'
+    help = 'Добавление продукции'
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **options):
+        self.stdout.write("Добавление продукции")
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         file_path = f"{BASE_DIR}/commands/products.csv"
         print(file_path)
@@ -22,3 +23,4 @@ class Command(BaseCommand):
                 except AttributeError as error:
                     print(error)
                     break
+        self.stdout.write(self.style.SUCCESS("Продукция добавлена"))

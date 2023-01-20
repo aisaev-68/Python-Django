@@ -6,9 +6,10 @@ from shopapp.models import Product, Order
 
 
 class Command(BaseCommand):
-    help = 'Add data in Order'
+    help = 'Добавление заказов'
 
     def handle(self, *args, **options):
+        self.stdout.write("Добавление заказов")
         add_users()
         orders_dict = [
             {
@@ -41,6 +42,7 @@ class Command(BaseCommand):
             except AttributeError as error:
                 print(error)
                 break
+        self.stdout.write(self.style.SUCCESS("Заказы добавлены"))
 
 
 def add_users():

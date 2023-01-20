@@ -4,7 +4,7 @@ from django.db import models
 
 class Product(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name='Наименование')
-    discount = models.PositiveSmallIntegerField(default=0, verbose_name='Скидки')
+    discount = models.PositiveSmallIntegerField(default=0, verbose_name='Процентаная скидка')
     description = models.TextField(blank=True, verbose_name='Описание')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     archived = models.BooleanField(default=False, verbose_name='Статус')

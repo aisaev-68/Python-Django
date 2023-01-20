@@ -12,6 +12,7 @@
         <th>Дата заказа</th>
         <th>Пользователь</th>
         <th>Продукты</th>
+        <th>Цена за единицу</th>
     </tr>
     {% endif %}
     {% for order in orders %}
@@ -21,7 +22,16 @@
         <td>{{ order.delivery_address|title }}</td>
         <td>{{ order.created_at }}</td>
         <td>{{ order.user }}</td>
-        <td>{{ order.product }}</td>
+        <td>
+            {% for prod in order.product.all %}
+            <p>{{ prod }}</p>
+            {% endfor %}
+        </td>
+        <td>
+            {% for prod in order.product.all %}
+            <p>{{ prod.price }}</p>
+            {% endfor %}
+        </td>
     {% empty %}
         No orders here
     {% endfor %}
