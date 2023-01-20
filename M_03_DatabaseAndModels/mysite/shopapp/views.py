@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+
 from . import models
 
 
@@ -13,5 +14,16 @@ def products(request: HttpRequest):
 
 
 def orders(request: HttpRequest):
-    orders_lst = models.Order.objects.all()
-    return render(request, 'shopapp/orders.html', {"products": orders_lst})
+    orders = models.Order.objects.all()
+    orders_lst = []
+    for order in orders:
+        order = {
+            "promocode": order.promocode,
+            "delivery_address": order.delivery_address,
+            "created_at": order.created_at,
+            "user": order.user,
+            "product": [a.name for a in order.product.all()]
+        }
+        orders_lst.append(order)
+    return render(request, 'shopapp/orders.html', {"orders": orders_lst})
+

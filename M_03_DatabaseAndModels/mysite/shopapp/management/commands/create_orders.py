@@ -5,9 +5,6 @@ from django.contrib.auth.models import User
 from shopapp.models import Product, Order
 
 
-
-
-
 class Command(BaseCommand):
     help = 'Add data in Order'
 
@@ -18,7 +15,7 @@ class Command(BaseCommand):
                 "promocode": 123555,
                 "delivery_address": "Moscow",
                 "user": User(id=2),
-             },
+            },
             {
                 "promocode": 123543,
                 "delivery_address": "Moscow",
@@ -35,11 +32,15 @@ class Command(BaseCommand):
                 "user": User(id=3),
             },
         ]
-        id_product = [1, 2, 3, 4]
-        for order_item in orders_dict:
-            order = Order.objects.get_or_create(**order_item)
-            order.product.get_or_create(random.choice(id_product))
 
+        for ind, order_item in enumerate(orders_dict):
+            product = Product.objects.get(id=ind + 1)
+            try:
+                order = Order.objects.get_or_create(**order_item)
+                order[0].product.add(product)
+            except AttributeError as error:
+                print(error)
+                break
 
 
 def add_users():

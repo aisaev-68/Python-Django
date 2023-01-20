@@ -1,5 +1,5 @@
-name,description,price
-Pizza1,adsdadd,29999
-Pizza2,adsdadd,29999
-Pizza3,adsdadd,29999
-Pizza4,adsdadd,29999
+name,discount,description,price
+Pizza1,5,adsdadd,29999
+Pizza2,0,adsdadd,29999
+Pizza3,0,adsdadd,29999
+Pizza4,10,adsdadd,29999

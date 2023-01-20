@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "shopapp/base.html" %}
 
-</body>
-</html>
+{% block title %}Заказы{% endblock %}
+
+{% block body %}
+<h1>Заказы</h1>
+<table>
+    {% if orders %}
+    <tr>
+        <th>Код заказа</th>
+        <th>Адрес доставки</th>
+        <th>Дата заказа</th>
+        <th>Пользователь</th>
+        <th>Продукты</th>
+    </tr>
+    {% endif %}
+    {% for order in orders %}
+    <tr>
+
+        <td>{{ order.promocode }}</td>
+        <td>{{ order.delivery_address|title }}</td>
+        <td>{{ order.created_at }}</td>
+        <td>{{ order.user }}</td>
+        <td>{{ order.product }}</td>
+    {% empty %}
+        No orders here
+    {% endfor %}
+    </tr>
+
+</table>
+{% endblock %}

@@ -18,9 +18,7 @@ class Command(BaseCommand):
 
             for row in csv_reader:
                 try:
-
-                    Product.objects.get_or_create(**row)
-
+                    Product.objects.get_or_create(**row) # (<Product: Product object (1)>, True)
                 except AttributeError as error:
                     print(error)
                     break

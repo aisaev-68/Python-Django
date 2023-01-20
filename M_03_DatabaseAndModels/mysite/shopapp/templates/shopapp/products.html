@@ -1,15 +1,16 @@
 {% extends "shopapp/base.html" %}
 
-{% block title %}Products{% endblock %}
+{% block title %}Продукция{% endblock %}
 
 {% block body %}
-<h1>All products</h1>
+<h1>Продукция</h1>
 <table>
     {% if products %}
     <tr>
-        <th>Name product</th>
-        <th>Discription</th>
-        <th>Price</th>
+        <th>Наименование продукта</th>
+        <th>Описание</th>
+        <th>Процент скидки</th>
+        <th>Цена</th>
     </tr>
     {% endif %}
     {% for product in products %}
@@ -17,6 +18,7 @@
 
         <td>{{ product.name|title }}</td>
         <td>{{ product.description|title }}</td>
+        <td>{{ product.discount }}</td>
         <td>{{ product.price }}</td>
     {% empty %}
         No product here
