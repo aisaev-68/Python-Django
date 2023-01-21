@@ -53,6 +53,8 @@ class ProductAdmin(admin.ModelAdmin):
             return obj.description
         return obj.description[:40] + "..."
 
+    description_short.short_description = 'Описание'
+
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -67,3 +69,5 @@ class OrderAdmin(admin.ModelAdmin):
 
     def user_verbose(self, obj: models.Order) -> str:
         return obj.user.first_name or obj.user.username
+
+    user_verbose.short_description = 'Пользователь'
