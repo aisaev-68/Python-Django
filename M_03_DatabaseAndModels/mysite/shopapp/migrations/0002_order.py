@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Order',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('promocode', models.CharField(blank=True, max_length=20, verbose_name='Код заказа')),
+                ('promocode', models.CharField(blank=True, max_length=20, verbose_name='Промокод')),
                 ('delivery_address', models.TextField(blank=True, null=True, verbose_name='Адрес доставки')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа')),
                 ('product', models.ManyToManyField(related_name='orders', to='shopapp.product')),
