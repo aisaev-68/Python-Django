@@ -17,7 +17,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    promocode = models.CharField(max_length=20, null=False, blank=True, verbose_name='Код заказа')
+    promocode = models.CharField(max_length=20, null=False, blank=True, verbose_name='Промокод')
     delivery_address = models.TextField(null=True, blank=True, verbose_name='Адрес доставки')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
