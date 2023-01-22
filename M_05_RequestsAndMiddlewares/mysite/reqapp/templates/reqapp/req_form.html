@@ -1,0 +1,38 @@
+{% extends "reqapp/base.html" %}
+
+{% block title %}Форма для загрузки файлов{% endblock %}
+
+{% block body %}
+<h1>Загрузка файлов</h1>
+
+<form action=""  method="POST" enctype="multipart/form-data" onsubmit="btn.disabled=True">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Форма загрузки файла:</legend>
+        <label for="name">Заголовок</label>
+        <input id="name" type="text" name="fileTitle" placeholder="Введите заголовок" required>
+        <p>
+            <label for="fname">Выберите файл</label>
+            <input id="fname" type="file" name="file" title="Загрузите файл" required multiple/>
+        </p>
+
+        <button name="btn" class="submit-btn" type="submit">Загрузить</button>
+    </fieldset>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Заголовок</th>
+        <th>Путь к файлу</th>
+        <th>Дата загрузки файла</th>
+    </tr>
+    {% for file in files %}
+    <tr>
+        <td>{{ file.id }}</td>
+        <td>{{ file.title }}</td>
+        <td>{{ file.uploadedFile }}</td>
+        <td>{{ file.dateTimeOfUpload }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

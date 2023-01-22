@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        Base title
+        {% endblock %}
+    </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        * {
+            font-family: "Roboto";
+        }
+
+        body {
+            background-color: #FFFFFF;
+        }
+        h1 {
+            padding: 25px;
+            background-color: #abb8c3;
+        }
+
+        div, form {
+            background-color: #FFFFFF;
+            padding: 25px;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+            margin-top: 25px;
+            padding: 25px;
+            background-color: #FFFFFF;
+        }
+
+        th {
+            background-color: #abb8c3;
+        }
+
+        table tr td {
+            padding-top: 15px;
+        }
+        .button {
+            position: absolute;
+            top:50%;
+            background-color:#0a0a23;
+            color: #fff;
+            border:none;
+            border-radius:10px;
+            padding:15px;
+            min-height:30px;
+            min-width: 120px;
+          }
+        input {
+            padding-left: 15px
+        }
+
+
+    </style>
+</head>
+<body>
+{% block body %}
+Base body
+{% endblock %}
+<div>
+    <p></p>
+    Текущая дата: {% now 'H:i' %} {% now "Y-m-d" %}
+</div>
+</body>
+</html>
