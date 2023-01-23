@@ -5,12 +5,14 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
+from django.db import migrations, models
+
+
 class Migration(migrations.Migration):
 
     initial = True
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -19,7 +21,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(db_index=True, max_length=200, verbose_name='Наименование')),
-                ('discount', models.PositiveSmallIntegerField(default=0, verbose_name='Скидки')),
+                ('discount', models.PositiveSmallIntegerField(default=0, verbose_name='Процентаная скидка')),
                 ('description', models.TextField(blank=True, verbose_name='Описание')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Цена')),
                 ('archived', models.BooleanField(default=False, verbose_name='Статус')),
@@ -28,18 +30,5 @@ class Migration(migrations.Migration):
                 'ordering': ('name',),
             },
         ),
-        migrations.CreateModel(
-            name='Order',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('promocode', models.CharField(blank=True, max_length=20, verbose_name='Код заказа')),
-                ('delivery_address', models.TextField(blank=True, null=True, verbose_name='Адрес доставки')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа')),
-                ('product', models.ManyToManyField(to='shopapp.product')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'ordering': ('-created_at',),
-            },
-        ),
     ]
+
