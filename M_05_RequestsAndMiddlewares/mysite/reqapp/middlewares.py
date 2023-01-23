@@ -2,6 +2,7 @@ from django.http import HttpRequest
 from django.core.cache import cache
 from django.shortcuts import render
 
+
 class CountRequestsMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -20,5 +21,3 @@ class CountRequestsMiddleware:
         else:
             cache.set('ip:{}'.format(ip_address), count, timeout_requests)
         return response
-
-

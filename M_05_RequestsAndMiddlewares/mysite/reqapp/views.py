@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import JsonResponse
 
 from . import models
 
@@ -13,7 +14,8 @@ def upload_file(request: HttpRequest) -> HttpResponse:
         image_file = request.FILES.get('file', '')
         file_title = request.POST.get("fileTitle", '')
         if image_file.size > limit:
-            raise ValidationError('Размер файла не должен превышать 1 Mb.')
+            return render(request, "reqapp/req_form.html", {"context": "Ошибка! 'Размер файла не должен превышать 1 Mb.'"})
+            # raise ValidationError('Размер файла не должен превышать 1 Mb.')
 
         fs = FileSystemStorage()
         filename = fs.save(image_file.name, image_file)
@@ -27,3 +29,4 @@ def upload_file(request: HttpRequest) -> HttpResponse:
         return render(request, "reqapp/req_form.html", {'files': documents})
 
     return render(request, "reqapp/req_form.html")
+

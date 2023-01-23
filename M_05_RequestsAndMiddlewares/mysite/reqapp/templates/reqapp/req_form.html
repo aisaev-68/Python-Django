@@ -19,6 +19,10 @@
         <button name="btn" class="submit-btn" type="submit">Загрузить</button>
     </fieldset>
 </form>
+{% if context %}
+<h1>{{ context }}</h1>
+{% endif %}
+{% if not context %}
 <table>
     <tr>
         <th>ID</th>
@@ -35,4 +39,5 @@
     </tr>
     {% endfor %}
 </table>
+{% endif %}
 {% endblock %}
