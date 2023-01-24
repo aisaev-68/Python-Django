@@ -19,11 +19,17 @@ Orders list
 
         <td>{% firstof order.user.first_name order.user.username %}</td>
         <td>{{ order.promocode }}</td>
-        <td>{% firstof product.discount 'no discount' %}</td>
-        {% for product in order.products.all %}
-        <td>{{ product.name }}</td>
-        <td>{{ {{ product.price }}</td>
-        {% endfor %}
+        <td>{% firstof order.discount 'no discount' %}</td>
+        <td>
+            {% for product in order.product.all %}
+            <p>{{ product }}</p>
+            {% endfor %}
+        </td>
+        <td>
+            {% for product in order.product.all %}
+            <p>{{ product.price }}</p>
+            {% endfor %}
+        </td>
     </tr>
     {% endfor %}
 </table>

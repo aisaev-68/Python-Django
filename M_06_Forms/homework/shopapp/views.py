@@ -3,8 +3,8 @@ from .forms import ProductModelForm
 
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Product, Order
 
 
@@ -47,6 +47,7 @@ def create_product(request: HttpRequest):
         form = ProductModelForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect(reverse("shopapp:products_list"))
     else:
         form = ProductModelForm()
     return render(request, 'shopapp/create-product.html', {'form': form})

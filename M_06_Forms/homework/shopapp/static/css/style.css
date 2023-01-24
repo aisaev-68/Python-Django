@@ -135,7 +135,9 @@ body {
   align-items: center;
 }
 
-
+.section-product {
+    text-align: center;
+}
 
 .title_action {
     text-align: center;
@@ -143,7 +145,6 @@ body {
 
 .product__form {
   flex-direction: column;
-  margin-left: 500px;
 }
 
 .name, .description, .price, .discount, .archived {
