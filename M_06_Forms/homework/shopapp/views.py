@@ -1,10 +1,11 @@
 from timeit import default_timer
-from .forms import ProductModelForm
+
 
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from .forms import ProductModelForm, OrderModelForm
 from .models import Product, Order
 
 
@@ -51,3 +52,14 @@ def create_product(request: HttpRequest):
     else:
         form = ProductModelForm()
     return render(request, 'shopapp/create-product.html', {'form': form})
+
+
+def create_order(request: HttpRequest):
+    if request.method == 'POST':
+        form = OrderModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("shopapp:orders_list"))
+    else:
+        form = OrderModelForm()
+    return render(request, 'shopapp/create-order.html', {'form': form})

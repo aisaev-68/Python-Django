@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Product
+from .models import Product, Order
 
 
 class ProductModelForm(ModelForm):
@@ -16,3 +16,19 @@ class ProductModelForm(ModelForm):
     class Meta:
         model = Product
         fields = ["name", "description", "price", "discount"]
+
+
+class OrderModelForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
+        self.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
+        # self.fields['created_at'].widget.attrs.update({'class': 'created_at'}, size='40')
+        # self.fields['user'].widget.attrs.update({'class': 'user'}, size='40')
+        # self.fields['product'].widget.update({'class': 'product'}, size='40')
+
+    class Meta:
+        model = Order
+        fields = ["delivery_address", "promocode",]
+        # "created_at", "user", "products"]
