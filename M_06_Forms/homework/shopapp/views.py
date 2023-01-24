@@ -1,4 +1,5 @@
 from timeit import default_timer
+from .forms import ProductModelForm
 
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
@@ -39,3 +40,13 @@ def orders_list(request: HttpRequest):
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
     }
     return render(request, 'shopapp/orders-list.html', context=context)
+
+
+def create_product(request: HttpRequest):
+    if request.method == 'POST':
+        form = ProductModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProductModelForm()
+    return render(request, 'shopapp/create-product.html', {'form': form})

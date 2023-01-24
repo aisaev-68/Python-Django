@@ -1,33 +1,33 @@
 {% extends 'shopapp/base.html' %}
 
 {% block title %}
-  Orders list
+Orders list
 {% endblock %}
 
-{% block body %}
-  <h1>Orders:</h1>
-  {% if orders %}
-    <div>
-      {% for order in orders %}
-        <div>
-          <p>Order by {% firstof order.user.first_name order.user.username %}</p>
-          <p>Promocode: <code>{{ order.promocode }}</code></p>
-          <p>Delivery address: {{ order.delivery_address }}</p>
-          <div>
-            Product in order:
-            <ul>
-              {% for product in order.products.all %}
-                <li>{{ product.name }} for ${{ product.price }}</li>
-              {% endfor %}
+{% block section %}
+<h1 class="title_action">Продукция:</h1>
+{% if orderss %}
+<table class="table-product">
+    <tr>
+        <th>Пользователь</th>
+        <th>Промокод</th>
+        <th>Адрес доставки</th>
+        <th>Цена</th>
+    </tr>
+    {% for order in orderss %}
+    <tr>
 
-            </ul>
-          </div>
-
-        </div>
-      {% endfor %}
-
-    </div>
-  {% else %}
-    <h3>No orders yet</h3>
-  {% endif %}
+        <td>{% firstof order.user.first_name order.user.username %}</td>
+        <td>{{ order.promocode }}</td>
+        <td>{% firstof product.discount 'no discount' %}</td>
+        {% for product in order.products.all %}
+        <td>{{ product.name }}</td>
+        <td>{{ {{ product.price }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>Продукция отсутствует</h3>
+{% endif %}
 {% endblock %}

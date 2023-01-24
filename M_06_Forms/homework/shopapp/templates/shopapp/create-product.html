@@ -1,0 +1,14 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Add product
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">Добавить продукт:</h1>
+<form method="Post" class="product__form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="product_btn" type="submit">Сохранить</button>
+</form>
+{% endblock %}
