@@ -27,6 +27,12 @@ Products list
 {% else %}
 <h3>Продукция отсутствует</h3>
 {% endif %}
+<div class="back_to">
+    <p>
+        <a href="{% url 'shopapp:shop' %}">Главная страница</a><br>
+        <a href="{% url 'shopapp:create_product' %}">Вернуться назад</a>
+    </p>
+</div>
 {% endblock %}
 
 

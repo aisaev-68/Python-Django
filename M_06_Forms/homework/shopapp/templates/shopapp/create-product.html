@@ -11,4 +11,9 @@ Add product
     {{ form.as_p }}
     <button class="product_btn" type="submit">Сохранить</button>
 </form>
+<div class="back_to">
+    <p>
+        <a href="{% url 'shopapp:shop' %}">Вернуться назад</a>
+    </p>
+</div>
 {% endblock %}

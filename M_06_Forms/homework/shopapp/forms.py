@@ -1,4 +1,6 @@
-from django.forms import ModelForm
+from django import forms
+from django.forms import ModelForm, ChoiceField
+from django.forms.widgets import CheckboxSelectMultiple, SelectMultiple
 from .models import Product, Order
 
 
@@ -22,13 +24,16 @@ class OrderModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         self.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
-        # self.fields['created_at'].widget.attrs.update({'class': 'created_at'}, size='40')
-        # self.fields['user'].widget.attrs.update({'class': 'user'}, size='40')
-        # self.fields['product'].widget.update({'class': 'product'}, size='40')
+        self.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
+        self.fields['user'].widget.attrs.update({'class': 'user'})
+        # self.fields['products'].widget.update({'class': 'products'})
+        self.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()])
+        self.fields['products'].widget.attrs.update({'class': 'products'})
+        # self.fields["products"].widget = SelectMultiple(attrs={'class': 'chosen'})
+        # self.fields["products"].queryset = Product.objects.all()
+
 
     class Meta:
         model = Order
-        fields = ["delivery_address", "promocode",]
-        # "created_at", "user", "products"]
+        fields = ["promocode", "delivery_address", "user", "products"]
