@@ -1,0 +1,50 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Orders list
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">Продукция:</h1>
+{% if orders %}
+<table class="table-product">
+    <tr>
+        <th>Пользователь</th>
+        <th>Промокод</th>
+        <th>Адрес доставки</th>
+        <th>Наименование продукции</th>
+        <th>Скидка в %</th>
+        <th>Цена</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+
+        <td>{% firstof order.user.first_name order.user.username %}</td>
+        <td>{{ order.promocode }}</td>
+        <td>{{ order.delivery_address }}</td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.name }}</p>
+            {% endfor %}
+        </td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.discount }}</p>
+            {% endfor %}
+        </td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.price }}</p>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>Заказы отсутствует</h3>
+{% endif %}
+<div class="back_to">
+    <p class="link-back"><a href="{% url 'shopapp:shop' %}">Главная страница</a></p>
+    <p class="link-back"><a href="{% url 'shopapp:create_order' %}">Добавить новый заказ</a></p>
+</div>
+{% endblock %}

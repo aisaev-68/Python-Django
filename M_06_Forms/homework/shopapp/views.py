@@ -47,7 +47,7 @@ def create_product(request: HttpRequest):
             return redirect(reverse("shopapp:products_list"))
     else:
         form = ProductModelForm()
-    return render(request, 'shopapp/create-product.html', {'form': form})
+    return render(request, 'shopapp/create_product.html', {'form': form})
 
 
 def create_order(request: HttpRequest):
@@ -58,4 +58,4 @@ def create_order(request: HttpRequest):
             return redirect(reverse("shopapp:orders_list"))
     else:
         form = OrderModelForm()
-    return render(request, 'shopapp/create-order.html', {'form': form})
+    return render(request, 'shopapp/create_order.html', {'form': form})
