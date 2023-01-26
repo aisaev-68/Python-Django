@@ -30,23 +30,32 @@ class DetailProduct(DetailView):
     template_name = 'shopapp/product_detail.html'
 
 
-class DeleteProduct(DeleteView):
+class ArchivedProduct(DeleteView):
     model = Product
     context_object_name = "products"
     template_name = 'shopapp/product_archived.html'
-    success_url = reverse_lazy("shopapp:products_list")
+    # fields = ["archived",]
+    # success_url = reverse_lazy("shopapp:products_list")
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['name'].widget.attrs.update({'class': 'name'}, size='40')
-        form.fields['description'].widget.attrs.update({'class': 'description'}, size='40')
-        form.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0, size='40')
-        form.fields['price'].widget.attrs['min'] = 0
-        form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
-        form.fields['discount'].widget.attrs['min'] = 0
-        return form
+    # def get_form(self, form_class=None):
+    #     form = super().get_form(form_class)
+    #     form.fields['name'].widget.attrs.update({'class': 'name'}, size='40')
+    #     form.fields['description'].widget.attrs.update({'class': 'description'}, size='40')
+    #     form.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0, size='40')
+    #     form.fields['price'].widget.attrs['min'] = 0
+    #     form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
+    #     form.fields['discount'].widget.attrs['min'] = 0
+    #     return form
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "shopapp:products_list",
+        )
+
+
     def form_valid(self, form):
         success_url = self.get_success_url()
+
         self.object.archived = True
         self.object.save()
         return HttpResponseRedirect(success_url)

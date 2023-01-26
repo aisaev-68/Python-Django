@@ -255,8 +255,8 @@ td {
 
 .update_btn, .cancel_btn {
   width: 200px;
-  padding: 10px;
-  margin-left: 210px;
+  padding: 10px 0px;
+  margin-left: 5px;
   color: var(--color_white);
   background: var(--bg_default);
   border: 0;
@@ -267,9 +267,35 @@ td {
   cursor: pointer;
 }
 
+.update_btn-archived, .cancel_btn-archived {
+  width: 200px;
+  padding: 10px;
+  #margin-left: 210px;
+  color: var(--color_white);
+  background: var(--bg_default);
+  border: 0;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+  transition: background-color 0.3s ease, color 0.4s linear;
+  cursor: pointer;
+}
+
+.update_btn-archived {
+    margin-left: 205px;
+}
+
+.cancel_btn-archived {
+    margin-left: 55px;
+}
 .cancel_btn {
   margin-left: 60px;
   }
+.no_btn-link {
+    padding: 10px 82px;
+    color: var(--color_white);
+    text-decoration: none;
+}
 
 .product_btn:focus,
 .order_btn:focus,

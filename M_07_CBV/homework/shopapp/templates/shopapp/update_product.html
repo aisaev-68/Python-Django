@@ -10,8 +10,8 @@ Update product
     {% csrf_token %}
     {{ form.as_p }}
     <div class="yesno_block">
-        <button class="update_btn" type="submit">Да</button>
-        <button class="cancel_btn btn-reset" onclick="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</button>
+        <button class="update_btn-archived btn-reset" type="submit">Да</button>
+        <button class="cancel_btn-archived btn-reset" onclick="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</button>
     </div>
 
 </form>

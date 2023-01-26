@@ -1,24 +1,25 @@
 {% extends 'shopapp/base.html' %}
 
 {% block title %}
-Update product
+Archived product
 {% endblock %}
 
 {% block section %}
 <h1 class="title_action">Архивировать продукт № {{object.pk}}?</h1>
-<form method="Post" class="product_update-form" enctype="multipart/form-data">
+<form method="Post" class="product__form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <div class="yesno_block">
-        <button class="update_btn" type="submit">Да</button>
-        <button class="cancel_btn btn-reset" onclick="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</button>
+        <button class="update_btn btn-reset" type="submit">Да</button>
+<!--        <button class="cancel_btn btn-reset" onclick="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</button>-->
+        <div type="button" class="cancel_btn btn-reset"><a class="no_btn-link" href="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</a></div>
     </div>
 
 </form>
 
-<div class="back_to">
-    <p>
-        <a href="{% url 'shopapp:products_list' pk=object.pk %}">Вернуться назад к продукту № {{object.pk}}</a>
-    </p>
-</div>
+<!--<div class="back_to">-->
+<!--    <p>-->
+<!--        <button><a href="{% url 'shopapp:product_detail' pk=object.pk %}">Вернуться назад к продукту № {{object.pk}}</a></button>-->
+<!--    </p>-->
+<!--</div>-->
 {% endblock %}
