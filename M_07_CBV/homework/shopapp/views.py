@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
-from django.forms import ChoiceField, BooleanField
+from django.forms import ChoiceField, BooleanField, ModelChoiceField, MultipleChoiceField, CheckboxSelectMultiple, ModelMultipleChoiceField, CheckboxInput, Select
 from django.urls import reverse, reverse_lazy
 # from .forms1 import ProductModelForm, OrderModelForm
 from .models import Product, Order
@@ -34,24 +34,11 @@ class ArchivedProduct(DeleteView):
     model = Product
     context_object_name = "products"
     template_name = 'shopapp/product_archived.html'
-    # fields = ["archived",]
-    # success_url = reverse_lazy("shopapp:products_list")
-
-    # def get_form(self, form_class=None):
-    #     form = super().get_form(form_class)
-    #     form.fields['name'].widget.attrs.update({'class': 'name'}, size='40')
-    #     form.fields['description'].widget.attrs.update({'class': 'description'}, size='40')
-    #     form.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0, size='40')
-    #     form.fields['price'].widget.attrs['min'] = 0
-    #     form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
-    #     form.fields['discount'].widget.attrs['min'] = 0
-    #     return form
 
     def get_success_url(self):
         return reverse_lazy(
             "shopapp:products_list",
         )
-
 
     def form_valid(self, form):
         success_url = self.get_success_url()
@@ -97,7 +84,6 @@ class UpdateProduct(UpdateView):
         form.fields['price'].widget.attrs['min'] = 0
         form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
         form.fields['discount'].widget.attrs['min'] = 0
-
         # form.fields["archived"] = ChoiceField(choices=[(1, True), (2, False)])
         # form.fields['archived'].widget.attrs["archived"] = "Статус"
         # form.fields['archived'].widget.attrs.update({'class': 'archived'})
@@ -116,14 +102,32 @@ class OrderCreate(CreateView):
     template_name = 'shopapp/create_order.html'
     fields = ["promocode", "delivery_address", "user", "products"]
 
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         form.fields['user'].widget.attrs.update({'class': 'user'})
-        form.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()])
+        # form.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()],
+        #                                       widget=Select)
+        # form.fields["products"] = ModelChoiceField(queryset=Order.objects.all(),
+        #                                            empty_label="Выберите продукт",)
+        form.fields["products"] = ModelMultipleChoiceField(queryset=Product.objects.all(), widget=CheckboxSelectMultiple, required=False)
+        # form.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()],
+        #                                                    widget=CheckboxSelectMultiple, required=False)
+        # form.fields["products"] = CheckboxSelectMultiple(choices=[(product.pk, product.name) for product in Product.objects.all()], widget=Select)
         form.fields['products'].widget.attrs.update({'class': 'products'})
+        # form.fields['products'].widget.attrs = CheckboxSelectMultiple()
         return form
+
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     for product in form.cleaned_data['products']:
+    #         order = Order()
+    #         order.product = self.object
+    #         pubauth.author = author
+    #         pubauth.save_m2m()
+    #     return super(ModelFormMixin, self).form_valid(form)
 
 
 class UpdateOrder(UpdateView):

@@ -11,15 +11,8 @@ Archived product
     {{ form.as_p }}
     <div class="yesno_block">
         <button class="update_btn btn-reset" type="submit">Да</button>
-<!--        <button class="cancel_btn btn-reset" onclick="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</button>-->
         <div type="button" class="cancel_btn btn-reset"><a class="no_btn-link" href="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</a></div>
     </div>
 
 </form>
-
-<!--<div class="back_to">-->
-<!--    <p>-->
-<!--        <button><a href="{% url 'shopapp:product_detail' pk=object.pk %}">Вернуться назад к продукту № {{object.pk}}</a></button>-->
-<!--    </p>-->
-<!--</div>-->
 {% endblock %}
