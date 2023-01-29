@@ -97,18 +97,7 @@ class OrderCreate(CreateView):
     success_url = reverse_lazy("shopapp:orders_list")
 
     def form_valid(self, form):
-
-        delivery_address = form.cleaned_data['delivery_address']
-        promocode = form.cleaned_data['promocode']
-        user = form.cleaned_data['user']
-        products = form.cleaned_data['products']
-        order = Order(delivery_address=delivery_address, promocode=promocode, user=user)
-        order.save()
-        products_list = Product.objects.filter(pk__in=products)
-        for product in products_list:
-            print(product)
-            order.products.add(product)
-        print(99999999999999999999999999999)
+        form.save()
         return super().form_valid(form)
 
     def get_form(self, form_class=None):
