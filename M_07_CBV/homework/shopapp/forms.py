@@ -1,6 +1,5 @@
-from django import forms
-from django.forms import ModelForm, ChoiceField
-from django.forms.widgets import CheckboxSelectMultiple, SelectMultiple
+from django.forms import ModelForm, MultipleChoiceField
+from django.forms.widgets import SelectMultiple
 from .models import Product, Order
 
 
@@ -27,13 +26,16 @@ class OrderModelForm(ModelForm):
         self.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         self.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         self.fields['user'].widget.attrs.update({'class': 'user'})
-        # self.fields['products'].widget.update({'class': 'products'})
-        self.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()])
-        self.fields['products'].widget.attrs.update({'class': 'products'})
-        # self.fields["products"].widget = SelectMultiple(attrs={'class': 'chosen'})
-        # self.fields["products"].queryset = Product.objects.all()
+        self.fields['products'].value = "Продукты"
+        self.fields["products"] = MultipleChoiceField(
+            choices=[(product.pk, product.name) for product in Product.objects.all()],
+            widget=SelectMultiple(
+                attrs={'class': 'chosen',}
+            ),
+            required=False)
 
 
     class Meta:
         model = Order
         fields = ["promocode", "delivery_address", "user", "products"]
+

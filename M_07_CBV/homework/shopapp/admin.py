@@ -37,7 +37,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     search_fields = "name", "description"
     fieldsets = [
         (None, {
-           "fields": ("name", "description"),
+            "fields": ("name", "description"),
         }),
         ("Price options", {
             "fields": ("price", "discount"),
@@ -56,19 +56,16 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         return obj.description[:48] + "..."
 
 
-
 class ProductInline(admin.StackedInline):
     model = Order.products.through
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-
     inlines = [
         ProductInline,
     ]
     list_display = "delivery_address", "promocode", "created_at", "user_verbose"
-
 
     def get_queryset(self, request):
         return Order.objects.select_related("user").prefetch_related("products")

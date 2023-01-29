@@ -3,8 +3,11 @@ from django.db import models
 
 
 class Product(models.Model):
-    CHOICE = [(1, False), (2, True)]
+    CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
+
     class Meta:
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
         ordering = ["name", "price"]
         # db_table = "tech_products"
         # verbose_name_plural = "products"
@@ -23,7 +26,7 @@ class Product(models.Model):
         return self.description[:48] + "..."
 
     def __str__(self):
-        return f"Product(pk={self.pk}, name={self.name!r})"
+        return self.name
 
 
 class Order(models.Model):
@@ -31,4 +34,13 @@ class Order(models.Model):
     promocode = models.CharField(max_length=20, null=False, blank=True, verbose_name='Промокод')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата заказа')
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='Пользователь')
-    products = models.ManyToManyField(Product, related_name="orders")
+    products = models.ManyToManyField(
+        Product,
+        related_name="orders",
+        limit_choices_to={"archived": False},
+        verbose_name='Продукты'
+    )
+
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"

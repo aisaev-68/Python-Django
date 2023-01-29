@@ -187,12 +187,20 @@ p label {
   transition: background-color 0.3s ease, color 0.4s linear;
   cursor: pointer;
 }
+
+.prod_title {
+    font-weight: bold;
+}
 .order_btn {
     width: 450px;
-    margin-left: 160px;
+    margin-left: 168px;
+    margin-top: 20px;
 }
 
-
+.list_detail-order {
+    margin-left: 50px;
+    text-align: left;
+}
 
 .promocode {
     margin: 20px 0px 10px 60px;
@@ -316,4 +324,9 @@ td {
 .update_btn:active,
 .cancel_btn:active {
   background: var(--color_active);
+}
+
+.chosen {
+    margin-left: 80px;
+    width: 450px;
 }

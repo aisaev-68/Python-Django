@@ -1,19 +1,14 @@
-from timeit import default_timer
-
-
-from django.contrib.auth.models import Group
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.http import HttpRequest, HttpResponseRedirect
+from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
-from django.forms import ChoiceField, BooleanField, ModelChoiceField, MultipleChoiceField, CheckboxSelectMultiple, ModelMultipleChoiceField, CheckboxInput, Select
+from django.forms import ModelMultipleChoiceField, SelectMultiple
 from django.urls import reverse, reverse_lazy
-# from .forms1 import ProductModelForm, OrderModelForm
+
 from .models import Product, Order
 
 
 def shop(request: HttpRequest):
-
     return render(request, 'shopapp/shop.html')
 
 
@@ -68,7 +63,7 @@ class CreateProduct(CreateView):
 class UpdateProduct(UpdateView):
     model = Product
     template_name = 'shopapp/update_product.html'
-    fields = ["name", "description", "price", "discount",]
+    fields = ["name", "description", "price", "discount", ]
 
     def get_success_url(self):
         return reverse(
@@ -84,9 +79,6 @@ class UpdateProduct(UpdateView):
         form.fields['price'].widget.attrs['min'] = 0
         form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
         form.fields['discount'].widget.attrs['min'] = 0
-        # form.fields["archived"] = ChoiceField(choices=[(1, True), (2, False)])
-        # form.fields['archived'].widget.attrs["archived"] = "Статус"
-        # form.fields['archived'].widget.attrs.update({'class': 'archived'})
         return form
 
 
@@ -102,35 +94,76 @@ class OrderCreate(CreateView):
     template_name = 'shopapp/create_order.html'
     fields = ["promocode", "delivery_address", "user", "products"]
 
+    success_url = reverse_lazy("shopapp:orders_list")
+
+    def form_valid(self, form):
+
+        delivery_address = form.cleaned_data['delivery_address']
+        promocode = form.cleaned_data['promocode']
+        user = form.cleaned_data['user']
+        products = form.cleaned_data['products']
+        order = Order(delivery_address=delivery_address, promocode=promocode, user=user)
+        order.save()
+        products_list = Product.objects.filter(pk__in=products)
+        for product in products_list:
+            print(product)
+            order.products.add(product)
+        print(99999999999999999999999999999)
+        return super().form_valid(form)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         form.fields['user'].widget.attrs.update({'class': 'user'})
-        # form.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()],
-        #                                       widget=Select)
-        # form.fields["products"] = ModelChoiceField(queryset=Order.objects.all(),
-        #                                            empty_label="Выберите продукт",)
-        form.fields["products"] = ModelMultipleChoiceField(queryset=Product.objects.all(), widget=CheckboxSelectMultiple, required=False)
-        # form.fields["products"] = ChoiceField(choices=[(product.pk, product.name) for product in Product.objects.all()],
-        #                                                    widget=CheckboxSelectMultiple, required=False)
-        # form.fields["products"] = CheckboxSelectMultiple(choices=[(product.pk, product.name) for product in Product.objects.all()], widget=Select)
-        form.fields['products'].widget.attrs.update({'class': 'products'})
-        # form.fields['products'].widget.attrs = CheckboxSelectMultiple()
+        form.fields["products"] = ModelMultipleChoiceField(
+            queryset=Product.objects.all(),
+            widget=SelectMultiple(
+                attrs={'class': 'chosen', }
+            ),
+            required=True)
         return form
-
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=False)
-    #     for product in form.cleaned_data['products']:
-    #         order = Order()
-    #         order.product = self.object
-    #         pubauth.author = author
-    #         pubauth.save_m2m()
-    #     return super(ModelFormMixin, self).form_valid(form)
 
 
 class UpdateOrder(UpdateView):
     model = Order
     template_name = 'shopapp/update_order.html'
-    fields = ["name", "description", "price", "discount"]
+    fields = ["promocode", "delivery_address", "products"]
+
+    def get_success_url(self):
+        return reverse(
+            "shopapp:order_detail",
+            kwargs={"pk": self.object.pk},
+        )
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
+        form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
+        form.fields['products'].widget.attrs.update({'class': 'products'}, size='5')
+        return form
+
+
+class OrderDetail(DetailView):
+    # model = Order
+    context_object_name = "orders"
+    template_name = 'shopapp/order_detail.html'
+    queryset = Order.objects.select_related("user").prefetch_related("products").all()
+
+
+class OrderDelete(DeleteView):
+    model = Order
+    context_object_name = "orders"
+    template_name = 'shopapp/delete_order.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "shopapp:orders_list",
+        )
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+
+        self.object.delete()
+        return HttpResponseRedirect(success_url)

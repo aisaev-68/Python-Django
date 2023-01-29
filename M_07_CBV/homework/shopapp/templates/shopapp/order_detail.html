@@ -5,30 +5,26 @@ Products list
 {% endblock %}
 
 {% block section %}
-<h1 class="title_action">Детальная информация о продукте № {{object.pk}}</h1>
+<h3 class="list_detail-order">Детальная информация о заказе № {{object.pk}}</h3>
 
-<table class="table-product">
-    <tr>
-        <th>ID продукта</th>
-        <th>Наименование продукта</th>
-        <th>Описание</th>
-        <th>Процент скидки</th>
-        <th>Цена</th>
-        <th>Статус</th>
-    </tr>
-    <tr>
-        <td>{{ object.pk }}</td>
-        <td>{{ object.name|title }}</td>
-        <td>{{ object.description|title }}</td>
-        <td>{% firstof object.discount 'no discount' %}</td>
-        <td>{{ object.price }}</td>
-        <td>{{ object.archived }}</td>
-    </tr>
-</table>
+<ul class="list_detail-order">
+    <li>Пользователь: {{ object.user.username }}</li>
+    <li>Промокод: {{ object.promocode }}</li>
+    <li>Адрес доставки:{{ object.delivery_address }}</li>
+</ul>
+<h3 class="list_detail-order">Состав заказа:</h3>
+<ul class="list_detail-order">
+   {% for product in object.products.all %}
+    <li class="prod_title">Продукт: {{ product.name }}</li
+    <li>Цена: {{ product.price }}</li>
+    <li>Скидка: {{ product.discount }}</li>
+    <li>Описание продукта: {{ object.description|title }}</li>
+    {% endfor %}
+</ul>
 
 <div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:products_list' %}">Вернуться к списку заказов</a></p>
-    <p class="link-back"><a href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить заказ № {{object.pk}}</a></p>
-    <p><a href="{% url 'shopapp:product_archived' pk=object.pk %}">Удалить № {{object.pk}}</a></p>
+    <p class="link-back"><a href="{% url 'shopapp:orders_list' %}">Вернуться к списку заказов</a></p>
+    <p class="link-back"><a href="{% url 'shopapp:update_order' pk=object.pk %}">Обновить заказ № {{object.pk}}</a></p>
+    <p><a href="{% url 'shopapp:order_delete' pk=object.pk %}">Удалить заказ № {{object.pk}}</a></p>
 </div>
 {% endblock %}
