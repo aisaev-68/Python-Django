@@ -117,7 +117,7 @@ class OrderCreate(CreateView):
 class UpdateOrder(UpdateView):
     model = Order
     template_name = 'shopapp/update_order.html'
-    fields = ["promocode", "delivery_address", "products"]
+    fields = ["promocode", "delivery_address", "user", "products"]
 
     def get_success_url(self):
         return reverse(
@@ -129,6 +129,7 @@ class UpdateOrder(UpdateView):
         form = super().get_form(form_class)
         form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
+        form.fields['user'].widget.attrs.update({'class': 'user'})
         form.fields['products'].widget.attrs.update({'class': 'products'}, size='5')
         return form
 
