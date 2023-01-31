@@ -3,11 +3,16 @@ import datetime
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView
 from .forms import LoginForm
 
 # def home(request: HttpRequest):
 #     # return redirect(reverse('app_users/login.html'))
 #     return redirect(reverse('app_users/login.html'))
+
+
+class UserLoginViev(LoginView):
+    template_name = "app_users/login.html"
 
 
 def time_in_range(current_time: datetime):
