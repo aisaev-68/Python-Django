@@ -1,0 +1,18 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Delete product
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">Удалить продукт № {{object.pk}}?</h1>
+<form method="Post" class="product__form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="yesno_block">
+        <button class="update_btn btn-reset" type="submit">Да</button>
+        <div type="button" class="cancel_btn btn-reset"><a class="no_btn-link" href="{% url 'shopapp:order_detail' pk=object.pk %}">Нет</a></div>
+    </div>
+
+</form>
+{% endblock %}

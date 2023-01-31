@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        Base Title
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+<header class="header">
+        <h1 class="header-title">Lesson: Django Class Based Views</h1>
+</header>
+<main class="main">
+    <section class="section-product container">
+        {% block section %}
+            Base section
+        {% endblock %}
+    </section>
+</main>
+</body>
+</html>

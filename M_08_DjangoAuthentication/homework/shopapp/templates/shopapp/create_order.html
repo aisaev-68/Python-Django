@@ -1,0 +1,19 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Add order
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">Добавить заказ:</h1>
+<form method="Post" id="data" class="order__form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="order_btn" type="submit">Сохранить</button>
+</form>
+<div class="back_to">
+    <p>
+        <a href="{% url 'shopapp:shop' %}">Вернуться назад</a>
+    </p>
+</div>
+{% endblock %}
