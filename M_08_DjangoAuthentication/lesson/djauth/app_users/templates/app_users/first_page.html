@@ -4,13 +4,12 @@
 {% endblock %}
 {% block header %}
 <h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
-<p>
-    <a class="login-btn" type="button" href="{% url 'login' %}">Вход</a>
-</p>
 {% endblock %}
 {% block section %}
-
-<h3 class="title_login">Добро пожаловать на сайт</h3>
-
+{% if request.user.is_authenticated %}
+<h3 class="title_login">Добро пожаловать на сайт {{ request.user }}</h3>
+{% else %}
+<h3 class="title_login">"Вы не авторизованы на сайте }}"</h3>
+{% endif %}
 
 {% endblock %}

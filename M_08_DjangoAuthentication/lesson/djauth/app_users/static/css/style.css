@@ -122,13 +122,25 @@ body {
 
 
 .header {
+  padding: 10px;
   margin-bottom: 30px;
-
   background: var(--color_blue);
   box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .header-title {
     text-align: center;
+}
+
+.login-btn {
+    padding: 10px;
+    border: 1px solid #333;
+    color: #000;
+    text-decoration: none;
+    background: gold;
 }
 
 .header-container {
