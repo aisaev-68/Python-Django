@@ -46,4 +46,4 @@ class UserLoginView(LoginView):
 
 
 class AnotherLogout(LogoutView):
-    template_name = "app_users/logout.html"
+    template_name = "app_users/main.html"
