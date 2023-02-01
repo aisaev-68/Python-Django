@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.utils.decorators import method_decorator
 
 
@@ -14,6 +14,7 @@ from .forms import LoginForm
 
 def logout_view(request: HttpRequest):
     logout(request)
+    return HttpResponse('Вы успешно вышли из под своей учетной записи.')
 
 
 def user_login(request: HttpRequest):
@@ -42,3 +43,7 @@ def user_login(request: HttpRequest):
 
 class UserLoginView(LoginView):
     template_name = "app_users/login.html"
+
+
+class AnotherLogout(LogoutView):
+    template_name = "app_users/logout.html"

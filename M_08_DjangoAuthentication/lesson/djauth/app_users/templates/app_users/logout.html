@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+Главная страница
+{% endblock %}
+{% block header %}
+<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+<p>
+    <a class="login-btn" type="button" href="{% url 'logout' %}">Вход</a>
+</p>
+{% endblock %}
+{% block section %}
+
+<h3 class="title_login">Вы успешно вышли из под своей учетной записи</h3>
+
+
+{% endblock %}

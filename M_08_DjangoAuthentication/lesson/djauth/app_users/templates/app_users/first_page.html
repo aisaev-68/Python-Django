@@ -4,6 +4,9 @@
 {% endblock %}
 {% block header %}
 <h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+<p>
+    <a class="login-btn" type="button" href="{% url 'logout' %}">Выход</a>
+</p>
 {% endblock %}
 {% block section %}
 {% if request.user.is_authenticated %}
