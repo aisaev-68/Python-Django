@@ -12,8 +12,6 @@ from django.views import View
 from .models import Product, Order
 
 
-# def shop(request: HttpRequest):
-#     return render(request, 'shopapp/shop.html')
 class ShopPage(View):
 
     def get(self, request: HttpRequest):
@@ -141,6 +139,7 @@ class OrderCreate(CreateView):
                 attrs={'class': 'chosen', }
             ),
             required=True)
+
         return form
 
 
