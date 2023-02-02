@@ -14,7 +14,9 @@ from .forms import LoginForm
 
 def logout_view(request: HttpRequest):
     logout(request)
-    return HttpResponse('Вы успешно вышли из под своей учетной записи.')
+    # return HttpResponse('Вы успешно вышли из под своей учетной записи.')
+    return render(request, 'app_users/main.html')
+
 
 
 def user_login(request: HttpRequest):
@@ -46,4 +48,5 @@ class UserLoginView(LoginView):
 
 
 class AnotherLogout(LogoutView):
-    template_name = "app_users/main.html"
+    # template_name = "app_users/main.html"
+    next_page = '/'

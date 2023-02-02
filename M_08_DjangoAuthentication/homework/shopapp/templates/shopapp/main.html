@@ -1,0 +1,22 @@
+{% extends "shopapp/base.html" %}
+{% block title %}
+Главная страница
+{% endblock %}
+{% block header %}
+<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:login' %}">Вход</a>
+</p>
+{% endblock %}
+{% block section %}
+
+<h3 class="title_login">Добро пожаловать на сайт</h3>
+<div>
+    <ul>
+        <li class="href-list"><a href="{% url 'shopapp:products_list' %}">Список продуктов</a></li>
+
+        <li class="href-list"><a href="{% url 'shopapp:orders_list' %}">Список заказов</a></li>
+    </ul>
+</div>
+
+{% endblock %}

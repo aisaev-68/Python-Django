@@ -122,10 +122,14 @@ body {
 
 
 .header {
+  padding: 10px;
   margin-bottom: 30px;
-
   background: var(--color_blue);
   box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .header-title {
     text-align: center;
@@ -331,25 +335,38 @@ td {
     width: 450px;
 }
 
+#-------------------
+
+
+
+.login-btn {
+    padding: 10px;
+    border: 1px solid #333;
+    color: #000;
+    text-decoration: none;
+    background: gold;
+}
+
+.header-container {
+  align-items: center;
+}
+
+.section-product {
+    text-align: center;
+}
+
+
+
 .login {
-    background-color: #fff;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eee));
-    background-image: -webkit-linear-gradient(top, #fff, #eee);
-    background-image: -moz-linear-gradient(top, #fff, #eee);
-    background-image: -ms-linear-gradient(top, #fff, #eee);
-    background-image: -o-linear-gradient(top, #fff, #eee);
-    background-image: linear-gradient(top, #fff, #eee);
-    height: 240px;
-    width: 400px;
     margin: -150px 0 0 -230px;
-    padding: 30px;
+    padding: 20px 30px;
     position: absolute;
     top: 50%;
     left: 50%;
     z-index: 0;
     border-radius: 3px;
     box-shadow:
-          0 0 2px rgba(0, 0, 0, 0.2),
+          0 0 20px rgba(0, 0, 0, 0.2),
           0 1px 1px rgba(0, 0, 0, .2),
           0 3px 0 #fff,
           0 4px 0 rgba(0, 0, 0, .2),
@@ -362,8 +379,40 @@ td {
     text-transform: uppercase;
     text-align: center;
     color: #666;
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
     letter-spacing: 4px;
-    font: normal 26px/1 Verdana, Helvetica;
+    font-size: 24px;
     position: relative;
 }
+
+
+.inputs p {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+.inputs p label {
+    padding-top: 4px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.actions input {
+    padding: 10px;
+}
+
+.login-btn {
+    padding: 10px;
+    border: 1px solid #333;
+    color: #000;
+    text-decoration: none;
+    background: gold;
+}
+

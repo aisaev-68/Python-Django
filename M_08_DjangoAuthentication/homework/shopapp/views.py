@@ -4,12 +4,35 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.forms import ModelMultipleChoiceField, SelectMultiple
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views import View
 
 from .models import Product, Order
 
 
-def shop(request: HttpRequest):
-    return render(request, 'shopapp/shop.html')
+# def shop(request: HttpRequest):
+#     return render(request, 'shopapp/shop.html')
+class ShopPage(View):
+    def get(self, request: HttpRequest):
+        if request.COOKIES.get("sessionid", None):
+            return render(request, 'shopapp/shop.html')
+        else:
+            return render(request, 'shopapp/main.html')
+
+
+class UserLogIn(LoginView):
+    template_name = "shopapp/login.html"
+    fields = ["username", "password"]
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['username'].widget.attrs.update({'class': 'username'})
+        form.fields['password'].widget.attrs.update({'class': 'password'})
+        return form
+
+
+class UserLogOut(LogoutView):
+    next_page = '/'
 
 
 class ProductList(ListView):
@@ -86,7 +109,6 @@ class OrderList(ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
-    # queryset = Order.objects.select_related("user").prefetch_related("products").all()
 
 
 class OrderCreate(CreateView):

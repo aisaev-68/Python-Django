@@ -1,9 +1,15 @@
-{% extends "base.html" %}
-{% block title %}Log-in{% endblock %}
-{% block content %}
+{% extends "shopapp/base.html" %}
+{% block title %}
+Log-in
+{% endblock %}
 
+{% block header %}
+    <h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+{% endblock %}
+
+{% block section %}
 <form action="" method="post" id="login" class="login">
-    <h1 class="title_login">Форма входа</h1>
+    <h1 class="title_login">Авторизация</h1>
     <fieldset id="inputs" class="inputs">
         {% csrf_token %}
         {{ form.as_p }}

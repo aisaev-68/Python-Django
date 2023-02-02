@@ -19,9 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'shopapp.apps.ShopappConfig',
-    'requestdataapp.apps.RequestdataappConfig',
 ]
 
 MIDDLEWARE = [
@@ -102,10 +100,15 @@ STATIC_URL = 'static/'
 #     os.path.join(BASE_DIR, "static"),
 # ]
 
-
+LOGIN_REDIRECT_URL = '/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # media directory in the root directory
 MEDIA_URL = '/media/'
+
+SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+# SESSION_COOKIE_AGE = 1 * 1 * 1 * 60
+# SESSION_COOKIE_NAME =
+# SESSION_EXPIRE_AT_BROWSER_CLOSE =

@@ -1,15 +1,28 @@
 {% extends "shopapp/base.html" %}
 
 {% block title %}Список ссылок{% endblock %}
+{% block header %}
+<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Выход</a>
+</p>
+{% endblock %}
+
 
 {% block section %}
-
+{% if request.user.is_authenticated %}
 <div>
     <ul>
         <li class="href-list"><a href="{% url 'shopapp:create_product' %}">Добавить продукт</a></li>
 
         <li class="href-list"><a href="{% url 'shopapp:create_order' %}">Добавить заказ</a></li>
-
+    </ul>
+</div>
+{% else %}
+<h3 class="title_login">Вы не авторизованы на сайте</h3>
+{% endif %}
+<div>
+    <ul>
         <li class="href-list"><a href="{% url 'shopapp:products_list' %}">Список продуктов</a></li>
 
         <li class="href-list"><a href="{% url 'shopapp:orders_list' %}">Список заказов</a></li>

@@ -3,8 +3,20 @@
 {% block title %}
 Products list
 {% endblock %}
-
+{% block header %}
+<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+{% if request.user.is_authenticated %}
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Выход</a>
+</p>
+{% else %}
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Вход</a>
+</p>
+{% endif %}
+{% endblock %}
 {% block section %}
+
 <h1 class="title_action">Продукция:</h1>
 {% if products %}
 <table class="table-product">
@@ -27,8 +39,10 @@ Products list
 <h3>Продукция отсутствует</h3>
 {% endif %}
 <div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:shop' %}">Главная страница</a></p>
+    <p class="link-back"><a href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
+    {% if request.user.is_authenticated %}
     <p class="link-back"><a href="{% url 'shopapp:create_product' %}">Добавить новый продукт</a></p>
+    {% endif %}
 </div>
 {% endblock %}
 
