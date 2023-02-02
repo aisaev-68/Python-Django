@@ -10,6 +10,7 @@
 
 
 {% block section %}
+<h3 class="title_login">Добро пожаловать на сайт <b>{{ request.user }}</b>!</h3>
 {% if request.user.is_authenticated %}
 <div>
     <ul>
