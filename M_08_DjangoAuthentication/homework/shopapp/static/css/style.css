@@ -211,7 +211,7 @@ p label {
 }
 
 .delivery_address {
-   margin: 10px 0px 0px 12px;
+   margin: 10px 0px 20px 12px;
 }
 
 .user {
@@ -415,4 +415,6 @@ td {
     text-decoration: none;
     background: gold;
 }
+
+
 

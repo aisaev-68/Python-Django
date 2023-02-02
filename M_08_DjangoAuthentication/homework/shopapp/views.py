@@ -4,6 +4,8 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.forms import ModelMultipleChoiceField, SelectMultiple
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth import authenticate
+from django.forms import Form, HiddenInput
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 
@@ -13,6 +15,7 @@ from .models import Product, Order
 # def shop(request: HttpRequest):
 #     return render(request, 'shopapp/shop.html')
 class ShopPage(View):
+
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
             return render(request, 'shopapp/shop.html')
@@ -23,6 +26,7 @@ class ShopPage(View):
 class UserLogIn(LoginView):
     template_name = "shopapp/login.html"
     fields = ["username", "password"]
+
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -118,6 +122,9 @@ class OrderCreate(CreateView):
 
     success_url = reverse_lazy("shopapp:orders_list")
 
+    def get_initial(self):
+        return {'user': self.request.user}
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
@@ -127,6 +134,7 @@ class OrderCreate(CreateView):
         form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         form.fields['user'].widget.attrs.update({'class': 'user'})
+        form.fields['user'].widget = HiddenInput()
         form.fields["products"] = ModelMultipleChoiceField(
             queryset=Product.objects.all(),
             widget=SelectMultiple(
@@ -152,6 +160,7 @@ class UpdateOrder(UpdateView):
         form.fields['promocode'].widget.attrs.update({'class': 'promocode'}, size='40')
         form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'}, size='40')
         form.fields['user'].widget.attrs.update({'class': 'user'})
+        form.fields['user'].widget = HiddenInput()
         form.fields['products'].widget.attrs.update({'class': 'products'}, size='5')
         return form
 
