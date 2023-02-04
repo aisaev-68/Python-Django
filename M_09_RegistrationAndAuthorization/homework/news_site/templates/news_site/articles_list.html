@@ -1,0 +1,19 @@
+{% extends 'news_site/base.html' %}
+
+{% block title %}
+Article list
+{% endblock %}
+
+
+{% block section %}
+
+<h1 class="title_action">Статьи:</h1>
+
+
+<div class="back_to">
+    <p class="link-back"><a href="{% url 'news_site:news_list' %}">Главная страница</a></p>
+    {% if request.user.is_authenticated %}
+    <p class="link-back"><a href="{% url 'news_site:create_news' %}">Добавить новую статью</a></p>
+    {% endif %}
+</div>
+{% endblock %}
