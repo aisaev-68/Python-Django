@@ -7,6 +7,7 @@ from django.shortcuts import render
 from .models import Product, Order
 
 
+
 def shop_index(request: HttpRequest):
     products = [
         ('Laptop', 1999),
