@@ -37,6 +37,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "fontawesomefree"
+version = "6.2.1"
+description = "Font Awesome Free"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fontawesomefree-6.2.1-py3-none-any.whl", hash = "sha256:961d015f2f2355b389429d6f18006d304573ab88455ea39cc15975a7a59f048f"},
+]
+
+[[package]]
 name = "python-decouple"
 version = "3.7"
 description = "Strict separation of settings from code."
@@ -75,4 +86,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d5e37e142ed0eaf81716d0f38ac67e5db14eeb283a45a6b580c65e23a11db089"
+content-hash = "d5b12e28526b46bc6cc0faf824c4dcf5070a44b744212365065e7533b5b19ddb"

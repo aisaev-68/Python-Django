@@ -1,22 +1,31 @@
 {% extends "shopapp/base.html" %}
+{% load static %}
 {% block title %}
 Главная страница
 {% endblock %}
-{% block header %}
-<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
-<p>
-    <a class="login-btn" type="button" href="{% url 'shopapp:login' %}">Вход</a>
-</p>
-{% endblock %}
+
+
 {% block section %}
-
 <h3 class="title_login">Добро пожаловать на сайт</h3>
-<div>
-    <ul>
-        <li class="href-list"><a href="{% url 'shopapp:products_list' %}">Список продуктов</a></li>
 
-        <li class="href-list"><a href="{% url 'shopapp:orders_list' %}">Список заказов</a></li>
-    </ul>
+<div class="row no-gutters row-eq-height">
+
+    {% for product in products %}
+    <div class=" col-lg-3 d-flex">
+
+        <div class="products-block w-100 rounded d-flex flex-column">
+            <img src="{% static 'image/aiphon.webp' %}" class="teacher-img" alt="Владимир Петров">
+            <h3 class="title_login mt-1 text-wrap text-break">
+                <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
+                    {{ product.name|title }}
+                </a>
+            </h3>
+            <p class="text-wrap text-break">{{ product.description|title }}</p>
+<!--            <p>{% firstof product.discount 'no discount' %}</p>-->
+            <p class="mb-1">{{ product.price }} ₽</p>
+            <button class="update_btn btn-reset m-auto mb-3" type="submit">В корзину</button>
+        </div>
+    </div>
+    {% endfor %}
 </div>
-
 {% endblock %}

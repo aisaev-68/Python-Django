@@ -1,28 +1,138 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://otkorobki.ru/favicon.svg" type="image/svg+xml">
     <title>
         {% block title %}
         Base Title
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <!--    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>-->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link href="{% static 'css/headers.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <script src="{% static 'js/headers.js' %}"></script>
 </head>
 <body>
-<header class="header">
-    {% block header %}
-        Base Title
-    {% endblock %}
-</header>
-<main class="main">
-    <section class="section-product container">
+
+<main class="bg-gray">
+    <header>
+
+        <div class="container">
+            <div class="row" style="background-color: azure;">
+                <div class="col-1">
+                    <div class="logo">
+                        <a href="/" title="logo"> Global </a>
+                    </div>
+                    <div class="mob-menu">
+                     <span>
+                        <i class="fa fa-bars"></i>
+                     </span>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="main-menu">
+                        {% if request.user.is_authenticated %}
+                        <ul class="nav">
+                            <li><a href="{% url 'shopapp:products_list' %}"> Прайс </a></li>
+                            {% if request.user.is_superuser %}
+                            <li><a href="{% url 'shopapp:create_product' %}"> Продукты </a></li>
+                             {% endif %}
+                            <li><a href="{% url 'shopapp:create_order' %}"> Добавить заказ </a></li>
+                            <li><a href="{% url 'shopapp:orders_list' %}"> Мои заказы </a></li>
+
+                        </ul>
+
+
+                        <ul class="right-nav d-flex justify-content-center">
+
+                            <li><a href="{% url 'shopapp:logout' %}"> <i class="fa fa-user"></i> Log Out </a></li>
+                            <li class="fa fa-shopping-basket fa-2x"
+                                style="color: green; opacity: 1.0; text-align: center"><span>0 ₽</span>
+                            </li>
+                        </ul>
+                        {% else %}
+                         <ul class="nav">
+                            <li><a href="{% url 'shopapp:shop_page' %}"> Главная </a></li>
+                            <li><a href="{% url 'shopapp:products_list' %}"> Прайс </a></li>
+                             <li><a href="#"> Блог </a></li>
+                            <li><a href="#"> Контакты </a></li>
+                        </ul>
+                        <ul class="right-nav d-flex justify-content-center">
+
+                            <li><a href="{% url 'shopapp:login' %}"> <i class="fa fa-user"></i> Log In </a></li>
+                            <li class="active"><a href="{% url 'shopapp:logout' %}"> <i class="fa fa-sign-in"></i> Sign Up </a></li>
+                            <li class="fa fa-shopping-basket fa-2x"
+                                style="color: green; opacity: 1.0; text-align: center"><span>0 ₽</span>
+                            </li>
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--    <div class="container">-->
+    <!--        <header class="bg-info text-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">-->
+
+    <!--            {% if request.user.is_authenticated %}-->
+    <!--            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">-->
+    <!--                <li><a href="#" class="nav-link px-2 link-secondary">Главная</a></li>-->
+    <!--                <li><a href="{% url 'shopapp:orders_list' %}" class="nav-link px-2 link-dark">Заказы</a></li>-->
+    <!--                <li><a href="{% url 'shopapp:products_list' %}" class="nav-link px-2 link-dark">Продукты</a></li>-->
+    <!--                <li><a href="{% url 'shopapp:orders_list' %}" class="nav-link px-2 link-dark">Клиенты</a></li>-->
+    <!--            </ul>-->
+    <!--            <div class="col-md-3 text-end">-->
+    <!--                <button type="button" class="btn btn-primary">Выход</button>-->
+    <!--            </div>-->
+    <!--            {% else %}-->
+
+    <!--            <ul class="nav col-10 col-md-auto mb-2 justify-content-center mb-md-0">-->
+    <!--                <li><a href="{% url 'shopapp:shop_page' %}" class="nav-link px-2 link-secondary">Главная</a></li>-->
+    <!--                <li><a href="{% url 'shopapp:orders_list' %}" class="nav-link px-2 link-dark">Заказы</a></li>-->
+    <!--                <li><a href="{% url 'shopapp:products_list' %}" class="nav-link px-2 link-dark">Продукты</a></li>-->
+    <!--            </ul>-->
+    <!--            <div class="col-2 d-flex flex-row justify-content-around">-->
+    <!--                <div class="col-md-3 justify-content-center">-->
+    <!--                    <a class="d-flex text-center flex-column" href="{% url 'shopapp:login' %}">-->
+    <!--                        <svg class="m-auto" width="40" height="40" viewBox="0 0 40 40" fill="none"-->
+    <!--                             xmlns="http://www.w3.org/2000/svg">-->
+    <!--                            <path d="M20 0.000976562C8.95546 0.000976562 0 8.95468 0 20.0001C0 31.0455 8.95458 39.9992 20 39.9992C31.0463 39.9992 40 31.0455 40 20.0001C40 8.95468 31.0463 0.000976562 20 0.000976562ZM20 5.98095C23.6546 5.98095 26.616 8.94326 26.616 12.5961C26.616 16.2498 23.6546 19.2112 20 19.2112C16.3472 19.2112 13.3858 16.2498 13.3858 12.5961C13.3858 8.94326 16.3472 5.98095 20 5.98095ZM19.9956 34.7704C16.3507 34.7704 13.0124 33.443 10.4375 31.2458C9.81024 30.7108 9.4483 29.9263 9.4483 29.1031C9.4483 25.3985 12.4466 22.4336 16.1522 22.4336H23.8496C27.556 22.4336 30.5429 25.3985 30.5429 29.1031C30.5429 29.9272 30.1827 30.7099 29.5546 31.2449C26.9806 33.443 23.6414 34.7704 19.9956 34.7704Z"-->
+    <!--                                  fill="#099c55"/>-->
+    <!--                        </svg>-->
+    <!--                        <span>Войти</span>-->
+    <!--                    </a>-->
+    <!--                </div>-->
+    <!--                <div class="header__body-basket d-flex text-center flex-column">-->
+    <!--                    <div class="header__body-basket-item d-flex text-center flex-column"-->
+    <!--                    ">-->
+    <!--                    <img src="{% static 'image/empty.svg' %}" alt="empty">-->
+    <!--                    <span>0 ₽</span>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--            {% endif %}-->
+    <!--        </header>-->
+    <!--    </div>-->
+    <section class="section-product container d-flex flex-column">
+
+
         {% block section %}
-            Base section
+        Base section
         {% endblock %}
     </section>
 </main>
+
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
 </body>
 </html>

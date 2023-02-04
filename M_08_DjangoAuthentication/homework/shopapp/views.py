@@ -14,11 +14,14 @@ from .models import Product, Order
 
 class ShopPage(View):
 
+
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
             return render(request, 'shopapp/shop.html')
         else:
-            return render(request, 'shopapp/main.html')
+            context = {"products": Product.objects.filter(archived=False)}
+            print(1111, context)
+            return render(request, 'shopapp/main.html', context=context)
 
 
 class UserLogIn(LoginView):
@@ -34,7 +37,7 @@ class UserLogIn(LoginView):
 
 
 class UserLogOut(LogoutView):
-    next_page = '/'
+    next_page = '/shop/'
 
 
 class ProductList(ListView):
@@ -111,6 +114,7 @@ class OrderList(ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
+    # fields = ["pk", "promocode", "delivery_address", "user", "products"]
 
 
 class OrderCreate(CreateView):
