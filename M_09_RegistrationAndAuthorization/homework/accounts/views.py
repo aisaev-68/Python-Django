@@ -14,16 +14,18 @@ from news_site.models import Profile
 class SignUpView(CreateView):
     model = Profile
     form_class = forms.ProfileForm
-    success_url = reverse_lazy('accounts:login')
+    # success_url = reverse_lazy('accounts:login')
     template_name = 'news_site/signup.html'
     success_msg = 'Пользователь успешно создан'
 
-    # def get_success_url(self):
-    #     return reverse('accounts:login', kwargs={'pk': self.get_object().id})
+    def get_success_url(self):
+        return reverse('accounts:login', kwargs={'pk': self.get_object().id})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_form'] = forms.LoginForm(instance=self.request.user)
+
+        context['user_form'] = forms.LoginForm(self.request.user)
+        print(context)
         return context
 
 
