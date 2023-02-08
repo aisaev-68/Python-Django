@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "news_site/base.html" %}
 {% block title %}Log-in{% endblock %}
 
 {% block section %}
@@ -10,9 +10,7 @@
         {{ form.as_p }}
     </fieldset>
     <fieldset id="actions" class="actions">
-        <input type="submit" id="submit" value="ВОЙТИ">
-        <a href="">Забыли пароль?</a>
-        <a href="">Регистрация</a>
+        <input type="submit" id="submit" value="Опубликовать">
     </fieldset>
 </form>
 {% endblock %}

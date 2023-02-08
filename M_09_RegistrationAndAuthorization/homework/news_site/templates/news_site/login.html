@@ -9,7 +9,7 @@ Log-in
 <div class="vh-100 d-flex justify-content-center align-items-center">
             <div class="col-md-4 p-5 shadow-sm border rounded-5 border-primary">
                 <h3 class="text-center mb-4 text-primary">Пожалуйста, введите свои учетные данные</h3>
-                <form about="{% url 'login' %}" method="Post">
+                <form about="{% url 'accounts:login' %}" method="Post">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <p class="small"><a class="text-primary" href="">Забыли пароль?</a></p>

@@ -2,22 +2,34 @@ from time import timezone
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
+
+
+
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
+    phone = models.CharField(max_length=20, unique=True, db_index=True, verbose_name='Номер телефона')
+    city = models.CharField(max_length=100,verbose_name='Город', blank=True)
+    verification_flag = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
+    count_news = models.IntegerField(default=0, verbose_name='Количество обуликованных новостей')
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
     class Meta:
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
         ordering = ["user", "city"]
-
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
-    phone = models.CharField(max_length=20, unique=True, db_index=True, verbose_name='Номер телефона')
-    city = models.CharField(max_length=100,verbose_name='Город', blank=True)
-    birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
-    verification_flag = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
-    count_news = models.IntegerField(default=0, verbose_name='Количество обуликованных новостей')
 
 
 class Article(models.Model):
@@ -33,3 +45,4 @@ class Article(models.Model):
     class Meta:
         verbose_name_plural = "Статьи"
         ordering = ['-published']
+        permissions = (("change_name", "can change name of product"),)

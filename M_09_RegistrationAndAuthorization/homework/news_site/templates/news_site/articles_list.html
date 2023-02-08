@@ -8,8 +8,12 @@ Article list
 {% block section %}
 
 <h1 class="title_action">Статьи:</h1>
-
-
+{% for article in articles %}
+<h3 class="title_action">{{ article.title }}</h3>
+<p>
+    {{ article.content}}
+</p>
+{% endfor %}
 <div class="back_to">
     <p class="link-back"><a href="{% url 'news_site:news_list' %}">Главная страница</a></p>
     {% if request.user.is_authenticated %}
