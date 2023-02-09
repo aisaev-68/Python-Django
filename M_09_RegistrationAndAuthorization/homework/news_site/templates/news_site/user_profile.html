@@ -1,0 +1,20 @@
+{% extends "news_site/base.html" %}
+{% block title %}Log-in{% endblock %}
+
+{% block section %}
+
+<div class="container">
+    <div class="d-flex flex-row col-12">
+        {% csrf_token %}
+        <div class="col-6 d-flex flex-column">
+            {{ form.username}}
+        </div>
+        <div class="col-6 d-flex flex-column">
+
+            {{ form.as_p }}
+
+        </div>
+
+    </div>
+</div>>
+{% endblock %}

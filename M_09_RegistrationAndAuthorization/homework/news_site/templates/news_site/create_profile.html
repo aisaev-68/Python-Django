@@ -3,16 +3,11 @@
 
 {% block section %}
 
-<form action="" method="post" id="login" class="login" enctype="multipart/form-data">
-    <h1 class="title_login">Создание профиля</h1>
-    <fieldset id="inputs" class="inputs">
+<div class="card-body">
+    <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-    </fieldset>
-    <fieldset id="actions" class="actions">
-        <input type="submit" id="submit" value="Создать">
-        <a href="">Забыли пароль?</a>
-        <a href="">Регистрация</a>
-    </fieldset>
-</form>
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
 {% endblock %}

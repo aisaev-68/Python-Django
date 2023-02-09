@@ -15,14 +15,6 @@ class Profile(models.Model):
     verification_flag = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
     count_news = models.IntegerField(default=0, verbose_name='Количество обуликованных новостей')
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
 
     class Meta:
         verbose_name = "Профиль"
@@ -44,3 +36,4 @@ class Article(models.Model):
         verbose_name_plural = "Статьи"
         ordering = ['-published']
         permissions = (("change_name", "can change name of product"),)
+
