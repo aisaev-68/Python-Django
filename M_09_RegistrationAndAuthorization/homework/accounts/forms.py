@@ -49,13 +49,31 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
+    phone = forms.CharField(
+        label='Номер телефона', widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Номер телефона',
+                'help_text': ''
+            }
+        )
+    )
+    city = forms.CharField(
+        label='Город', widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Город',
+                'help_text': ''
+            }
+        )
+    )
     error_messages = {
         "password_mismatch": _("Пароли не совпадают!."),
     }
 
     class Meta:
         model = User
-        fields = 'username', 'password1', 'password2'
+        fields = 'username', 'password1', 'password2', 'phone', 'city'
 
 
 class UserEditForm(forms.ModelForm):
