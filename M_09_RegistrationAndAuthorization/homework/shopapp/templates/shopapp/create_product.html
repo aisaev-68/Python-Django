@@ -1,0 +1,26 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Add product
+{% endblock %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="container col-lg-6">
+    <h5 class="text-center my-3">Добавить продукт</h5>
+    <div class="form-control d-flex flex-column py-4 px-4 bg-light.bg-gradient border-5 d-flex justify-content-center col-md-12 col-lg-offset-3">
+        <form class="" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table class="form-control py-3">{{ form.as_table }}</table>
+        </form>
+        <div class="back_to">
+            <p>
+                <a href="{% url 'shopapp:shop_page' %}">Вернуться назад</a>
+            </p>
+        </div>
+        {% else %}
+        <h3 class="title_login">Вы не авторизованы на сайте</h3>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

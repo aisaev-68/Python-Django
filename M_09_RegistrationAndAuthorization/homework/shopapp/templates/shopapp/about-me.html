@@ -1,0 +1,25 @@
+{% extends "shopapp/base.html" %}
+{% block title %}
+Log-in
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="col-md-4 p-5 shadow-sm">
+        <h5 class="text-center mb-4 text-primary">Профиль пользователя</h5>
+        <p>Имя: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Номер телефона: {{ profile.phone }}</p>
+        <p>Город: {{ profile.city }}</p>
+        <div class="back_to">
+            <p class="link-back"><a href="{% url 'accounts:update_profile' pk=profile.pk %}">Редактировать</a></p>
+            <p class="link-back"><a href="{% url 'accounts:delete_profile' pk=profile.pk %}">Удалить</a></p>
+        </div>
+    </div>
+</div>
+{% else %}
+<h5>Вы не аутентифицированы!</h5>
+{% endif%}
+{% endblock %}

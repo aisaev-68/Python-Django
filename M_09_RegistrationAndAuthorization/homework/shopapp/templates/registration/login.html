@@ -1,0 +1,18 @@
+{% extends "shopapp/base.html" %}
+{% block title %}
+Log-in
+{% endblock %}
+
+{% block section %}
+<div class="container col-lg-6">
+<h5 class="text-center my-4">Пожалуйста, введите свои учетные данные</h5>
+    <div class="form-control py-3 bg-light.bg-gradient border-5 d-flex justify-content-center col-md-12 col-lg-offset-3">
+        <form class="register-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn-primary" type="submit" value="Войти">
+        </form>
+    </div>
+</div>
+{% endblock %}
+

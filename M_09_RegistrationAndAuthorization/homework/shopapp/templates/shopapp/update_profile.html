@@ -1,0 +1,19 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Delete order
+{% endblock %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<h1 class="title_action">Редактировать профиль № {{object.pk}}?</h1>
+<form method="Post" class="product__form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn-primary" type="submit" value="Обновить">
+
+</form>
+{% else %}
+<h3 class="title_login">Вы не авторизованы на сайте</h3>
+{% endif %}
+{% endblock %}

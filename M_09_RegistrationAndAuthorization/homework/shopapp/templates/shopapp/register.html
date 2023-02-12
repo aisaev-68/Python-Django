@@ -1,0 +1,23 @@
+{% extends "shopapp/base.html" %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block section %}
+{% if not user.is_authenticated %}
+<div class="container col-lg-6">
+<h5 class="text-center my-3">Регистрация</h5>
+    <div class="form-control py-4 bg-light.bg-gradient border-5 d-flex justify-content-center col-md-12 col-lg-offset-3">
+        <form class="register-form" method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+<!--            <table class="form-control p-3">{{ form.as_table }}</table>-->
+            {{ form.as_p }}
+            <input class="btn-primary" type="submit" value="Зарегистрироваться">
+        </form>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center">Вы уже зарегистрированы!</h1>
+<h5 class="text-center">Чтобы зарегистрировать новый аккаунт, выйдете из текущего.</h5>
+{% endif %}
+{% endblock %}

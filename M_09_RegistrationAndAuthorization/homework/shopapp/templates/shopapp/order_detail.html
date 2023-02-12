@@ -1,0 +1,45 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Products list
+{% endblock %}
+{% block header %}
+<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
+{% if request.user.is_authenticated %}
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Выход</a>
+</p>
+{% else %}
+<p>
+    <a class="login-btn" type="button" href="{% url 'shopapp:login' %}">Вход</a>
+</p>
+{% endif %}
+{% endblock %}
+{% block section %}
+
+<h3 class="list_detail-order">Детальная информация о заказе № {{object.pk}}</h3>
+
+<ul class="list_detail-order">
+    <li>Пользователь: {{ object.user.username }}</li>
+    <li>Промокод: {{ object.promocode }}</li>
+    <li>Адрес доставки:{{ object.delivery_address }}</li>
+</ul>
+<h3 class="list_detail-order">Состав заказа:</h3>
+<ul class="list_detail-order">
+   {% for product in object.products.all %}
+    <li class="prod_title">Продукт: {{ product.name }}</li
+    <li>Цена: {{ product.price }}</li>
+    <li>Скидка: {{ product.discount }}</li>
+    <li>Описание продукта: {{ object.description|title }}</li>
+    {% endfor %}
+</ul>
+
+<div class="back_to">
+    <p class="link-back"><a href="{% url 'shopapp:orders_list' %}">Вернуться к списку заказов</a></p>
+    {% if request.user.is_authenticated %}
+    <p class="link-back"><a href="{% url 'shopapp:update_order' pk=object.pk %}">Обновить заказ № {{object.pk}}</a></p>
+    <p><a href="{% url 'shopapp:order_delete' pk=object.pk %}">Удалить заказ № {{object.pk}}</a></p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -45,7 +45,7 @@
 
                         <ul class="right-nav d-flex justify-content-center">
 
-                            <li><a href="{% url 'accounts:logout' %}"> <i class="fa fa-user"></i> Log Out </a></li>
+                            <li><a href="{% url 'accounts:logout_page' %}"> <i class="fa fa-user"></i> Log Out </a></li>
                         </ul>
                         {% else %}
                          <ul class="nav">
@@ -55,8 +55,8 @@
                         </ul>
                         <ul class="right-nav d-flex justify-content-center">
 
-                            <li><a href="{% url 'accounts:login' %}"> <i class="fa fa-user"></i> Log In </a></li>
-                            <li class="active"><a href="{% url 'accounts:signup' %}"> <i class="fa fa-sign-in"></i> Sign Up </a></li>
+                            <li><a href="{% url 'accounts:login_page' %}"> <i class="fa fa-user"></i> Log In </a></li>
+                            <li class="active"><a href="{% url 'accounts:register_page' %}"> <i class="fa fa-sign-in"></i> Sign Up </a></li>
                         </ul>
                         {% endif %}
 

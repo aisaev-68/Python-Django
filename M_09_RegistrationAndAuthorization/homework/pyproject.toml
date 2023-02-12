@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "news-site"
+name = "shopapp"
 version = "0.1.0"
 description = ""
 authors = ["ramazan_aisaev <aisaev-68@yandex.ru>"]
