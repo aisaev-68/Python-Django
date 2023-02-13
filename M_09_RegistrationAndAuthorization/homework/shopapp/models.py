@@ -2,22 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Profile(models.Model):
-    CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
-
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
-    phone = models.CharField(max_length=20, unique=True, db_index=True, verbose_name='Номер телефона')
-    city = models.CharField(max_length=100,verbose_name='Город', blank=True)
-    verification_flag = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
-    count_news = models.IntegerField(default=0, verbose_name='Количество обуликованных новостей')
-
-
-    class Meta:
-        verbose_name = "Профиль"
-        verbose_name_plural = "Профили"
-        ordering = ["user", "city"]
-
-
 class Product(models.Model):
     CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
 

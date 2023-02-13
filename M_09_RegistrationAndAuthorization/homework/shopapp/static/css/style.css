@@ -66,9 +66,14 @@
     align-items: baseline;
 }
 
-.register-form input {
+.register-form input, .register-form textarea, .register-form select {
     width: 60%;
     height: 2rem;
     margin-left: auto;
     padding-left: 10px;
+}
+
+register-form select {
+    height: 5rem;
+
 }

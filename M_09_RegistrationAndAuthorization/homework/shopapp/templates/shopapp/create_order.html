@@ -7,9 +7,9 @@ Add order
 
 {% block section %}
 {% if user.is_authenticated %}
-<div class="container col-lg-6">
+<div class="container col-lg-8">
 <h5 class="text-center my-3">Добавить заказ</h5>
-    <div class="form-control py-4 bg-light.bg-gradient border-5 d-flex justify-content-center col-md-12 col-lg-offset-3">
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
         <form class="register-form" method="post" action="{% url 'shopapp:create_order' %}">
             {% csrf_token %}
             {{ form.as_p }}

@@ -10,8 +10,10 @@
     {% for product in products %}
     <div class=" col-lg-3 d-flex">
 
-        <div class="products-block w-100 rounded d-flex flex-column">
-            <img src="{% static 'image/aiphon.webp' %}" class="teacher-img" alt="product">
+        <div class="products-block w-100 rounded d-flex flex-column border-primary border-1">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
+              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+              alt="Laptop" />
             <h3 class="title_login mt-1 text-wrap text-break">
                 <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
                     {{ product.name|title }}

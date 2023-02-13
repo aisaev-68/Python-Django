@@ -10,7 +10,7 @@ from django.forms import Form, HiddenInput
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 
-from .models import Product, Order, Profile
+from .models import Product, Order
 from .forms import OrderModelForm
 
 
@@ -22,7 +22,7 @@ class ShopPage(View):
         if request.COOKIES.get("sessionid", None):
             return render(request, 'shopapp/shop.html')
         else:
-            context = {"products": Product.objects.filter(archived=False)}
+            context = {"products": Product.objects.filter()}
             print(1111, context)
             return render(request, 'shopapp/main.html', context=context)
 

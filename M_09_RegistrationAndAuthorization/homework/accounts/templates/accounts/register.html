@@ -5,12 +5,11 @@
 
 {% block section %}
 {% if not user.is_authenticated %}
-<div class="container col-lg-6">
+<div class="container col-lg-6 " >
 <h5 class="text-center my-3">Регистрация</h5>
-    <div class="form-control py-4 bg-light.bg-gradient border-5 d-flex justify-content-center col-md-12 col-lg-offset-3">
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
         <form class="register-form" method="post" action="{% url 'register' %}">
             {% csrf_token %}
-<!--            <table class="form-control p-3">{{ form.as_table }}</table>-->
             {{ form.as_p }}
             <input class="btn-primary" type="submit" value="Зарегистрироваться">
         </form>

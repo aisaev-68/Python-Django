@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
 
-from .models import Product, Order, Profile
+from .models import Product, Order
 from .admin_mixins import ExportAsCSVMixin
 
 
@@ -73,10 +73,3 @@ class OrderAdmin(admin.ModelAdmin):
     def user_verbose(self, obj: Order) -> str:
         return obj.user.first_name or obj.user.username
 
-@admin.register(Profile)
-class UserProfileAdmin(admin.ModelAdmin):
-
-    list_display = "pk", "user", "phone", "city", "verification_flag", "count_news"
-    list_display_links = "pk", "user"
-    # ordering = "-user", "pk"
-    search_fields = "user", "city"

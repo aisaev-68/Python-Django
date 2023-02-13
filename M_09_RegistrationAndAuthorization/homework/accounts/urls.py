@@ -1,9 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views
-from .views import Register
-# template_name='shopapp/login.html'
-# template_name='shopapp/logout.html'
-from .views import ProfileDetail, ProfileDelete, ProfileUpdate
+
+from .views import ProfileDetail, ProfileUpdate
 
 app_name = "accounts"
 urlpatterns = [
@@ -11,7 +9,6 @@ urlpatterns = [
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path("user/<int:pk>/", ProfileDetail.as_view(), name="profile"),
     path("update/<int:pk>/", ProfileUpdate.as_view(), name="update_profile"),
-    path("delete/<int:pk>/", ProfileDelete.as_view(), name="delete_profile"),
 
     # path("login/", UserLogIn.as_view(), name="login_page"),
     # path("logout/", UserLogOut.as_view(), name="logout_page"),

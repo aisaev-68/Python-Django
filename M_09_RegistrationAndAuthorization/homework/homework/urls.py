@@ -7,7 +7,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
     path('admin/', admin.site.urls),
     path('register/', Register.as_view(), name='register'),
-    path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('profile/', include('accounts.urls'), name="accounts"),
     path('shopapp/', include('shopapp.urls')),
 ]
