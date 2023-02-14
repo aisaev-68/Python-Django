@@ -8,18 +8,18 @@
 <div class="row no-gutters row-eq-height">
 
     {% for product in products %}
-    <div class=" col-lg-3 d-flex">
+    <div class=" col-lg-2 d-flex">
 
         <div class="products-block w-100 rounded d-flex flex-column border-primary border-1">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
+            <img src="{{ product.image }}"
+              style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;" class="card-img-top"
               alt="Laptop" />
             <h3 class="title_login mt-1 text-wrap text-break">
                 <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
                     {{ product.name|title }}
                 </a>
             </h3>
-            <p class="text-wrap text-break">{{ product.description|title }}</p>
+<!--            <p class="text-wrap text-break">{{ product.description|title }}</p>-->
 <!--            <p>{% firstof product.discount 'no discount' %}</p>-->
             <p class="mb-1">{{ product.price }} р</p>
             <button class="update_btn btn-reset m-auto mb-3" type="submit">В корзину</button>

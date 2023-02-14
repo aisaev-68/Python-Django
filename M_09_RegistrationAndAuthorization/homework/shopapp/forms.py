@@ -1,15 +1,24 @@
 from django.contrib.auth.models import User
+from django import forms
 from django.forms import TextInput, ModelForm, MultipleChoiceField, ModelMultipleChoiceField
-from django.forms.widgets import SelectMultiple, HiddenInput, CheckboxSelectMultiple
+from django.forms.widgets import SelectMultiple, HiddenInput, CheckboxSelectMultiple, ClearableFileInput
 from .models import Product, Order
 
 
 class ProductModelForm(ModelForm):
+    image = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={
+                'multiple': True,
+            }
+        )
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['price'].widget.attrs['min'] = 0
+        self.fields['rating'].widget.attrs['min'] = 0
         self.fields['discount'].widget.attrs['min'] = 0
         self.fields['products_count'].widget.attrs['min'] = 0
         for field in self.fields:
@@ -18,7 +27,7 @@ class ProductModelForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "description", "attributes", "rating", "price", "discount", "products_count", "archived"]
+        fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count"]
 
 
 class OrderModelForm(ModelForm):

@@ -8,15 +8,21 @@ Products list
 
 <div class="row no-gutters row-eq-height">
 
-    <div class="card-deck col-lg-3 col-md-3 col-sm-4 col-xs-12 d-flex">
+    <div class="card-deck col-lg-6 col-md-3 col-sm-4 col-xs-12 d-flex mx-auto">
 
         <div class="card mb-3 bg-white border-primary border rounded d-flex flex-column" style="width: 44rem;">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp"
-              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-              alt="Laptop" />
+            <img src="{{ object.image }}"
+                 style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                 class="card-img-top mt-4" class="img-fluid"
+                 alt="Laptop"/>
             <div class="card-body">
-                <p class="card-text text-wrap text-break">{{ object.name|title }}</p>
-                <p class="card-text text-wrap text-break">{{ object.description|title }}</p>
+                <h5 class="card-text text-wrap text-break">{{ object.name|title }}</h5>
+            <h5 class="card-text text-wrap text-break mt-3">Технические характеристики</h5>
+                {% for key, value in object.attributes.items %}
+                    {{ key }}:  {{ value }}<br/>
+                {% endfor %}
+                <h5 class="card-text text-wrap text-break mt-2">Описание:</h5>
+                <p class="card-text text-wrap text-break">{{ object.description|capfirst }}</p>
             </div>
         </div>
     </div>
@@ -25,7 +31,8 @@ Products list
 <div class="back_to">
     <p class="link-back"><a href="{% url 'shopapp:products_list' %}">Вернуться к списку продуктов</a></p>
     {% if request.user.is_authenticated %}
-    <p class="link-back"><a href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить продукт № {{object.pk}}</a></p>
+    <p class="link-back"><a href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить продукт № {{object.pk}}</a>
+    </p>
     <p><a href="{% url 'shopapp:product_archived' pk=object.pk %}">Архивировать продукт № {{object.pk}}</a></p>
     {% endif %}
 </div>

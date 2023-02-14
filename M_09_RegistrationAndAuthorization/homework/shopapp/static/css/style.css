@@ -58,7 +58,7 @@
   --color_blue: #1E90FF;
 }
 
-.register-form p {
+.register-form p, .update_product-form p {
     display: flex;
     flex-direction: row;
     justify-content: between;
@@ -76,4 +76,11 @@
 register-form select {
     height: 5rem;
 
+}
+
+.update_product-form input {
+    width: 60%;
+    height: 2rem;
+    margin-left: auto;
+    padding-left: 10px;
 }

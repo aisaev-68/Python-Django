@@ -11,8 +11,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 
 from .models import Product, Order
-from .forms import OrderModelForm
-from .task import main
+from .forms import OrderModelForm, ProductModelForm
 
 
 class ShopPage(View):
@@ -20,12 +19,8 @@ class ShopPage(View):
 
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
-            # if Product.objects.all() is None:
-            main()
             return render(request, 'shopapp/shop.html')
         else:
-            # if Product.objects.all() is None:
-            main()
             context = {"products": Product.objects.filter()}
             print(1111, context)
             return render(request, 'shopapp/main.html', context=context)
@@ -39,9 +34,13 @@ class ProductList(ListView):
 
 
 class DetailProduct(DetailView):
-    model = Product
+    form_class = ProductModelForm
     context_object_name = "products"
     template_name = 'shopapp/product_detail.html'
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(pk=self.kwargs['pk'])
+        return queryset
 
 
 class ArchivedProduct(DeleteView):
@@ -56,7 +55,6 @@ class ArchivedProduct(DeleteView):
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-
         self.object.archived = True
         self.object.save()
         return HttpResponseRedirect(success_url)
@@ -64,25 +62,17 @@ class ArchivedProduct(DeleteView):
 
 class CreateProduct(CreateView):
     model = Product
+    form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
-    fields = ["name", "description", "price", "discount"]
+    # fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count"]
     success_url = reverse_lazy("shopapp:products_list")
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['name'].widget.attrs.update({'class': 'name'}, size='40')
-        form.fields['description'].widget.attrs.update({'class': 'description'}, size='40')
-        form.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0, size='40')
-        form.fields['price'].widget.attrs['min'] = 0
-        form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
-        form.fields['discount'].widget.attrs['min'] = 0
-        return form
 
 
 class UpdateProduct(UpdateView):
-    model = Product
+    form_class = ProductModelForm
     template_name = 'shopapp/update_product.html'
-    fields = ["name", "description", "price", "discount", ]
+    # fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count",]
 
     def get_success_url(self):
         return reverse(
@@ -90,15 +80,15 @@ class UpdateProduct(UpdateView):
             kwargs={"pk": self.object.pk},
         )
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['name'].widget.attrs.update({'class': 'name'}, size='40')
-        form.fields['description'].widget.attrs.update({'class': 'description'}, size='40')
-        form.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0, size='40')
-        form.fields['price'].widget.attrs['min'] = 0
-        form.fields['discount'].widget.attrs.update({'class': 'discount'}, size='40')
-        form.fields['discount'].widget.attrs['min'] = 0
-        return form
+    def get_queryset(self):
+        queryset = Product.objects.filter(pk=self.kwargs['pk'])
+        return queryset
+
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.object.update()
+        return HttpResponseRedirect(success_url)
 
 
 class OrderList(ListView):
