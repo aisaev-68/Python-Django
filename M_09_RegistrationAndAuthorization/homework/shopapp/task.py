@@ -33,7 +33,7 @@ def main():
 			# print(d.get('product_attributes'))
 			# print(d.get('product_rating'))
 			# print(d.get('product_photos'))
-			a = BeautifulSoup(d.get('offer').get('price'), 'html.parser').get_text().split()
+			a = BeautifulSoup(d.get('offer').get('price'), 'html.parser').get_text()
 			print(a)
 
 
