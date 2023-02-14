@@ -12,7 +12,7 @@ from django.views import View
 
 from .models import Product, Order
 from .forms import OrderModelForm
-
+from .task import main
 
 
 class ShopPage(View):
@@ -20,8 +20,12 @@ class ShopPage(View):
 
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
+            # if Product.objects.all() is None:
+            main()
             return render(request, 'shopapp/shop.html')
         else:
+            # if Product.objects.all() is None:
+            main()
             context = {"products": Product.objects.filter()}
             print(1111, context)
             return render(request, 'shopapp/main.html', context=context)

@@ -4,22 +4,21 @@ from django.forms.widgets import SelectMultiple, HiddenInput, CheckboxSelectMult
 from .models import Product, Order
 
 
-
-
 class ProductModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'name'})
-        self.fields['description'].widget.attrs.update({'class': 'description'})
-        self.fields['price'].widget.attrs.update({'class': 'price'}, min_value=0)
+
         self.fields['price'].widget.attrs['min'] = 0
-        self.fields['discount'].widget.attrs.update({'class': 'discount'})
         self.fields['discount'].widget.attrs['min'] = 0
+        self.fields['products_count'].widget.attrs['min'] = 0
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].help_text = ''
 
     class Meta:
         model = Product
-        fields = ["name", "description", "price", "discount", "archived"]
+        fields = ["name", "description", "attributes", "rating", "price", "discount", "products_count", "archived"]
 
 
 class OrderModelForm(ModelForm):

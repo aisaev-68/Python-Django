@@ -14,9 +14,12 @@ class Product(models.Model):
 
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание', blank=True)
+    attributes = models.CharField(max_length=100, verbose_name='Атрибуты')
+    rating = models.FloatField(verbose_name='Рейтинг')
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name='Цена')
     discount = models.SmallIntegerField(default=0, verbose_name='Процентаная скидка')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    products_count = models.IntegerField(verbose_name='Количество')
     archived = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
 
     @property
