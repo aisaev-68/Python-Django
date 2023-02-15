@@ -11,10 +11,17 @@ Products list
     <div class="card-deck col-lg-6 col-md-3 col-sm-4 col-xs-12 d-flex mx-auto">
 
         <div class="card mb-3 bg-white border-primary border rounded d-flex flex-column" style="width: 44rem;">
+            {% if 'http' in object.image.url %}
             <img src="{{ object.image }}"
                  style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
                  class="card-img-top mt-4" class="img-fluid"
                  alt="Laptop"/>
+            {% else %}
+             <img src="{{ object.image.url }}"
+                 style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                 class="card-img-top mt-4" class="img-fluid"
+                 alt="Laptop"/>
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-text text-wrap text-break">{{ object.name|title }}</h5>
             <h5 class="card-text text-wrap text-break mt-3">Технические характеристики</h5>

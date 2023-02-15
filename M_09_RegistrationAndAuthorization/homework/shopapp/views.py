@@ -2,26 +2,26 @@ from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, TemplateView
+from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, TemplateView, FormView
 from django.forms import ModelMultipleChoiceField, SelectMultiple
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate
 from django.forms import Form, HiddenInput
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
+from PIL import Image
 
 from .models import Product, Order
-from .forms import OrderModelForm, ProductModelForm
+from .forms import OrderModelForm, ProductModelForm, ContactForm
 
 
 class ShopPage(View):
-
 
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
             return render(request, 'shopapp/shop.html')
         else:
-            context = {"products": Product.objects.filter()}
+            context = {"products": Product.objects.filter(archived=False)}
             print(1111, context)
             return render(request, 'shopapp/main.html', context=context)
 
@@ -59,20 +59,24 @@ class ArchivedProduct(DeleteView):
         self.object.save()
         return HttpResponseRedirect(success_url)
 
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super().post(request, *args, **kwargs)
+
 
 class CreateProduct(CreateView):
     model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
-    # fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count"]
     success_url = reverse_lazy("shopapp:products_list")
-
 
 
 class UpdateProduct(UpdateView):
     form_class = ProductModelForm
     template_name = 'shopapp/update_product.html'
-    # fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count",]
 
     def get_success_url(self):
         return reverse(
@@ -83,12 +87,9 @@ class UpdateProduct(UpdateView):
     def get_queryset(self):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
+    #
 
 
-    def form_valid(self, form):
-        success_url = self.get_success_url()
-        self.object.update()
-        return HttpResponseRedirect(success_url)
 
 
 class OrderList(ListView):
@@ -101,6 +102,7 @@ class OrderList(ListView):
 class OrderCreate(CreateView):
     form_class = OrderModelForm
     template_name = 'shopapp/create_order.html'
+
     # success_url = reverse_lazy("shopapp:orders_list")
 
     def get_success_url(self):
@@ -108,8 +110,10 @@ class OrderCreate(CreateView):
             "shopapp:orders_user",
             kwargs={"pk": self.request.user.pk},
         )
+
     def get_initial(self):
         return {'user': self.request.user}
+
 
 class OrderListByUser(ListView):
     model = OrderModelForm
@@ -119,10 +123,10 @@ class OrderListByUser(ListView):
     # queryset = Product.objects.filter(archived=False)
 
     def get_queryset(self):
-        queryset = Order.objects.select_related("user").prefetch_related("products").filter(user=self.kwargs['pk']).all()
+        queryset = Order.objects.select_related("user").prefetch_related("products").filter(
+            user=self.kwargs['pk']).all()
         print(1111, queryset)
         return queryset
-
 
     # def get_success_url(self):
     #     return reverse(
@@ -174,3 +178,15 @@ class OrderDelete(DeleteView):
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)
+
+
+class Contact(View):
+    form_class = ContactForm
+    template_name = "shopapp/contact.html"
+
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+

@@ -59,7 +59,7 @@
                             <li><a href="{% url 'shopapp:shop_page' %}"> Главная </a></li>
                             <li><a href="{% url 'shopapp:products_list' %}"> Прайс </a></li>
                             <li><a href="#"> Блог </a></li>
-                            <li><a href="#"> Контакты </a></li>
+                            <li><a href="{% url 'shopapp:contact' %}"> Контакты </a></li>
                         </ul>
                         <ul class="right-nav d-flex justify-content-center">
                             <li class=""><a class="bg-primary text-white" href="{% url 'login' %}">
@@ -86,6 +86,11 @@
         {% endblock %}
     </section>
 </main>
+<footer class="footer">
+    <div class="container-lg">
+        © {{ author_name }} 2017–{% now "Y" %}
+    </div>
+</footer>
 
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>

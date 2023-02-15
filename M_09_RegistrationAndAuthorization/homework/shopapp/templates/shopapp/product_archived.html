@@ -3,30 +3,20 @@
 {% block title %}
 Archived product
 {% endblock %}
-{% block header %}
-<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
-{% if request.user.is_authenticated %}
-<p>
-    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Выход</a>
-</p>
-{% else %}
-<p>
-    <a class="login-btn" type="button" href="{% url 'shopapp:login' %}">Вход</a>
-</p>
-{% endif %}
-{% endblock %}
+
 {% block section %}
 {% if request.user.is_authenticated %}
-<h1 class="title_action">Архивировать продукт № {{object.pk}}?</h1>
-<form method="Post" class="product__form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="yesno_block">
-        <button class="update_btn btn-reset" type="submit">Да</button>
-        <div type="button" class="cancel_btn btn-reset"><a class="no_btn-link" href="{% url 'shopapp:product_detail' pk=object.pk %}">Нет</a></div>
-    </div>
-
-</form>
+<div class="container col-lg-4">
+<h5 class="text-center mb-4 text-primary">Архивировать продукт № {{object.name}}?</h5>
+<div class="form-control py-3 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+        <form method="Post" class="product__form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <div class="d-flex justify-content-around" >
+            <input class="btn-primary" type="submit" value="Да" style="width: 5vw"/>
+            <input class="btn-primary" type="submit" name="cancel" value="Нет" style="width: 5vw"/>
+        </div>
+        </form>
 {% else %}
 <h3 class="title_login">Вы не авторизованы на сайте</h3>
 {% endif %}

@@ -17,7 +17,7 @@ class Product(models.Model):
     attributes = models.JSONField(default=dict, blank=True, verbose_name='Атрибуты')
     rating = models.FloatField(verbose_name='Рейтинг', null=True)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name='Цена')
-    image = models.ImageField(upload_to='images', verbose_name='Изображение продукта', null=True)
+    image = models.ImageField(upload_to='images', verbose_name='Изображение продукта', default='images/default_image.jpg')
     discount = models.SmallIntegerField(default=0, verbose_name='Процентаная скидка')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     products_count = models.IntegerField(verbose_name='Количество')

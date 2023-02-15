@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import TextInput, ModelForm, MultipleChoiceField, ModelMultipleChoiceField
@@ -7,11 +9,9 @@ from .models import Product, Order
 
 class ProductModelForm(ModelForm):
     image = forms.ImageField(
-        widget=forms.ClearableFileInput(
-            attrs={
-                'multiple': True,
-            }
-        )
+        label="Изображение продукта",
+        required=False,
+        widget=forms.FileInput()
     )
 
     def __init__(self, *args, **kwargs):
@@ -24,6 +24,7 @@ class ProductModelForm(ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
+
 
     class Meta:
         model = Product
@@ -55,3 +56,11 @@ class OrderModelForm(ModelForm):
     class Meta:
         model = Order
         fields = ["user", "promocode", "delivery_address", "products"]
+
+
+class ContactForm(forms.Form):
+
+    first_name = forms.CharField(label="Имя",)
+    last_name = forms.CharField(label="Фамилия",)
+    email = forms.EmailField(label="Email",)
+    message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs={'rows': 3}))

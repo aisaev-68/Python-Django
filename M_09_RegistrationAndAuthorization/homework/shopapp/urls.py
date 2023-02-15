@@ -13,12 +13,14 @@ from .views import (
     OrderDetail,
     OrderDelete,
     OrderListByUser,
+    Contact,
 )
 
 app_name = "shopapp"
 
 urlpatterns = [
     path("", ShopPage.as_view(), name="shop_page"),
+    path("contact/", Contact.as_view(), name="contact"),
     path("products/", ProductList.as_view(), name="products_list"),
     path("products/create/", CreateProduct.as_view(), name="create_product"),
     path("products/<int:pk>/detail/", DetailProduct.as_view(), name="product_detail"),
