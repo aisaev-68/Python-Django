@@ -15,6 +15,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание', blank=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name='Атрибуты')
+    created_by = models.ForeignKey(User, verbose_name='Кем создан', on_delete=models.CASCADE)
     rating = models.FloatField(verbose_name='Рейтинг', null=True)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name='Цена')
     image = models.ImageField(upload_to='images', verbose_name='Изображение продукта', default='images/default_image.jpg')

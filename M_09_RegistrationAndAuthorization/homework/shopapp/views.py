@@ -1,13 +1,10 @@
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
-from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, TemplateView, FormView
-from django.forms import ModelMultipleChoiceField, SelectMultiple
+from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth import authenticate
 from django.forms import Form, HiddenInput
-from django.contrib.auth.views import LoginView, LogoutView
 from django.views import View
 from PIL import Image
 
@@ -19,7 +16,8 @@ class ShopPage(View):
 
     def get(self, request: HttpRequest):
         if request.COOKIES.get("sessionid", None):
-            return render(request, 'shopapp/shop.html')
+            context = {"orders": Order.objects.filter(pk=self.request.user.id)}
+            return render(request, 'shopapp/orders-list.html', context=context)
         else:
             context = {"products": Product.objects.filter(archived=False)}
             print(1111, context)
@@ -73,6 +71,13 @@ class CreateProduct(CreateView):
     template_name = 'shopapp/create_product.html'
     success_url = reverse_lazy("shopapp:products_list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        print(context, kwargs, self.request.user)
+        # user = User.objects.get(pk=self.request.user)
+        # print(context, kwargs, user)
+        # context['created_by'] = user
+        # return context
 
 class UpdateProduct(UpdateView):
     form_class = ProductModelForm
@@ -90,20 +95,15 @@ class UpdateProduct(UpdateView):
     #
 
 
-
-
 class OrderList(ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
-    # fields = ["pk", "promocode", "delivery_address", "user", "products"]
 
 
 class OrderCreate(CreateView):
     form_class = OrderModelForm
     template_name = 'shopapp/create_order.html'
-
-    # success_url = reverse_lazy("shopapp:orders_list")
 
     def get_success_url(self):
         return reverse(
@@ -120,19 +120,11 @@ class OrderListByUser(ListView):
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
 
-    # queryset = Product.objects.filter(archived=False)
-
     def get_queryset(self):
         queryset = Order.objects.select_related("user").prefetch_related("products").filter(
             user=self.kwargs['pk']).all()
         print(1111, queryset)
         return queryset
-
-    # def get_success_url(self):
-    #     return reverse(
-    #         "shopapp:orders_user",
-    #         kwargs={"pk": self.request.user.pk},
-    #     )
 
 
 class UpdateOrder(UpdateView):
@@ -148,11 +140,7 @@ class UpdateOrder(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        # form.fields['promocode'].widget.attrs.update({'class': 'promocode'})
-        # form.fields['delivery_address'].widget.attrs.update({'class': 'delivery_address'})
-        # form.fields['user'].widget.attrs.update({'class': 'user'})
         form.fields['user'].widget = HiddenInput()
-        # form.fields['products'].widget.attrs.update({'class': 'products'}, size='5')
         return form
 
 
@@ -179,14 +167,18 @@ class OrderDelete(DeleteView):
         self.object.delete()
         return HttpResponseRedirect(success_url)
 
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super().post(request, *args, **kwargs)
+
 
 class Contact(View):
     form_class = ContactForm
     template_name = "shopapp/contact.html"
 
-
     def get(self, request, *args, **kwargs):
         form = self.form_class
         return render(request, self.template_name, {'form': form})
-
-

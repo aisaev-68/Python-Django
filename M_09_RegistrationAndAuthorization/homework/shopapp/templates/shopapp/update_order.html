@@ -5,19 +5,26 @@ Update order
 {% endblock %}
 
 {% block section %}
-{% if request.user.is_authenticated %}
-<h1 class="title_action">Обновить заказ № {{object.pk}}</h1>
-<form method="Post" id="data" class="order__form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="order_btn" type="submit">Обновить</button>
-</form>
-<div class="back_to">
-    <p>
-        <a href="{% url 'shopapp:order_detail' pk=object.pk %}">Вернуться назад к заказу № {{object.pk}}</a>
-    </p>
+
+<div class="container col-lg-8">
+    {% if request.user.is_authenticated %}
+    <h5 class="text-center my-3">Обновить заказ</h5>
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+        <form class="register-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+             <input class="btn-primary" type="submit" value="Обновить" style="width: 8vw;"/>
+        </form>
+    </div>
+    <div class="back_to">
+        <p>
+            <a href="{% url 'shopapp:orders_list' %}">Вернуться назад</a>
+        </p>
+    </div>
+    {% else %}
+    <h3 class="title_login">Вы не авторизованы на сайте</h3>
+    {% endif %}
 </div>
-{% else %}
-<h3 class="title_login">Вы не авторизованы на сайте</h3>
-{% endif %}
+
 {% endblock %}

@@ -3,18 +3,7 @@
 {% block title %}
 Delete product
 {% endblock %}
-{% block header %}
-<h1 class="header-title">Lesson: Аутентификация и авторизация</h1>
-{% if request.user.is_authenticated %}
-<p>
-    <a class="login-btn" type="button" href="{% url 'shopapp:logout' %}">Выход</a>
-</p>
-{% else %}
-<p>
-    <a class="login-btn" type="button" href="{% url 'shopapp:login' %}">Вход</a>
-</p>
-{% endif %}
-{% endblock %}
+
 {% block section %}
 {% if request.user.is_authenticated %}
 <h1 class="title_action">Удалить продукт № {{object.pk}}?</h1>

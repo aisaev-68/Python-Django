@@ -21,9 +21,9 @@ Add product
             <a href="{% url 'shopapp:shop_page' %}">Вернуться назад</a>
         </p>
     </div>
-    {% else %}
-    <h3 class="title_login">Вы не авторизованы на сайте</h3>
-    {% endif %}
-</div>
 
+</div>
+{% else %}
+<h3 class="title_login">Вы не авторизованы на сайте</h3>
+{% endif %}
 {% endblock %}

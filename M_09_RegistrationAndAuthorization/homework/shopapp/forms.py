@@ -21,9 +21,11 @@ class ProductModelForm(ModelForm):
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['discount'].widget.attrs['min'] = 0
         self.fields['products_count'].widget.attrs['min'] = 0
+
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
+
 
 
     class Meta:

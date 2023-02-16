@@ -31,9 +31,9 @@ Orders list
             <p>{{ product.name }}</p>
             {% endfor %}
         </td>
-        <td>
+        <td >
             {% for product in order.products.all %}
-            {{ product.description }}
+            {{ product.description|truncatechars:300  }}
             {% endfor %}
         </td>
         <td>

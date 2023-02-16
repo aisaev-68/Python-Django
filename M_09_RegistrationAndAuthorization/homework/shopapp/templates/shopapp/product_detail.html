@@ -17,16 +17,16 @@ Products list
                  class="card-img-top mt-4" class="img-fluid"
                  alt="Laptop"/>
             {% else %}
-             <img src="{{ object.image.url }}"
+            <img src="{{ object.image.url }}"
                  style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
                  class="card-img-top mt-4" class="img-fluid"
                  alt="Laptop"/>
             {% endif %}
             <div class="card-body">
                 <h5 class="card-text text-wrap text-break">{{ object.name|title }}</h5>
-            <h5 class="card-text text-wrap text-break mt-3">Технические характеристики</h5>
+                <h5 class="card-text text-wrap text-break mt-3">Технические характеристики</h5>
                 {% for key, value in object.attributes.items %}
-                    {{ key }}:  {{ value }}<br/>
+                {{ key }}: {{ value }}<br/>
                 {% endfor %}
                 <h5 class="card-text text-wrap text-break mt-2">Описание:</h5>
                 <p class="card-text text-wrap text-break">{{ object.description|capfirst }}</p>
