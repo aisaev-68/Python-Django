@@ -170,3 +170,4 @@ class ProfileRegistrationForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('country', 'address', 'phone')
+

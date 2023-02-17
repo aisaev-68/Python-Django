@@ -17,3 +17,4 @@ class Profile(models.Model):
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
         ordering = ["user", "address"]
+

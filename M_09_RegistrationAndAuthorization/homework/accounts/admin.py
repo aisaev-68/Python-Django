@@ -11,7 +11,6 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = "user", 'city'
 
 
-
 # class ProfileInline(admin.StackedInline):
 #     model = Profile
 #     can_delete = False

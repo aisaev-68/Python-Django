@@ -30,7 +30,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     inlines = [
         OrderInline,
     ]
-    # list_display = "pk", "name", "description", "price", "discount"
+
     list_display = "pk", "name", "description_short", "attributes", "rating", "created_by", "price", "discount", "image", "products_count", "archived"
     list_display_links = "pk", "name"
     ordering = "-name", "pk"

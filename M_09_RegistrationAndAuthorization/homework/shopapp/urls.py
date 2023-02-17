@@ -17,7 +17,6 @@ from .views import (
 )
 
 app_name = "shopapp"
-
 urlpatterns = [
     path("", ShopPage.as_view(), name="shop_page"),
     path("contact/", Contact.as_view(), name="contact"),

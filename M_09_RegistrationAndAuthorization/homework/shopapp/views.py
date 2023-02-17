@@ -71,13 +71,6 @@ class CreateProduct(CreateView):
     template_name = 'shopapp/create_product.html'
     success_url = reverse_lazy("shopapp:products_list")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        print(context, kwargs, self.request.user)
-        # user = User.objects.get(pk=self.request.user)
-        # print(context, kwargs, user)
-        # context['created_by'] = user
-        # return context
 
 class UpdateProduct(UpdateView):
     form_class = ProductModelForm

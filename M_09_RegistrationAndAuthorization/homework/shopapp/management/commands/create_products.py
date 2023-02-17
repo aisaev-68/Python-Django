@@ -38,3 +38,4 @@ class Command(BaseCommand):
         # self.stdout.write(f"Created product {product.name}")
 
         self.stdout.write(self.style.SUCCESS("Products created"))
+

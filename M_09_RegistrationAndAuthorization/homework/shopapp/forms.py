@@ -26,8 +26,6 @@ class ProductModelForm(ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
-
-
     class Meta:
         model = Product
         fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count"]
