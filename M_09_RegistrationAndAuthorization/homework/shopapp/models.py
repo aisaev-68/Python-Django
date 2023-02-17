@@ -3,25 +3,24 @@ from django.db import models
 
 
 class Product(models.Model):
-    CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
+    # CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
 
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "price"]
 
-
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание', blank=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name='Атрибуты')
-    created_by = models.ForeignKey(User, verbose_name='Кем создан', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, verbose_name='Кем создан', on_delete=models.CASCADE, null=True)
     rating = models.FloatField(verbose_name='Рейтинг', null=True)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name='Цена')
     image = models.ImageField(upload_to='images', verbose_name='Изображение продукта', default='images/default_image.jpg')
     discount = models.SmallIntegerField(default=0, verbose_name='Процентаная скидка')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     products_count = models.IntegerField(verbose_name='Количество')
-    archived = models.BooleanField(choices=CHOICE, default=False, verbose_name='Статус')
+    archived = models.BooleanField(default=False, verbose_name='Статус')
 
     @property
     def description_short(self):

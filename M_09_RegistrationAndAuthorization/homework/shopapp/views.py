@@ -66,10 +66,23 @@ class ArchivedProduct(DeleteView):
 
 
 class CreateProduct(CreateView):
-    model = Product
+    # model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
     success_url = reverse_lazy("shopapp:products_list")
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['created_by'].widget = HiddenInput()
+        return form
+
+    def get_initial(self):
+        self.initial['created_by'] = self.request.user.id
+        return self.initial
+    # def form_valid(self, form):
+    #     form.instance.created_by = self.request.user
+    #     print(form)
+    #     return  super().get_form(form)
 
 
 class UpdateProduct(UpdateView):

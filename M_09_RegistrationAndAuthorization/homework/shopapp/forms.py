@@ -16,19 +16,17 @@ class ProductModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.fields['price'].widget.attrs['min'] = 0
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['discount'].widget.attrs['min'] = 0
         self.fields['products_count'].widget.attrs['min'] = 0
-
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
     class Meta:
         model = Product
-        fields = ["name", "description", "attributes", "rating", "price", "discount", "image", "products_count"]
+        fields = ["name", "description", "attributes", "rating", "price", "created_by", "discount", "image", "products_count"]
 
 
 class OrderModelForm(ModelForm):
