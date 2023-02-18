@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
@@ -16,9 +17,7 @@ from .forms import OrderModelForm, ProductModelForm, ContactForm
 class ShopPage(View):
 
     def get(self, request: HttpRequest):
-
         context = {"products": Product.objects.filter(archived=False)}
-        print(1111, context)
         return render(request, 'shopapp/main.html', context=context)
 
 
@@ -38,9 +37,8 @@ class DetailProduct(DetailView):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
 
-@login_required
-@permission_required('shopapp.delete_product')
-class ArchivedProduct(DeleteView):
+
+class ArchivedProduct(LoginRequiredMixin, DeleteView):
     model = Product
     context_object_name = "products"
     template_name = 'shopapp/product_archived.html'
@@ -64,20 +62,11 @@ class ArchivedProduct(DeleteView):
             return super().post(request, *args, **kwargs)
 
 
-# @login_required
-# @permission_required('shopapp.add_product')
-class CreateProduct(CreateView):
+class CreateProduct(LoginRequiredMixin, CreateView):
     # model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
     success_url = reverse_lazy("shopapp:products_list")
-    # UserPassesTestMixin,
-    # def test_func(self):
-    #     print(7777, self)
-        # queryset = Product.objects.get(pk=self.request.user)
-        # if queryset:
-        #     return self.request.user.groups.filter()
-
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -93,8 +82,8 @@ class CreateProduct(CreateView):
     #     form.instance.created_by = self.request.user
     #     return super().get_form(form)
 
-@login_required
-class UpdateProduct(LoginRequiredMixin, UpdateView):
+
+class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     form_class = ProductModelForm
     template_name = 'shopapp/update_product.html'
 
@@ -108,17 +97,19 @@ class UpdateProduct(LoginRequiredMixin, UpdateView):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
 
-@login_required
-@permission_required('shopapp.view_order')
-class OrderList(ListView):
+    def test_func(self):
+        product = Product.objects.get(pk=self.kwargs['pk'])
+        # self.request.user.groups.filter(name='Edit').exists()
+        return self.request.user.is_superuser or self.request.user == product.created_by
+
+
+class OrderList(LoginRequiredMixin, ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
 
 
-@login_required
-@permission_required('shopapp.add_order')
-class OrderCreate(CreateView):
+class OrderCreate(LoginRequiredMixin, CreateView):
     form_class = OrderModelForm
     template_name = 'shopapp/create_order.html'
 
@@ -131,9 +122,8 @@ class OrderCreate(CreateView):
     def get_initial(self):
         return {'user': self.request.user}
 
-@login_required
-@permission_required('shopapp.view_order')
-class OrderListByUser(ListView):
+
+class OrderListByUser(LoginRequiredMixin, ListView):
     model = OrderModelForm
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
@@ -141,12 +131,10 @@ class OrderListByUser(ListView):
     def get_queryset(self):
         queryset = Order.objects.select_related("user").prefetch_related("products").filter(
             user=self.kwargs['pk']).all()
-        print(1111, queryset)
         return queryset
 
-@login_required
-@permission_required('shopapp.change_order')
-class UpdateOrder(UpdateView):
+
+class UpdateOrder(LoginRequiredMixin, UpdateView):
     model = Order
     template_name = 'shopapp/update_order.html'
     fields = ["promocode", "delivery_address", "user", "products"]
@@ -162,17 +150,15 @@ class UpdateOrder(UpdateView):
         form.fields['user'].widget = HiddenInput()
         return form
 
-@login_required
-@permission_required('shopapp.view_order')
-class OrderDetail(DetailView):
+
+class OrderDetail(LoginRequiredMixin, DetailView):
     # model = Order
     context_object_name = "orders"
     template_name = 'shopapp/order_detail.html'
     queryset = Order.objects.select_related("user").prefetch_related("products").all()
 
-@login_required
-@permission_required('shopapp.delete_order')
-class OrderDelete(DeleteView):
+
+class OrderDelete(LoginRequiredMixin, DeleteView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/delete_order.html'

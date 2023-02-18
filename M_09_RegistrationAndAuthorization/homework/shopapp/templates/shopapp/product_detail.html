@@ -43,7 +43,7 @@ Products list
 </div>
 
 <div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:products_list' %}">Вернуться к списку продуктов</a></p>
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:products_list' %}">Вернуться к списку продуктов</a></p>
     {% if perms.shopapp.change_product or request.user.is_superuser %}
     <p class="link-back"><a class="text-white" href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить продукт № {{object.pk}}</a>
     </p>

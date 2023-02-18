@@ -17,7 +17,7 @@ class ProductModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['price'].widget.attrs['min'] = 0
-        self.fields['price'].widget.attrs['min'] = 10000000
+        self.fields['price'].widget.attrs['maxn'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['rating'].widget.attrs['max'] = 5
         self.fields['discount'].widget.attrs['min'] = 0

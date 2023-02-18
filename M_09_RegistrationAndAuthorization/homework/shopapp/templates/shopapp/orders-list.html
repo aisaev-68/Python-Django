@@ -52,9 +52,9 @@ Orders list
 <h3>Заказы отсутствует</h3>
 {% endif %}
 <div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
     {% if request.user.is_authenticated %}
-    <p class="link-back"><a href="{% url 'shopapp:create_order' %}">Добавить новый заказ</a></p>
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:create_order' %}">Добавить новый заказ</a></p>
     {% endif %}
 </div>
 {% else %}

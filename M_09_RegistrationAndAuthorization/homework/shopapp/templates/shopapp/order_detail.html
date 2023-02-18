@@ -39,12 +39,12 @@ Product detail
     </div>
 </div>
 <div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:orders_list' %}">Вернуться к списку заказов</a></p>
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:orders_list' %}">Вернуться к списку заказов</a></p>
     {% if request.user.is_authenticated %}
-    <p class="link-back"><a href="{% url 'shopapp:update_order' pk=object.pk %}">Обновить заказ №
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:update_order' pk=object.pk %}">Обновить заказ №
         {{object.pk}}</a>
     </p>
-    <p><a href="{% url 'shopapp:order_delete' pk=object.pk %}">Удалить заказ № {{object.pk}}</a></p>
+    <p><a class="text-white" href="{% url 'shopapp:order_delete' pk=object.pk %}">Удалить заказ № {{object.pk}}</a></p>
     {% endif %}
 </div>
 {% else %}
