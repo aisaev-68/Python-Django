@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
 from django.forms import HiddenInput
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 from PIL import Image
 
@@ -37,8 +38,9 @@ class DetailProduct(DetailView):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
 
-
-class ArchivedProduct(LoginRequiredMixin, DeleteView):
+@login_required
+@permission_required('shopapp.delete_product')
+class ArchivedProduct(DeleteView):
     model = Product
     context_object_name = "products"
     template_name = 'shopapp/product_archived.html'
@@ -62,11 +64,20 @@ class ArchivedProduct(LoginRequiredMixin, DeleteView):
             return super().post(request, *args, **kwargs)
 
 
-class CreateProduct(LoginRequiredMixin, CreateView):
+# @login_required
+# @permission_required('shopapp.add_product')
+class CreateProduct(CreateView):
     # model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
     success_url = reverse_lazy("shopapp:products_list")
+    # UserPassesTestMixin,
+    # def test_func(self):
+    #     print(7777, self)
+        # queryset = Product.objects.get(pk=self.request.user)
+        # if queryset:
+        #     return self.request.user.groups.filter()
+
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -82,7 +93,7 @@ class CreateProduct(LoginRequiredMixin, CreateView):
     #     form.instance.created_by = self.request.user
     #     return super().get_form(form)
 
-
+@login_required
 class UpdateProduct(LoginRequiredMixin, UpdateView):
     form_class = ProductModelForm
     template_name = 'shopapp/update_product.html'
@@ -97,14 +108,17 @@ class UpdateProduct(LoginRequiredMixin, UpdateView):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
 
-
-class OrderList(LoginRequiredMixin, ListView):
+@login_required
+@permission_required('shopapp.view_order')
+class OrderList(ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
 
 
-class OrderCreate(LoginRequiredMixin,CreateView):
+@login_required
+@permission_required('shopapp.add_order')
+class OrderCreate(CreateView):
     form_class = OrderModelForm
     template_name = 'shopapp/create_order.html'
 
@@ -117,8 +131,9 @@ class OrderCreate(LoginRequiredMixin,CreateView):
     def get_initial(self):
         return {'user': self.request.user}
 
-
-class OrderListByUser(LoginRequiredMixin, ListView):
+@login_required
+@permission_required('shopapp.view_order')
+class OrderListByUser(ListView):
     model = OrderModelForm
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
@@ -129,8 +144,9 @@ class OrderListByUser(LoginRequiredMixin, ListView):
         print(1111, queryset)
         return queryset
 
-
-class UpdateOrder(LoginRequiredMixin, UpdateView):
+@login_required
+@permission_required('shopapp.change_order')
+class UpdateOrder(UpdateView):
     model = Order
     template_name = 'shopapp/update_order.html'
     fields = ["promocode", "delivery_address", "user", "products"]
@@ -146,15 +162,17 @@ class UpdateOrder(LoginRequiredMixin, UpdateView):
         form.fields['user'].widget = HiddenInput()
         return form
 
-
-class OrderDetail(LoginRequiredMixin, DetailView):
+@login_required
+@permission_required('shopapp.view_order')
+class OrderDetail(DetailView):
     # model = Order
     context_object_name = "orders"
     template_name = 'shopapp/order_detail.html'
     queryset = Order.objects.select_related("user").prefetch_related("products").all()
 
-
-class OrderDelete(LoginRequiredMixin, DeleteView):
+@login_required
+@permission_required('shopapp.delete_order')
+class OrderDelete(DeleteView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/delete_order.html'
