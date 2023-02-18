@@ -61,7 +61,7 @@ class ProfileView(LoginRequiredMixin, View):
             user_form.save()
             profile_form.save()
 
-            messages.success(request, 'Your profile has been updated successfully')
+            messages.success(request, 'Профиль обновлен.')
 
             return redirect('accounts:about-me')
         else:
@@ -69,6 +69,6 @@ class ProfileView(LoginRequiredMixin, View):
                 'user_form': user_form,
                 'profile_form': profile_form
             }
-            messages.error(request, 'Error updating you profile')
+            messages.error(request, 'Ошибка обновления профиля.')
 
             return render(request, 'accounts/profile.html', context)

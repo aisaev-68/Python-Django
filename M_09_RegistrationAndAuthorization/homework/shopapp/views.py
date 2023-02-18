@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
 from django.forms import HiddenInput
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from PIL import Image
 
@@ -37,7 +38,7 @@ class DetailProduct(DetailView):
         return queryset
 
 
-class ArchivedProduct(DeleteView):
+class ArchivedProduct(LoginRequiredMixin, DeleteView):
     model = Product
     context_object_name = "products"
     template_name = 'shopapp/product_archived.html'
@@ -61,7 +62,7 @@ class ArchivedProduct(DeleteView):
             return super().post(request, *args, **kwargs)
 
 
-class CreateProduct(CreateView):
+class CreateProduct(LoginRequiredMixin, CreateView):
     # model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
@@ -82,7 +83,7 @@ class CreateProduct(CreateView):
     #     return super().get_form(form)
 
 
-class UpdateProduct(UpdateView):
+class UpdateProduct(LoginRequiredMixin, UpdateView):
     form_class = ProductModelForm
     template_name = 'shopapp/update_product.html'
 
@@ -97,13 +98,13 @@ class UpdateProduct(UpdateView):
         return queryset
 
 
-class OrderList(ListView):
+class OrderList(LoginRequiredMixin, ListView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
 
 
-class OrderCreate(CreateView):
+class OrderCreate(LoginRequiredMixin,CreateView):
     form_class = OrderModelForm
     template_name = 'shopapp/create_order.html'
 
@@ -117,7 +118,7 @@ class OrderCreate(CreateView):
         return {'user': self.request.user}
 
 
-class OrderListByUser(ListView):
+class OrderListByUser(LoginRequiredMixin, ListView):
     model = OrderModelForm
     context_object_name = "orders"
     template_name = 'shopapp/orders-list.html'
@@ -129,7 +130,7 @@ class OrderListByUser(ListView):
         return queryset
 
 
-class UpdateOrder(UpdateView):
+class UpdateOrder(LoginRequiredMixin, UpdateView):
     model = Order
     template_name = 'shopapp/update_order.html'
     fields = ["promocode", "delivery_address", "user", "products"]
@@ -146,14 +147,14 @@ class UpdateOrder(UpdateView):
         return form
 
 
-class OrderDetail(DetailView):
+class OrderDetail(LoginRequiredMixin, DetailView):
     # model = Order
     context_object_name = "orders"
     template_name = 'shopapp/order_detail.html'
     queryset = Order.objects.select_related("user").prefetch_related("products").all()
 
 
-class OrderDelete(DeleteView):
+class OrderDelete(LoginRequiredMixin, DeleteView):
     model = Order
     context_object_name = "orders"
     template_name = 'shopapp/delete_order.html'
