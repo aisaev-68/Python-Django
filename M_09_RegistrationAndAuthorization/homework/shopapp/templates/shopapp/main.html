@@ -11,7 +11,7 @@
 
 <div class="row no-gutters row-eq-height">
     {% for product in products %}
-    <div class="card-deck col-lg-3 col-md-3 col-sm-4 col-xs-12 d-flex">
+    <div class="card-deck col-lg-3 col-md-3 col-sm-4 col-xs-12 d-flex" style="margin-right: 1vw;">
 
         <div class="card mb-3 bg-white border-primary border rounded d-flex flex-column">
             {% if 'http' in product.image.url %}
@@ -30,8 +30,7 @@
                 <div class="card-body">
 
                     <div class="rating-star mb-3">
-                        <span title="{{ product.rating }}/5">
-                        <!-- By default the star is full else it is empty otherwise it is half -->
+                        <span title="{% firstof product.rating '0' %}/5">
                             <i class="fa fa-star{% if product.rating < 0.5%}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}"
                                aria-hidden="true" style="color: #f39c12;"></i>
                             <i class="fa fa-star{% if product.rating < 1.5%}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}"
@@ -45,7 +44,7 @@
                         </span>
                         <span><strong>( {{ product.rating }}/5 )</strong></span>
                     </div>
-                    <p class="card-title mb-3" style="height: 3vw;">
+                    <p class="card-title mb-3" style="height: 5vw;">
                         <a class=card-link" href="{% url 'shopapp:product_detail' pk=product.pk %}">
                             {{ product.name|title }}
                         </a>

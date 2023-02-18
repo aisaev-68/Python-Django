@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
-from django.forms import Form, HiddenInput
+from django.forms import HiddenInput
 from django.views import View
 from PIL import Image
 
@@ -15,13 +14,10 @@ from .forms import OrderModelForm, ProductModelForm, ContactForm
 class ShopPage(View):
 
     def get(self, request: HttpRequest):
-        if request.COOKIES.get("sessionid", None):
-            context = {"orders": Order.objects.filter(pk=self.request.user.id)}
-            return render(request, 'shopapp/orders-list.html', context=context)
-        else:
-            context = {"products": Product.objects.filter(archived=False)}
-            print(1111, context)
-            return render(request, 'shopapp/main.html', context=context)
+
+        context = {"products": Product.objects.filter(archived=False)}
+        print(1111, context)
+        return render(request, 'shopapp/main.html', context=context)
 
 
 class ProductList(ListView):
@@ -79,10 +75,11 @@ class CreateProduct(CreateView):
     def get_initial(self):
         self.initial['created_by'] = self.request.user.id
         return self.initial
+
     # def form_valid(self, form):
+    #     # form = super().get_form(form)
     #     form.instance.created_by = self.request.user
-    #     print(form)
-    #     return  super().get_form(form)
+    #     return super().get_form(form)
 
 
 class UpdateProduct(UpdateView):
@@ -98,7 +95,6 @@ class UpdateProduct(UpdateView):
     def get_queryset(self):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
-    #
 
 
 class OrderList(ListView):

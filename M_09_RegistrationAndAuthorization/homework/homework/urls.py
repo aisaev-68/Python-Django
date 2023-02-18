@@ -4,12 +4,12 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from accounts.views import Register
+from accounts.views import RegisterView
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
     path('admin/', admin.site.urls),
-    path('register/', Register.as_view(), name='register'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
     path('profile/', include('accounts.urls'), name="accounts"),
     path('shopapp/', include('shopapp.urls')),

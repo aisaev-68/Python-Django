@@ -1,70 +1,98 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import TextInput
 from django.utils.translation import gettext_lazy as _
 from .models import Profile
 
 
-class RegisterUser(UserCreationForm, forms.ModelForm):
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(
+        label="Email*",
+        max_length=254,
+        widget=forms.EmailInput(attrs={"autocomplete": "email"}),
+        required=True
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].help_text = ''
+
+    class Meta:
+        model = User
+        fields = ['email', ]
+
+
+class RegisterForm(UserCreationForm, forms.ModelForm):
     username = forms.CharField(
-        label='Имя пользователя',
+        label='Имя пользователя*',
         widget=forms.TextInput(
             attrs={
                 'autofocus': True,
             }
-        )
+        ),
+        required=True
     )
 
     email = forms.EmailField(
-        label="Email",
+        label="Email*",
         max_length=254,
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
+        required=True
     )
 
     password1 = forms.CharField(
-        label=_("Пароль"),
+        label=_("Пароль*"),
         widget=forms.PasswordInput(),
+        required=True
     )
     password2 = forms.CharField(
-        label=_("Повторный пароль"),
+        label=_("Повторный пароль*"),
         widget=forms.PasswordInput(),
+        required=True
     )
 
     country = forms.CharField(
-        label='Страна',
+        label='Страна*',
         max_length=100,
         widget=forms.TextInput(),
+        required=True
     )
-    postal_code = forms.IntegerField(
+    postal_code = forms.CharField(
         label='Почтовы индекс',
-        min_value=1,
-        widget=forms.NumberInput()
+        widget=forms.TextInput(),
+        required=False
     )
     city = forms.CharField(
         label='Город',
         max_length=200,
         widget=forms.TextInput(),
+        required=False
     )
     address = forms.CharField(
         label='Адрес',
         max_length=200,
         widget=forms.TextInput(),
+        required=False
     )
 
     phone = forms.CharField(
-        label='Номер телефона',
+        label='Номер телефона*',
         max_length=20,
         widget=forms.TextInput(
             attrs={
                 "type": "tel",
             },
         ),
+        required=True
     )
 
     error_messages = {
         "password_mismatch": _("Пароли не совпадают!."),
     }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -77,14 +105,24 @@ class RegisterUser(UserCreationForm, forms.ModelForm):
         fields = 'username', 'email', 'password1', 'password2', 'country', 'postal_code', 'city', 'address', 'phone'
 
 
+class ProfileUpdateForm(forms.ModelForm):
+    country = forms.CharField(
+        label='Страна*',
+        max_length=100,
+        widget=forms.TextInput(),
+        required=True
+    )
+    phone = forms.CharField(
+        label='Номер телефона*',
+        max_length=20,
+        widget=forms.TextInput(
+            attrs={
+                "type": "tel",
+            },
+        ),
+        required=True
+    )
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username']
-
-
-class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
@@ -93,7 +131,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['country', 'postal_code', 'city', 'address', 'phone']
-
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -133,41 +170,3 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
-
-
-class ProfileRegistrationForm(forms.ModelForm):
-
-    country = forms.CharField(
-        label='Страна', widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Страна',
-                'help_text': ''
-            }
-        )
-    )
-
-    address = forms.CharField(
-        label='Адрес', widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Адрес',
-                'help_text': ''
-            }
-        )
-    )
-
-    phone = forms.CharField(
-        label='Номер телефона', widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'Номер телефона',
-                'help_text': ''
-            }
-        )
-    )
-
-    class Meta:
-        model = Profile
-        fields = ('country', 'address', 'phone')
-

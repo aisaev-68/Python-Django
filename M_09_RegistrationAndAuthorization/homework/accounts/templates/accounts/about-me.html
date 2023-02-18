@@ -5,10 +5,9 @@ Log-in
 
 {% block section %}
 {% if request.user.is_authenticated %}
-<div class="container col-lg-4">
+<div class="container col-lg-4 mb-5">
     <h5 class="text-center mb-4 text-primary">Профиль пользователя</h5>
-    <div class="form-control py-3 px-5 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3"
-         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+    <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
         <p> Имя пользователя: {{ user.username }} </p>
         <p> Email: {{ user.email }} </p>
         <p> Страна: {{ profile.country }} </p>
@@ -16,9 +15,6 @@ Log-in
         <p> Город: {{ profile.city }} </p>
         <p> Адрес: {{ profile.address }} </p>
         <p> Номер телефона: {{ profile.phone }} </p>
-        <div class="back_to">
-            <p class="link-back"><a href="{% url 'accounts:update_profile' pk=profile.pk %}">Редактировать</a></p>
-        </div>
     </div>
 </div>
 {% else %}

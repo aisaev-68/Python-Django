@@ -17,8 +17,11 @@ class ProductModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['price'].widget.attrs['min'] = 0
+        self.fields['price'].widget.attrs['min'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
+        self.fields['rating'].widget.attrs['max'] = 5
         self.fields['discount'].widget.attrs['min'] = 0
+        self.fields['discount'].widget.attrs['max'] = 30
         self.fields['products_count'].widget.attrs['min'] = 0
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
@@ -26,24 +29,20 @@ class ProductModelForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "description", "attributes", "rating", "price", "created_by", "discount", "image", "products_count"]
+        fields = ["name", "description", "attributes", "rating", "price", "created_by", "discount", "image",
+                  "products_count"]
 
 
 class OrderModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['delivery_address'].widget.attrs.update(cols=0, rows=0)
-        # self.fields["products"] = MultipleChoiceField(
-        #     choices=[(product.pk, product.name) for product in Product.objects.all()],
-        #     widget=SelectMultiple(),
-        #     required=False)
         self.fields["products"] = ModelMultipleChoiceField(
             queryset=Product.objects.all(),
             label='Продукты',
             widget=SelectMultiple(attrs={
-                        "class": "form-select",
-                    },),
+                "class": "form-select",
+            }, ),
         )
         self.fields['user'].widget = HiddenInput()
         self.fields['products'].widget.attrs.update(rows=4)
@@ -57,8 +56,7 @@ class OrderModelForm(ModelForm):
 
 
 class ContactForm(forms.Form):
-
-    first_name = forms.CharField(label="Имя",)
-    last_name = forms.CharField(label="Фамилия",)
-    email = forms.EmailField(label="Email",)
+    first_name = forms.CharField(label="Имя", )
+    last_name = forms.CharField(label="Фамилия", )
+    email = forms.EmailField(label="Email", )
     message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs={'rows': 3}))

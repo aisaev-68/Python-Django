@@ -4,7 +4,7 @@
 Update product
 {% endblock %}
 {% block section %}
-{% if request.user.is_authenticated %}
+{{% if perms.shopapp.change_product or request.user.is_superuser %}
 <div class="container col-lg-8">
     <h5 class="text-center my-3">Обновить продукт</h5>
     <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3"
@@ -17,7 +17,7 @@ Update product
     </div>
     <div class="back_to">
         <p>
-            <a href="{% url 'shopapp:shop_page' %}">Вернуться назад</a>
+            <a class="text-white" href="{% url 'shopapp:shop_page' %}">Вернуться назад</a>
         </p>
     </div>
     {% else %}

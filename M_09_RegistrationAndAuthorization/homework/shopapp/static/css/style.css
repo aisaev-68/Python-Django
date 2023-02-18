@@ -58,7 +58,19 @@
   --color_blue: #1E90FF;
 }
 
-.register-form p, .update_product-form p {
+body {
+  margin: 0 auto;
+  max-width: 1920px;
+  font-family: "Montserrat", sans-serif;
+}
+.nav-item, .nav-link {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: white;
+}
+
+.register-form p, .profile_form p, .update_product-form p {
     display: flex;
     flex-direction: row;
     justify-content: between;
@@ -78,7 +90,7 @@ register-form select {
 
 }
 
-.update_product-form input {
+.update_product-form input, .profile_form input {
     width: 60%;
     height: 2rem;
     margin-left: auto;

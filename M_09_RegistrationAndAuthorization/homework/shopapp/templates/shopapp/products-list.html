@@ -15,7 +15,7 @@ Products list
     </tr>
     {% for product in products %}
     <tr>
-        <td><a href="{% url 'shopapp:product_detail' pk=product.pk %}">{{ product.name|title }}</a></td>
+        <td><a class="text-white" href="{% url 'shopapp:product_detail' pk=product.pk %}">{{ product.name|title }}</a></td>
         <td>{% firstof product.discount 'no discount' %}</td>
         <td>{{ product.price }}</td>
     </tr>
@@ -24,13 +24,15 @@ Products list
 {% else %}
 <h3>Продукция отсутствует</h3>
 {% endif %}
-<div class="back_to">
-    <p class="link-back"><a href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
-    {% if request.user.is_authenticated %}
-    <p class="link-back"><a href="{% url 'shopapp:create_product' %}">Добавить новый продукт</a></p>
+<div class="back_to mt-2">
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
+    {% if perms.shopapp.change_product or request.user.is_superuser %}
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:create_product' %}">Добавить новый продукт</a></p>
     {% endif %}
 </div>
 {% endblock %}
+
+
 
 
 

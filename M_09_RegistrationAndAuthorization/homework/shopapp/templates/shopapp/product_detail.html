@@ -22,11 +22,19 @@ Products list
                  alt="Laptop"/>
             {% endif %}
             <div class="card-body">
-                <h5 class="card-text text-wrap text-break">{{ object.name|title }}</h5>
+                <h5 class="card-text text-wrap text-break">{{ object.name }}</h5>
+                <hr>
                 <h5 class="card-text text-wrap text-break mt-3">Технические характеристики</h5>
-                {% for key, value in object.attributes.items %}
-                {{ key }}: {{ value }}<br/>
-                {% endfor %}
+
+                <table class="">
+                    {% for key, value in object.attributes.items %}
+                    <tr class="" style="height: 3vw">
+                        <th class="">{{ key }}</th><td class="">{{ value|capfirst }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <hr>
+
                 <h5 class="card-text text-wrap text-break mt-2">Описание:</h5>
                 <p class="card-text text-wrap text-break">{{ object.description|capfirst }}</p>
             </div>
@@ -36,10 +44,10 @@ Products list
 
 <div class="back_to">
     <p class="link-back"><a href="{% url 'shopapp:products_list' %}">Вернуться к списку продуктов</a></p>
-    {% if request.user.is_authenticated %}
-    <p class="link-back"><a href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить продукт № {{object.pk}}</a>
+    {% if perms.shopapp.change_product or request.user.is_superuser %}
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:update_product' pk=object.pk %}">Обновить продукт № {{object.pk}}</a>
     </p>
-    <p><a href="{% url 'shopapp:product_archived' pk=object.pk %}">Архивировать продукт № {{object.pk}}</a></p>
+    <p><a class="text-white" href="{% url 'shopapp:product_archived' pk=object.pk %}">Архивировать продукт № {{object.pk}}</a></p>
     {% endif %}
 </div>
 

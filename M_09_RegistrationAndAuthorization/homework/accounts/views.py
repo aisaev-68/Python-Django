@@ -1,90 +1,74 @@
-from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView, TemplateView
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import FormView
 from . import forms
 from .models import Profile
 
 
-class Register(CreateView):
-    form_class = forms.RegisterUser
-    template_name = 'accounts/register.html'
+class AboutMe(FormView):
+    template_name = 'accounts/about-me.html'
+    form_class = forms.RegisterForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('tasks')
 
-    def get_success_url(self):
-        return reverse(
-            'login',
-            # kwargs={"pk": self.object.pk},
-        )
+
+class RegisterView(FormView):
+    template_name = 'accounts/register.html'
+    form_class = forms.RegisterForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        country = form.cleaned_data.get("country")
-        postal_code = form.cleaned_data.get("postal_code")
-        city = form.cleaned_data.get("city")
-        address = form.cleaned_data.get("address")
-        phone = form.cleaned_data.get("phone")
-        Profile.objects.create(user=self.object, country=country, postal_code=postal_code, city=city, address=address, phone=phone)
-        # user = authenticate(
-        #     self.request,
-        #     username=username,
-        #     password=password
-        # )
-        # login(request=self.request, user=user)
-        return response
+        user = form.save()
+        if user:
+            login(self.request, user)
+
+        return super(RegisterView, self).form_valid(form)
 
 
+class ProfileView(LoginRequiredMixin, View):
 
+    def get(self, request, *args, **kwargs):
+        user_form = forms.UserUpdateForm(instance=request.user)
+        profile = Profile.objects.get_or_create(user_id=request.user.pk)[0]
+        profile_form = forms.ProfileUpdateForm(instance=profile)
 
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form
+        }
 
-class ProfileDetail(TemplateView):
-    template_name = 'accounts/about-me.html'
+        return render(request, 'accounts/profile.html', context)
 
-    def get_success_url(self):
-        return reverse(
-            "accounts:profile",
-            kwargs={"pk": self.object.pk},
+    def post(self, request, *args, **kwargs):
+
+        user_form = forms.UserUpdateForm(
+            request.POST,
+            instance=request.user
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        user = User.objects.get(pk=self.kwargs['pk'])
-        context['user'] = user
-        # context['profile'] = Profile.objects.get(user_id=user.pk)
-        context['profile'] = get_object_or_404(Profile, user_id=user.pk)
-        return context
-
-
-class ProfileUpdate(UpdateView):
-    form_class = forms.ProfileForm
-    template_name = 'accounts/update_profile.html'
-
-
-    def get_queryset(self):
-        queryset = Profile.objects.filter(pk=self.kwargs['pk'])
-        return queryset
-    #
-    def get_success_url(self):
-        return reverse(
-            "accounts:profile",
-            kwargs={"pk": self.object.user.pk},
+        profile_form = forms.ProfileUpdateForm(
+            request.POST,
+            # request.FILES,
+            instance=request.user.profile
         )
 
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data()
-    #     profile = Profile.objects.get(user=self.kwargs['pk'])
-    #     print(9999, profile)
-    #     user = User.objects.get(pk=profile.user.pk)
-    #     print(1000, user)
-    #
-    #     context['user_form'] = forms.UserForm(instance=user)
-    #     context['profile_form'] = forms.ProfileForm(instance=profile)
-    #     return context
+            messages.success(request, 'Your profile has been updated successfully')
 
+            return redirect('accounts:about-me')
+        else:
+            context = {
+                'user_form': user_form,
+                'profile_form': profile_form
+            }
+            messages.error(request, 'Error updating you profile')
 
-
-
-
-
+            return render(request, 'accounts/profile.html', context)

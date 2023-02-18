@@ -1,21 +1,19 @@
-{% extends "shopapp/base.html" %}
-{% block title %}
-    Register
-{% endblock %}
+{% extends 'shopapp/base.html' %}
+
 {% block section %}
-{% if not user.is_authenticated %}
-<div class="container col-lg-6 " >
-<h5 class="text-center my-3">Регистрация</h5>
-    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+<div class="container col-lg-6 ">
+
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
         <form class="register-form" method="post" action="{% url 'register' %}">
             {% csrf_token %}
+            <h5 class="text-center my-3">Регистрация</h5>
+            <hr>
             {{ form.as_p }}
+            <hr>
             <input class="btn-primary" type="submit" value="Зарегистрироваться">
+
         </form>
     </div>
 </div>
-{% else %}
-<h1 class="text-center">Вы уже зарегистрированы!</h1>
-<h5 class="text-center">Чтобы зарегистрировать новый аккаунт, выйдете из текущего.</h5>
-{% endif %}
 {% endblock %}
