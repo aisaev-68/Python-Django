@@ -131,6 +131,7 @@ class OrderListByUser(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = Order.objects.select_related("user").prefetch_related("products").filter(
             user=self.kwargs['pk']).all()
+
         return queryset
 
 
