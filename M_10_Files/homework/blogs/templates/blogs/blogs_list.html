@@ -1,0 +1,37 @@
+{% extends 'blogs/blogs.html' %}
+{% load static %}
+
+{% block title %}
+AllPost list
+{% endblock %}
+
+{% block article %}
+<article>
+    <div class="container py-4 py-xl-5">
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            <div class="col">
+                {% for post in posts %}
+                <div class="p-4"><span class="badge rounded-pill bg-primary mb-2">Article</span>
+                    {% for p in post.image.all %}
+                    <img src="{{ p.url }}"
+                         style="height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                         class="card-img-top mt-4"
+                         alt="post_image"/>
+                    {% endfor %}
+                    <h4>{{ post.post.title }}</h4>
+                    <p>{{ post.post.description }}</p>
+                    <div>
+                        <p class="fw-bold mb-0">
+                            <a class="" href="">
+                                {{ post.post.created_by.first_name }} {{ post.post.created_by.last_name }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</article>
+{% endblock %}

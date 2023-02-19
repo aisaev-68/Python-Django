@@ -1,0 +1,27 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Archived product
+{% endblock %}
+
+{% block section %}
+<div class="container col-lg-4">
+    {% if request.user.is_authenticated %}
+    <h5 class="text-center mb-4 text-primary">Архивировать продукт № {{object.name}}?</h5>
+    <div class="form-control py-3 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3"
+         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+        <form method="Post" class="product__form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-around">
+                <input class="btn-primary" type="submit" value="Да" style="width: 5vw"/>
+                <input class="btn-primary" type="submit" name="cancel" value="Нет" style="width: 5vw"/>
+            </div>
+        </form>
+
+    </div>
+    {% else %}
+    <h3 class="title_login">Вы не авторизованы на сайте</h3>
+    {% endif %}
+    {% endblock %}
+</div>
