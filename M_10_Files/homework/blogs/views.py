@@ -20,12 +20,11 @@ class ShowBlogs(View):
             post = Post.objects.filter(created_by_id=user_id)
             context = {"posts": Post.objects.filter(created_by=user_id)}
         else:
-            # posts = Post.objects.all()
-            # print(9999, [p.pk for p in Post.objects.all()])
-            # posts_id = [p.pk for p in posts]
-            images = PostImage.objects.all()
-            print(8888, [i.to_json()['images'] for i in images])
-            context = {"post_images": images}
+            posts = [p for p in Post.objects.all()]
+            context = {
+                    'posts': posts
+                }
+
 
         return render(request, 'blogs/blogs_list.html', context=context)
 

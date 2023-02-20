@@ -26,7 +26,7 @@ class Command(BaseCommand):
         users = [user for user in User.objects.all()]
         path_dir = uploaded_file_path
 
-        for _ in range(10):
+        for _ in range(20):
             user = random.choice(users)
             text = Text(locale=Locale.RU)
             internet = Internet()

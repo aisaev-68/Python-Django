@@ -18,7 +18,7 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        users = [user for user in User.objects.all()]
+
         path_dir = uploaded_file_path
         self.stdout.write("Create products")
 
@@ -129,8 +129,10 @@ class Command(BaseCommand):
                                                                       'image': 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ5wJgm2tU9Ad9phJbIl0ogV_cLWmrxvuXPBZdsVt9VYjrdNQoU&usqp=CAE',
                                                                       'products_count': 50, 'archived': False}]
 
+        user = User.objects.filter(username='editor').first()
+
         for d in products_names:
-            user = random.choice(users)
+
             request = requests.get(d['image'])
             filename = str(uuid.uuid4())
             file_name = "{name}.{ext}".format(name=filename, ext='jpg')

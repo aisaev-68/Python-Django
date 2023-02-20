@@ -6,6 +6,8 @@ from mimesis import Person, Address
 from mimesis.locales import Locale
 from mimesis.enums import Gender
 
+from accounts.models import Profile
+from blogs.models import Post
 from shopapp.models import Product, Order
 
 
@@ -27,6 +29,7 @@ class Command(BaseCommand):
             moderator_group.permissions.add(perm)
             if perm.codename == "add_product":
                 publisher_group.permissions.add(perm)
+                editor_group.permissions.add(perm)
 
             elif perm.codename == "change_product":
                 editor_group.permissions.add(perm)
@@ -38,10 +41,20 @@ class Command(BaseCommand):
 
             elif perm.codename == "delete_product":
                 cleaner_group.permissions.add(perm)
+                editor_group.permissions.add(perm)
 
         content_type_order = ContentType.objects.get_for_model(Order)
         order_permission = Permission.objects.filter(content_type=content_type_order)
         for perm in order_permission:
+            moderator_group.permissions.add(perm)
+            editor_group.permissions.add(perm)
+            publisher_group.permissions.add(perm)
+            cleaner_group.permissions.add(perm)
+            clients_group.permissions.add(perm)
+
+        content_type_post = ContentType.objects.get_for_model(Post)
+        post_permission = Permission.objects.filter(content_type=content_type_post)
+        for perm in post_permission:
             moderator_group.permissions.add(perm)
             editor_group.permissions.add(perm)
             publisher_group.permissions.add(perm)
@@ -81,6 +94,10 @@ class Command(BaseCommand):
                 last_name=person.last_name(gender=Gender.MALE),
                 email=person.email(),
                 password='12345',
+
+            )
+            Profile.objects.create(
+                user=client_user,
                 postal_code=address.postal_code(),
                 country=address.country(),
                 city=address.city(),
