@@ -2,6 +2,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.models import Permission
+from mimesis import Person, Address
+from mimesis.locales import Locale
+from mimesis.enums import Gender
 
 from shopapp.models import Product, Order
 
@@ -56,16 +59,37 @@ class Command(BaseCommand):
         moderator_group = Group.objects.get(name="Moderator")
         super_user.groups.add(moderator_group)
 
-        self.stdout.write(self.style.SUCCESS(f"{super_user} added in Moderator group"))
-
         editor_user = User.objects.create_user(
             username='editor',
-            first_name='Иван',
-            last_name='Иванович',
+            first_name='Борис',
+            last_name='Борисович',
             email='editor@ya.ru',
             password='12345')
+
         editor_group = Group.objects.get(name="Editor")
         editor_user.groups.add(editor_group)
+
+        self.stdout.write(self.style.SUCCESS(f"{super_user} added in Moderator group"))
+
+        for _ in range(20):
+            person = Person(locale=Locale.RU)
+            address = Address(locale=Locale.RU)
+            client_user = User.objects.create_user(
+                username=person.username(),
+                first_name=person.first_name(gender=Gender.MALE),
+                last_name=person.last_name(gender=Gender.MALE),
+                email=person.email(),
+                password='12345',
+                postal_code=address.postal_code(),
+                country=address.country(),
+                city=address.city(),
+                address=address.address(),
+                phone=person.telephone(),
+            )
+            client_group = Group.objects.get(name="Clients")
+            client_user.groups.add(client_group)
+
+
 
         self.stdout.write(self.style.SUCCESS(f"{editor_user} added in Editor group"))
 

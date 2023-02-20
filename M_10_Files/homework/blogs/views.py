@@ -23,9 +23,9 @@ class ShowBlogs(View):
             # posts = Post.objects.all()
             # print(9999, [p.pk for p in Post.objects.all()])
             # posts_id = [p.pk for p in posts]
-            post_img = PostImage.objects.select_related("post").all()
-            print(8888, [p.to_json() for p in post_img])
-            context = {"posts": PostImage.objects.all()}
+            images = PostImage.objects.all()
+            print(8888, [i.to_json()['images'] for i in images])
+            context = {"post_images": images}
 
         return render(request, 'blogs/blogs_list.html', context=context)
 

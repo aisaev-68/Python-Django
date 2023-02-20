@@ -15,7 +15,7 @@ class Post(models.Model):
 
 
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='posts', verbose_name='Пост')
     image = models.FileField(upload_to="post_image/", blank=True, verbose_name='Файлы поста')
 
     def save(self, *args, **kwargs):
@@ -30,7 +30,7 @@ class PostImage(models.Model):
 
     def to_json(self):
         image_post = {
-                'posts': self.post,
-                'images': self.image
+                'posts': self.post.pk,
+                'images': PostImage.objects.filter(post_id=self.post)
             }
         return image_post
