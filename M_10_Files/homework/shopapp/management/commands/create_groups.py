@@ -58,6 +58,7 @@ class Command(BaseCommand):
             password='12345')
         moderator_group = Group.objects.get(name="Moderator")
         super_user.groups.add(moderator_group)
+        self.stdout.write(self.style.SUCCESS(f"{super_user} added in Moderator group"))
 
         editor_user = User.objects.create_user(
             username='editor',
@@ -69,7 +70,7 @@ class Command(BaseCommand):
         editor_group = Group.objects.get(name="Editor")
         editor_user.groups.add(editor_group)
 
-        self.stdout.write(self.style.SUCCESS(f"{super_user} added in Moderator group"))
+        self.stdout.write(self.style.SUCCESS(f"{editor_user} added in Editor group"))
 
         for _ in range(20):
             person = Person(locale=Locale.RU)
@@ -89,19 +90,6 @@ class Command(BaseCommand):
             client_group = Group.objects.get(name="Clients")
             client_user.groups.add(client_group)
 
-
-
-        self.stdout.write(self.style.SUCCESS(f"{editor_user} added in Editor group"))
-
-        client_user = User.objects.create_user(
-            username='client',
-            first_name='Борис',
-            last_name='Борисович',
-            email='client@ya.ru',
-            password='12345')
-        client_group = Group.objects.get(name="Clients")
-        client_user.groups.add(client_group)
-
-        self.stdout.write(self.style.SUCCESS(f"{client_user} added in Clients group"))
+            self.stdout.write(self.style.SUCCESS(f"{client_user} added in Clients group"))
 
         self.stdout.write(self.style.SUCCESS("Process end successful."))
