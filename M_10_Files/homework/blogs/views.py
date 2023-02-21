@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.views.generic import ListView, CreateView, View
-from .forms import PostForm, PostImageForm
+from django.views.generic import ListView, CreateView, View, DetailView, FormView
+from .forms import PostForm, PostImageForm, SendMessageForm
 from .models import Post, PostImage
 
 
@@ -17,16 +17,27 @@ class ShowBlogs(View):
         user_id = self.kwargs.get('pk')
 
         if user_id:
-            post = Post.objects.filter(created_by_id=user_id)
-            context = {"posts": Post.objects.filter(created_by=user_id)}
+            posts = [p for p in Post.objects.filter(created_by_id=user_id)]
+            context = {
+                "posts": posts
+            }
         else:
             posts = [p for p in Post.objects.all()]
             context = {
                     'posts': posts
                 }
 
-
         return render(request, 'blogs/blogs_list.html', context=context)
+
+
+class BlogDetail(DetailView):
+    model = PostImage
+    context_object_name = "posts"
+    template_name = 'blogs/blogs_detail.html'
+
+    def get_object(self, queryset=None):
+        queryset = Post.objects.filter(pk=self.kwargs['pk'])
+        return super().get_object(queryset)
 
 
 # class CreateBlog(CreateView):
@@ -75,3 +86,11 @@ class CreateBlog(LoginRequiredMixin, View):
             messages.error(request, 'Ошибка обновления поста.')
 
             return render(request, 'accounts/profile.html', context)
+
+
+class SendMessage(View):
+    form_class = SendMessageForm
+    template_name = "blogs/contact.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'form': self.form_class})

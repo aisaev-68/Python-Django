@@ -11,9 +11,8 @@
 
 <div class="row no-gutters row-eq-height">
     {% for product in products %}
-    <div class="card-deck col-lg-3 col-md-3 col-sm-4 col-xs-12 d-flex" style="margin-right: 1vw;">
-
-        <div class="card mb-3 bg-white border-primary border rounded d-flex flex-column">
+    <div class="card-desk col-3 shadow-lg bg-white rounded" style="margin-right: .8vw">
+        <div class="card mb-3 bg-white d-flex flex-column" style="">
             {% if 'http' in product.image.url %}
             <img src="{{ product.image }}"
                  style="height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"

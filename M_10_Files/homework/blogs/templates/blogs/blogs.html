@@ -21,65 +21,46 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar navbar-dark navbar-expand-sm fixed-top bg-primary py-3" data-bss-disabled-mobile="true"
-         data-bss-hover-animate="tada">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span
-                class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg
-                xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"
-                class="bi bi-bezier">
-                            <path fill-rule="evenodd"
-                                  d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5v-1zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"></path>
-                            <path d="M6 4.5H1.866a1 1 0 1 0 0 1h2.668A6.517 6.517 0 0 0 1.814 9H2.5c.123 0 .244.015.358.043a5.517 5.517 0 0 1 3.185-3.185A1.503 1.503 0 0 1 6 5.5v-1zm3.957 1.358A1.5 1.5 0 0 0 10 5.5v-1h4.134a1 1 0 1 1 0 1h-2.668a6.517 6.517 0 0 1 2.72 3.5H13.5c-.123 0-.243.015-.358.043a5.517 5.517 0 0 0-3.185-3.185z"></path>
-                        </svg></span><span data-bss-hover-animate="pulse">Brand</span></a>
-            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
-                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" data-bss-hover-animate="pulse" href="#">Главная</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" data-bss-hover-animate="bounce" href="{% url 'blogs:created_blog' %}">Статьи</a></li>
-                </ul>
-                <button class="btn btn-primary link-dark" data-bss-hover-animate="pulse" type="button">Добавить статью
-                </button>
-            </div>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/index.html">Global</a>
+        <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i
+                class="fa fa-bars"></i></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'blogs:to_shop' %}">Главная страница</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'blogs:show_blogs' %}">Статьи</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/about.html">FAQ</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'blogs:send_message' %}">Контакт</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/post.html">Добавить статью</a></li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+<header class="masthead" style="">
+    <div class="overlay" style="height: 100px;"></div>
+    <div class="container">
+        <div class="row" style="height: 100px;"></div>
+    </div>
 </header>
-<main>
+<main class="">
     {% block article %}
-        Base article
+    Base article
     {% endblock %}
 </main>
-<footer class="bg-dark">
+<footer>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center mt-2">
-                <h2 class="footer-heading"><a href="#" class="logo text-white">Global</a></h2>
-                <div class="menu mb-3">
-                    <a class="text-white" href="#">Главная</a>
-                    <a class="text-white mx-3" href="#">Прайс</a>
-                    <a class="me-3 text-white" href="#">Блог</a>
-                    <a class="text-white" href="#">Контакты</a>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <a class="" href="">
-                        <i class="fa fa-twitter fa-2x"></i></a>
-
-                    <a class="" href="">
-                        <i class="fa fa-facebook fa-2x px-3"></i></a>
-
-                    <a class="" href="">
-                        <i class="fa fa-instagram fa-2x"></i></a>
-
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-md-12 text-center">
-                    <p class="copyright">
-                        <a href="" target="_blank">@Global2023</a>
-                    </p>
-                </div>
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i
+                            class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></li>
+                    <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i
+                            class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></li>
+                    <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i
+                            class="fa fa-github fa-stack-1x fa-inverse"></i></span></li>
+                </ul>
+                <p class="text-muted copyright">Copyright&nbsp;©&nbsp;Global 2018</p>
             </div>
         </div>
     </div>
