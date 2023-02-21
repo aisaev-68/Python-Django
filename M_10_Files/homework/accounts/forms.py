@@ -6,6 +6,7 @@ from .models import Profile
 
 
 class UserUpdateForm(forms.ModelForm):
+
     first_name = forms.CharField(
         label='Имя*',
         max_length=100,
@@ -113,6 +114,11 @@ class RegisterForm(UserCreationForm, forms.ModelForm):
         ),
         required=True
     )
+    avatar = forms.ImageField(
+        label="Аватор профиля",
+        required=False,
+        widget=forms.FileInput()
+    )
 
     error_messages = {
         "password_mismatch": _("Пароли не совпадают!."),
@@ -127,10 +133,15 @@ class RegisterForm(UserCreationForm, forms.ModelForm):
 
     class Meta:
         model = User
-        fields = 'username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'country', 'postal_code', 'city', 'address', 'phone'
+        fields = 'avatar', 'username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'country', 'postal_code', 'city', 'address', 'phone'
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        label="Аватор профиля",
+        required=False,
+        widget=forms.FileInput()
+    )
     country = forms.CharField(
         label='Страна*',
         max_length=100,
@@ -155,7 +166,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['country', 'postal_code', 'city', 'address', 'phone']
+        fields = ['avatar', 'country', 'postal_code', 'city', 'address', 'phone']
 
 
 class UserRegistrationForm(UserCreationForm):

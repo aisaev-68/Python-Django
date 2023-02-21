@@ -8,7 +8,7 @@ AllPost list
 {% block article %}
 <article class="container">
     <div class="row no-gutters" style="">
-        <div class="col-12 mb-5 shadow-lg bg-white rounded p-4" style="">
+        <div class="col-12 my-3 shadow-lg bg-light rounded p-4" style="">
             <div class="d-flex flex-column float-start col-4 me-4">
                 {% for image in object.posts.all %}
                 <img class="img-fluid mb-2" src="{{ image.image.url }}"
@@ -19,9 +19,9 @@ AllPost list
 
 
             <h4>{{ object.title }}</h4>
-            <p class="text-justify" style="text-align: justify;">{{ object.description }}</p>
+            <p class="text-justify" style="">{{ object.description }}</p>
             <div class="d-flex justify-content-end">
-                <a class="btn btn-primary rounded-pill bg-primary py-2 text-capitalize px-4" href="" style="height: 2vw;">
+                <a class="btn btn-primary rounded-pill bg-primary py-2 text-capitalize px-4" href="" style="">
                     {{ object.created_by.first_name }} {{ object.created_by.last_name }}
                 </a>
             </div>

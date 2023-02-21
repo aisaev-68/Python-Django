@@ -32,7 +32,7 @@
                 <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'blogs:show_blogs' %}">Статьи</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="/about.html">FAQ</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'blogs:send_message' %}">Контакт</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="/post.html">Добавить статью</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'login' %}">Добавить статью</a></li>
             </ul>
         </div>
     </div>
@@ -43,7 +43,7 @@
         <div class="row" style="height: 100px;"></div>
     </div>
 </header>
-<main class="">
+<main class="bg-light">
     {% block article %}
     Base article
     {% endblock %}

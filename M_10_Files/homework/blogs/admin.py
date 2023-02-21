@@ -17,6 +17,7 @@ class PostAdmin(admin.ModelAdmin):
             return obj.description
         return obj.description[:100] + "..."
 
+
 @admin.register(PostImage)
 class PostAdmin(admin.ModelAdmin):
     list_display = "pk", "post", "image"

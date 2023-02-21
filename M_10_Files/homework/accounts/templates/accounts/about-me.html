@@ -8,6 +8,9 @@ Log-in
 <div class="container col-lg-4 mb-5">
     <h5 class="text-center mb-4 text-primary">Профиль пользователя</h5>
     <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+        <img class="img-fluid mb-2" src="{{ profile.avatar.url }}"
+                     style="object-fit: contain; border-radius: 50px;"
+                     alt="avatar_image"/>
         <p> Имя пользователя: {{ user.username }} </p>
         <p> Email: {{ user.email }} </p>
         <p> Страна: {{ profile.country }} </p>

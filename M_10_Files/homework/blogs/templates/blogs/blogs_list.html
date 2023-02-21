@@ -5,31 +5,28 @@
 AllPost list
 {% endblock %}
 
+
 {% block article %}
 <article class="container">
-    <div class="row no-gutters row-eq-height">
+    <div class="row">
         {% for post in posts %}
-        <div class="card-desk col-6 mb-5 d-flex shadow-lg bg-white rounded p-3" style="">
-            <div class="card-body">
-                <img class="img-fluid" src="{{ post.posts.first.image.url }}"
-                     style="object-fit: contain; border-radius: 15px;"
-                     alt="post_image"/>
-                <p class="py-2 m-0" style="text-align: justify;">
-                    <a class="text-decoration-none " href="{% url 'blogs:blog_detail' pk=post.pk %}">
-                        {{ post.title|truncatechars:100 }}
-                    </a>
-                </p>
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary rounded-pill bg-primary py-2 text-capitalize px-4" href="" style="height: 2vw;">
-                        {{ post.created_by.first_name }} {{ post.created_by.last_name }}
-                    </a>
-                </div>
-
-            </div>
-
+        <div class="col-6 bg-light shadow-lg bg-light rounded my-3 d-flex flex-column justify-content-between" style="">
+            <img class="img-fluid" src="{{ post.posts.first.image.url }}"
+                 style="object-fit: contain; border-radius: 15px;"
+                 alt="post_image"/>
+            <p class="text-justify">
+                <a class="text-decoration-none " href="{% url 'blogs:blog_detail' pk=post.pk %}">
+                    {{ post.title|truncatechars:100 }}
+                </a>
+            </p>
+            <p class="text-muted ">
+                <a class="btn btn-primary  rounded-pill bg-primary py-2 text-capitalize px-4" href=""
+                   style="">
+                    {{ post.created_by.first_name }} {{ post.created_by.last_name }}
+                </a>
+            </p>
         </div>
         {% endfor %}
     </div>
 </article>
 {% endblock %}
-

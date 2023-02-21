@@ -7,9 +7,9 @@ Products list
 {% block section %}
 <div class="row no-gutters row-eq-height">
 
-    <div class="card-deck col-lg-6 col-md-3 col-sm-4 col-xs-12 d-flex mx-auto">
+    <div class="card-deck col-lg-8 col-md-3 col-sm-4 col-xs-12 d-flex mx-auto ">
 
-        <div class="card mb-3 bg-white border-primary border rounded d-flex flex-column" style="width: 44rem;">
+        <div class="card p-3 mt-3 bg-white d-flex flex-column shadow-lg bg-light rounded" style="">
             {% if 'http' in object.image.url %}
             <img src="{{ object.image }}"
                  style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
@@ -35,8 +35,8 @@ Products list
                 </table>
                 <hr>
 
-                <h5 class="card-text text-wrap text-break mt-2">Описание:</h5>
-                <p class="card-text text-wrap text-break">{{ object.description|capfirst }}</p>
+                <h5 class="card-text text-wrap text-break mt-2 ">Описание:</h5>
+                <p class="text-justify">{{ object.description|capfirst }}</p>
             </div>
         </div>
     </div>
