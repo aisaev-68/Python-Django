@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import Profile
 
 
-class UserUpdateForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
 
     first_name = forms.CharField(
         label='Имя*',
@@ -136,18 +136,31 @@ class RegisterForm(UserCreationForm, forms.ModelForm):
         fields = 'avatar', 'username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'country', 'postal_code', 'city', 'address', 'phone'
 
 
-class ProfileUpdateForm(forms.ModelForm):
-    avatar = forms.ImageField(
-        label="Аватор профиля",
-        required=False,
-        widget=forms.FileInput()
-    )
+class ProfileForm(forms.ModelForm):
     country = forms.CharField(
         label='Страна*',
         max_length=100,
         widget=forms.TextInput(),
         required=True
     )
+    postal_code = forms.CharField(
+        label='Почтовы индекс',
+        widget=forms.TextInput(),
+        required=False
+    )
+    city = forms.CharField(
+        label='Город',
+        max_length=200,
+        widget=forms.TextInput(),
+        required=False
+    )
+    address = forms.CharField(
+        label='Адрес',
+        max_length=200,
+        widget=forms.TextInput(),
+        required=False
+    )
+
     phone = forms.CharField(
         label='Номер телефона*',
         max_length=20,
@@ -158,11 +171,17 @@ class ProfileUpdateForm(forms.ModelForm):
         ),
         required=True
     )
+    avatar = forms.ImageField(
+        label="Аватор профиля",
+        required=False,
+        widget=forms.FileInput()
+    )
+
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+            super().__init__(*args, **kwargs)
+            for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
 
     class Meta:
         model = Profile

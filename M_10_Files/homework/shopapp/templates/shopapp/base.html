@@ -69,7 +69,7 @@
                         {% if perms.shopapp.change_product or request.user.is_superuser %}
                         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'accounts:profile' %}">
+                                <a class="nav-link" href="{% url 'accounts:about-me' pk=request.user.pk%}">
                                     <i class="fa fa-user fa-2x text-primary"></i>
                                 </a>
                             </li>

@@ -1,4 +1,5 @@
 {% extends "shopapp/base.html" %}
+{% load static %}
 {% block title %}
 Log-in
 {% endblock %}
@@ -8,9 +9,13 @@ Log-in
 <div class="container col-lg-4 mb-5">
     <h5 class="text-center mb-4 text-primary">Профиль пользователя</h5>
     <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
-        <img class="img-fluid mb-2 rounded-circle" src="{{ user.profiles.avatar.url }}"
-                     style="object-fit: contain; "
-                     alt="avatar_image"/>
+
+        {% if user.profiles.avatar %}
+        <img class="img-fluid m-auto rounded-circle" src="{{ user.profiles.avatar.url }}" height=100 width=100><br><br>
+        {% else %}
+        <img class="img-fluid m-auto rounded-circle" src="{% static 'default_avatars.png' %}" height=100 width=100><br><br>
+        {% endif %}
+
         <p> Имя пользователя: {{ user.username }} </p>
         <p> Email: {{ user.email }} </p>
         <p> Страна: {{ user.profiles.country }} </p>
@@ -18,6 +23,11 @@ Log-in
         <p> Город: {{ user.profiles.city }} </p>
         <p> Адрес: {{ user.profiles.address }} </p>
         <p> Номер телефона: {{ user.profiles.phone }} </p>
+        <p class="">
+            <a class="" href="{% url 'accounts:profile' %}">
+                Редактировать профиль
+            </a>
+        </p>
     </div>
 </div>
 {% else %}
