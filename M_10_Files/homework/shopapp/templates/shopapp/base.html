@@ -40,7 +40,8 @@
                         <a class="nav-link" href="{% url 'shopapp:products_list' %}"> Прайс </a>
                     </div>
                 </li>
-
+                {% endif %}
+                {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="Preview-order" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,12 +54,13 @@
                         </a>
                     </div>
                 </li>
+                {% endif %}
                 <li class="nav-item"><a class="nav-link mx-3" href="{% url 'shopapp:contact' %}">
                     Контакты </a>
                 </li>
-                {% endif %}
+
             </ul>
-            {% if request.user.is_authenticated or perms.shopapp.change_product or request.user.is_superuser %}
+            {% if request.user.is_authenticated %}
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:about-me' pk=request.user.pk%}">
@@ -66,6 +68,8 @@
                     </a>
                 </li>
             </ul>
+
+
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll align-items-center">
                 <li class="nav-item mx-2"><a href="{% url 'logout' %}"
                                              class="btn btn-primary bg-danger text-white me-3">
@@ -85,7 +89,6 @@
                         Блог
                     </a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'shopapp:contact' %}"> Контакты </a>
                 </li>
             </ul>
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll align-items-center">
