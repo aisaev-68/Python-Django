@@ -7,7 +7,11 @@ class Profile(models.Model):
     CHOICE = [(1, 'Выберите значение'), (2, False), (3, True)]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', verbose_name='Пользователь')
-    avatar = models.ImageField(upload_to="avatars/", verbose_name='Аватар профиля', null=True, blank=True)
+    avatar = models.ImageField(upload_to="avatars/",
+                               verbose_name='Аватар профиля',
+                               null=True,
+                               blank=True,
+                               default='avatars/default_avatars.png')
     country = models.CharField(max_length=100, verbose_name='Страна', blank=True)
     postal_code = models.CharField(max_length=20, verbose_name='Почтовый индекс', blank=True)
     city = models.CharField(max_length=100, verbose_name='Город', blank=True)
@@ -21,6 +25,7 @@ class Profile(models.Model):
         verbose_name = "Профиль"
         verbose_name_plural = "Профили"
         ordering = ["user", "address"]
+
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

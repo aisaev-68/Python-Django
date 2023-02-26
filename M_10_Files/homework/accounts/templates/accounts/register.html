@@ -3,13 +3,14 @@
 {% block section %}
 <div class="container col-lg-6 ">
 
-    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3"
-         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+    <div class="form-control py-2 px-0 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="">
         <form class="register-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h5 class="text-center my-3">Регистрация</h5>
+            <h5 class="text-center">Регистрация</h5>
             <hr>
             {{ user_form.as_p }}
+
             {{ profile_form.as_p }}
             <hr>
             <input class="btn-primary" type="submit" value="Зарегистрироваться">

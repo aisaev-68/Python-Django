@@ -4,6 +4,16 @@ from .models import Post, PostImage
 
 
 class PostForm(ModelForm):
+    title = forms.CharField(
+        label="Заголовок",
+        required=True,
+        widget=forms.TextInput(attrs={})
+    )
+    description = forms.FileField(
+        label="Текст",
+        required=False,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 20})
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -17,15 +27,15 @@ class PostForm(ModelForm):
 
 
 class PostImageForm(ModelForm):
-    image = forms.ImageField(
-        label="Изображение",
+    images = forms.FileField(
+        label="Изображения",
         required=False,
         widget=forms.ClearableFileInput(attrs={'multiple': True})
     )
 
     class Meta:
         model = PostImage
-        fields = ["image", ]
+        fields = ["images", ]
 
 
 class SendMessageForm(forms.Form):

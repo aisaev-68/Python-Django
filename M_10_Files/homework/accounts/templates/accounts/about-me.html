@@ -8,13 +8,17 @@ Log-in
 {% if request.user.is_authenticated %}
 <div class="container col-lg-4 mb-5">
     <h5 class="text-center mb-4 text-primary">Профиль пользователя</h5>
-    <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+    <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3"
+         style="">
+
 
         {% if user.profiles.avatar %}
-        <img class="img-fluid m-auto rounded-circle" src="{{ user.profiles.avatar.url }}" height=100 width=100><br><br>
+        <img class="img-fluid m-auto rounded-circle" src="{{ user.profiles.avatar.url }}" height=100 width=100 style="border:4px solid #d3232e;"><br><br>
         {% else %}
-        <img class="img-fluid m-auto rounded-circle" src="{% static 'default_avatars.png' %}" height=100 width=100><br><br>
+        <img class="img-fluid m-auto rounded-circle" src="{% static 'default_avatars.png' %}" height=100
+             width=100 style="border:1px solid #d3232e;"><br><br>
         {% endif %}
+
 
         <p> Имя пользователя: {{ user.username }} </p>
         <p> Email: {{ user.email }} </p>

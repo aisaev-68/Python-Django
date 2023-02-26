@@ -1,20 +1,23 @@
-{% extends "blogs/blogs.html" %}
+<!--{% extends "blogs/blogs.html" %}-->
 
-{% block title %}
-Contact
-{% endblock %}
+<!--{% block title %}-->
+<!--Contact-->
+<!--{% endblock %}-->
 
-{% block article %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-lg-8 mx-auto shadow-lg bg-white rounded p-4">
-            <p>Отправить сообщение?</p>
-            <form id="contactForm" name="sentMessage" novalidate="novalidate">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input class="btn btn-primary" type="submit" value="Отправить">
-            </form>
-        </div>
-    </div>
-</div>
-{% endblock %}
+<!--{% block article %}-->
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-10 col-lg-8 mx-auto shadow-lg bg-white rounded p-4">-->
+<!--            <p>Отправить сообщение?</p>-->
+<!--            <form id="contactForm" name="sentMessage" novalidate="novalidate">-->
+<!--                {% csrf_token %}-->
+<!--                {% for field in form %}-->
+<!--                <p class="d-flex justify-content-between">{{ field.label_tag }} {{ field }}</p>-->
+<!--&lt;!&ndash;                {{ form.as_p }}&ndash;&gt;-->
+<!--                {% endfor %}-->
+<!--                <input class="btn btn-primary" type="submit" value="Отправить">-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--{% endblock %}-->

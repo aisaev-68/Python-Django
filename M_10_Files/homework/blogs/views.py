@@ -1,19 +1,19 @@
 from typing import List
 
+from django.forms import HiddenInput, modelformset_factory
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, View, DetailView, FormView
 from .forms import PostForm, PostImageForm, SendMessageForm
 from .models import Post, PostImage
 
 
-
-
-
 class ShowBlogs(View):
     def get(self, request: HttpRequest, *args, **kwargs):
+        print(7777777777)
         user_id = self.kwargs.get('pk')
 
         if user_id:
@@ -24,8 +24,8 @@ class ShowBlogs(View):
         else:
             posts = [p for p in Post.objects.all()]
             context = {
-                    'posts': posts
-                }
+                'posts': posts
+            }
 
         return render(request, 'blogs/blogs_list.html', context=context)
 
@@ -40,52 +40,33 @@ class BlogDetail(DetailView):
         return super().get_object(queryset)
 
 
-# class CreateBlog(CreateView):
-#     form_class = PostForm
-#     context_object_name = "post"
-#     template_name = 'blogs/created_blog.html'
+def create_blog(request: HttpRequest):
+    ImageFormSet = modelformset_factory(PostImage, form=PostImageForm, extra=3)
+    if request.method == "POST":
+        post_form = PostForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=PostImage.objects.none())
 
-class CreateBlog(LoginRequiredMixin, View):
-    # def get(self, request, *args, **kwargs):
-    #     post_form = PostForm(instance=request.user)
-    #     post = Post.objects.get_or_create(user_id=request.user.pk)[0]
-    #     post_image_form = PostImageForm(instance=post)
-    #
-    #     context = {
-    #         'post_form': post_form,
-    #         'post_image_form': post_image_form
-    #     }
-    #
-    #     return render(request, 'blogs/created_post.html', context)
-
-    def post(self, request, *args, **kwargs):
-        post_form = PostForm(
-            request.POST,
-            instance=request.user
-        )
-        post_image_form = PostImageForm(
-            request.POST,
-            request.FILES,
-            instance=request.post
-        )
-        if post_form.is_valid() and post_image_form.is_valid():
-            post_form.save()
-            for file in request.FILES.getlist('image'):
-                img = PostImage()
-                img.post = post_form.cleaned_data['post']
-                img.image =file
-                img.save()
-
+        if post_form.is_valid() and formset.is_valid():
+            new_post = Post(created_by=request.user)
+            new_post.title = post_form.cleaned_data['title']
+            new_post.description = post_form.cleaned_data['description']
+            print(8888888, new_post.pk, request.user.pk)
+            # new_post.create_by = request.user.pk
+            new_post.save()
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['images']
+                    photo = PostImage(post=new_post, image=image)
+                    photo.save()
+            messages.success(request, "Posted!")
             return redirect('blogs:show_blogs')
-
         else:
-            context = {
-                'post_form': post_form,
-                'post_image_form': post_image_form
-            }
-            messages.error(request, 'Ошибка обновления поста.')
+            print(post_form.errors, formset.errors)
+    else:
+        post_form = PostForm()
+        formset = ImageFormSet(queryset=PostImage.objects.none())
 
-            return render(request, 'accounts/profile.html', context)
+    return render(request, 'blogs/created_post.html', context={'form': post_form, 'formset': formset})
 
 
 class SendMessage(View):

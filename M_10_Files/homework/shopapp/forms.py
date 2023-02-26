@@ -17,7 +17,7 @@ class ProductModelForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['price'].widget.attrs['min'] = 0
-        self.fields['price'].widget.attrs['maxn'] = 10000000
+        self.fields['price'].widget.attrs['max'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['rating'].widget.attrs['max'] = 5
         self.fields['discount'].widget.attrs['min'] = 0
@@ -59,4 +59,4 @@ class ContactForm(forms.Form):
     first_name = forms.CharField(label="Имя", )
     last_name = forms.CharField(label="Фамилия", )
     email = forms.EmailField(label="Email", )
-    message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs={'rows': 3}))
+    message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs={'rows': 3, 'cols': 20,}))

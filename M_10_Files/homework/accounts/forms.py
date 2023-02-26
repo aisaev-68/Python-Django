@@ -64,7 +64,7 @@ class UserForm(UserFormUpdate, forms.ModelForm):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Пароль',
+                'placeholder': 'Пароль*',
                 'help_text': ''
             }
         )
@@ -73,7 +73,7 @@ class UserForm(UserFormUpdate, forms.ModelForm):
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Повторный пароль',
+                'placeholder': 'Повторный пароль*',
                 'help_text': ''
             }
         )

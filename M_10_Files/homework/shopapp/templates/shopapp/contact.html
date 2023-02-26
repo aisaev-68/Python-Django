@@ -1,20 +1,26 @@
 {% extends "shopapp/base.html" %}
 
 {% block title %}
-    Contact
+Contact
 {% endblock %}
 
 {% block section %}
-<div class="container col-lg-8">
-    <h5 class="text-center my-3">Отправить сообщение:</h5>
-    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
-
-        <form class="register-form" method="post" action="">
+<div class="container col-lg-6">
+    <h5 class="text-center">Отправить сообщение:</h5>
+    <div class="form-control border-primary border-1 p-3 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="">
+        <form class="form-control" method="post" action="">
             {% csrf_token %}
-            {{ form.as_p }}
-         <input class="btn-primary" type="submit" value="Отправить">
-    </form>
-</div>
+            {% for field in form %}
+            <div class="d-flex justify-content-between">
+                <p class="" style="">{{ field.label_tag }}</p>
+                <p class="" style="">{{ field }}</p>
+            </div>
+
+            {% endfor %}
+            <input class="btn-primary p-1" type="submit" value="Отправить">
+        </form>
+    </div>
 </div>
 
 {% endblock %}
