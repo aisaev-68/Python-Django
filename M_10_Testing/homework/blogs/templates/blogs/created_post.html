@@ -1,0 +1,35 @@
+{% extends 'blogs/blogs.html' %}
+
+{% block title %}
+CreatePost
+{% endblock %}
+
+{% block article %}
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-6 mx-auto my-5">
+                <form class="form-control" method="post" action=""
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {% for field in form %}
+                        <div class="d-flex justify-content-between">
+                            <p class="" style="">{{ field.label_tag }}</p>
+                            <p class="" style="">{{ field }}</p>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                                        {{ formset.management_form }}
+                    {% for form_img in formset %}
+
+                        <p class="d-flex justify-content-between" style="">{{ form_img.label_tag }} {{ form_img }}</p>
+
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Добавить">
+                </form>
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

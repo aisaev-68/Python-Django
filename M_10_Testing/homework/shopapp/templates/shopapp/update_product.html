@@ -1,0 +1,28 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Update product
+{% endblock %}
+{% block section %}
+{{% if perms.shopapp.change_product or request.user.is_superuser %}
+<div class="container col-lg-8">
+    <h5 class="text-center my-3">Обновить продукт</h5>
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+        <form class="register-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+             <input class="btn-primary" type="submit" value="Обновить" style="width: 8vw;"/>
+        </form>
+    </div>
+    <div class="back_to">
+        <p>
+            <a class="text-white" href="{% url 'shopapp:shop_page' %}">Вернуться назад</a>
+        </p>
+    </div>
+    {% else %}
+    <h3 class="title_login">Вы не авторизованы на сайте</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

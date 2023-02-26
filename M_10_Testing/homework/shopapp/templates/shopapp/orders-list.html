@@ -1,0 +1,64 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+Orders list
+{% endblock %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<h1 class="title_action">Список заказов:</h1>
+{% if orders %}
+<table class="table-product">
+    <tr>
+        <th>id</th>
+        <th>Пользователь</th>
+        <th>Промокод</th>
+        <th>Адрес доставки</th>
+        <th>Наименование продукции</th>
+        <th>Описание продукта</th>
+        <th>Скидка в %</th>
+        <th>Цена</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td><a href="{% url 'shopapp:order_detail' pk=order.pk %}">{{ order.pk }}</a></td>
+        <td>{% firstof order.user.first_name order.user.username %}</td>
+        <td>{{ order.promocode }}</td>
+        <td><a href="{% url 'shopapp:order_detail' pk=order.pk %}">{{ order.delivery_address }}</a></td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.name }}</p>
+            {% endfor %}
+        </td>
+        <td >
+            {% for product in order.products.all %}
+            {{ product.description|truncatechars:300  }}
+            {% endfor %}
+        </td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.discount }}</p>
+            {% endfor %}
+        </td>
+        <td>
+            {% for product in order.products.all %}
+            <p>{{ product.price }}</p>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>Заказы отсутствует</h3>
+{% endif %}
+<div class="back_to">
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:shop_page' %}">Главная страница</a></p>
+    {% if request.user.is_authenticated %}
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:create_order' %}">Добавить новый заказ</a></p>
+    {% endif %}
+</div>
+{% else %}
+<h5>Вы не аутентифицированы!</h5>
+{% endif %}
+
+{% endblock %}

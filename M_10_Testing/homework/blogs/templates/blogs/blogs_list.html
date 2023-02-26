@@ -1,0 +1,32 @@
+{% extends 'blogs/blogs.html' %}
+{% load static %}
+
+{% block title %}
+AllPost list
+{% endblock %}
+
+
+{% block article %}
+<article class="container">
+    <div class="row justify-content-start">
+        {% for post in posts %}
+        <div class="col-lg-6 p-0 col-md-6 bg-light shadow-lg bg-light rounded-4 my-2 mx-auto d-flex flex-column justify-content-between" style="width: 48%;">
+            <img class="img-fluid" src="{{ post.posts.first.image.url }}"
+                 style="object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                 alt="post_image"/>
+            <p class="text-justify px-4 py-2">
+                <a class="text-decoration-none text-dark" href="{% url 'blogs:blog_detail' pk=post.pk %}">
+                    {{ post.title|truncatechars:100 }}
+                </a>
+            </p>
+            <p class="text-muted px-4">
+                <a class="btn btn-primary  rounded-pill bg-primary py-2 text-capitalize px-4" href=""
+                   style="">
+                    {{ post.created_by.first_name }} {{ post.created_by.last_name }}
+                </a>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "shopapp/base.html" %}
+
+{% block title %}
+Contact
+{% endblock %}
+
+{% block section %}
+<div class="container col-lg-6">
+    <h5 class="text-center">Отправить сообщение:</h5>
+    <div class="form-control border-primary border-1 p-3 d-flex justify-content-center col-md-12 col-lg-offset-3"
+         style="">
+        <form class="form-control" method="post" action="">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="d-flex justify-content-between">
+                <p class="" style="">{{ field.label_tag }}</p>
+                <p class="" style="">{{ field }}</p>
+            </div>
+
+            {% endfor %}
+            <input class="btn-primary p-1" type="submit" value="Отправить">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
