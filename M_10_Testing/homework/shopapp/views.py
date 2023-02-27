@@ -1,6 +1,8 @@
-from django.contrib.auth.decorators import login_required, permission_required
+import json
+
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.models import User
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
@@ -191,11 +193,28 @@ class Contact(View):
         return render(request, self.template_name, {'form': self.form_class})
 
 
-class OrdersExport(LoginRequiredMixin, ListView):
-    model = Order
-    context_object_name = "all-orders"
-    template_name = 'shopapp/orders-list.html'
-    queryset = Order.objects.select_related("user").prefetch_related("products").all()
+
+
+
+class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
+    def get(self, request):
+        orders = Order.objects.select_related("user").prefetch_related("products").all()
+        list_orders = []
+        for order in orders:
+            data = {
+                "id": order.pk,
+                "delivery_address": order.delivery_address,
+                "promocode": order.promocode,
+                "created_at": order.created_at,
+                "user": order.user.pk,
+                "products": [p.pk for p in order.products.all()]
+            }
+            list_orders.append(data)
+        print(list_orders)
+        return HttpResponse(request, json.dumps({'all-orders': list_orders}), content_type="application/json")
+
+    def test_func(self):
+        return self.request.user.is_staff
 
     # def get_queryset(self):
     #     queryset = Order.objects.select_related("user").prefetch_related("products").all()
