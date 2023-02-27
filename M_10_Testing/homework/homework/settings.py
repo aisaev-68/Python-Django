@@ -9,6 +9,7 @@ DEBUG = config('DEBUG', cast=bool, default=False)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('ALLOWED_HOSTS', default='localhost')]
 CART_SESSION_ID = 'cart'
 
+FIXTURE_DIRS =['shopapp/tests/fixtures/']
 # Application definition
 
 INSTALLED_APPS = [

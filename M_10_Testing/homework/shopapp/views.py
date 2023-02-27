@@ -189,3 +189,14 @@ class Contact(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {'form': self.form_class})
+
+
+class OrdersExport(LoginRequiredMixin, ListView):
+    model = Order
+    context_object_name = "all-orders"
+    template_name = 'shopapp/orders-list.html'
+    queryset = Order.objects.select_related("user").prefetch_related("products").all()
+
+    # def get_queryset(self):
+    #     queryset = Order.objects.select_related("user").prefetch_related("products").all()
+    #     return queryset

@@ -1,12 +1,14 @@
 import random
+from email._header_value_parser import ContentType
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from django.test import TestCase
-from mimesis import Person, Address
+from mimesis import Address, Person
 from mimesis.enums import Locale, Gender
+
 from accounts.models import Profile
-from shopapp.models import Product
+from shopapp.models import Product, Order
 
 
 def get_promo_code(num: int):
@@ -19,64 +21,106 @@ def get_promo_code(num: int):
 
 
 class OrderDetailTestCase(TestCase):
+    fixtures = ['groups-fixtures.json', 'users-fixtures.json', 'profiles-fixtures.json', 'products-fixtures.json', ]
 
     @classmethod
     def setUpClass(cls):
-        # Установки запускаются перед каждым тестом
+        # Установки запускаются 1 раз перед тестами
+        """
+        Выборка пользователя и продуктов
+        """
+        super().setUpClass()
+
+        cls.user = User.objects.get(pk=15)
+        cls.products = Product.objects.filter(archived=False)
+
+    def setUp(self) -> None:
+        """
+        Вход пользователя и создание заказа для дальнейшего теста.
+        """
+
+        address = Address(locale=Locale.RU)
+        delivery_address = address.country(), address.postal_code(), address.city(), address.address()
+        self.client.force_login(self.user)
+        self.order = Order.objects.create(
+            delivery_address=delivery_address,
+            promocode=get_promo_code(num=20),
+            user=self.user,
+        )
+        self.order.products.set(self.products[3:6])
+
+    def tearDown(self) -> None:
+        """
+        Удаление заказа.
+        """
+        self.order.delete()
+
+    def test_order_details(self):
+        """
+        Тест проверяет
+         - проверка получения заказа:
+         - наличие в теле ответа адреса заказа;
+         - наличие в теле ответа промокода;
+         - наличие в контексте ответа того же заказа, который был создан;
+         - перед тестом (сравнение заказов по первичному ключу).
+        """
+
+        response = self.client.get(
+            reverse('shopapp:order_detail',
+                    args=[self.order.pk]),
+        )
+        self.assertEqual(response.context['orders'].pk, self.order.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['orders'].delivery_address)
+        self.assertTrue(response.context['orders'].promocode)
+        self.assertEqual(response.context['orders'], self.order)
+
+
+class OrdersExportTestCase(TestCase):
+    fixtures = ['groups-fixtures.json', 'users-fixtures.json', 'profiles-fixtures.json', 'products-fixtures.json', 'orders-fixtures.json',]
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         person = Person(locale=Locale.RU)
         address = Address(locale=Locale.RU)
+
         cls.user = User.objects.create_user(
             username=person.username(),
             first_name=person.first_name(gender=Gender.MALE),
             last_name=person.last_name(gender=Gender.MALE),
             email=person.email(),
             password='12345',
+            is_staff=True,
 
         )
-        Profile.objects.create(
-            user=cls.user,
-            postal_code=address.postal_code(),
-            country=address.country(),
-            city=address.city(),
-            address=address.address(),
-            phone=person.telephone(),
-        )
-        group = Group.objects.get(name="Clients")
-        cls.user.groups.add(group)
+        # Profile.objects.create(
+        #     user=cls.user,
+        #     postal_code=address.postal_code(),
+        #     country=address.country(),
+        #     city=address.city(),
+        #     address=address.address(),
+        #     phone=person.telephone(),
+        # )
+
+
 
     @classmethod
     def tearDownClass(cls):
-        # Очистка после каждого метода
         cls.user.delete()
-        # cls.profile.delete()
 
     def setUp(self) -> None:
-        # вход пользователя и создание заказа для дальнейшего теста
-        address = Address(locale=Locale.RU)
-        delivery_address = address.country(), address.postal_code(),address.city(), address.address()
         self.client.force_login(self.user)
-        self.client.post(
-            reverse('shopapp:create_order'),
-            {
-                'delivery_address': delivery_address,
-                'promocode': get_promo_code(num=20),
-                'user': self.user,
-                'products': [p.pk for p in Product.objects.filter(archived=False).all() if p.pk < 5],
-
-            }
-        )
 
     def tearDown(self) -> None:
-        # удаление заказа
         pass
 
-
-    def test_order_details(self):
-        # проверка получения заказа:
-        # убедитесь, что в теле ответа есть адрес заказа;
-        # убедитесь, что в теле ответа есть промокод;
-        # убедитесь, что в контексте ответа тот же заказ, который был создан
-        # перед тестом(сравните по первичному ключу).
+    def test_orders_export(self):
         response = self.client.get(
-            reverse('shopapp:order_detail'),
+            reverse('shopapp:orders_export')
         )
+
+        self.assertEqual(response.status_code, 200)
+        print(1111, response.context)
+        self.assertTrue(response.context['all-orders'])
+        # self.assertTrue(response.context['orders'].promocode)
+        # self.assertEqual(response.context['orders'], self.order)
