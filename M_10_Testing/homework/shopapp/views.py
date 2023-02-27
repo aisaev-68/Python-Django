@@ -1,16 +1,14 @@
 import json
 
-from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
-from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils.dateparse import parse_datetime
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.urls import reverse, reverse_lazy
 from django.forms import HiddenInput
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
-from PIL import Image
 
 from .models import Product, Order
 from .forms import OrderModelForm, ProductModelForm, ContactForm
@@ -193,9 +191,6 @@ class Contact(View):
         return render(request, self.template_name, {'form': self.form_class})
 
 
-
-
-
 class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request):
         orders = Order.objects.select_related("user").prefetch_related("products").all()
@@ -205,17 +200,13 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
                 "id": order.pk,
                 "delivery_address": order.delivery_address,
                 "promocode": order.promocode,
-                "created_at": order.created_at,
+                "created_at": parse_datetime(str(order.created_at)).strftime('%Y-%m-%d %H:%M:%S'),
                 "user": order.user.pk,
                 "products": [p.pk for p in order.products.all()]
             }
             list_orders.append(data)
-        print(list_orders)
-        return HttpResponse(request, json.dumps({'all-orders': list_orders}), content_type="application/json")
+        return HttpResponse(json.dumps({'all-orders': list_orders}), content_type="application/json")
 
     def test_func(self):
         return self.request.user.is_staff
 
-    # def get_queryset(self):
-    #     queryset = Order.objects.select_related("user").prefetch_related("products").all()
-    #     return queryset

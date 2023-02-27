@@ -1,14 +1,12 @@
-import json
 import random
-from email._header_value_parser import ContentType
 
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase
+from django.utils.dateparse import parse_datetime
 from mimesis import Address, Person
 from mimesis.enums import Locale, Gender
 
-from accounts.models import Profile
 from shopapp.models import Product, Order
 
 
@@ -22,11 +20,16 @@ def get_promo_code(num: int):
 
 
 class OrderDetailTestCase(TestCase):
-    fixtures = ['groups-fixtures.json', 'users-fixtures.json', 'profiles-fixtures.json', 'products-fixtures.json', ]
+    fixtures = [
+        'groups-fixtures.json',
+        'users-fixtures.json',
+        'profiles-fixtures.json',
+        'products-fixtures.json',
+    ]
 
     @classmethod
     def setUpClass(cls):
-        # Установки запускаются 1 раз перед тестами
+        # Запускаются 1 раз перед тестами
         """
         Выборка пользователя и продуктов
         """
@@ -77,16 +80,19 @@ class OrderDetailTestCase(TestCase):
         self.assertEqual(response.context['orders'], self.order)
 
 
-
-
-
 class OrdersExportTestCase(TestCase):
-    fixtures = ['groups-fixtures.json', 'users-fixtures.json', 'profiles-fixtures.json', 'products-fixtures.json', 'orders-fixtures.json',]
+    fixtures = [
+        'groups-fixtures.json',
+        'users-fixtures.json',
+        'profiles-fixtures.json',
+        'products-fixtures.json',
+        'orders-fixtures.json',
+    ]
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         person = Person(locale=Locale.RU)
-        address = Address(locale=Locale.RU)
 
         cls.user = User.objects.create_user(
             username=person.username(),
@@ -97,16 +103,6 @@ class OrdersExportTestCase(TestCase):
             is_staff=True,
 
         )
-        # Profile.objects.create(
-        #     user=cls.user,
-        #     postal_code=address.postal_code(),
-        #     country=address.country(),
-        #     city=address.city(),
-        #     address=address.address(),
-        #     phone=person.telephone(),
-        # )
-
-
 
     @classmethod
     def tearDownClass(cls):
@@ -115,8 +111,6 @@ class OrdersExportTestCase(TestCase):
     def setUp(self) -> None:
         self.client.force_login(self.user)
 
-
-
     def tearDown(self) -> None:
         pass
 
@@ -124,10 +118,19 @@ class OrdersExportTestCase(TestCase):
         response = self.client.get(
             reverse('shopapp:orders_export')
         )
+        orders = Order.objects.select_related("user").prefetch_related("products").all()
+        list_orders = []
+        for order in orders:
+            data = {
+                "id": order.pk,
+                "delivery_address": order.delivery_address,
+                "promocode": order.promocode,
+                "created_at": parse_datetime(str(order.created_at)).strftime('%Y-%m-%d %H:%M:%S'),
+                "user": order.user.pk,
+                "products": [p.pk for p in order.products.all()]
+            }
+            list_orders.append(data)
 
-
-        # print(response.json())
         self.assertEqual(response.status_code, 200)
-        # self.assertTrue(response.context['all-orders'])
-        # self.assertTrue(response.context['orders'].promocode)
-        # self.assertEqual(response.context['orders'], self.order)
+        self.assertTrue(response.json()['all-orders'])
+        self.assertEqual(response.json()['all-orders'], list_orders)
