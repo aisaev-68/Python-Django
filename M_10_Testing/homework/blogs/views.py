@@ -4,6 +4,7 @@ from django.forms import HiddenInput, modelformset_factory
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, View, DetailView, FormView
@@ -40,6 +41,7 @@ class BlogDetail(DetailView):
         return super().get_object(queryset)
 
 
+@login_required
 def create_blog(request: HttpRequest):
     ImageFormSet = modelformset_factory(PostImage, form=PostImageForm, extra=3)
     if request.method == "POST":
