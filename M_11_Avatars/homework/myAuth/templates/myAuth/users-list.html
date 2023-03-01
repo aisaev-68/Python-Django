@@ -1,0 +1,50 @@
+{% extends 'myAuth/base.html' %}
+
+{% block title %}
+Users list
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">Список пользователей</h1>
+{% if users %}
+<table class="table-product">
+    <tr>
+        <th class="text-center">Пользователь</th>
+        <th class="text-center">Фамилия</th>
+        <th class="text-center">Имя</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Номер телефона</th>
+        <th class="text-center">Страна</th>
+        <th class="text-center">Почтовый индекс</th>
+        <th class="text-center">Город</th>
+        <th class="text-center">Адрес</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td class="text-center"><a class="text-dark" href="{% url 'myAuth:about-me' pk=user.pk %}">{{ user.username }}</a></td>
+        <td class="text-center">{% firstof user.last_name '----' %}</td>
+        <td class="text-center">{% firstof user.first_name '----' %}</td>
+        <td class="text-center">{{ user.email }}</td>
+        <td class="text-center">{{ user.profiles.phone }}</td>
+        <td class="text-center">{{ user.profiles.country }}</td>
+        <td class="text-center">{% firstof user.profiles.postal_code '----' %}</td>
+        <td class="text-center">{% firstof user.profiles.city '----' %}</td>
+        <td class="text-center">{% firstof user.profiles.address '----' %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>Пользователи отсутствует</h3>
+{% endif %}
+<div class="d-flex flex-column justify-content-center mt-3">
+    {% if request.user.is_authenticated %}
+    <p class="p-0 m-0"><a class="text-dark " href="{% url 'myAuth:register' %}">Добавить нового пользователя</a></p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+
+
+
+

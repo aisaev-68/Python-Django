@@ -25,7 +25,7 @@ def products_list(request: HttpRequest):
     context = {
         "products": Product.objects.all(),
     }
-    return render(request, 'shopapp/products-list.html', context=context)
+    return render(request, 'shopapp/users-list.html', context=context)
 
 
 def orders_list(request: HttpRequest):

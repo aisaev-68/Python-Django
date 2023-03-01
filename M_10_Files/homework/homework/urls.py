@@ -10,8 +10,8 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
     path('admin/', admin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),
-    path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
-    path('profile/', include('accounts.urls'), name="accounts"),
+    path('myAuth/', include('django.contrib.auth.urls'), name="myAuth"),
+    path('profile/', include('myAuth.urls'), name="myAuth"),
     path('shopapp/', include('shopapp.urls')),
     path('blogs/', include('blogs.urls')),
 ]

@@ -15,7 +15,7 @@ def shop(request: HttpRequest):
 class ProductList(ListView):
     # model = Product
     context_object_name = "products"
-    template_name = 'shopapp/products-list.html'
+    template_name = 'shopapp/users-list.html'
     queryset = Product.objects.filter(archived=False)
 
 

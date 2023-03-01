@@ -12,7 +12,7 @@ from .models import Profile
 
 
 class AboutMe(LoginRequiredMixin, DetailView):
-    # template_name = 'accounts/about-me.html'
+    # template_name = 'myAuth/about-me.html'
     # form_class = forms.RegisterForm
     # redirect_authenticated_user = True
     # success_url = reverse_lazy('tasks')
@@ -33,7 +33,7 @@ class AboutMe(LoginRequiredMixin, DetailView):
             'profile_form': profile_form
         }
 
-        return render(request, 'accounts/about-me.html', context)
+        return render(request, 'myAuth/about-me.html', context)
 
 
 class RegisterView(View):
@@ -46,7 +46,7 @@ class RegisterView(View):
             'profile_form': profile_form
         }
 
-        return render(request, 'accounts/register.html', context)
+        return render(request, 'myAuth/register.html', context)
 
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(
@@ -81,15 +81,15 @@ class RegisterView(View):
 
             login(request, user)
 
-            # return redirect('accounts:about-me', pk=str(new_user.pk))
-            return redirect(reverse('accounts:about-me', kwargs={'pk': str(user.pk)}))
+            # return redirect('myAuth:about-me', pk=str(new_user.pk))
+            return redirect(reverse('myAuth:about-me', kwargs={'pk': str(user.pk)}))
 
 
         else:
 
             messages.error(request, 'Ошибка создания профиля.')
 
-            return render(request, 'accounts/register.html', context)
+            return render(request, 'myAuth/register.html', context)
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -104,7 +104,7 @@ class ProfileView(LoginRequiredMixin, View):
             'profile_form': profile_form
         }
 
-        return render(request, 'accounts/profile.html', context)
+        return render(request, 'myAuth/profile.html', context)
 
     def post(self, request, *args, **kwargs):
 
@@ -130,7 +130,7 @@ class ProfileView(LoginRequiredMixin, View):
 
             messages.success(request, 'Профиль обновлен.')
 
-            return redirect(reverse('accounts:about-me', kwargs={'pk': str(user.pk)}))
+            return redirect(reverse('myAuth:about-me', kwargs={'pk': str(user.pk)}))
 
         else:
             context = {
@@ -139,7 +139,7 @@ class ProfileView(LoginRequiredMixin, View):
             }
             messages.error(request, 'Ошибка обновления профиля.')
 
-            return render(request, 'accounts/profile.html', context)
+            return render(request, 'myAuth/profile.html', context)
 
 
 

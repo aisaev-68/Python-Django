@@ -10,14 +10,14 @@ from .models import Profile
 
 
 class AboutMe(FormView):
-    template_name = 'accounts/about-me.html'
+    template_name = 'myAuth/about-me.html'
     form_class = forms.RegisterForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
 
 
 class RegisterView(FormView):
-    template_name = 'accounts/register.html'
+    template_name = 'myAuth/register.html'
     form_class = forms.RegisterForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
@@ -42,7 +42,7 @@ class ProfileView(LoginRequiredMixin, View):
             'profile_form': profile_form
         }
 
-        return render(request, 'accounts/profile.html', context)
+        return render(request, 'myAuth/profile.html', context)
 
     def post(self, request, *args, **kwargs):
 
@@ -63,7 +63,7 @@ class ProfileView(LoginRequiredMixin, View):
 
             messages.success(request, 'Профиль обновлен.')
 
-            return redirect('accounts:about-me')
+            return redirect('myAuth:about-me')
         else:
             context = {
                 'user_form': user_form,
@@ -71,4 +71,4 @@ class ProfileView(LoginRequiredMixin, View):
             }
             messages.error(request, 'Ошибка обновления профиля.')
 
-            return render(request, 'accounts/profile.html', context)
+            return render(request, 'myAuth/profile.html', context)
