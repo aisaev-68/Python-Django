@@ -110,9 +110,21 @@
                         style="color: white; opacity: 1.0; font-size: 25px;">
                         <span class="ps-2" style="font-size: 14px;">100 ₽</span>
                     </li>
+                    <li>
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for language in LANGUAGES %}
+                            {% if language.0 != LANGUAGE_CODE %}
+                            <button type="submit" name="language" value="{{ language.0 }}">
+                                {{ language.0 }}
+                            </button>
+                            {% endif %}
+                            {% endfor %}
+                        </form>
+                    </li>
                 </ul>
-            </ul>
-
         </div>
     </div>
 </nav>
@@ -121,20 +133,7 @@
     <div class="overlay" style="height: 65px;"></div>
     <div class="container">
         <div class="row" style="">
-            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-    <input name="next" type="hidden" value="{{ redirect_to }}">
-    <select name="language">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as languages %}
-        {% for language in languages %}
-            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                {{ language.name_local }} ({{ language.code }})
-            </option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Go">
-</form>
+
         </div>
     </div>
 </header>
@@ -182,6 +181,7 @@
         </div>
     </div>
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

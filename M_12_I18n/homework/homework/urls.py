@@ -7,9 +7,12 @@ from django.conf.urls.static import static
 
 from accounts.views import RegisterView
 
-urlpatterns = i18n_patterns(
-    path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
+urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
+]
+
+urlpatterns += i18n_patterns(
+    path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
     path('admin/', admin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
