@@ -1,0 +1,22 @@
+{% extends "shopapp/base.html" %}
+{% block title %}
+Log-in
+{% endblock %}
+{% block section %}
+<div class="col-lg-5 m-auto">
+<h5 class="text-center">Пожалуйста, введите свои учетные данные</h5>
+    <div class="form-control p-auto bg-light border-5 d-flex justify-content-between col-md-12 col-lg-offset-3" style="">
+        <form class="form-control" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="d-flex justify-content-between">
+                <p class="" style="">{{ field.label_tag }}</p>
+                <p class="" style="">{{ field }}</p>
+            </div>
+            {% endfor %}
+            <input class="btn btn-primary p-0 px-4" type="submit" value="Войти">
+        </form>
+    </div>
+</div>
+{% endblock %}
+

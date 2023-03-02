@@ -1,0 +1,24 @@
+{% extends "shopapp/base.html" %}
+{% load i18n %}
+
+{% block title %}
+Log-in
+{% endblock %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="container col-lg-6 mb-5">
+    <h5 class="text-center mb-4 text-primary">{% trans 'User profile' %}</h5>
+    <div class="form-control py-4 px-0 border-primary border-1 d-flex justify-content-center col-md-12 col-lg-offset-3" style="background: linear-gradient(to bottom, #33ccff 0%, #ccff99 100%)">
+         <form method="Post" class="profile_form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <input class="btn-primary" type="submit" value="{%trans 'Update' %}">
+        </form>
+    </div>
+</div>
+{% else %}
+<h5>{% trans 'You are not identified!' %}</h5>
+{% endif%}
+{% endblock %}

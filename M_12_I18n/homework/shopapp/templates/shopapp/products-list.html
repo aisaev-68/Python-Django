@@ -1,0 +1,39 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+
+{% block title %}
+Products list
+{% endblock %}
+
+{% block section %}
+<h1 class="title_action">{% trans 'The cost of products for' %} {% now "Y-m-d" %}</h1>
+{% if products %}
+<table class="table-product">
+    <tr>
+        <th>{% trans 'Product name' %}</th>
+        <th>{% trans 'Discount percentage' %}</th>
+        <th>{% trans 'Price' %}</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td><a class="text-white" href="{% url 'shopapp:product_detail' pk=product.pk %}">{{ product.name|title }}</a></td>
+        <td>{% firstof product.discount 'no discount' %}</td>
+        <td>{{ product.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h3>{% trans 'No production' %}</h3>
+{% endif %}
+<div class="back_to mt-2">
+    <p class="link-back"><a class="text-white" class="text-white" href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></p>
+    {% if perms.shopapp.change_product or request.user.is_superuser %}
+    <p class="link-back"><a class="text-white" class="text-white" href="{% url 'shopapp:create_product' %}">{% trans 'Add new product' %}</a></p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+

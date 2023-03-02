@@ -1,0 +1,98 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-bold.woff2") format("woff2"),
+    url("../fonts/montserrat-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-extrabold.woff2") format("woff2"),
+    url("../fonts/montserrat-extrabold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-regular.woff2") format("woff2"),
+    url("../fonts/montserrat-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-semibold.woff2") format("woff2"),
+    url("../fonts/montserrat-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/montserrat-medium.woff2") format("woff2"),
+    url("../fonts/montserrat-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg_footer: #222222;
+  --bg_btn-how_active: #000000;
+  --bg_footer-name: #414141;
+  --bg_footer-email_hover: #666666;
+  --bg_default: #ff9900;
+  --bg_btn-header_hover: rgba(255, 153, 0, 0.7);
+  --bg_btn-hover: #f7b045;
+  --color_default-text: #333333;
+  --color_white: #ffffff;
+  --color_footer-text: #cacaca;
+  --color_active: #e1670e;
+  --color_blue: #1E90FF;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 1920px;
+  font-family: "Montserrat", sans-serif;
+}
+.nav-item, .nav-link {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: white;
+}
+
+.register-form p, .profile_form p, .update_product-form p {
+    display: flex;
+    flex-direction: row;
+    justify-content: between;
+    white-space: nowrap;
+    align-items: baseline;
+}
+
+.register-form input, .register-form textarea, .register-form select {
+    width: 60%;
+    height: 2rem;
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+register-form select {
+    height: 5rem;
+
+}
+
+.update_product-form input, .profile_form input {
+    width: 60%;
+    height: 2rem;
+    margin-left: auto;
+    padding-left: 10px;
+}

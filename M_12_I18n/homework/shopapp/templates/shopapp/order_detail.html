@@ -1,0 +1,53 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% block title %}
+Product detail
+{% endblock %}
+{% block section %}
+<div class="row no-gutters row-eq-height">
+    {% if request.user.is_authenticated %}
+    <div class="card-deck bg-white border-primary border rounded col-lg-6 col-md-3 col-sm-4 col-xs-12 d-flex flex-column mx-auto">
+        <div class="card mb-3 d-flex flex-column">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-text text-wrap text-break mt-3">{% trans 'Order detail' %} № {{object.pk}}</h5>
+                <h5 class="card-text text-wrap text-break">{% trans 'Customer data' %}</h5>
+                <p><b>{% trans 'User' %}</b>: {{ object.user.username }}</p>
+                <p><b>{% trans 'Email' %}</b>:{{ object.user.email }}</p>
+                <p><b>{% trans 'Country' %}</b>:{% firstof object.user.country 'не указан' %}</p>
+                <p><b>{% trans 'Postal code' %}</b>:{% firstof object.user.postal_code 'не указан' %}</p>
+                <p><b>{% trans 'City' %}</b>:{{ object.user.profile.city }}</p>
+                <p><b>{% trans 'Addres' %}</b>:{{ object.user.profile.address }}</p>
+                <h5 class="card-text text-wrap text-break">{% trans 'Order data' %}</h5>
+                <p>{% trans 'Promo code' %}: {% firstof object.promocode 'отсутствует' %}</p>
+                <p>Адрес доставки:{{ object.delivery_address }}</p>
+                <h5 class="card-text text-wrap text-break mt-3">{% trans 'Order list:' %}</h5>
+                <div class="card-body d-flex flex-column">
+                    {% for product in object.products.all %}
+                    <div class="card-text text-wrap text-break mb-3"><b>{% trans 'Product' %}</b>: {{ product.name }}
+                        <h5 class="card-text text-wrap text-break mt-3">{% trans 'Specifications' %}</h5>
+                        {% for key, value in product.attributes.items %}
+                        <b>{{ key }}</b>: {{ value }}<br/>
+                        {% endfor %}
+                    </div>
+                    <p>{% trans 'Price:' %} {{ product.price }}</p>
+                    <p>{% trans 'Discount' %}: {% firstof product.discount 'отсутствует' %}</p>
+                    <p><b>{% trans 'Product Description' %}</b>:</br></br> {{ product.description }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="back_to">
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:orders_list' %}">{% trans 'Back to order list' %}</a></p>
+    {% if request.user.is_authenticated %}
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:update_order' pk=object.pk %}">{% trans 'Update order' %} №
+        {{object.pk}}</a>
+    </p>
+    <p><a class="text-white" href="{% url 'shopapp:order_delete' pk=object.pk %}">{% trans 'Delete order' %} № {{object.pk}}</a></p>
+    {% endif %}
+</div>
+{% else %}
+<h5>{% trans 'You are not identified!' %}</h5>
+{% endif %}
+{% endblock %}
