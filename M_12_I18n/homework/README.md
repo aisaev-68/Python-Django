@@ -17,6 +17,7 @@ python manage.py dumpdata blogs.PostImage > shopapp/tests/fixtures/posts_images-
 
 python manage.py test shopapp/tests
 
+sudo apt install gettext
 
 django-admin makemessages --all --ignore=env
 django-admin compilemessages --ignore=env
