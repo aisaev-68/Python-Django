@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
-
+from django.utils.translation import gettext_lazy as _
 from .models import Post, PostImage
 
 
@@ -17,6 +17,7 @@ class PostAdmin(admin.ModelAdmin):
             return obj.description
         return obj.description[:100] + "..."
 
+    description_short.short_description = _("Description")
 
 @admin.register(PostImage)
 class PostAdmin(admin.ModelAdmin):

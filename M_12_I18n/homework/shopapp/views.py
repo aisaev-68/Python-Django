@@ -24,7 +24,7 @@ class ShopPage(View):
 class ProductList(ListView):
     # model = Product
     context_object_name = "products"
-    template_name = 'shopapp/users-list.html'
+    template_name = 'shopapp/products-list.html'
     queryset = Product.objects.filter(archived=False)
 
 
@@ -76,7 +76,6 @@ class CreateProduct(LoginRequiredMixin, CreateView):
     def get_initial(self):
         self.initial['created_by'] = self.request.user.id
         return self.initial
-
 
 
 class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
@@ -205,4 +204,3 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_staff
-

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
-
+from django.utils.formats import date_format
 from .models import Product, Order
 from .admin_mixins import ExportAsCSVMixin
 
@@ -32,13 +32,15 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         OrderInline,
     ]
 
-    list_display = "pk", "name", "description_short", "attributes", "rating", "created_by", "price", "discount", "image", "products_count", "archived"
+    list_display = "pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price", \
+        "discount", "image", "products_count", "archived"
     list_display_links = "pk", "name"
     ordering = "name", "price"
     search_fields = "name", "description"
     fieldsets = [
         (None, {
-            "fields": ("name", "description", "attributes", "rating", "created_by", "products_count", "image"),
+            "fields": (
+            "name", "description", "attributes", "rating", "created_by", "format_date", "products_count", "image"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),
@@ -56,6 +58,13 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
             return obj.description
         return obj.description[:48] + "..."
 
+    description_short.short_description = _("Description")
+
+    def format_date(self, obj: Product):
+        return date_format(obj.created_at, "SHORT_DATETIME_FORMAT", '%Y-%m-%d %H:%M:%S')
+
+    format_date.short_description = _("created_at")
+
 
 class ProductInline(admin.StackedInline):
     model = Order.products.through
@@ -66,7 +75,7 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         ProductInline,
     ]
-    list_display = "delivery_address", "promocode", "created_at", "user_verbose"
+    list_display = "delivery_address", "promocode", "format_date", "user_verbose"
 
     def get_queryset(self, request):
         return Order.objects.select_related("user").prefetch_related("products")
@@ -74,3 +83,9 @@ class OrderAdmin(admin.ModelAdmin):
     def user_verbose(self, obj: Order) -> str:
         return obj.user.first_name or obj.user.username
 
+    user_verbose.short_description = _("user")
+
+    def format_date(self, obj: Order):
+        return date_format(obj.created_at, "SHORT_DATETIME_FORMAT", '%Y-%m-%d %H:%M:%S')
+
+    format_date.short_description = _("created_at")

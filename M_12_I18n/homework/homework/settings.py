@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from decouple import config
+from django.utils.formats import date_format
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,6 +10,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool, default=False)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('ALLOWED_HOSTS', default='localhost')]
 CART_SESSION_ID = 'cart'
+
+# date_format(date_obj, format='SHORT_DATE_FORMAT', use_l10n=True)
 
 FIXTURE_DIRS =['shopapp/tests/fixtures/']
 # Application definition
@@ -110,6 +113,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+SHORT_DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

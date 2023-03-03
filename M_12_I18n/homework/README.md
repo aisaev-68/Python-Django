@@ -18,5 +18,5 @@ python manage.py dumpdata blogs.PostImage > shopapp/tests/fixtures/posts_images-
 python manage.py test shopapp/tests
 
 
-python manage.py makemessages 
-python manage.py compilemessages
+django-admin makemessages --all --ignore=env
+django-admin compilemessages --ignore=env

@@ -15,6 +15,11 @@ class Post(models.Model):
     def __str__(self):
         return "Post {title}".format(title=self.title)
 
+    class Meta:
+        verbose_name = _("Post")
+        verbose_name_plural = _("Posts")
+        ordering = ["title", "description"]
+
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='posts', verbose_name=_('Post'))
@@ -30,13 +35,7 @@ class PostImage(models.Model):
     def __str__(self):
         return "PostImage {image}".format(image=self.image)
 
-    def to_json(self):
-        posts = Post.objects.all()
-        post_list = []
-        for post in posts:
-            image_post = {
-                    'posts': post,
-                    'images': PostImage.objects.filter(post_id=post.pk)
-                }
-            post_list.append(image_post)
-        return post_list
+    class Meta:
+        verbose_name = _("PostImage")
+        verbose_name_plural = _("PostImages")
+        ordering = ["post"]
