@@ -1,0 +1,56 @@
+{% extends 'shopapp/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Products list
+{% endblock %}
+
+{% block section %}
+<div class="row no-gutters row-eq-height">
+
+    <div class="card-deck col-lg-8 col-md-3 col-sm-4 col-xs-12 d-flex mx-auto ">
+
+        <div class="card p-3 mt-3 bg-white d-flex flex-column shadow-lg bg-light rounded" style="">
+            {% if 'http' in object.image.url %}
+            <img src="{{ object.image }}"
+                 style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                 class="card-img-top mt-4" class="img-fluid"
+                 alt="Laptop"/>
+            {% else %}
+            <img src="{{ object.image.url }}"
+                 style="max-height: 20vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                 class="card-img-top mt-4" class="img-fluid"
+                 alt="Laptop"/>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-text text-wrap text-break">{{ object.name }}</h5>
+                <hr>
+                <h5 class="card-text text-wrap text-break mt-3">{% trans 'Specifications' %}</h5>
+
+                <table class="">
+                    {% for key, value in object.attributes.items %}
+                    <tr class="" style="height: 3vw">
+                        <th class="">{{ key }}</th><td class="">{{ value|capfirst }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <hr>
+
+                <h5 class="card-text text-wrap text-break mt-2 ">{% trans 'Description:' %}</h5>
+                <p class="text-justify" style="text-align: justify;">{{ object.description|capfirst }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="back_to">
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:products_list' %}">{% trans 'Back to product list' %}</a></p>
+    {% if perms.shopapp.change_product or request.user.is_superuser %}
+    <p class="link-back"><a class="text-white" href="{% url 'shopapp:update_product' pk=object.pk %}">{% trans 'Update product' %} № {{object.pk}}</a>
+    </p>
+    <p><a class="text-white" href="{% url 'shopapp:product_archived' pk=object.pk %}">{% trans 'Archive product' %} № {{object.pk}}</a></p>
+    {% endif %}
+</div>
+
+{% endblock %}

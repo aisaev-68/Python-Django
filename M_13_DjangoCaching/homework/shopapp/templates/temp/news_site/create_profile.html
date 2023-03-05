@@ -1,0 +1,13 @@
+{% extends "news_site/base.html" %}
+{% block title %}Log-in{% endblock %}
+
+{% block section %}
+
+<div class="card-body">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'blogs/blogs.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block container %}
+{% for post in posts %}
+<div class="col-xl-6">
+    <div class="single-smblog mb-30">
+        <div class="smblog-thum">
+            <div class="blog-image w-img">
+                <a href=""><img src="{{ post.posts.first.image.url }}" alt=""></a>
+            </div>
+            <div class="blog-tag blog-tag-2">
+                <a href="">Food Beverage</a>
+            </div>
+        </div>
+        <div class="smblog-content smblog-content-3">
+
+            <h6><a href="{% url 'blogs:blog_detail' pk=post.pk %}">{{ post.title|truncatechars:100 }}</a></h6>
+            <span class="author mb-10">posted by <a href="#">{{ post.created_by.first_name }} {{ post.created_by.last_name }}</a></span>
+            <p>{{ post.description|truncatechars:200 }}</p>
+            <div class="smblog-foot pt-15">
+                <div class="post-readmore">
+                    <a href=""> Read More <span class="icon"></span></a>
+                </div>
+                <div class="post-date">
+                    <a href="">{{ post.created_at }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endfor %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="basic-pagination text-center pt-30 pb-30">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="blog.html" class="active">1</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">2</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">3</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">5</a>
+                    </li>
+                    <li>
+                        <a href="blog.html">6</a>
+                    </li>
+                    <li>
+                        <a href="shop.html">
+                            <i class="fal fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
