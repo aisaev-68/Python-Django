@@ -3,12 +3,28 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Category'))
+    # slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['name',]
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
+
+    def __str__(self):
+        return self.name
+
+
+
 class Product(models.Model):
     class Meta:
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
         ordering = ["name", "price"]
 
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE, verbose_name=_('Category'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name=_('Attributes'))

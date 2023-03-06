@@ -5,7 +5,7 @@ from pathlib import Path
 from django.contrib.auth.models import User, Group
 from django.core.management import BaseCommand
 import requests
-from shopapp.models import Product
+from shopapp.models import Product, Category
 
 uploaded_file_path = Path().parent / "media/product_images"
 uploaded_file_path.mkdir(exist_ok=True, parents=True)
@@ -130,7 +130,7 @@ class Command(BaseCommand):
                                                                       'products_count': 50, 'archived': False}]
 
         user = User.objects.filter(username='editor').first()
-
+        category = Category.objects.filter(name='Электроника')
         for d in products_names:
 
             request = requests.get(d['image'])
@@ -142,6 +142,7 @@ class Command(BaseCommand):
                 f.write(request.content)
 
             Product.objects.create(
+                category=category,
                 name=d['name'],
                 description=d['description'],
                 attributes=d['attributes'],

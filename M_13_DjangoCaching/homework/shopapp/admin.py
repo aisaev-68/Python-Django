@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.utils.formats import date_format
-from .models import Product, Order
+from .models import Product, Order, Category
 from .admin_mixins import ExportAsCSVMixin
 
 
@@ -20,6 +20,10 @@ def mark_archived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: 
 def mark_unarchived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
     queryset.update(archived=False)
 
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name']
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
