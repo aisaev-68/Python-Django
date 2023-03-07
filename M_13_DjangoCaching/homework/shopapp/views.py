@@ -10,15 +10,15 @@ from django.forms import HiddenInput
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 
-from .models import Product, Order, Category
+from .models import Product, Order, Category, Catalog
 from .forms import OrderModelForm, ProductModelForm, ContactForm
 
 
 class ShopPage(View):
 
     def get(self, request: HttpRequest):
-        context = {"products": Product.objects.filter(archived=False), "categories": Category.objects.all()}
-        return render(request, 'shopapp/main.html', context=context)
+        context = {"products": Product.objects.filter(discount=20.0, archived=False), "catalogs": Catalog.objects.all()}
+        return render(request, 'shopapp/first-page.html', context=context)
 
 
 class ProductList(ListView):

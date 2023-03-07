@@ -1,3 +1,4 @@
+import json
 
 dict_prod = {'Электроника': 'text.txt', 'Бытовая техника': 'text1.txt', 'Красота и здоровье': 'text2.txt',
              'Одежда':'text3.txt', 'Обувь': 'text4.txt', 'Строительство и ремонт':'text5.txt', 'Детские товары': 'text6.txt'}
@@ -20,5 +21,7 @@ for key, value in dict_prod.items():
     lst1[key] = lst2
     catalog.append(lst1)
 
+with open('json_data.json', 'w', encoding='utf-8') as outfile:
+    json.dump({'data': catalog}, outfile, indent=4, ensure_ascii=False)
 
 print(catalog)

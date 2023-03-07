@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -131,7 +131,7 @@
         <div class="container">
             <div class="header-inner">
                 <div class="row align-items-center">
-                    <div class="col-xl-6 col-lg-7">
+                    <div class="col-xl-12 col-lg-12 d-flex justify-content-between">
                         <div class="header-inner-start">
                             <div class="header__currency border-right">
                                 <form action="{% url 'set_language' %}" method="post">
@@ -148,24 +148,48 @@
                                 </form>
                             </div>
                             <div class="header__lang border-right">
-                                <span>{% trans 'Currency: USD' %} </span>
+                                <div class="s-name">
+                                    <span>{% trans 'Currency: USD' %} </span>
+                                </div>
                             </div>
                             <div class="support d-none d-sm-block">
-                                <p>{% trans 'Need Help?' %} <a href="tel:+89285484431">+7(928)-548-44-31</a></p>
+                                <p>{% trans 'Need Help?' %} <a href="tel:+001123456789">+7(928)-548-44-31</a></p>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <a class="text-white text-capitalize dropdown-toggle" href="" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% trans 'My Account' %}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                 {% if not request.user.is_authenticated %}
+                                <div class="dropdown-item">
+                                    <a class="active"
+                                       href="{% url 'register' %}">
+                                        <i class="fa fa-sign-in"></i>
+                                        {% trans 'Sign Up' %}
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a class="d-flex align-items-center"
+                                       href="{% url 'login' %}">
+                                        <i class="fa fa-user pe-2"></i>
+                                        {% trans 'Log In' %}
+                                    </a>
+                                </div>
+                               {% else %}
+                                <div class="dropdown-item">
+                                    <a class="d-flex align-items-center "
+                                       href="{% url 'logout' %}">
+                                        <i class="fa fa-user pe-2"></i>
+                                        {% trans 'Log Out' %}
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-5 d-none d-lg-block">
-                        <div class="header-inner-end text-md-end">
-                            <div class="ovic-menu-wrapper">
-                                <ul>
-                                    <li><a href="about.html">{% trans 'About Us' %}</a></li>
-                                    <li><a href="contact.html">{% trans 'Contact Us' %}</a></li>
-                                    <li><a href="faq.html">{% trans 'FAQs' %}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -173,58 +197,136 @@
     <div class="header-mid">
         <div class="container">
             <div class="heade-mid-inner">
-                <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-xl-4 col-lg-2 col-md-12 col-sm-12 col-12 d-md-flex d-sm-flex d-flex justify-content-between">
                         <div class="header__info">
                             <div class="logo">
-                                <a href="index.html" class="logo-image"><img
-                                        src="{% static 'assets/img/logo/logo1.svg' %}" alt="logo"></a>
+                                <a href="" class="logo-image"><img src="{% static 'assets/img/logo/logo1.svg' %}"
+                                                                   alt="logo"></a>
+                            </div>
+                        </div>
+                        <div class="side-menu d-lg-none mr-0 pt-1">
+                            <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i
+                                    class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-8 col-md-1 col-sm-1 col-1">
+                        <div class="header__bottom-left d-flex d-xl-block align-items-center">
+
+                            <div class="main-menu d-none d-lg-block">
+                                <nav>
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'blogs:to_shop' %}" class="active text-capitalize">
+                                                {% trans 'Home' %}
+                                            </a>
+
+                                        </li>
+                                        <li>
+                                            <a class="text-capitalize" href="blog.html">
+                                                {% trans 'Catalog' %}
+                                                <i class="far fa-angle-down"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="" class="active">
+                                                        {% trans 'All products' %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="">{% trans 'Computers' %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="">{% trans 'Phones' %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="">{% trans 'Camcorders' %}
+                                                    </a>
+                                                </li>
+                                                {% if perms.shopapp.change_product or request.user.is_superuser %}
+                                                <li>
+                                                    <a href=""> {% trans 'Add product categories' %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'shopapp:create_product' %}">
+                                                        {% trans 'Add product' %}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'shopapp:products_list' %}">
+                                                        {% trans 'Product list' %}
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
+                                        {% if request.user.is_authenticated %}
+                                        <li>
+                                            <a class="text-capitalize" href="blog.html">
+                                                {% trans 'Orders' %}
+                                                <i class="far fa-angle-down"></i>
+                                            </a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="{% url 'shopapp:create_order' %}" class="active">
+                                                        {%trans 'Add order' %}
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
+                                                        {% trans 'My orders' %}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        {% endif %}
+                                        <li><a class="text-capitalize" href="blog.html">{% trans 'Blog' %} <i
+                                                class="far fa-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="{% url 'blogs:show_blogs' %}" class="active">
+                                                        {% trans 'All posts' %}
+                                                    </a>
+                                                </li>
+                                                {% if request.user.is_authenticated %}
+                                                <li>
+                                                    <a href="{% url 'blogs:created_blog' %}">
+                                                        {% trans 'Add post' %}
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="text-capitalize" href="{% url 'shopapp:contact' %}">
+                                                {% trans 'Contact' %}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-4 d-none d-lg-block">
-                        <div class="header__search">
-                            <form action="#">
-                                <div class="header__search-box">
-                                    <input class="search-input" type="text" placeholder="I'm shopping for...">
-                                    <button class="button" type="submit"><i class="far fa-search"></i></button>
-                                </div>
-                                <div class="header__search-cat">
-
-                                    <select>
-                                        {% for catalog in catalogs %}
-                                        <option>{{ catalog }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-                        <div class="header-action">
-                            <div class="block-userlink">
-                                <a class="icon-link" href="my-account.html">
-                                    <i class="flaticon-user"></i>
-                                    <span class="text">
-                                    <span class="sub">Login </span>
-                                    {% trans 'My Account' %} </span>
-                                </a>
-                            </div>
-
-                            <div class="block-cart action">
-                                <a class="icon-link" href="cart.html">
+                    <div class="col-xl-2 col-lg-2 col-md-1 col-sm-1 d-none d-lg-block">
+                        <div class="header-action justify-content-end">
+                            <div class="block-cart action ms-3">
+                                <a class="icon-link" href="">
                                     <i class="flaticon-shopping-bag"></i>
                                     <span class="count">1</span>
                                     <span class="text">
-                                    <span class="sub">{% trans 'Your Cart:' %}</span>
-                                    $00.00 </span>
+                                    <span class="sub"></span> $00.00 </span>
                                 </a>
                                 <div class="cart">
                                     <div class="cart__mini">
                                         <ul>
                                             <li>
                                                 <div class="cart__title">
-                                                    <h4>{% trans 'Your Cart' %}</h4>
+                                                    <h4>Your Cart</h4>
                                                     <span>(1 Item in Cart)</span>
                                                 </div>
                                             </li>
@@ -232,12 +334,12 @@
                                                 <div class="cart__item d-flex justify-content-between align-items-center">
                                                     <div class="cart__inner d-flex">
                                                         <div class="cart__thumb">
-                                                            <a href="product-details.html">
-                                                                <img src="assets/img/cart/20.jpg" alt="">
+                                                            <a href="">
+                                                                <img src="{% static 'assets/img/cart/20.jpg' %}" alt="">
                                                             </a>
                                                         </div>
                                                         <div class="cart__details">
-                                                            <h6><a href="product-details.html"> Samsung C49J89: £875,
+                                                            <h6><a href=""> Samsung C49J89: £875,
                                                                 Debenhams Plus </a></h6>
                                                             <div class="cart__price">
                                                                 <span>$255.00</span>
@@ -269,154 +371,7 @@
             </div>
         </div>
     </div>
-    <div class="header__bottom">
-        <div class="container">
-            <div class="row g-0 align-items-center">
-                <div class="col-lg-3">
-                    <div class="cat__menu-wrapper side-border d-none d-lg-block">
-                        <div class="cat-toggle">
-                            <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i>
-                                {% trans 'Shop by department' %}
-                            </button>
-                            <div class="cat__menu">
-                                <nav id="mobile-menu" style="display: block;">
-                                    <ul>
-                                        {% for catalog in catalogs %}
-                                        <li>
-                                            <a href="product.html">{{ catalog.name }} <i class="far fa-angle-down"></i></a>
-                                            <ul class="mega-menu">
 
-                                                <li><a class="mb-1" href="product.html"></a>
-                                                    <ul class="mega-item">
-                                                        {% for name in catalog.categories.all %}
-
-                                                        <li><a class="my-0" href="product-details.html"><span
-                                                                class="text-nowrap">{{ name }}</span></a></li>
-
-                                                        {% endfor %}
-                                                    </ul>
-                                                </li>
-
-                                            </ul>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-3">
-                    <div class="header__bottom-left d-flex d-xl-block align-items-center">
-                        <div class="side-menu d-lg-none mr-20">
-                            <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i class="fas fa-bars"></i>
-                            </button>
-                        </div>
-                        <div class="main-menu d-none d-lg-block">
-                            <nav>
-                                <ul>
-                                    <li>
-                                        <a href="{% url 'blogs:to_shop' %}" class="active text-capitalize">
-                                            {% trans 'Home' %}
-                                        </a>
-
-                                    </li>
-                                    {% if perms.shopapp.change_product or request.user.is_superuser %}
-                                    <li>
-                                        <a class="text-capitalize" href="blog.html">
-                                            {% trans 'Catalog' %}
-                                            <i class="far fa-angle-down"></i>
-                                        </a>
-                                        <ul class="submenu">
-
-                                            <li>
-                                                <a href="" class="active">
-                                                    {% trans 'All products' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">{% trans 'Computers' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">{% trans 'Phones' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">{% trans 'Camcorders' %}
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href=""> {% trans 'Add product categories' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{% url 'shopapp:create_product' %}">
-                                                    {% trans 'Add product' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{% url 'shopapp:products_list' %}">
-                                                    {% trans 'Product list' %}
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                    </li>
-                                    {% endif %}
-                                    {% if request.user.is_authenticated %}
-                                    <li>
-                                        <a class="text-capitalize" href="blog.html">
-                                            {% trans 'Orders' %}
-                                            <i class="far fa-angle-down"></i>
-                                        </a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="{% url 'shopapp:create_order' %}" class="active">
-                                                    {%trans 'Add order' %}
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
-                                                    {% trans 'My orders' %}
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    {% endif %}
-                                    <li><a class="text-capitalize" href="blog.html">{% trans 'Blog' %} <i
-                                            class="far fa-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="{% url 'blogs:show_blogs' %}" class="active">
-                                                    {% trans 'All posts' %}
-                                                </a>
-                                            </li>
-                                            {% if request.user.is_authenticated %}
-                                            <li>
-                                                <a href="{% url 'blogs:created_blog' %}">
-                                                    {% trans 'Add post' %}
-                                                </a>
-                                            </li>
-                                            {% endif %}
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">
-                                            {% trans 'Contact' %}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
 </header>
 <!-- header-end -->
 
@@ -431,7 +386,7 @@
         <div class="offcanvas__content">
             <div class="offcanvas__logo mb-40">
                 <a href="index.html">
-                    <img src="assets/img/logo/logo-white.png" alt="logo">
+                    <img src="{% static 'assets/img/logo/logo-white.png' %}" alt="logo">
                 </a>
             </div>
             <div class="offcanvas__search mb-25">
@@ -440,7 +395,84 @@
                     <button type="submit"><i class="far fa-search"></i></button>
                 </form>
             </div>
-            <div class="mobile-menu fix"></div>
+            <div class="mobile-menu fix mean-container">
+                <div class="mean-bar"><a href="#nav" class="meanmenu-reveal"
+                                         style="right: 0px; left: auto; display: inline;"><span><span><span></span></span></span></a>
+                    <nav class="mean-nav">
+                        <ul style="display: none;">
+                            <li>
+                                <a href="{% url 'blogs:to_shop' %}">
+                                    {% trans 'Home' %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="shop.html">
+                                    {% trans 'Catalog' %}
+                                </a>
+                                <ul class="mega-menu">
+                                    <li>
+                                        <a href="">{% trans 'Computers' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="">{% trans 'Phones' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="">{% trans 'Camcorders' %}</a>
+                                    </li>
+                                    {% if perms.shopapp.change_product or request.user.is_superuser %}
+                                    <li>
+                                        <a href="">{% trans 'Add product categories' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'shopapp:create_product' %}">{% trans 'Add product' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'shopapp:products_list' %}">{% trans 'Product list' %}</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            {% if request.user.is_superuser %}
+                            <li>
+                                <a href="">{% trans 'Orders' %}</a>
+                                <ul class="mega-menu">
+                                    <li><a href="">{%trans 'Add order' %}</a></li>
+                                    <li><a href="">{% trans 'My orders' %}</a></li>
+
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="">{% trans 'Blog' %}</a>
+                                <ul class="mega-menu">
+                                    <li>
+                                        <a href="{% url 'blogs:show_blogs' %}">{% trans 'All posts' %}</a>
+                                    </li>
+                                    {% if request.user.is_authenticated %}
+                                    <li>
+                                        <a href="{% url 'blogs:created_blog' %}">{% trans 'Add post' %}</a>
+                                    </li>
+                                    {% endif %}
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{% url 'shopapp:contact' %}">{% trans 'Contact' %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'register' %}">{% trans 'Sign Up' %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'login' %}">{% trans 'Log In' %}</a>
+                            </li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'logout' %}">{% trans 'Log Out' %}</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
             <div class="offcanvas__action">
 
             </div>

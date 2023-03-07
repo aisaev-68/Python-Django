@@ -5,7 +5,7 @@ from pathlib import Path
 from django.contrib.auth.models import User, Group
 from django.core.management import BaseCommand
 import requests
-from shopapp.models import Product, Category
+from shopapp.models import Product, Category, Catalog
 
 uploaded_file_path = Path().parent / "media/product_images"
 uploaded_file_path.mkdir(exist_ok=True, parents=True)
@@ -130,7 +130,7 @@ class Command(BaseCommand):
                                                                       'products_count': 50, 'archived': False}]
 
         user = User.objects.filter(username='editor').first()
-        category = Category.objects.filter(name='Электроника')
+        category = Category.objects.filter(name='Телефоны и смарт-часы').first()
         for d in products_names:
 
             request = requests.get(d['image'])
@@ -149,7 +149,7 @@ class Command(BaseCommand):
                 rating=d.get('rating'),
                 created_by=user,
                 price=d['price'],
-                discount=2,
+                discount=random.choices([5, 10, 15, 20])[0],
                 image=file_path,
                 products_count=50,
                 archived=False,

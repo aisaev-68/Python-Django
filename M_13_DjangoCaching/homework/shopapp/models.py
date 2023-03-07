@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Catalog(models.Model):
-    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Category'))
+    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Catalog'))
     # slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
@@ -17,16 +17,18 @@ class Catalog(models.Model):
         return self.name
 
 
+
+
 class Category(models.Model):
-    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Category'))
-    catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
-                                 verbose_name=_('Catalog'))
+    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
+    category = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
+                                 verbose_name=_('Category'))
     # slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
         ordering = ['name',]
         verbose_name = _('Category')
-        verbose_name_plural = _('Category')
+        verbose_name_plural = _('Categories')
 
 
     def __str__(self):
@@ -48,6 +50,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', verbose_name=_('Image product'),
                               default='images/default_image.jpg')
     discount = models.SmallIntegerField(default=0, verbose_name=_('Discount'))
+    # sold = models.SmallIntegerField(default=0, verbose_name=_('Sold'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
     products_count = models.IntegerField(verbose_name=_('Count'))
     archived = models.BooleanField(default=False, verbose_name=_('Status'))

@@ -1,6 +1,7 @@
 python manage.py makemigrations
 python manage.py migrate
 python manage.py create_groups
+python manage.py create_categories
 python manage.py create_products
 python manage.py create_orders
 python manage.py create_posts
