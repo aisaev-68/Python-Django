@@ -1,19 +1,23 @@
+import os
 import random
 import uuid
 from pathlib import Path
 
-from mimesis import Person, Address, Text, Internet
+from django.utils.timezone import now
+from mimesis import Text, Internet
 from mimesis.locales import Locale
 import requests
 from django.contrib.auth.models import User
 from django.core.management import BaseCommand
-from django.conf import settings
+
 from blogs.models import Post, PostImage
 
-uploaded_file_path = Path().parent / "media/post_images"
+
+
+new_dir_file = now().date().strftime("%Y/%m/%d")
+uploaded_file_path = Path().parent / "media/post_images" / new_dir_file
 uploaded_file_path.mkdir(exist_ok=True, parents=True)
 uploaded_file_path = uploaded_file_path.absolute()
-
 
 class Command(BaseCommand):
     """
@@ -23,7 +27,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write("Create posts")
         users = [user for user in User.objects.all()]
-        path_dir = uploaded_file_path
 
         for _ in range(20):
             user = random.choice(users)
@@ -34,8 +37,8 @@ class Command(BaseCommand):
             request = requests.get(url)
             filename = str(uuid.uuid4())
             file_name = "{name}.{ext}".format(name=filename, ext='jpg')
-            file_path = "post_images/{image_name}".format(image_name=file_name)
-            path_absolute = str(Path(path_dir, file_name))
+            file_path = "post_images/{new_dir}/{image_name}".format(new_dir=new_dir_file, image_name=file_name)
+            path_absolute = str(Path(uploaded_file_path, file_name))
             with open(path_absolute, 'wb') as f:
                 f.write(request.content)
 

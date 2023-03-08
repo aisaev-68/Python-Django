@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.utils.formats import date_format
-from .models import Product, Order, Category
+from .models import Product, Order, Category, Catalog
 from .admin_mixins import ExportAsCSVMixin
 
 
@@ -21,9 +21,15 @@ def mark_unarchived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset
     queryset.update(archived=False)
 
 
+@admin.register(Catalog)
+class CatalogAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name']
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['pk', 'name']
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
@@ -36,15 +42,15 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         OrderInline,
     ]
 
-    list_display = "pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price", \
-        "discount", "image", "products_count", "archived"
+    list_display = "pk", "name", "category", "description_short", "attributes", "rating", "created_by", "format_date", "price", \
+        "discount", "image", "products_count", "sold", "archived"
     list_display_links = "pk", "name"
     ordering = "name", "price"
     search_fields = "name", "description"
     fieldsets = [
         (None, {
             "fields": (
-            "name", "description", "attributes", "rating", "created_by", "format_date", "products_count", "image"),
+            "name", "category", "description", "attributes", "rating", "created_by", "format_date", "products_count", "sold", "image"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),

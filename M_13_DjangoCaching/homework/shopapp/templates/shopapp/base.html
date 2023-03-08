@@ -201,14 +201,31 @@
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
-                        <div class="header-action">
-                            <div class="block-userlink">
-                                <a class="icon-link" href="my-account.html">
+                        <div class="header-action justify-content-end">
+                            <div class="block-cart action me-3">
+                                <a class="icon-link" href="">
                                     <i class="flaticon-user"></i>
-                                    <span class="text">
-                                    <span class="sub">Login </span>
+                                    <span class="text align-self-center">
                                     {% trans 'My Account' %} </span>
                                 </a>
+                                <div class="cart">
+                                    <div class="cart__mini">
+                                        <ul>
+                                            {% if not request.user.is_authenticated %}
+                                            <li>
+                                                <a href="{% url 'login' %}" class="wc-checkout">Log In</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'register' %}" class="wc-checkout">Registration</a>
+                                            </li>
+                                            {% else %}
+                                            <li>
+                                                <a href="{% url 'logout' %}" class="wc-checkout">Log Out</a>
+                                            </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="block-cart action">
@@ -455,118 +472,6 @@
     <div class="shop-area mb-20">
         <div class="container">
             <div class="row">
-                <!--                <div class="col-xl-3 col-lg-4">-->
-                <!--                    <div class="product-widget mb-30">-->
-                <!--                        <h5 class="pt-title">Product categories</h5>-->
-                <!--                        <div class="widget-category-list mt-20">-->
-                <!--                            <form action="#">-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-1" name="cat-item">-->
-                <!--                                    <label for="cat-item-1">Clothing &amp; Apparel <span>(12)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-2" name="cat-item">-->
-                <!--                                    <label for="cat-item-2">Consumer Electrics <span>(60)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-3" name="cat-item">-->
-                <!--                                    <label for="cat-item-3">Computers &amp; Technologies <span>(41)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-4" name="cat-item">-->
-                <!--                                    <label for="cat-item-4">Phones &amp; Accessories <span>(28)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-5" name="cat-item">-->
-                <!--                                    <label for="cat-item-5">Babies &amp; Moms <span>(21)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-7" name="cat-item">-->
-                <!--                                    <label for="cat-item-7">Books &amp; Office <span>(62)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-8" name="cat-item">-->
-                <!--                                    <label for="cat-item-8">Sport &amp; Outdoo <span>(22)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-9" name="cat-item">-->
-                <!--                                    <label for="cat-item-9">Chairs &amp; Stools <span>(20)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-10" name="cat-item">-->
-                <!--                                    <label for="cat-item-10">Furniture &amp; Acessories <span>(06)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-11" name="cat-item">-->
-                <!--                                    <label for="cat-item-11">Kitchen &amp; Tableware <span>(30)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-12" name="cat-item">-->
-                <!--                                    <label for="cat-item-12">Lighting <span>(30)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="cat-item-13" name="cat-item">-->
-                <!--                                    <label for="cat-item-13">Armchairs &amp; Chaises <span>(30)</span></label>-->
-                <!--                                </div>-->
-                <!--                            </form>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="product-widget mb-30">-->
-                <!--                        <h5 class="pt-title">Filter By Price</h5>-->
-                <!--                        <div class="price__slider mt-30">-->
-                <!--                            <div id="slider-range"-->
-                <!--                                 class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">-->
-                <!--                                <div class="ui-slider-range ui-corner-all ui-widget-header"-->
-                <!--                                     style="left: 0%; width: 100%;">-->
-                <!--                                </div>-->
-                <!--                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"-->
-                <!--                                      style="left: 21.1538%;"></span>-->
-                <!--                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"-->
-                <!--                                      style="left: 100%;"></span>-->
-                <!--                                <div class="ui-slider-range ui-corner-all ui-widget-header"-->
-                <!--                                     style="left: 21.1538%; width: 78.8462%;">-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                            <div>-->
-                <!--                                <form action="#" class="s-form mt-20">-->
-                <!--                                    <input type="text" id="amount" readonly="">-->
-                <!--                                    <button type="submit" class="tp-btn-square-lg">Filter</button>-->
-                <!--                                </form>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="product-widget mb-30">-->
-                <!--                        <h5 class="pt-title">Choose Brand</h5>-->
-                <!--                        <div class="widget-category-list mt-20">-->
-                <!--                            <form action="#">-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-1" name="brand-item">-->
-                <!--                                    <label for="brand-item-1">CarRentals <span>(12)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-2" name="brand-item">-->
-                <!--                                    <label for="brand-item-2">CarVoodoo <span>(60)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-3" name="brand-item">-->
-                <!--                                    <label for="brand-item-3">Creative <span>(41)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-4" name="brand-item">-->
-                <!--                                    <label for="brand-item-4">Impact <span>(28)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-5" name="brand-item">-->
-                <!--                                    <label for="brand-item-5">IQVia <span>(21)</span></label>-->
-                <!--                                </div>-->
-                <!--                                <div class="single-widget-category">-->
-                <!--                                    <input type="checkbox" id="brand-item-7" name="brand-item">-->
-                <!--                                    <label for="brand-item-7">LeadsGreen <span>(62)</span></label>-->
-                <!--                                </div>-->
-                <!--                            </form>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
                 {% block section %}
                 Base section
                 {% endblock %}
@@ -579,7 +484,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 text-center mt-2">
-                    <h2 class="footer-heading"><a href="#" class="logo text-white">Global</a></h2>
+                    <div class="logo d-flex justify-content-center mt-2">
+                        <a href="" class="logo-image">
+                            <img src="{% static 'assets/img/logo/logo1.svg' %}" alt="logo">
+                        </a>
+                    </div>
                     <div class="menu mb-3">
                         <a class="text-white" href="#">{% trans 'Home' %}</a>
                         <a class="text-white mx-3" href="#">{% trans 'Price' %}</a>

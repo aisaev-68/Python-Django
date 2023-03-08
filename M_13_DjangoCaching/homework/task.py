@@ -1,7 +1,8 @@
 import json
+import os
 
 dict_prod = {'Электроника': 'text.txt', 'Бытовая техника': 'text1.txt', 'Красота и здоровье': 'text2.txt',
-             'Одежда':'text3.txt', 'Обувь': 'text4.txt', 'Строительство и ремонт':'text5.txt', 'Детские товары': 'text6.txt'}
+             'Одежда': 'text3.txt', 'Обувь': 'text4.txt', 'Строительство и ремонт':'text5.txt', 'Детские товары': 'text6.txt'}
 catalog = []
 for key, value in dict_prod.items():
     with open(value, mode='r', encoding='utf-8') as f:
@@ -10,7 +11,6 @@ for key, value in dict_prod.items():
     lst1 = {}
     lst2 = {}
     d = {}
-    dict_electron = {'Электроника': lst1, 'Бытовая техника': lst2}
     for item in data:
         if item.startswith('1'):
             lst_d = []
@@ -21,7 +21,9 @@ for key, value in dict_prod.items():
     lst1[key] = lst2
     catalog.append(lst1)
 
-with open('json_data.json', 'w', encoding='utf-8') as outfile:
+with open('json_data-categories.json', 'w', encoding='utf-8') as outfile:
     json.dump({'data': catalog}, outfile, indent=4, ensure_ascii=False)
 
 print(catalog)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)

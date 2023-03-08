@@ -3,9 +3,25 @@ import os
 from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.forms import TextInput, ModelForm, MultipleChoiceField, ModelMultipleChoiceField
+from django.forms import TextInput, ModelForm, ModelChoiceField, ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple, HiddenInput, CheckboxSelectMultiple, ClearableFileInput
-from .models import Product, Order
+from .models import Product, Order, Category
+
+
+class CatalogModelForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].help_text = ''
+
+
+class CategoryModelForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].help_text = ''
 
 
 class ProductModelForm(ModelForm):
@@ -17,6 +33,13 @@ class ProductModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["category"] = ModelChoiceField(
+            queryset=Category.objects.all(),
+            label=_('Categories'),
+            widget=SelectMultiple(attrs={
+                "class": "form-select",
+            }, ),
+        )
         self.fields['price'].widget.attrs['min'] = 0
         self.fields['price'].widget.attrs['max'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
@@ -24,14 +47,15 @@ class ProductModelForm(ModelForm):
         self.fields['discount'].widget.attrs['min'] = 0
         self.fields['discount'].widget.attrs['max'] = 30
         self.fields['products_count'].widget.attrs['min'] = 0
+        self.fields['sold'].widget.attrs['min'] = 0
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
     class Meta:
         model = Product
-        fields = ["name", "description", "attributes", "rating", "price", "created_by", "discount", "image",
-                  "products_count"]
+        fields = ["name", "category", "description", "attributes", "rating", "price", "created_by", "discount", "image",
+                  "products_count", "sold"]
 
 
 class OrderModelForm(ModelForm):

@@ -17,9 +17,10 @@ from .forms import OrderModelForm, ProductModelForm, ContactForm
 class ShopPage(View):
 
     def get(self, request: HttpRequest):
-        context = {"products": Product.objects.filter(discount=20.0, archived=False), "catalogs": Catalog.objects.all()}
-        return render(request, 'shopapp/first-page.html', context=context)
-
+        results = Product.objects.filter(archived=False)
+        context = {"products": results, "catalogs": Catalog.objects.all()}
+        # return render(request, 'shopapp/first-page.html', context=context)
+        return render(request, 'shopapp/shop-electronic.html', context=context)
 
 class ProductList(ListView):
     # model = Product

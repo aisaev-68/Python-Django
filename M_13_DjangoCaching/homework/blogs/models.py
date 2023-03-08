@@ -1,8 +1,14 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 
+
+def get_upload_path_by_posts(instance, filename):
+    return os.path.join('post_images/', now().date().strftime("%Y/%m/%d"), filename)
 
 
 class Post(models.Model):
@@ -10,7 +16,6 @@ class Post(models.Model):
     description = models.TextField(verbose_name=_('Description'), blank=True)
     created_by = models.ForeignKey(User, verbose_name=_('Created by'), related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
-
 
     def __str__(self):
         return "Post {title}".format(title=self.title)
@@ -23,7 +28,7 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='posts', verbose_name=_('Post'))
-    image = models.FileField(upload_to="post_image/", blank=True, verbose_name=_('Files post'))
+    image = models.FileField(upload_to=get_upload_path_by_posts, blank=True, verbose_name=_('Files post'))
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
