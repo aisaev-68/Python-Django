@@ -14,10 +14,10 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="banner__item p-relative w-img mb-30">
                     <div class="banner__img">
-                        <a href="product-details.html"><img src="{% static 'assets/img/banner/banner-1.jpg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
                     <div class="banner__content">
-                        <h6><a href="product-details.html">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'
+                        <h6><a href="">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'
                             %}</a></h6>
                         <p>{% trans 'Discount 20% On Products' %}</p>
                     </div>
@@ -26,10 +26,10 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="banner__item p-relative mb-30 w-img">
                     <div class="banner__img">
-                        <a href="product-details.html"><img src="{% static 'assets/img/banner/banner-2.jpg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
                     <div class="banner__content">
-                        <h6><a href="product-details.html">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>
+                        <h6><a href="">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>
                         <p>{% trans 'Limited Time: Online Only!' %}</p>
                     </div>
                 </div>
@@ -37,10 +37,10 @@
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="banner__item p-relative mb-30 w-img">
                     <div class="banner__img">
-                        <a href="product-details.html"><img src="{% static 'assets/img/banner/banner-3.jpg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
                     <div class="banner__content">
-                        <h6><a href="product-details.html">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}
+                        <h6><a href="">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}
                         </a></h6>
                         <p>{% trans 'Free Shipping All Order' %}</p>
                     </div>
@@ -60,7 +60,8 @@
                     <div class="offer-time">
                         <span class="offer-title d-none d-sm-block">{% trans 'Hurry Up! Offer ends in:' %}</span>
                         <div class="countdown">
-                            <div class="countdown-inner b-radius" data-countdown="Mar 01 2023 20:20:22" data-date="Mar 31 2023 20:20:22">
+                            <div class="countdown-inner b-radius" data-countdown="Mar 01 2023 20:20:22"
+                                 data-date="Mar 31 2023 20:20:22">
                                 <ul class="text-center">
                                     <li><span data-days="">'36'</span> {% trans 'Days' %}</li>
                                     <li><span data-hours="">8</span> {% trans 'Hours' %}</li>
@@ -116,37 +117,43 @@
                                 </div>
                             </div>
                             <div class="product__content">
-                                <h6>
+                                <h6 class="mt-3">
                                     <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
                                         {{ product.to_json.name|truncatechars:25 }}
                                     </a>
                                 </h6>
                                 <div class="rating mb-5">
                                     <ul>
-                                        <li><a href="#"><i
-                                                class="fal fa-star{% if product.to_json.rating < 0.5%}-o{% elif product.to_json.rating >= 0.5 and product.to_json.rating < 1 %}-half-o{% endif %}"></i></a>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 0.5 %}-half {% elif product.to_json.rating >= 0.5 and product.to_json.rating < 1.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
                                         </li>
-                                        <li><a href="#"><i
-                                                class="fal fa-star{% if product.to_json.rating < 1.5%}-o{% elif product.to_json.rating >= 1.5 and product.to_json.rating < 2 %}-half-o{% endif %}"></i></a>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 1.5 %}-half {% elif product.to_json.rating >= 1.5 and product.to_json.rating < 2.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
                                         </li>
-                                        <li><a href="#"><i
-                                                class="fal fa-star{% if product.to_json.rating < 2.5%}-o{% elif product.to_json.rating >= 2.5 and product.to_json.rating < 3 %}-half-o{% endif %}"></i></a>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 2.5 %}-half {% elif product.to_json.rating >= 2.5 and product.to_json.rating < 3.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
                                         </li>
-                                        <li><a href="#"><i
-                                                class="fal fa-star{% if product.to_json.rating < 3.5%}-o{% elif product.to_json.rating >= 3.5 and product.to_json.rating < 4 %}-half-o{% endif %}"></i></a>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 3.5 %}-half {% elif product.to_json.rating >= 3.5 and product.to_json.rating < 4.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
                                         </li>
-                                        <li><a href="#"><i
-                                                class="fal fa-star{% if product.to_json.rating < 4.5%}-o{% elif product.to_json.rating >= 4.5 and product.to_json.rating < 5 %}-half-o{% endif %}"></i></a>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 4.5 %}-half {% elif product.to_json.rating >= 4.5 and product.to_json.rating <= 5.0 %} -half {% endif %}"
+                                               aria-hidden="true"></i></a>
                                         </li>
                                     </ul>
                                     <span>({% firstof product.to_json.rating '0' %}/5)</span>
                                 </div>
                                 <div class="price mb-10">
                                     <span><del class="me-2">{{ product.to_json.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
-<!--                                    <span>{{ product.price }} ₽</span>-->
+                                    <!--                                    <span>{{ product.price }} ₽</span>-->
                                 </div>
                                 <div class="progress mb-5">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ product.to_json.progress }}%"
+                                    <div class="progress-bar bg-danger" role="progressbar"
+                                         style="width: {{ product.to_json.progress }}%"
                                          aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="progress-rate">
@@ -248,30 +255,36 @@
                                             </div>
                                         </div>
                                         <div class="product__content">
-                                            <h6><a href="{% url 'shopapp:product_detail' pk=product.pk %}">{{ product.to_json.name }}</a>
+                                            <h6 class="mt-3"><a href="{% url 'shopapp:product_detail' pk=product.pk %}">{{ product.to_json.name }}</a>
                                             </h6>
                                             <div class="rating mb-5">
                                                 <ul>
                                                     <li><a href="#">
-                                                        <i class="fal fa-star{% if product.to_json.rating < 0.5%}-o{% elif product.to_json.rating >= 0.5 and product.to_json.rating < 1 %}-half-o{% endif %}"></i></a>
+                                                        <i class="fa fa-star{% if product.to_json.rating < 0.5 %}-half {% elif product.to_json.rating >= 0.5 and product.to_json.rating < 1.0 %}-half {% endif %}"
+                                                           aria-hidden="true"></i></a>
                                                     </li>
                                                     <li><a href="#">
-                                                        <i class="fal fa-star{% if product.to_json.rating < 1.5%}-o{% elif product.to_json.rating >= 1.5 and product.to_json.rating < 2 %}-half-o{% endif %}"></i></a>
+                                                        <i class="fa fa-star{% if product.to_json.rating < 1.5 %}-half {% elif product.to_json.rating >= 1.5 and product.to_json.rating < 2.0 %}-half {% endif %}"
+                                                           aria-hidden="true"></i></a>
                                                     </li>
                                                     <li><a href="#">
-                                                        <i class="fal fa-star{% if product.to_json.rating < 2.5%}-o{% elif product.to_json.rating >= 2.5 and product.to_json.rating < 3 %}-half-o{% endif %}"></i></a>
+                                                        <i class="fa fa-star{% if product.to_json.rating < 2.5 %}-half {% elif product.to_json.rating >= 2.5 and product.to_json.rating < 3.0 %}-half {% endif %}"
+                                                           aria-hidden="true"></i></a>
                                                     </li>
                                                     <li><a href="#">
-                                                        <i class="fal fa-star{% if product.to_json.rating < 3.5%}-o{% elif product.to_json.rating >= 3.5 and product.to_json.rating < 4 %}-half-o{% endif %}"></i></a>
+                                                        <i class="fa fa-star{% if product.to_json.rating < 3.5 %}-half {% elif product.to_json.rating >= 3.5 and product.to_json.rating < 4.0 %}-half {% endif %}"
+                                                           aria-hidden="true"></i></a>
                                                     </li>
                                                     <li><a href="#">
-                                                        <i class="fal fa-star{% if product.to_json.rating < 4.5%}-o{% elif product.to_json.rating >= 4.5 and product.to_json.rating < 5 %}-half-o{% endif %}"></i></a>
+                                                        <i class="fa fa-star{% if product.to_json.rating < 4.5 %}-half {% elif product.to_json.rating >= 4.5 and product.to_json.rating <= 5.0 %} -half {% endif %}"
+                                                           aria-hidden="true"></i></a>
                                                     </li>
                                                 </ul>
                                                 <span>({% firstof product.to_json.rating '0' %}/5)</span>
                                             </div>
                                             <div class="price">
-                                                <span><del class="me-2">{{ product.to_json.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
+                                                <span><del
+                                                        class="me-2">{{ product.to_json.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
                                             </div>
                                         </div>
                                         <div class="product__add-cart text-center">

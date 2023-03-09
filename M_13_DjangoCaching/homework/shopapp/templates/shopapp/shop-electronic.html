@@ -14,133 +14,140 @@
                 <div class="breadcrumb__wrapper">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Electronics</li>
+                            <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ category_name }}</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-4">
-        <div class="product-widget mb-30">
-            <h5 class="pt-title">Product categories</h5>
-            <div class="widget-category-list mt-20">
-                <form action="#">
-                    {% csrf_token %}
-                    {% for category in categories %}
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="cat-item-{{ forloop.counter }}" name="cat-item">
-                        <label for="cat-item-{{ forloop.counter }}">{{ category }}</label>
-                    </div>
-                    {% endfor %}
+    <div class="d-flex">
+        <div class="col-xl-3 col-lg-4">
+            <div class="product-widget mb-30">
+                <h5 class="pt-title">Product categories</h5>
+                <div class="widget-category-list mt-20">
+                    <form action="" method="get">
+                        {% csrf_token %}
+                        <div class="single-widget-category ">
+                            <input type="checkbox" id="cat-item-1" name="cat-item" checked >
+                            <label for="cat-item-1">{% trans 'All' %}</label>
+                        </div>
+                        {% for category in electronics %}
+                        {% if forloop.counter > 1 %}
+                        <div class="single-widget-category ">
+                            <input type="checkbox" id="cat-item-{{ forloop.counter }}" name="cat-item" >
+                            <label for="cat-item-{{ forloop.counter }}">{{ category }}</label>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="product-widget mb-30">
-            <h5 class="pt-title">Filter By Price</h5>
-            <div class="price__slider mt-30">
-                <div id="slider-range"
-                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                    <div class="ui-slider-range ui-corner-all ui-widget-header"
-                         style="left: 0%; width: 100%;">
+            <div class="product-widget mb-30">
+                <h5 class="pt-title">Filter By Price</h5>
+                <div class="price__slider mt-30">
+                    <div id="slider-range"
+                         class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                             style="left: 0%; width: 100%;">
+                        </div>
+                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                              style="left: 21.1538%;"></span>
+                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                              style="left: 100%;"></span>
+                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                             style="left: 21.1538%; width: 78.8462%;">
+                        </div>
                     </div>
-                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                          style="left: 21.1538%;"></span>
-                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                          style="left: 100%;"></span>
-                    <div class="ui-slider-range ui-corner-all ui-widget-header"
-                         style="left: 21.1538%; width: 78.8462%;">
+                    <div>
+                        <form action="#" class="s-form mt-20">
+                            <input type="text" id="amount" readonly="">
+                            <button type="submit" class="tp-btn-square-lg">Filter</button>
+                        </form>
                     </div>
                 </div>
-                <div>
-                    <form action="#" class="s-form mt-20">
-                        <input type="text" id="amount" readonly="">
-                        <button type="submit" class="tp-btn-square-lg">Filter</button>
+            </div>
+            <div class="product-widget mb-30">
+                <h5 class="pt-title">Choose Brand</h5>
+                <div class="widget-category-list mt-20">
+                    <form action="#">
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-1" name="brand-item">
+                            <label for="brand-item-1">CarRentals <span>(12)</span></label>
+                        </div>
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-2" name="brand-item">
+                            <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
+                        </div>
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-3" name="brand-item">
+                            <label for="brand-item-3">Creative <span>(41)</span></label>
+                        </div>
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-4" name="brand-item">
+                            <label for="brand-item-4">Impact <span>(28)</span></label>
+                        </div>
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-5" name="brand-item">
+                            <label for="brand-item-5">IQVia <span>(21)</span></label>
+                        </div>
+                        <div class="single-widget-category">
+                            <input type="checkbox" id="brand-item-7" name="brand-item">
+                            <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="product-widget mb-30">
-            <h5 class="pt-title">Choose Brand</h5>
-            <div class="widget-category-list mt-20">
-                <form action="#">
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-1" name="brand-item">
-                        <label for="brand-item-1">CarRentals <span>(12)</span></label>
-                    </div>
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-2" name="brand-item">
-                        <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
-                    </div>
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-3" name="brand-item">
-                        <label for="brand-item-3">Creative <span>(41)</span></label>
-                    </div>
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-4" name="brand-item">
-                        <label for="brand-item-4">Impact <span>(28)</span></label>
-                    </div>
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-5" name="brand-item">
-                        <label for="brand-item-5">IQVia <span>(21)</span></label>
-                    </div>
-                    <div class="single-widget-category">
-                        <input type="checkbox" id="brand-item-7" name="brand-item">
-                        <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-9 col-lg-8">
-        <div class="tab-content" id="productGridTabContent">
-            <div class="tab-pane fade  show active" id="FourCol" role="tabpanel" aria-labelledby="FourCol-tab">
-                <div class="tp-wrapper">
-                    <div class="row g-0">
-                        {% for product in products %}
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item product__item-d bg-light">
-                                <div class="product__thumb fix">
-                                    <div class="product-image w-img">
-                                        <a href="">
-                                            {% if 'http' in product.image.url %}
-                                            <img src="{{ product.image }}"
-                                                 style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                                                 class=""
-                                                 alt="Laptop"/>
-                                            {% else %}
-                                            <img src="{{ product.image.url }}"
-                                                 style="height: 30vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                                                 class=""
-                                                 alt="Laptop"/>
-                                            {% endif %}
-                                        </a>
+        <div class="col-xl-9 col-lg-8">
+            <div class="tab-content" id="productGridTabContent">
+                <div class="tab-pane fade  show active" id="FourCol" role="tabpanel" aria-labelledby="FourCol-tab">
+                    <div class="tp-wrapper">
+                        <div class="row g-0">
+                            {% for product in products %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item product__item-d bg-light">
+                                    <div class="product__thumb fix">
+                                        <div class="product-image w-img">
+                                            <a href="">
+                                                {% if 'http' in product.image.url %}
+                                                <img src="{{ product.image }}"
+                                                     style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% else %}
+                                                <img src="{{ product.image.url }}"
+                                                     style="height: 30vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="product-action">
+                                            <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal"
+                                               data-bs-target="#productModalId">
+                                                <i class="fal fa-eye"></i>
+                                                <i class="fal fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <i class="fal fa-heart"></i>
+                                                <i class="fal fa-heart"></i>
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <i class="fal fa-layer-group"></i>
+                                                <i class="fal fa-layer-group"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="product-action">
-                                        <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal"
-                                           data-bs-target="#productModalId">
-                                            <i class="fal fa-eye"></i>
-                                            <i class="fal fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="icon-box icon-box-1">
-                                            <i class="fal fa-heart"></i>
-                                            <i class="fal fa-heart"></i>
-                                        </a>
-                                        <a href="#" class="icon-box icon-box-1">
-                                            <i class="fal fa-layer-group"></i>
-                                            <i class="fal fa-layer-group"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="product__content-3">
-                                    <h6>
-                                        <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
-                                            {{ product.name|truncatechars:25 }}
-                                        </a>
-                                    </h6>
-                                    <div class="rating mb-5">
+                                    <div class="product__content-3">
+                                        <h6>
+                                            <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
+                                                {{ product.name|truncatechars:25 }}
+                                            </a>
+                                        </h6>
+                                        <div class="rating mb-5">
                             <span title="{% firstof product.rating '0' %}/5">
                             <i class="fa fa-star{% if product.rating < 0.5%}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}"
                                aria-hidden="true" style="color: #f39c12;"></i>
@@ -153,30 +160,32 @@
                             <i class="fa fa-star{% if product.rating < 4.5%}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}"
                                aria-hidden="true" style="color: #f39c12;"></i>
                         </span>
+                                        </div>
+                                        <div class="price mb-10">
+                                            <span>{{ product.price }} ₽</span>
+                                        </div>
                                     </div>
-                                    <div class="price mb-10">
-                                        <span>{{ product.price }} ₽</span>
+                                    <div class="product__add-cart-s text-center">
+                                        <button type="button"
+                                                class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
+                                            Add to Cart
+                                        </button>
+                                        <button type="button"
+                                                class="wc-checkout d-flex align-items-center justify-content-center w-100"
+                                                data-bs-toggle="modal" data-bs-target="#productModalId">
+                                            Quick View
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="product__add-cart-s text-center">
-                                    <button type="button"
-                                            class="cart-btn d-flex mb-10 align-items-center justify-content-center w-100">
-                                        Add to Cart
-                                    </button>
-                                    <button type="button"
-                                            class="wc-checkout d-flex align-items-center justify-content-center w-100"
-                                            data-bs-toggle="modal" data-bs-target="#productModalId">
-                                        Quick View
-                                    </button>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-xl-12">
             <div class="basic-pagination text-center pt-30 pb-30">

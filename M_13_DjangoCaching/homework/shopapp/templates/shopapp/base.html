@@ -300,21 +300,7 @@
                                     <ul>
                                         {% for catalog in catalogs %}
                                         <li>
-                                            <a href="product.html">{{ catalog.name }} <i class="far fa-angle-down"></i></a>
-                                            <ul class="mega-menu">
-
-                                                <li><a class="mb-1" href="product.html"></a>
-                                                    <ul class="mega-item">
-                                                        {% for name in catalog.categories.all %}
-
-                                                        <li><a class="my-0" href="product-details.html"><span
-                                                                class="text-nowrap">{{ name }}</span></a></li>
-
-                                                        {% endfor %}
-                                                    </ul>
-                                                </li>
-
-                                            </ul>
+                                            <a href="{{ catalog.get_absolute_url }}">{{ catalog.name|upper }}</a>
                                         </li>
                                         {% endfor %}
                                     </ul>
@@ -333,14 +319,14 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="{% url 'blogs:to_shop' %}" class="active text-capitalize">
+                                        <a href="{% url 'shopapp:shop_page' %}" class="active text-capitalize">
                                             {% trans 'Home' %}
                                         </a>
 
                                     </li>
                                     {% if perms.shopapp.change_product or request.user.is_superuser %}
                                     <li>
-                                        <a class="text-capitalize" href="blog.html">
+                                        <a class="text-capitalize" href="">
                                             {% trans 'Catalog' %}
                                             <i class="far fa-angle-down"></i>
                                         </a>
@@ -384,7 +370,7 @@
                                     {% endif %}
                                     {% if request.user.is_authenticated %}
                                     <li>
-                                        <a class="text-capitalize" href="blog.html">
+                                        <a class="text-capitalize" href="">
                                             {% trans 'Orders' %}
                                             <i class="far fa-angle-down"></i>
                                         </a>
@@ -403,7 +389,7 @@
                                         </ul>
                                     </li>
                                     {% endif %}
-                                    <li><a class="text-capitalize" href="blog.html">{% trans 'Blog' %} <i
+                                    <li><a class="text-capitalize" href="">{% trans 'Blog' %} <i
                                             class="far fa-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li>

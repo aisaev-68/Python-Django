@@ -2,6 +2,8 @@ import os
 from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db import models
+from django.shortcuts import reverse
+from django.urls import resolve
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
@@ -24,11 +26,14 @@ class Catalog(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("shopapp:{}".format(self.eng_name), kwargs={'pk': self.pk})
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
     catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
-                                 verbose_name=_('Catalog'))
+                                verbose_name=_('Catalog'))
 
     # slug = models.SlugField(max_length=200, unique=True)
 
@@ -39,6 +44,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("shopapp:{}".format(self.name), kwargs={'pk': self.pk})
 
 
 class Product(models.Model):
@@ -79,7 +87,6 @@ class Product(models.Model):
     @property
     def progress(self):
         return int((self.sold / self.products_count) * 100)
-
 
     def to_json(self):
         print(9, self.progress)

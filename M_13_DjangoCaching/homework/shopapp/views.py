@@ -19,8 +19,27 @@ class ShopPage(View):
     def get(self, request: HttpRequest):
         results = Product.objects.filter(archived=False)
         context = {"products": results, "catalogs": Catalog.objects.all()}
-        # return render(request, 'shopapp/first-page.html', context=context)
+        return render(request, 'shopapp/first-page.html', context=context)
+
+
+class ShowElectronicPage(View):
+    # context_object_name = "catalogs"
+    # template_name = 'shopapp/shop-electronic.html'
+    # queryset = Catalog.objects.filter(name="Электроника")
+
+    # def get_queryset(self):
+    #     queryset = Catalog.objects.filter(pk=self.kwargs['pk']).first()
+    #     return queryset
+
+
+    def get(self, request: HttpRequest, pk):
+        catalog_by_pk = Catalog.objects.filter(pk=pk).first()
+        category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
+        results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
+
+        context = {"products": results, "electronics": category_by_pk, 'catalogs': Catalog.objects.all(), "category_name": catalog_by_pk.name}
         return render(request, 'shopapp/shop-electronic.html', context=context)
+
 
 class ProductList(ListView):
     # model = Product
