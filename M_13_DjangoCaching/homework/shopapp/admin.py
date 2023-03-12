@@ -3,12 +3,17 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.utils.formats import date_format
-from .models import Product, Order, Category, Catalog
+from .models import Product, Order, Category, Catalog, OrderItem
 from .admin_mixins import ExportAsCSVMixin
 
+# class CategoryInline(admin.TabularInline):
+#     model = Category.catalog.through
 
-class OrderInline(admin.TabularInline):
-    model = Product.orders.through
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 5
+    # fields = ["product", "price", "quantity"]
+
 
 
 @admin.action(description=_("Archive products"))
@@ -28,7 +33,7 @@ class CatalogAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'name']
+    list_display = ['pk', 'name', 'tag']
 
 
 @admin.register(Product)
@@ -38,26 +43,25 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         mark_unarchived,
         "export_csv",
     ]
-    inlines = [
-        OrderInline,
-    ]
+    # inlines = [
+    #     CategoryInline,
+    # ]
 
-    list_display = "pk", "name", "category", "description_short", "attributes", "rating", "created_by", "format_date", "price", \
-        "discount", "image", "products_count", "sold", "archived"
+    list_display = ["pk", "name", "category", "description_short", "attributes", "rating", "created_by", "format_date", "price",
+        "discount", "image", "products_count", "sold", "archived", "brand"]
     list_display_links = "pk", "name"
     ordering = "name", "price"
-    search_fields = "name", "description"
+    search_fields = "name",
     fieldsets = [
         (None, {
-            "fields": (
-            "name", "category", "description", "attributes", "rating", "created_by", "format_date", "products_count", "sold", "image"),
+            "fields": ("name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),
             "classes": ("wide", "collapse"),
         }),
         (_("Extra options"), {
-            "fields": (_("archived"),),
+            "fields": ("archived",),
             "classes": ("collapse",),
             "description": _("Extra options. Field 'archived' is for soft delete"),
         })
@@ -68,7 +72,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
             return obj.description
         return obj.description[:48] + "..."
 
-    description_short.short_description = _("Description")
+    description_short.short_description = _("description")
 
     def format_date(self, obj: Product):
         return date_format(obj.created_at, "SHORT_DATETIME_FORMAT", '%Y-%m-%d %H:%M:%S')
@@ -76,19 +80,19 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     format_date.short_description = _("created_at")
 
 
-class ProductInline(admin.StackedInline):
-    model = Order.products.through
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = "product", "price", "quantity",
+
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [
-        ProductInline,
+        OrderItemInline,
     ]
-    list_display = "delivery_address", "promocode", "format_date", "user_verbose"
-
-    def get_queryset(self, request):
-        return Order.objects.select_related("user").prefetch_related("products")
+    list_display = "delivery_address", "promocode", "format_date", "user_verbose", "paid"
 
     def user_verbose(self, obj: Order) -> str:
         return obj.user.first_name or obj.user.username

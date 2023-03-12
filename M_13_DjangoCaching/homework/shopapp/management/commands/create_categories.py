@@ -22,8 +22,9 @@ class Command(BaseCommand):
             for name_catalog, catalogs in catalog.items():
                 rus_name, eng_name = name_catalog.split('-')
                 id_catalog = Catalog.objects.create(name=rus_name, eng_name=eng_name)
-                for group_name in catalogs.keys():
-                    Category.objects.create(name=group_name, catalog=id_catalog)
+                for name in catalogs.keys():
+                    group_name, tag_name = name.split('-')
+                    Category.objects.create(name=group_name, catalog=id_catalog, tag=tag_name)
 
         self.stdout.write(
             self.style.SUCCESS(

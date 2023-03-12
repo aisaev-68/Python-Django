@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load cache %}
 
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -160,7 +161,7 @@
                             <div class="ovic-menu-wrapper">
                                 <ul>
                                     <li><a href="about.html">{% trans 'About Us' %}</a></li>
-                                    <li><a href="contact.html">{% trans 'Contact Us' %}</a></li>
+                                    <li><a href="{% url 'shopapp:contact' %}">{% trans 'Contact' %}</a></li>
                                     <li><a href="faq.html">{% trans 'FAQs' %}</a></li>
                                 </ul>
                             </div>
@@ -190,12 +191,13 @@
                                     <button class="button" type="submit"><i class="far fa-search"></i></button>
                                 </div>
                                 <div class="header__search-cat">
-
+                                    {% cache 500 object_list %}
                                     <select>
                                         {% for catalog in catalogs %}
                                         <option>{{ catalog }}</option>
                                         {% endfor %}
                                     </select>
+                                    {% endcache %}
                                 </div>
                             </form>
                         </div>
@@ -203,7 +205,7 @@
                     <div class="col-xl-4 col-lg-5 col-md-8 col-sm-8">
                         <div class="header-action justify-content-end">
                             <div class="block-cart action me-3">
-                                <a class="icon-link" href="">
+                                <a class="icon-link">
                                     <i class="flaticon-user"></i>
                                     <span class="text align-self-center">
                                     {% trans 'My Account' %} </span>
@@ -292,6 +294,7 @@
                 <div class="col-lg-3">
                     <div class="cat__menu-wrapper side-border d-none d-lg-block">
                         <div class="cat-toggle">
+                             {% cache 500 catalog_list %}
                             <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i>
                                 {% trans 'Shop by department' %}
                             </button>
@@ -306,6 +309,7 @@
                                     </ul>
                                 </nav>
                             </div>
+                            {% endcache %}
                         </div>
                     </div>
                 </div>
@@ -319,17 +323,14 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="{% url 'shopapp:shop_page' %}" class="active text-capitalize">
+                                        <a href="{% url 'shopapp:shop_page' %}" class="text-capitalize">
                                             {% trans 'Home' %}
                                         </a>
 
                                     </li>
                                     {% if perms.shopapp.change_product or request.user.is_superuser %}
                                     <li>
-                                        <a class="text-capitalize" href="">
-                                            {% trans 'Catalog' %}
-                                            <i class="far fa-angle-down"></i>
-                                        </a>
+                                         <a class="text-capitalize" href="">{% trans 'Catalog' %}</a>
                                         <ul class="submenu">
 
                                             <li>
@@ -337,19 +338,6 @@
                                                     {% trans 'All products' %}
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="">{% trans 'Computers' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">{% trans 'Phones' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">{% trans 'Camcorders' %}
-                                                </a>
-                                            </li>
-
                                             <li>
                                                 <a href=""> {% trans 'Add product categories' %}
                                                 </a>
@@ -370,10 +358,7 @@
                                     {% endif %}
                                     {% if request.user.is_authenticated %}
                                     <li>
-                                        <a class="text-capitalize" href="">
-                                            {% trans 'Orders' %}
-                                            <i class="far fa-angle-down"></i>
-                                        </a>
+                                        <a class="text-capitalize" href="">{% trans 'Orders' %}</a>
                                         <ul class="submenu">
                                             <li>
                                                 <a href="{% url 'shopapp:create_order' %}" class="active">
@@ -388,9 +373,25 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    <li>
+                                        <a class="text-capitalize" href="">{% trans 'Offers' %}</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="" class="active">
+                                                    {% trans 'Offers' %}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="">
+                                                    {% trans 'Promotions' %}
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
                                     {% endif %}
-                                    <li><a class="text-capitalize" href="">{% trans 'Blog' %} <i
-                                            class="far fa-angle-down"></i></a>
+                                    <li>
+                                        <a class="text-capitalize" href="">{% trans 'Blog' %}</a>
                                         <ul class="submenu">
                                             <li>
                                                 <a href="{% url 'blogs:show_blogs' %}" class="active">
@@ -406,11 +407,11 @@
                                             {% endif %}
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">
-                                            {% trans 'Contact' %}
-                                        </a>
-                                    </li>
+<!--                                    <li>-->
+<!--                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">-->
+<!--                                            {% trans 'Contact' %}-->
+<!--                                        </a>-->
+<!--                                    </li>-->
                                 </ul>
                             </nav>
                         </div>

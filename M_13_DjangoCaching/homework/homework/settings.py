@@ -128,6 +128,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # media directory in the root directory
 MEDIA_URL = '/media/'
 
+
+
+# poetry add pymemcache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 # SESSION_COOKIE_AGE = 1 * 1 * 1 * 60
 # SESSION_COOKIE_NAME =

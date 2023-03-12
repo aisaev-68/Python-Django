@@ -1,7 +1,7 @@
 import json
 
 from django.http import HttpRequest, HttpResponseRedirect, JsonResponse, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.dateparse import parse_datetime
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
@@ -10,34 +10,35 @@ from django.forms import HiddenInput
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 
+from .cart import Cart
 from .models import Product, Order, Category, Catalog
-from .forms import OrderModelForm, ProductModelForm, ContactForm
+from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProductForm
 
 
 class ShopPage(View):
 
+
     def get(self, request: HttpRequest):
         results = Product.objects.filter(archived=False)
-        context = {"products": results, "catalogs": Catalog.objects.all()}
+        context = {
+            "products": results,
+            "catalogs": Catalog.objects.all(),
+        }
         return render(request, 'shopapp/first-page.html', context=context)
 
 
 class ShowElectronicPage(View):
-    # context_object_name = "catalogs"
-    # template_name = 'shopapp/shop-electronic.html'
-    # queryset = Catalog.objects.filter(name="Электроника")
-
-    # def get_queryset(self):
-    #     queryset = Catalog.objects.filter(pk=self.kwargs['pk']).first()
-    #     return queryset
-
-
     def get(self, request: HttpRequest, pk):
         catalog_by_pk = Catalog.objects.filter(pk=pk).first()
         category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
         results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
 
-        context = {"products": results, "electronics": category_by_pk, 'catalogs': Catalog.objects.all(), "category_name": catalog_by_pk.name}
+        context = {
+            "products": results,
+            "electronics": category_by_pk,
+            'catalogs': Catalog.objects.all(),
+            "category_name": catalog_by_pk.name
+        }
         return render(request, 'shopapp/shop-electronic.html', context=context)
 
 
@@ -118,10 +119,32 @@ class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
         return self.request.user.is_superuser or self.request.user == product.created_by
 
 
-class OrderList(LoginRequiredMixin, ListView):
-    model = Order
+class OrderList(LoginRequiredMixin, View):
     context_object_name = "orders"
-    template_name = 'shopapp/orders-list.html'
+
+    def get(self, request: HttpRequest):
+        dict_order = {}
+        context = []
+        orders = Order.objects.all()
+        for order in orders:
+            for product in order.products.all():
+                count = 0
+                for product1 in order.products.all():
+                    if product == product1:
+                        if dict_order.get(product):
+                            count += 1
+                        else:
+                            count = 1
+                dict_order = {
+                    "image": product.image,
+                    "name": product.name,
+                    "price": product.price,
+                    "count": count,
+                    "sum": count * product.price,
+                    }
+            context.append(dict_order)
+        print(888, context)
+        return render(request, 'shopapp/orders-list.html', context=context)
 
 
 class OrderCreate(LoginRequiredMixin, CreateView):
@@ -138,16 +161,32 @@ class OrderCreate(LoginRequiredMixin, CreateView):
         return {'user': self.request.user}
 
 
-class OrderListByUser(LoginRequiredMixin, ListView):
-    model = OrderModelForm
-    context_object_name = "orders"
-    template_name = 'shopapp/orders-list.html'
+class OrderListByUser(LoginRequiredMixin, View):
 
-    def get_queryset(self):
-        queryset = Order.objects.select_related("user").prefetch_related("products").filter(
-            user=self.kwargs['pk']).all()
+    def get(self, request: HttpRequest, *args, **kwargs):
+        context = []
+        # orders = Order.objects.select_related("user").prefetch_related("products").filter(
+        #     user=kwargs['pk']).all()
+        orders = Order.objects.filter(user=kwargs['pk']).all()
+        print(111111, orders[0].items.all())
+        for order in orders:
+            orders_data = order.items.all()
+            for order_product in orders_data:
+                print(6666, order_product.order)
+                dict_order = {}
 
-        return queryset
+                dict_order = {
+                    'image': order_product.product.image,
+                    'name': order_product.product.name,
+                    'price': order_product.price,
+                    'count': order_product.quantity,
+                    'sum': order_product.get_sum,
+                }
+
+                context.append(dict_order)
+        print(66666, context)
+        return render(request, 'shopapp/orders-list.html', context={"orders": context})
+
 
 
 class UpdateOrder(LoginRequiredMixin, UpdateView):
@@ -224,3 +263,58 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_staff
+
+
+class CartDetail(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        print(8888888, cart)
+        for item in cart:
+            item['update_quantity_form'] = CartAddProductForm(
+                initial={'quantity': item['quantity'],
+                         'update': True})
+        return render(request, 'shopapp/cart.html', context={'cart': cart})
+
+class CartAdd(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=product_id)
+        cart.add(
+            product=product,
+            quantity=1,
+            update_quantity=False,
+            )
+        return redirect('shopapp:cart_detail')
+
+
+class CartDelete(LoginRequiredMixin, View):
+    def get_success_url(self):
+        return reverse_lazy(
+            "shopapp:cart_detail",
+        )
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        product = get_object_or_404(Product, id=self.kwargs['product_id'])
+        cart.remove(product)
+        url = self.get_success_url()
+        return HttpResponseRedirect(url)
+
+
+class CartUpdate(LoginRequiredMixin, View):
+    # def get_success_url(self):
+    #     return reverse_lazy(
+    #         "shopapp:cart_update",
+    #     )
+
+    def post(self, request, *args, **kwargs):
+
+        cart = Cart(request)
+        print(222, [a for a in cart])
+        product = get_object_or_404(Product, id=self.kwargs['product_id'])
+        form = CartAddProductForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data # {'quantity': 12, 'update': True}
+            cart.add(product=product,
+                     quantity=cd['quantity'],
+                     update_quantity=cd['update'])
+        return redirect('shopapp:cart_detail')

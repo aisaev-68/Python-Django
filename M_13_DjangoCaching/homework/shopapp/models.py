@@ -32,6 +32,7 @@ class Catalog(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
+    tag = models.CharField(max_length=200, db_index=True, verbose_name=_('Tag'))
     catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
                                 verbose_name=_('Catalog'))
 
@@ -70,6 +71,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
     products_count = models.IntegerField(verbose_name=_('Count'))
     archived = models.BooleanField(default=False, verbose_name=_('Status'))
+    brand = models.CharField(max_length=100, verbose_name=_('Brand'))
 
     @property
     def description_short(self):
@@ -78,7 +80,7 @@ class Product(models.Model):
         return self.description[:48] + "..."
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
     @property
     def get_old_price(self):
@@ -89,7 +91,6 @@ class Product(models.Model):
         return int((self.sold / self.products_count) * 100)
 
     def to_json(self):
-        print(9, self.progress)
         product = {
             "pk": self.pk,
             "catalog": self.category.catalog.name,
@@ -109,6 +110,7 @@ class Product(models.Model):
             "archived": self.archived,
             "progress": self.progress,
             "dif_count_products": (self.products_count - self.sold),
+            "brand": self.brand,
         }
         return product
 
@@ -118,16 +120,30 @@ class Order(models.Model):
     promocode = models.CharField(max_length=20, null=False, blank=True, verbose_name=_('Promo code'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Create order date'))
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('User'))
-    products = models.ManyToManyField(
-        Product,
-        related_name="orders",
-        limit_choices_to={"archived": False},
-        verbose_name=_('Products')
-    )
+    paid = models.BooleanField(default=False, verbose_name=_('Status'))
+
 
     class Meta:
+        ordering = ('-created_at',)
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
 
     def __str__(self):
         return "Order {}".format(self.delivery_address)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE, verbose_name=_('Orders'))
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE, verbose_name=_('Products'))
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Price'))
+    quantity = models.PositiveIntegerField(default=1, verbose_name=_('Quantity'))
+
+
+    def get_price(self):
+        return Product.objects.filter(name=self.product).first().price
+
+    def __str__(self):
+        return '{}'.format(self.price)
+
+    def get_sum(self):
+        return self.price * self.quantity

@@ -16,6 +16,10 @@ from .views import (
     Contact,
     OrdersExport,
     ShowElectronicPage,
+    CartAdd,
+    CartDetail,
+    CartDelete,
+    CartUpdate,
 )
 
 app_name = "shopapp"
@@ -41,4 +45,8 @@ urlpatterns = [
     path("orders/<int:pk>/detail/", OrderDetail.as_view(), name="order_detail"),
     path("orders/<int:pk>/update/", UpdateOrder.as_view(), name="update_order"),
     path("orders/<int:pk>/delete/", OrderDelete.as_view(), name="order_delete"),
+    path('cart/all/', CartDetail.as_view(), name='cart_detail'),
+    path('cart/add/<int:product_id>/', CartAdd.as_view(), name='cart_add'),
+    path('cart/remove/<int:product_id>/', CartDelete.as_view(), name='cart_remove'),
+    path('cart/update/<int:product_id>/', CartUpdate.as_view(), name='cart_update'),
 ]

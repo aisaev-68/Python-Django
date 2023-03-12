@@ -1,10 +1,7 @@
-import os
-
-from django.contrib.auth.models import User
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.forms import TextInput, ModelForm, ModelChoiceField, ModelMultipleChoiceField
-from django.forms.widgets import SelectMultiple, HiddenInput, CheckboxSelectMultiple, ClearableFileInput
+from django.forms import ModelForm, ModelChoiceField
+from django.forms.widgets import SelectMultiple, HiddenInput
 from .models import Product, Order, Category
 
 
@@ -54,7 +51,7 @@ class ProductModelForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ["name", "category", "description", "attributes", "rating", "price", "created_by", "discount", "image",
+        fields = ["name", "brand", "category", "description", "attributes", "rating", "price", "created_by", "discount", "image",
                   "products_count", "sold"]
 
 
@@ -62,22 +59,15 @@ class OrderModelForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["products"] = ModelMultipleChoiceField(
-            queryset=Product.objects.all(),
-            label=_('Products'),
-            widget=SelectMultiple(attrs={
-                "class": "form-select",
-            }, ),
-        )
+
         self.fields['user'].widget = HiddenInput()
-        self.fields['products'].widget.attrs.update(rows=4)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
     class Meta:
         model = Order
-        fields = ["user", "promocode", "delivery_address", "products"]
+        fields = ["user", "promocode", "delivery_address", "paid"]
 
 
 class ContactForm(forms.Form):
@@ -85,3 +75,16 @@ class ContactForm(forms.Form):
     last_name = forms.CharField(label=_("Last name"), )
     email = forms.EmailField(label="Email", )
     message = forms.CharField(label=_("Message"), widget=forms.Textarea(attrs={'rows': 3, 'cols': 20,}))
+
+
+class CartAddProductForm(forms.Form):
+    # PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+    # quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int)
+    quantity = forms.IntegerField(
+        label=_('Quantity'),
+    )
+    update = forms.BooleanField(required=False,
+                                initial=False,
+                                widget=forms.HiddenInput
+                                )
+

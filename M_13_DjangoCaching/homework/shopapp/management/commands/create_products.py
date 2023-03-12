@@ -31,7 +31,7 @@ class Command(BaseCommand):
             data = json.load(json_file)
 
         user = User.objects.filter(username='editor').first()
-        category = Category.objects.filter(name='Телефоны и смарт-часы').first()
+        category = Category.objects.filter(name='Телефоны и смарт часы').first()
 
         for d in data["data"]:
 
@@ -46,6 +46,7 @@ class Command(BaseCommand):
             Product.objects.create(
                 category=category,
                 name=d['name'],
+                brand="Apple",
                 description=d['description'],
                 attributes=d['attributes'],
                 rating=d.get('rating'),

@@ -1,64 +1,72 @@
 {% extends 'shopapp/base.html' %}
 {% load i18n %}
+
 {% block title %}
 Orders list
 {% endblock %}
 
+
 {% block section %}
 {% if request.user.is_authenticated %}
-<h1 class="title_action">{% trans 'Order list:' %}</h1>
-{% if orders %}
-<table class="table-product">
-    <tr>
-        <th>id</th>
-        <th>{% trans 'User' %}</th>
-        <th>{% trans 'Promo code' %}</th>
-        <th>{% trans 'Delivery address' %}</th>
-        <th>{% trans 'Name of product' %}</th>
-        <th>{% trans 'Product Description' %}</th>
-        <th>{% trans 'Discount in %' %}</th>
-        <th>{% trans 'Price' %}</th>
-    </tr>
-    {% for order in orders %}
-    <tr>
-        <td><a href="{% url 'shopapp:order_detail' pk=order.pk %}">{{ order.pk }}</a></td>
-        <td>{% firstof order.user.first_name order.user.username %}</td>
-        <td>{{ order.promocode }}</td>
-        <td><a href="{% url 'shopapp:order_detail' pk=order.pk %}">{{ order.delivery_address }}</a></td>
-        <td>
-            {% for product in order.products.all %}
-            <p>{{ product.name }}</p>
-            {% endfor %}
-        </td>
-        <td >
-            {% for product in order.products.all %}
-            {{ product.description|truncatechars:300  }}
-            {% endfor %}
-        </td>
-        <td>
-            {% for product in order.products.all %}
-            <p>{{ product.discount }}</p>
-            {% endfor %}
-        </td>
-        <td>
-            {% for product in order.products.all %}
-            <p>{{ product.price }}</p>
-            {% endfor %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<h3>Заказы отсутствует</h3>
-{% endif %}
-<div class="back_to">
-    <p class="link-back"><a class="text-white" href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></p>
-    {% if request.user.is_authenticated %}
-    <p class="link-back"><a class="text-white" href="{% url 'shopapp:create_order' %}">{% trans 'Add new order' %}</a></p>
-    {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Orders' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
-{% else %}
-<h5>{% trans 'You are not identified!' %}</h5>
+<div class="col-12">
+    <div class="table-content table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{% trans 'Image' %}</th>
+                <th>{% trans 'Name of product' %}</th>
+                <th>{% trans 'Price' %}</th>
+                <th>{% trans 'Count' %}</th>
+                <th>{% trans 'Sum' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>
+                    {% if 'http' in order.image.url %}
+                    <img src="{{ order.image }}"
+                         style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                         class=""
+                         alt="Laptop"/>
+                    {% else %}
+                    <img src="{{ order.image.url }}"
+                         style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                         class=""
+                         alt="Laptop"/>
+                    {% endif %}
+                </td>
+                <td>
+                    <p>{{ order.name }}</p>
+                </td>
+                <td>
+                    <p>{{ order.price }}</p>
+                </td>
+                <td>
+                    <p>{{ order.count }}</p>
+                </td>
+                <td>
+                    <p>{{ order.sum }}</p>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endif %}
-
 {% endblock %}

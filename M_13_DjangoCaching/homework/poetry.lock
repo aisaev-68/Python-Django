@@ -262,6 +262,18 @@ docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-inline
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
 
 [[package]]
+name = "pymemcache"
+version = "4.0.0"
+description = "A comprehensive, fast, pure Python memcached client"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pymemcache-4.0.0-py2.py3-none-any.whl", hash = "sha256:f507bc20e0dc8d562f8df9d872107a278df049fa496805c1431b926f3ddd0eab"},
+    {file = "pymemcache-4.0.0.tar.gz", hash = "sha256:27bf9bd1bbc1e20f83633208620d56de50f14185055e49504f4f5e94e94aff94"},
+]
+
+[[package]]
 name = "python-decouple"
 version = "3.8"
 description = "Strict separation of settings from code."
@@ -339,4 +351,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b003932d9ccf20ae52d5133f14fd1ca635fbcf5df23ba4d12526a794ef5ea138"
+content-hash = "abe2cfbbee666fc61f575fa5ba984acf7380a5642a8ff7ba2b3898261a8fe1f0"
