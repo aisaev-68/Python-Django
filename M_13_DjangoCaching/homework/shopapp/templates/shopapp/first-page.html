@@ -163,7 +163,9 @@
                             <div class="product__add-cart text-center">
                                 <form action="{% url 'shopapp:cart_add' product.to_json.pk %}" method="post">
                                     {% csrf_token %}
-                                    <input class="" type="text" value="1" hidden="">
+                                    {{ item.update_quantity_form.update }}
+                                    {{ item.update_quantity_form.quantity }}
+<!--                                    <input class="" type="text" value="1" hidden="">-->
                                     <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
                                 </form>
                             </div>
@@ -289,8 +291,10 @@
                                             </div>
                                         </div>
                                         <div class="product__add-cart text-center">
-                                            <form action="{% url 'shopapp:cart_add' product.to_json.pk %}" method="post">
+                                            <form action="{% url 'shopapp:cart_add_update' product.to_json.pk %}" method="post">
                                                 {% csrf_token %}
+                                                {{ form.update }}
+<!--                                                {{ form.quantity }}-->
                                                  <input class="" type="text" value="1" hidden="">
                                                 <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
                                             </form>

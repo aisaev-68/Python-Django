@@ -16,19 +16,22 @@ from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProduct
 
 
 class ShopPage(View):
-
-
     def get(self, request: HttpRequest):
         results = Product.objects.filter(archived=False)
+        cart = Cart(request)
         context = {
             "products": results,
             "catalogs": Catalog.objects.all(),
+            "cart": cart,
         }
         return render(request, 'shopapp/first-page.html', context=context)
 
 
 class ShowElectronicPage(View):
     def get(self, request: HttpRequest, pk):
+        cart = Cart(request)
+        form = CartAddProductForm(request.POST)
+        print('shopelect', [a for a in cart])
         catalog_by_pk = Catalog.objects.filter(pk=pk).first()
         category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
         results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
@@ -37,7 +40,9 @@ class ShowElectronicPage(View):
             "products": results,
             "electronics": category_by_pk,
             'catalogs': Catalog.objects.all(),
-            "category_name": catalog_by_pk.name
+            "category_name": catalog_by_pk.name,
+            "cart": cart,
+            "form": form,
         }
         return render(request, 'shopapp/shop-electronic.html', context=context)
 
@@ -268,22 +273,25 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
 class CartDetail(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         cart = Cart(request)
-        print(8888888, cart)
         for item in cart:
             item['update_quantity_form'] = CartAddProductForm(
                 initial={'quantity': item['quantity'],
                          'update': True})
         return render(request, 'shopapp/cart.html', context={'cart': cart})
 
-class CartAdd(LoginRequiredMixin, View):
+class CartAddUpdate(LoginRequiredMixin, View):
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
+        form = CartAddProductForm(request.POST)
+        cd = 1
+        if form.is_valid():
+            cd = form.cleaned_data['quantity']
         cart.add(
-            product=product,
-            quantity=1,
-            update_quantity=False,
-            )
+                product=product,
+                quantity=cd,
+                update_quantity=False,
+                )
         return redirect('shopapp:cart_detail')
 
 
@@ -298,23 +306,3 @@ class CartDelete(LoginRequiredMixin, View):
         cart.remove(product)
         url = self.get_success_url()
         return HttpResponseRedirect(url)
-
-
-class CartUpdate(LoginRequiredMixin, View):
-    # def get_success_url(self):
-    #     return reverse_lazy(
-    #         "shopapp:cart_update",
-    #     )
-
-    def post(self, request, *args, **kwargs):
-
-        cart = Cart(request)
-        print(222, [a for a in cart])
-        product = get_object_or_404(Product, id=self.kwargs['product_id'])
-        form = CartAddProductForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data # {'quantity': 12, 'update': True}
-            cart.add(product=product,
-                     quantity=cd['quantity'],
-                     update_quantity=cd['update'])
-        return redirect('shopapp:cart_detail')

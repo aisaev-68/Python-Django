@@ -167,8 +167,10 @@
                                         </div>
                                     </div>
                                     <div class="product__add-cart-s text-center">
-                                        <form action="{% url 'shopapp:cart_add' product.pk %}" method="post">
+                                        <form action="{% url 'shopapp:cart_add_update' product.pk %}" method="post">
                                                 {% csrf_token %}
+                                                {{ form.update }}
+<!--                                                {{ form.quantity }}-->
                                                  <input class="" type="text" value="1" hidden="">
                                                 <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
                                         </form>
@@ -294,15 +296,12 @@
                                         <span>{% trans 'Sold:' %} {{ product.sold }}/{{ product.products_count }}</span>
                                     </div>
                                     <div class="product__modal-form">
-                                        <form action="#">
-                                        <div class="pro-quan-area d-lg-flex align-items-center">
-                                            <div class="product-quantity mr-20 mb-25">
-                                                <div class="cart-plus-minus p-relative"><input type="text" value="1" /></div>
-                                            </div>
-                                            <div class="pro-cart-btn mb-25">
-                                                <button class="cart-btn" type="submit">Add to cart</button>
-                                            </div>
-                                        </div>
+                                        <form action="{% url 'shopapp:cart_add_update' product.pk %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form.quantity }}
+                                            {{ form.update }}
+                                            <button class="cart-btn" type="submit">{% trans 'Add to cart' %}</button>
+
                                         </form>
                                     </div>
                                     <div class="product__stock mb-30">

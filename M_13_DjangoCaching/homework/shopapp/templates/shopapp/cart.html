@@ -9,7 +9,7 @@ Cart list
 
 
 {% block section %}
-<!--{% if request.user.is_authenticated %}-->
+{% if request.user.is_authenticated %}
 <div class="container">
     <div class="row">
         <div class="col-xxl-12">
@@ -60,7 +60,7 @@ Cart list
                             <td class="product-name"><a href="">{{ item.product.name }}</a></td>
                             <td class="product-price"><span class="amount">{{ item.price }}</span></td>
                             <td class="d-flex">
-                                    <form action="{% url 'shopapp:cart_update' item.product.id %}" method="post">
+                                    <form action="{% url 'shopapp:cart_add_update' item.product.id %}" method="post">
                                         {{ item.update_quantity_form.update }}
                                         {{ item.update_quantity_form.quantity }}
 
@@ -115,5 +115,5 @@ Cart list
             </div>
     </div>
 </div>
-<!--{% endif %}-->
+{% endif %}
 {% endblock %}
