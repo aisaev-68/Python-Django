@@ -167,7 +167,7 @@
                                         </div>
                                     </div>
                                     <div class="product__add-cart-s text-center">
-                                        <form action="{% url 'shopapp:cart_add_update' product.pk %}" method="post">
+                                        <form action="{% url 'shopapp:cart_add' product.pk %}" method="post">
                                                 {% csrf_token %}
                                                 {{ form.update }}
 <!--                                                {{ form.quantity }}-->
@@ -296,7 +296,7 @@
                                         <span>{% trans 'Sold:' %} {{ product.sold }}/{{ product.products_count }}</span>
                                     </div>
                                     <div class="product__modal-form">
-                                        <form action="{% url 'shopapp:cart_add_update' product.pk %}" method="post">
+                                        <form action="{% url 'shopapp:cart_add' product.pk %}" method="post">
                                             {% csrf_token %}
                                             {{ form.quantity }}
                                             {{ form.update }}

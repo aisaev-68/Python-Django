@@ -21,7 +21,7 @@ class ShopPage(View):
         cart = Cart(request)
         context = {
             "products": results,
-            "catalogs": Catalog.objects.all(),
+            # "catalogs": Catalog.objects.all(),
             "cart": cart,
         }
         return render(request, 'shopapp/first-page.html', context=context)
@@ -39,7 +39,7 @@ class ShowElectronicPage(View):
         context = {
             "products": results,
             "electronics": category_by_pk,
-            'catalogs': Catalog.objects.all(),
+            # 'catalogs': Catalog.objects.all(),
             "category_name": catalog_by_pk.name,
             "cart": cart,
             "form": form,
@@ -62,6 +62,11 @@ class DetailProduct(DetailView):
     def get_queryset(self):
         queryset = Product.objects.filter(pk=self.kwargs['pk'])
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['form'] = form = CartAddProductForm(self.request.POST)
+        return context_data
 
 
 class ArchivedProduct(LoginRequiredMixin, DeleteView):
@@ -146,7 +151,7 @@ class OrderList(LoginRequiredMixin, View):
                     "price": product.price,
                     "count": count,
                     "sum": count * product.price,
-                    }
+                }
             context.append(dict_order)
         print(888, context)
         return render(request, 'shopapp/orders-list.html', context=context)
@@ -191,7 +196,6 @@ class OrderListByUser(LoginRequiredMixin, View):
                 context.append(dict_order)
         print(66666, context)
         return render(request, 'shopapp/orders-list.html', context={"orders": context})
-
 
 
 class UpdateOrder(LoginRequiredMixin, UpdateView):
@@ -277,22 +281,21 @@ class CartDetail(LoginRequiredMixin, View):
             item['update_quantity_form'] = CartAddProductForm(
                 initial={'quantity': item['quantity'],
                          'update': True})
+
         return render(request, 'shopapp/cart.html', context={'cart': cart})
 
-class CartAddUpdate(LoginRequiredMixin, View):
-    def post(self, request, product_id):
+
+class CartAdd(LoginRequiredMixin, View):
+    def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
-        form = CartAddProductForm(request.POST)
-        cd = 1
-        if form.is_valid():
-            cd = form.cleaned_data['quantity']
+
         cart.add(
                 product=product,
-                quantity=cd,
+                quantity=1,
                 update_quantity=False,
-                )
-        return redirect('shopapp:cart_detail')
+            )
+        return redirect('shopapp:shop_page')
 
 
 class CartDelete(LoginRequiredMixin, View):
@@ -300,9 +303,26 @@ class CartDelete(LoginRequiredMixin, View):
         return reverse_lazy(
             "shopapp:cart_detail",
         )
+
     def get(self, request, *args, **kwargs):
         cart = Cart(request)
         product = get_object_or_404(Product, id=self.kwargs['product_id'])
         cart.remove(product)
         url = self.get_success_url()
         return HttpResponseRedirect(url)
+
+
+class CartUpdate(LoginRequiredMixin, View):
+
+    def post(self, request, product_id):
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=product_id)
+        form = CartAddProductForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            cart.add(
+                product=product,
+                quantity=cd['quantity'],
+                update_quantity=cd['update'],
+            )
+        return redirect('shopapp:cart_detail')

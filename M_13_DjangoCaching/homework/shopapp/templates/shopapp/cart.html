@@ -10,7 +10,7 @@ Cart list
 
 {% block section %}
 {% if request.user.is_authenticated %}
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-xxl-12">
             <div class="breadcrumb__wrapper">
@@ -26,7 +26,9 @@ Cart list
 </div>
 <div class="col-12">
     <div class="table-content table-responsive">
-            <div class="table-content table-responsive">
+
+        <div class="table-content table-responsive">
+
                 <table class="table">
                     <thead>
                     <tr>
@@ -40,79 +42,72 @@ Cart list
                     </thead>
                     <tbody>
 
-                        {% for item in cart %}
-                        <tr>
-                            <td>
-                                <a href="">
-                                        {% if 'http' in item.product.image.url %}
-                                        <img src="{{ item.product.image }}"
-                                             style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                                             class=""
-                                             alt="product"/>
-                                        {% else %}
-                                        <img src="{{ product.image.url }}"
-                                             style="height: 30vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
-                                             class=""
-                                             alt="product"/>
-                                        {% endif %}
-                                    </a>
-                            </td>
-                            <td class="product-name"><a href="">{{ item.product.name }}</a></td>
-                            <td class="product-price"><span class="amount">{{ item.price }}</span></td>
-                            <td class="d-flex">
-                                    <form action="{% url 'shopapp:cart_add_update' item.product.id %}" method="post">
-                                        {{ item.update_quantity_form.update }}
-                                        {{ item.update_quantity_form.quantity }}
+                    {% for item in cart %}
+                    <tr>
+                        <td>
+                            <a href="">
+                                {% if 'http' in item.product.image.url %}
+                                <img src="{{ item.product.image }}"
+                                     style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                     class=""
+                                     alt="product"/>
+                                {% else %}
+                                <img src="{{ item.product.image.url }}"
+                                     style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                     class=""
+                                     alt="product"/>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td class="product-name"><a href="">{{ item.product.name }}</a></td>
+                        <td class="product-price"><span class="amount">{{ item.price }}</span></td>
+                        <td class="product-quantity">
+                            <form action="{% url 'shopapp:cart_update' item.product.pk %}" method="post">
+                            {% csrf_token %}
+                            {{ item.update_quantity_form.quantity }}
+                            {{ item.update_quantity_form.update }}
+                                <input class="cart-btn ms-3" type="submit" value="{% trans 'Update cart' %}">
+                            </form>
+                        </td>
+                        <td class="product-subtotal">
+                            <span class="amount">{{ item.total_price }}</span>
+                        </td>
+                        <td class="product-remove"><a href="{% url 'shopapp:cart_remove' item.product.pk %}"><i
+                                class="fa fa-times"></i></a></td>
 
-                                        <input type="submit" value="Update">
-                                        {% csrf_token %}
-                                    </form>
-                            </td>
-                            <td class="product-subtotal">
-                                <span class="amount">{{ item.total_price }}</span>
-                            </td>
-                            <td class="product-remove"><a href="{% url 'shopapp:cart_remove' item.product.id %}"><i
-                                    class="fa fa-times"></i></a></td>
-
-                        </tr>
-                        {% endfor %}
-                        <br>
+                    </tr>
+                    {% endfor %}
+                    <br>
 
                     </tbody>
                 </table>
-                <div class="product-total ">
-                        <p class="d-block">Total: ${{ cart.get_total_price }}</p>
+
+
+
+        </div>
+        <div class="row">
+            <div class="coupon mt-50">
+                    <input id="coupon_code" class="input-text" name="coupon_code" value=""
+                           placeholder="Coupon code"
+                           type="text">
+                    <button class="tp-btn-h1" name="apply_coupon" type="submit">Apply
+                        coupon
+                    </button>
+                </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-md-5">
+
+                <div class="cart-page-total">
+                    <h2>{% trans 'Cart totals' %}</h2>
+                    <ul class="mb-5">
+                        <li>Total <span>${{ cart.get_total_price }}</span></li>
+                    </ul>
+                    <a class="tp-btn-h1" href="checkout.html">{% trans 'Proceed to checkout' %}</a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="coupon-all">
-                        <div class="coupon">
-                            <input id="coupon_code" class="input-text" name="coupon_code" value=""
-                                   placeholder="Coupon code"
-                                   type="text">
-                            <button class="tp-btn-h1" name="apply_coupon" type="submit">Apply
-                                coupon
-                            </button>
-                        </div>
-                        <div class="coupon2">
-                            <input class="tp-btn-h1" type="submit" value="Update cart">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-                <div class="col-md-5">
-                    <div class="cart-page-total">
-                        <h2>{% trans 'Cart totals' %}</h2>
-                        <ul class="mb-20">
-                            <li>Subtotal <span>$250.00</span></li>
-                            <li>Total <span>$250.00</span></li>
-                        </ul>
-                        <a class="tp-btn-h1" href="checkout.html">{% trans 'Proceed to checkout' %}</a>
-                    </div>
-                </div>
-            </div>
+        </div>
+
     </div>
 </div>
 {% endif %}

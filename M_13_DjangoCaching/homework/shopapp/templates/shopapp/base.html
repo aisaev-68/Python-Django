@@ -191,13 +191,15 @@
                                     <button class="button" type="submit"><i class="far fa-search"></i></button>
                                 </div>
                                 <div class="header__search-cat">
-                                    {% cache 500 object_list %}
-                                    <select>
-                                        {% for catalog in catalogs %}
-                                        <option>{{ catalog }}</option>
+<!--                                    {% cache 500 object_list %}-->
+                                    {% with all_catalogs=catalogs %}
+                                    <select class="px-2">
+                                        {% for item_catalog in all_catalogs %}
+                                        <option class="px-2">{{ item_catalog }}</option>
                                         {% endfor %}
                                     </select>
-                                    {% endcache %}
+                                    {% endwith %}
+<!--                                    {% endcache %}-->
                                 </div>
                             </form>
                         </div>
@@ -215,14 +217,14 @@
                                         <ul>
                                             {% if not request.user.is_authenticated %}
                                             <li>
-                                                <a href="{% url 'login' %}" class="wc-checkout">Log In</a>
+                                                <a href="{% url 'login' %}" class="wc-checkout">{% trans 'Log In' %}</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'register' %}" class="wc-checkout">Registration</a>
+                                                <a href="{% url 'register' %}" class="wc-checkout">{% trans 'Registration' %}</a>
                                             </li>
                                             {% else %}
                                             <li>
-                                                <a href="{% url 'logout' %}" class="wc-checkout">Log Out</a>
+                                                <a href="{% url 'logout' %}" class="wc-checkout">{% trans 'Log Out' %}</a>
                                             </li>
                                             {% endif %}
                                         </ul>
@@ -231,53 +233,66 @@
                             </div>
 
                             <div class="block-cart action">
-                                <a class="icon-link" href="cart.html">
+                                <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
                                     <i class="flaticon-shopping-bag"></i>
-                                    <span class="count">1</span>
+                                    <span class="count">{{cart.cart_count }}</span>
                                     <span class="text">
                                     <span class="sub">{% trans 'Your Cart:' %}</span>
-                                    $00.00 </span>
+                                    {{ cart.total_price }} </span>
                                 </a>
                                 <div class="cart">
                                     <div class="cart__mini">
                                         <ul>
+
                                             <li>
                                                 <div class="cart__title">
                                                     <h4>{% trans 'Your Cart' %}</h4>
-                                                    <span>(1 Item in Cart)</span>
+                                                    <span>({{cart.cart_count }} {% trans 'Item in Cart' %})</span>
                                                 </div>
                                             </li>
+                                             {% for cart_item in cart %}
                                             <li>
                                                 <div class="cart__item d-flex justify-content-between align-items-center">
                                                     <div class="cart__inner d-flex">
                                                         <div class="cart__thumb">
-                                                            <a href="product-details.html">
-                                                                <img src="assets/img/cart/20.jpg" alt="">
+                                                             <a href="">
+                                                                {% if 'http' in cart_item.product.image.url %}
+                                                                <img src="{{ item.product.image }}"
+                                                                     style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                                     class=""
+                                                                     alt="product"/>
+                                                                {% else %}
+                                                                <img src="{{ cart_item.product.image.url }}"
+                                                                     style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                                     class=""
+                                                                     alt="product"/>
+                                                                {% endif %}
                                                             </a>
                                                         </div>
                                                         <div class="cart__details">
-                                                            <h6><a href="product-details.html"> Samsung C49J89: £875,
-                                                                Debenhams Plus </a></h6>
+                                                            <h6><a href=""> {{ cart_item.product.name }} </a></h6>
                                                             <div class="cart__price">
-                                                                <span>$255.00</span>
+                                                                <span>{{ cart_item.price }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="cart__del">
-                                                        <a href="#"><i class="fal fa-times"></i></a>
+                                                        <a href="{% url 'shopapp:cart_remove' cart_item.product.id %}"><i class="fal fa-times"></i></a>
                                                     </div>
                                                 </div>
                                             </li>
+                                             {% endfor %}
                                             <li>
                                                 <div class="cart__sub d-flex justify-content-between align-items-center">
-                                                    <h6>Subtotal</h6>
-                                                    <span class="cart__sub-total">$255.00</span>
+                                                    <h6>{% trans 'Subtotal' %}</h6>
+                                                    <span class="cart__sub-total">{{ cart.get_total_price }}</span>
                                                 </div>
                                             </li>
                                             <li>
-                                                <a href="cart.html" class="wc-cart mb-10">View cart</a>
-                                                <a href="checkout.html" class="wc-checkout">Checkout</a>
+                                                <a href="{% url 'shopapp:cart_detail' %}" class="wc-cart mb-10">{% trans 'View cart' %}</a>
+                                                <a href="" class="wc-checkout">{% trans 'Checkout' %}</a>
                                             </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -301,11 +316,13 @@
                             <div class="cat__menu">
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
-                                        {% for catalog in catalogs %}
+                                        {% with all_catalogs=catalogs %}
+                                        {% for item_catalog in all_catalogs %}
                                         <li>
-                                            <a href="{{ catalog.get_absolute_url }}">{{ catalog.name|upper }}</a>
+                                            <a class="px-2" href="{{ catalog.get_absolute_url }}">{{ item_catalog.name|upper }}</a>
                                         </li>
                                         {% endfor %}
+                                        {% endwith %}
                                     </ul>
                                 </nav>
                             </div>
