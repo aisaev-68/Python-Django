@@ -27,7 +27,7 @@ class Catalog(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shopapp:products_by_category", kwargs={'pk': self.pk})
+        return reverse("shopapp:catalog_products", kwargs={'eng_name': self.eng_name})
 
     def to_json(self):
         return {
@@ -38,6 +38,7 @@ class Catalog(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
     tag = models.CharField(max_length=200, db_index=True, verbose_name=_('Tag'))
+    slug = models.SlugField(max_length=200, db_index=True)
     catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
                                 verbose_name=_('Catalog'))
 
@@ -52,7 +53,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shopapp:products_by_category", kwargs={'pk': self.pk})
+        return reverse("shopapp:products_by_category", kwargs={'tag': self.tag})
 
     def get_products_by_category(self):
         return {
@@ -69,6 +70,7 @@ class Product(models.Model):
                                  verbose_name=_('Category'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
+    slug = models.SlugField(max_length=200, db_index=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name=_('Attributes'))
     created_by = models.ForeignKey(User, verbose_name=_('Created by'), on_delete=models.CASCADE, null=True)
     rating = models.FloatField(verbose_name=_('Rating'), blank=True, default=0.0)

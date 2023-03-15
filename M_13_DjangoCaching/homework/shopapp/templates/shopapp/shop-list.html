@@ -32,17 +32,15 @@
                     <h5 class="pt-title">Product categories</h5>
                     <div class="widget-category-list mt-20">
 
-                            <div class="single-widget-category ">
-                                <input type="checkbox" id="cat-item-1" name="cat-item" checked >
-                                <label for="cat-item-1">{% trans 'All' %}</label>
-                            </div>
+<!--                            <div class="single-widget-category ">-->
+<!--                                <a type="checkbox" class="" href="{{ category.get_absolute_url }}">{% trans 'All' %}-->
+<!--                                </a>-->
+<!--                            </div>-->
 
                             {% for category in categories %}
                             {% if forloop.counter > 1 %}
                             <div class="single-widget-category ">
-                                <a class="" href="{{ category.get_absolute_url }}">{{ category }}
-<!--                                <input type="checkbox" id="cat-item-{{ forloop.counter }}" name="cat-item">-->
-<!--                                <label for="cat-item-{{ forloop.counter }}">{{ category }}</label>-->
+                                <a type="checkbox" class="" href="{{ category.get_absolute_url }}">{{ category }}
                                 </a>
                             </div>
                             {% endif %}

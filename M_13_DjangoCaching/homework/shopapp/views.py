@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 
 from .cart import Cart
-from .models import Product, Order, Category, Catalog
+from .models import Product, Order, Category, Catalog, OrderItem
 from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProductForm, CategoryModelForm
 
 
@@ -21,51 +21,41 @@ class ShopPage(View):
         cart = Cart(request)
         context = {
             "products": results,
-            # "catalogs": Catalog.objects.all(),
             "cart": cart,
         }
         return render(request, 'shopapp/first-page.html', context=context)
 
 
 class ShowProductsPage(View):
-    def get(self, request: HttpRequest, pk=None):
+    def get(self, request: HttpRequest, tag):
         cart = Cart(request)
         form = CartAddProductForm(request.POST)
-        # catalog_by_pk = Catalog.objects.filter(pk=catalog_id).first()
-
-        category_by_pk = Category.objects.filter(catalog_id=pk)
-        print(21, category_by_pk)
-        results = Product.objects.filter(archived=False, category=pk)
+        print(888888888888)
+        category = Category.objects.filter(tag=tag).first()
+        results = Product.objects.filter(archived=False, category=category)
         context = {
             "products": results,
-            "categories": category_by_pk,
+            "categories": Category.objects.filter(catalog=category.catalog.pk),
             "cart": cart,
             "form": form,
         }
-        print(pk, category_by_pk[0].pk)
-        print(context)
         return render(request, 'shopapp/shop-list.html', context=context)
 
-class ShowCategoryPage(View):
-    def get(self, request):
-        form = CategoryModelForm(request.POST)
-        print(form)
-        print(request)
-        print(request.POST)
-        print(self.kwargs)
-        # catalog_by_pk = Catalog.objects.filter(pk=pk).first()
-        # category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
-        # results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
-        # context = {
-        #     "products": results,
-        #     "electronics": category_by_pk,
-        #     # 'catalogs': Catalog.objects.all(),
-        #     # "category_name": catalog_by_pk.name,
-        #     "cart": cart,
-        #     "form": form,
-        # }
-        # return render(request, 'shopapp/shop-list.html', context=context)
 
+class CatalogProducts(View):
+    def get(self, request, eng_name):
+        cart = Cart(request)
+        form = CartAddProductForm(request.POST)
+        catalog = Catalog.objects.filter(eng_name=eng_name).first()
+        category = Category.objects.filter(catalog=catalog)
+        results = Product.objects.filter(archived=False, category=category[0])
+        context = {
+            "products": results,
+            "categories": category,
+            "cart": cart,
+            "form": form,
+        }
+        return render(request, 'shopapp/shop-list.html', context=context)
 
 
 class ProductList(ListView):
@@ -178,9 +168,7 @@ class OrderList(LoginRequiredMixin, View):
         return render(request, 'shopapp/orders-list.html', context=context)
 
 
-class OrderCreate(LoginRequiredMixin, CreateView):
-    form_class = OrderModelForm
-    template_name = 'shopapp/create_order.html'
+class OrderCreate(LoginRequiredMixin, View):
 
     def get_success_url(self):
         return reverse(
@@ -191,6 +179,30 @@ class OrderCreate(LoginRequiredMixin, CreateView):
     def get_initial(self):
         return {'user': self.request.user}
 
+    def post(self, request):
+        carts = Cart(request)
+        form = OrderModelForm(request.POST)
+        if form.is_valid():
+            address = form.cleaned_data.get('delivery_address')
+            promocode = form.cleaned_data.get('promocode')
+            for cart in carts:
+                order = Order.objects.create(
+                    delivery_address=address,
+                    promocode=promocode,
+                    user=request.user,
+                    paid=True,
+                )
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart.product,
+                    price=cart.price,
+                    quantity=cart.quantity,
+                )
+
+        url = self.get_success_url()
+        return HttpResponseRedirect(url)
+
+
 
 class OrderListByUser(LoginRequiredMixin, View):
 
@@ -199,22 +211,23 @@ class OrderListByUser(LoginRequiredMixin, View):
         # orders = Order.objects.select_related("user").prefetch_related("products").filter(
         #     user=kwargs['pk']).all()
         orders = Order.objects.filter(user=kwargs['pk']).all()
-        print(111111, orders[0].items.all())
-        for order in orders:
-            orders_data = order.items.all()
-            for order_product in orders_data:
-                print(6666, order_product.order)
-                dict_order = {}
 
-                dict_order = {
-                    'image': order_product.product.image,
-                    'name': order_product.product.name,
-                    'price': order_product.price,
-                    'count': order_product.quantity,
-                    'sum': order_product.get_sum,
-                }
+        if orders:
+            for order in orders:
+                orders_data = order.items.all()
+                for order_product in orders_data:
+                    print(6666, order_product.order)
+                    dict_order = {}
 
-                context.append(dict_order)
+                    dict_order = {
+                        'image': order_product.product.image,
+                        'name': order_product.product.name,
+                        'price': order_product.price,
+                        'count': order_product.quantity,
+                        'sum': order_product.get_sum,
+                    }
+
+                    context.append(dict_order)
         print(66666, context)
         return render(request, 'shopapp/orders-list.html', context={"orders": context})
 
@@ -298,15 +311,17 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
 class CartDetail(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         cart = Cart(request)
+        form = OrderModelForm()
         for item in cart:
             item['update_quantity_form'] = CartAddProductForm(
                 initial={'quantity': item['quantity'],
                          'update': True})
 
-        return render(request, 'shopapp/cart.html', context={'cart': cart})
+        return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form})
 
 
 class CartAdd(LoginRequiredMixin, View):
+
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)

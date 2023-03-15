@@ -33,7 +33,8 @@ class CatalogAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'name', 'tag']
+    list_display = ['pk', 'name', 'tag', 'slug']
+    prepopulated_fields = {'slug': ('tag',)}
 
 
 @admin.register(Product)
@@ -47,14 +48,14 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     #     CategoryInline,
     # ]
 
-    list_display = ["pk", "name", "category", "description_short", "attributes", "rating", "created_by", "format_date", "price",
+    list_display = ["pk", "name", "category", "description_short", "slug", "attributes", "rating", "created_by", "format_date", "price",
         "discount", "image", "products_count", "sold", "archived", "brand"]
     list_display_links = "pk", "name"
     ordering = "name", "price"
     search_fields = "name",
     fieldsets = [
         (None, {
-            "fields": ("name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
+            "fields": ("category", "name", "description", "slug", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),
@@ -66,6 +67,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
             "description": _("Extra options. Field 'archived' is for soft delete"),
         })
     ]
+    prepopulated_fields = {'slug': ('name',)}
 
     def description_short(self, obj: Product) -> str:
         if len(obj.description) < 48:
