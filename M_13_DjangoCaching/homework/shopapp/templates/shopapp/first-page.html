@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                             <div class="product__add-cart text-center">
-                                <form action="{% url 'shopapp:cart_add' product.to_json.pk %}" method="post">
+                                <form action="{% url 'shopapp:cart_add_update' product.to_json.pk %}" method="post">
                                     {% csrf_token %}
                                     {{ form.update }}
                                     {{ form.quantity }}
