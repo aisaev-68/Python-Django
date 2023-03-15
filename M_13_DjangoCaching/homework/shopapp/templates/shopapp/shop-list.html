@@ -25,82 +25,81 @@
     </div>
     <div class="d-flex">
         <div class="col-xl-3 col-lg-4">
-            <div class="product-widget mb-30">
-                <h5 class="pt-title">Product categories</h5>
-                <div class="widget-category-list mt-20">
-                    <form action="" method="get">
-                        {% csrf_token %}
-                        <div class="single-widget-category ">
-                            <input type="checkbox" id="cat-item-1" name="cat-item" checked >
-                            <label for="cat-item-1">{% trans 'All' %}</label>
-                        </div>
-                        {% for category in electronics %}
-                        {% if forloop.counter > 1 %}
-                        <div class="single-widget-category ">
-                            <input type="checkbox" id="cat-item-{{ forloop.counter }}" name="cat-item" >
-                            <label for="cat-item-{{ forloop.counter }}">{{ category }}</label>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+<!--            https://jsonplaceholder.typicode.com/gets-->
+             <form action="" method="get" enctype="text/plain">
+                 {% csrf_token %}
+                <div class="product-widget mb-30">
+                    <h5 class="pt-title">Product categories</h5>
+                    <div class="widget-category-list mt-20">
 
-                    </form>
-                </div>
-            </div>
-            <div class="product-widget mb-30">
-                <h5 class="pt-title">Filter By Price</h5>
-                <div class="price__slider mt-30">
-                    <div id="slider-range"
-                         class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                        <div class="ui-slider-range ui-corner-all ui-widget-header"
-                             style="left: 0%; width: 100%;">
-                        </div>
-                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                              style="left: 21.1538%;"></span>
-                        <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
-                              style="left: 100%;"></span>
-                        <div class="ui-slider-range ui-corner-all ui-widget-header"
-                             style="left: 21.1538%; width: 78.8462%;">
-                        </div>
-                    </div>
-                    <div>
-                        <form action="#" class="s-form mt-20">
-                            <input type="text" id="amount" readonly="">
-                            <button type="submit" class="tp-btn-square-lg">Filter</button>
-                        </form>
+                            <div class="single-widget-category ">
+                                <input type="checkbox" id="cat-item-1" name="cat-item" checked >
+                                <label for="cat-item-1">{% trans 'All' %}</label>
+                            </div>
+
+                            {% for category in categories %}
+                            {% if forloop.counter > 1 %}
+                            <div class="single-widget-category ">
+                                <a class="" href="{{ category.get_absolute_url }}">{{ category }}
+<!--                                <input type="checkbox" id="cat-item-{{ forloop.counter }}" name="cat-item">-->
+<!--                                <label for="cat-item-{{ forloop.counter }}">{{ category }}</label>-->
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
                     </div>
                 </div>
-            </div>
-            <div class="product-widget mb-30">
-                <h5 class="pt-title">Choose Brand</h5>
-                <div class="widget-category-list mt-20">
-                    <form action="#">
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-1" name="brand-item">
-                            <label for="brand-item-1">CarRentals <span>(12)</span></label>
+                <div class="product-widget mb-30">
+                    <h5 class="pt-title">Filter By Price</h5>
+                    <div class="price__slider mt-30">
+                        <div id="slider-range"
+                             class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                            <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                 style="left: 0%; width: 100%;">
+                            </div>
+                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                                  style="left: 21.1538%;"></span>
+                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"
+                                  style="left: 100%;"></span>
+                            <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                 style="left: 21.1538%; width: 78.8462%;">
+                            </div>
                         </div>
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-2" name="brand-item">
-                            <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
-                        </div>
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-3" name="brand-item">
-                            <label for="brand-item-3">Creative <span>(41)</span></label>
-                        </div>
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-4" name="brand-item">
-                            <label for="brand-item-4">Impact <span>(28)</span></label>
-                        </div>
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-5" name="brand-item">
-                            <label for="brand-item-5">IQVia <span>(21)</span></label>
-                        </div>
-                        <div class="single-widget-category">
-                            <input type="checkbox" id="brand-item-7" name="brand-item">
-                            <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+                <div class="product-widget mb-30">
+                    <h5 class="pt-title">Choose Brand</h5>
+                    <div class="widget-category-list mt-20">
+
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-1" name="brand-item">
+                                <label for="brand-item-1">CarRentals <span>(12)</span></label>
+                            </div>
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-2" name="brand-item">
+                                <label for="brand-item-2">CarVoodoo <span>(60)</span></label>
+                            </div>
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-3" name="brand-item">
+                                <label for="brand-item-3">Creative <span>(41)</span></label>
+                            </div>
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-4" name="brand-item">
+                                <label for="brand-item-4">Impact <span>(28)</span></label>
+                            </div>
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-5" name="brand-item">
+                                <label for="brand-item-5">IQVia <span>(21)</span></label>
+                            </div>
+                            <div class="single-widget-category">
+                                <input type="checkbox" id="brand-item-7" name="brand-item">
+                                <label for="brand-item-7">LeadsGreen <span>(62)</span></label>
+                            </div>
+
+                    </div>
+                </div>
+                <input class="cart-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Filter' %}">
+            </form>
         </div>
         <div class="col-xl-9 col-lg-8">
             <div class="tab-content" id="productGridTabContent">

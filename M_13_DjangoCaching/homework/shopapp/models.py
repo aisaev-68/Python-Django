@@ -27,7 +27,12 @@ class Catalog(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shopapp:{}".format(self.eng_name), kwargs={'pk': self.pk})
+        return reverse("shopapp:products_by_category", kwargs={'pk': self.pk})
+
+    def to_json(self):
+        return {
+            self.name: [category for category in self.categories.all()]
+        }
 
 
 class Category(models.Model):
@@ -47,8 +52,12 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shopapp:{}".format(self.name), kwargs={'pk': self.pk})
+        return reverse("shopapp:products_by_category", kwargs={'pk': self.pk})
 
+    def get_products_by_category(self):
+        return {
+            self.name: [product.to_json() for product in self.products]
+        }
 
 class Product(models.Model):
     class Meta:
@@ -113,6 +122,10 @@ class Product(models.Model):
             "brand": self.brand,
         }
         return product
+
+    @classmethod
+    def get_products_by_category(cls, pk):
+        return cls.objects.filter(archived=False, category=pk)
 
 
 class Order(models.Model):

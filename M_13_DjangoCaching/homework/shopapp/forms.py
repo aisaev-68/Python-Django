@@ -14,12 +14,16 @@ class CatalogModelForm(ModelForm):
 
 
 class CategoryModelForm(ModelForm):
+    name = forms.CharField(widget=forms.CheckboxInput)
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
+    class Meta:
+        model = Category
+        fields = ["name", ]
 
 class ProductModelForm(ModelForm):
     image = forms.ImageField(

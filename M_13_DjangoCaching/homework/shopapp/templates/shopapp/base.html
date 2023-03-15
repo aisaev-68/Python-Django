@@ -194,8 +194,8 @@
 <!--                                    {% cache 500 object_list %}-->
                                     {% with all_catalogs=catalogs %}
                                     <select class="px-2">
-                                        {% for item_catalog in all_catalogs %}
-                                        <option class="px-2">{{ item_catalog }}</option>
+                                        {% for catalog in all_catalogs %}
+                                        <option class="px-2">{{ catalog.name }}</option>
                                         {% endfor %}
                                     </select>
                                     {% endwith %}
@@ -224,13 +224,21 @@
                                             </li>
                                             {% else %}
                                             <li>
+                                                <a href="" class="wc-checkout">{% trans 'Profile' %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="wc-checkout">{% trans 'Balance' %}</a>
+                                            </li>
+                                            <li>
                                                 <a href="{% url 'logout' %}" class="wc-checkout">{% trans 'Log Out' %}</a>
                                             </li>
+
                                             {% endif %}
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="block-cart action">
                                 <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
@@ -309,7 +317,6 @@
                 <div class="col-lg-3">
                     <div class="cat__menu-wrapper side-border d-none d-lg-block">
                         <div class="cat-toggle">
-                             {% cache 500 catalog_list %}
                             <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i>
                                 {% trans 'Shop by department' %}
                             </button>
@@ -317,16 +324,15 @@
                                 <nav id="mobile-menu" style="display: block;">
                                     <ul>
                                         {% with all_catalogs=catalogs %}
-                                        {% for item_catalog in all_catalogs %}
+                                        {% for catalog in all_catalogs %}
                                         <li>
-                                            <a class="px-2" href="{{ catalog.get_absolute_url }}">{{ item_catalog.name|upper }}</a>
+                                            <a class="px-2" href="{{ catalog.get_absolute_url }}">{{ catalog.name|upper }}</a>
                                         </li>
                                         {% endfor %}
                                         {% endwith %}
                                     </ul>
                                 </nav>
                             </div>
-                            {% endcache %}
                         </div>
                     </div>
                 </div>
@@ -385,7 +391,7 @@
 
                                             <li>
                                                 <a href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
-                                                    {% trans 'My orders' %}
+                                                    {% trans 'History of orders' %}
                                                 </a>
                                             </li>
                                         </ul>

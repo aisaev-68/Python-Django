@@ -12,7 +12,7 @@ from django.views import View
 
 from .cart import Cart
 from .models import Product, Order, Category, Catalog
-from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProductForm
+from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProductForm, CategoryModelForm
 
 
 class ShopPage(View):
@@ -27,24 +27,45 @@ class ShopPage(View):
         return render(request, 'shopapp/first-page.html', context=context)
 
 
-class ShowElectronicPage(View):
-    def get(self, request: HttpRequest, pk):
+class ShowProductsPage(View):
+    def get(self, request: HttpRequest, pk=None):
         cart = Cart(request)
         form = CartAddProductForm(request.POST)
-        print('shopelect', [a for a in cart])
-        catalog_by_pk = Catalog.objects.filter(pk=pk).first()
-        category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
-        results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
+        # catalog_by_pk = Catalog.objects.filter(pk=catalog_id).first()
 
+        category_by_pk = Category.objects.filter(catalog_id=pk)
+        print(21, category_by_pk)
+        results = Product.objects.filter(archived=False, category=pk)
         context = {
             "products": results,
-            "electronics": category_by_pk,
-            # 'catalogs': Catalog.objects.all(),
-            "category_name": catalog_by_pk.name,
+            "categories": category_by_pk,
             "cart": cart,
             "form": form,
         }
-        return render(request, 'shopapp/shop-electronic.html', context=context)
+        print(pk, category_by_pk[0].pk)
+        print(context)
+        return render(request, 'shopapp/shop-list.html', context=context)
+
+class ShowCategoryPage(View):
+    def get(self, request):
+        form = CategoryModelForm(request.POST)
+        print(form)
+        print(request)
+        print(request.POST)
+        print(self.kwargs)
+        # catalog_by_pk = Catalog.objects.filter(pk=pk).first()
+        # category_by_pk = Category.objects.filter(catalog=catalog_by_pk.pk)
+        # results = Product.objects.filter(archived=False, category=catalog_by_pk.pk)
+        # context = {
+        #     "products": results,
+        #     "electronics": category_by_pk,
+        #     # 'catalogs': Catalog.objects.all(),
+        #     # "category_name": catalog_by_pk.name,
+        #     "cart": cart,
+        #     "form": form,
+        # }
+        # return render(request, 'shopapp/shop-list.html', context=context)
+
 
 
 class ProductList(ListView):
@@ -289,7 +310,7 @@ class CartAdd(LoginRequiredMixin, View):
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
-
+        print(6666666, self.kwargs)
         cart.add(
                 product=product,
                 quantity=1,
