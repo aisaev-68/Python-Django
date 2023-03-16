@@ -142,17 +142,28 @@
                                     {% for language in LANGUAGES %}
                                     {% if language.0 != LANGUAGE_CODE %}
                                     <button class="text-white" type="submit" name="language" value="{{ language.0 }}">
-                                        {{ language.1 }} ({{ language.0 }})
+                                        <i class="fa fa-language" aria-hidden="true"></i>
+                                        {{ language.1 }}
+<!--                                        ({{ language.0 }})-->
                                     </button>
                                     {% endif %}
                                     {% endfor %}
                                 </form>
                             </div>
                             <div class="header__lang border-right">
-                                <span>{% trans 'Currency: USD' %} </span>
+
+                                <span class="">
+<!--                                    <i class="fa fa-money" aria-hidden="true"></i>-->
+                                    {% trans 'Currency: USD' %}
+                                </span>
                             </div>
                             <div class="support d-none d-sm-block">
-                                <p>{% trans 'Need Help?' %} <a href="tel:+89285484431">+7(928)-548-44-31</a></p>
+                                <p>{% trans 'Need Help?' %}
+                                    <a href="tel:+89285484431">
+<!--                                        <i class="fa fa-phone" aria-hidden="true"></i>-->
+                                    +7(928)-548-44-31
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -217,18 +228,28 @@
                                         <ul>
                                             {% if not request.user.is_authenticated %}
                                             <li>
-                                                <a href="{% url 'login' %}" class="wc-checkout">{% trans 'Log In' %}</a>
+                                                <a href="{% url 'login' %}" class="wc-checkout">
+                                                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    {% trans 'Log In' %}
+                                                </a>
                                             </li>
                                             <li>
                                                 <a href="{% url 'register' %}" class="wc-checkout">{% trans 'Registration' %}</a>
                                             </li>
                                             {% else %}
                                             <li>
-                                                <a href="{% url 'accounts:about-me' request.user.pk %}" class="wc-checkout">{% trans 'Profile' %}</a>
+
+                                                <a href="{% url 'accounts:about-me' request.user.pk %}" class="wc-checkout">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                    {% trans 'Profile' %}
+                                                </a>
                                             </li>
 
                                             <li>
-                                                <a href="{% url 'logout' %}" class="wc-checkout">{% trans 'Log Out' %}</a>
+                                                <a href="{% url 'logout' %}" class="wc-checkout">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                    {% trans 'Log Out' %}
+                                                </a>
                                             </li>
 
                                             {% endif %}
@@ -344,6 +365,7 @@
                                 <ul>
                                     <li>
                                         <a href="{% url 'shopapp:shop_page' %}" class="text-capitalize">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
                                             {% trans 'Home' %}
                                         </a>
 
@@ -427,16 +449,18 @@
                                             {% endif %}
                                         </ul>
                                     </li>
+                                    {% if request.user.is_authenticated %}
                                     <li>
                                         <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
-                                            <i class="flaticon-shopping-bag"></i>
+                                            <i class="fa fa-credit-card" aria-hidden="true"> </i>
                                             <span class="count">{{cart.cart_count }}</span>
                                             <span class="text align-self-center">
-                                            <span class="sub">{% trans 'Your Balance:' %}</span>
+                                            <span class="sub">{% trans 'Balance' %}</span>
                                             {{ cart.total_price }} </span>
                                         </a>
 <!--                                       <a href="" class="wc-checkout">{% trans 'Balance' %}</a>-->
                                     </li>
+                                    {% endif %}
 <!--                                    <li>-->
 <!--                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">-->
 <!--                                            {% trans 'Contact' %}-->
