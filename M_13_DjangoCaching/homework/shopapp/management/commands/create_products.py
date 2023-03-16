@@ -10,8 +10,7 @@ import json
 
 from django.utils.timezone import now
 
-from shopapp.models import Product, Category
-
+from shopapp.models import Product, Category, Catalog
 
 new_dir_file = now().date().strftime("%Y/%m/%d")
 uploaded_file_path = Path().parent / "media/product_images" / new_dir_file
@@ -44,8 +43,10 @@ class Command(BaseCommand):
                 f.write(request.content)
 
             Product.objects.create(
+                catalog=category.catalog,
                 category=category,
                 name=d['name'],
+                slug=d['name'][:60].replace(', ', '-').replace(' ', '-'),
                 brand="Apple",
                 description=d['description'],
                 attributes=d['attributes'],

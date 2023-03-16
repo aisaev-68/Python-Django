@@ -178,7 +178,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
                         <div class="header__info">
                             <div class="logo">
-                                <a href="index.html" class="logo-image"><img
+                                <a href="{% url 'shopapp:shop_page' %}" class="logo-image"><img
                                         src="{% static 'assets/img/logo/logo1.svg' %}" alt="logo"></a>
                             </div>
                         </div>
@@ -224,11 +224,9 @@
                                             </li>
                                             {% else %}
                                             <li>
-                                                <a href="" class="wc-checkout">{% trans 'Profile' %}</a>
+                                                <a href="{% url 'accounts:about-me' request.user.pk %}" class="wc-checkout">{% trans 'Profile' %}</a>
                                             </li>
-                                            <li>
-                                                <a href="" class="wc-checkout">{% trans 'Balance' %}</a>
-                                            </li>
+
                                             <li>
                                                 <a href="{% url 'logout' %}" class="wc-checkout">{% trans 'Log Out' %}</a>
                                             </li>
@@ -244,7 +242,7 @@
                                 <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
                                     <i class="flaticon-shopping-bag"></i>
                                     <span class="count">{{cart.cart_count }}</span>
-                                    <span class="text">
+                                    <span class="text align-self-center">
                                     <span class="sub">{% trans 'Your Cart:' %}</span>
                                     {{ cart.total_price }} </span>
                                 </a>
@@ -298,7 +296,6 @@
                                             </li>
                                             <li>
                                                 <a href="{% url 'shopapp:cart_detail' %}" class="wc-cart mb-10">{% trans 'View cart' %}</a>
-                                                <a href="" class="wc-checkout">{% trans 'Checkout' %}</a>
                                             </li>
 
                                         </ul>
@@ -429,6 +426,16 @@
                                             </li>
                                             {% endif %}
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
+                                            <i class="flaticon-shopping-bag"></i>
+                                            <span class="count">{{cart.cart_count }}</span>
+                                            <span class="text align-self-center">
+                                            <span class="sub">{% trans 'Your Balance:' %}</span>
+                                            {{ cart.total_price }} </span>
+                                        </a>
+<!--                                       <a href="" class="wc-checkout">{% trans 'Balance' %}</a>-->
                                     </li>
 <!--                                    <li>-->
 <!--                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">-->

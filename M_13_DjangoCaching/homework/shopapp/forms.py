@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.forms import ModelForm, ModelChoiceField
 from django.forms.widgets import SelectMultiple, HiddenInput
-from .models import Product, Order, Category
+from .models import Product, Order, Category, Catalog
 
 
 class CatalogModelForm(ModelForm):
@@ -36,7 +36,7 @@ class ProductModelForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["category"] = ModelChoiceField(
             queryset=Category.objects.all(),
-            label=_('Categories'),
+            label=_('Category'),
             widget=SelectMultiple(attrs={
                 "class": "form-select",
             }, ),
@@ -65,6 +65,13 @@ class OrderModelForm(ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['user'].widget = HiddenInput()
+        self.fields['user'].required = False
+        self.fields['paid'].widget = HiddenInput()
+        self.fields['promocode'].widget.attrs['style'] = "width: 25vw;"
+        self.fields['delivery_address'].widget.attrs['style'] = "width: 25vw;"
+        self.fields['delivery_address'].required = True
+        self.fields['delivery_address'].label = _('Delivery address')
+        self.fields['promocode'].label = _('Promocode')
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''

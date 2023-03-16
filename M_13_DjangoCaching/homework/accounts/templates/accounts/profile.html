@@ -14,7 +14,9 @@ Log-in
             {% csrf_token %}
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
-            <input class="btn-primary" type="submit" value="{%trans 'Update' %}">
+            <input class="cart-btn" type="submit" value="{%trans 'Update' %}">
+             <input class="cart-btn" type="reset" value="{%trans 'Reset' %}">
+             <a class="cart-btn" href="{% url 'accounts:about-me' request.user.pk %}">{% trans 'Cancel' %}</a>
         </form>
     </div>
 </div>

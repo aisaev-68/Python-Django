@@ -33,8 +33,8 @@ class CatalogAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'name', 'tag', 'slug']
-    prepopulated_fields = {'slug': ('tag',)}
+    list_display = ['pk', 'name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Product)

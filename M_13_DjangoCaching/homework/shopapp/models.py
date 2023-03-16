@@ -37,7 +37,6 @@ class Catalog(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
-    tag = models.CharField(max_length=200, db_index=True, verbose_name=_('Tag'))
     slug = models.SlugField(max_length=200, db_index=True)
     catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
                                 verbose_name=_('Catalog'))
@@ -53,7 +52,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shopapp:products_by_category", kwargs={'tag': self.tag})
+        return reverse("shopapp:products_by_category", kwargs={'slug': self.slug})
 
     def get_products_by_category(self):
         return {
@@ -66,8 +65,10 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ["name", "price"]
 
+    catalog = models.ForeignKey(Catalog, related_name='products', on_delete=models.CASCADE,
+                                 verbose_name=_('Catalog'))
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE,
-                                 verbose_name=_('Category'))
+                                verbose_name=_('Category'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -104,8 +105,8 @@ class Product(models.Model):
     def to_json(self):
         product = {
             "pk": self.pk,
-            "catalog": self.category.catalog.name,
-            "catalog_eng": self.category.catalog.eng_name,
+            "catalog": self.catalog.name,
+            "catalog_eng": self.catalog.eng_name,
             "name": self.name,
             "description": self.description,
             "attributes": self.attributes,
@@ -132,7 +133,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name=_('Delivery address'))
-    promocode = models.CharField(max_length=20, null=False, blank=True, verbose_name=_('Promo code'))
+    promocode = models.CharField(max_length=20, null=True, blank=True, verbose_name=_('Promo code'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Create order date'))
     user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('User'))
     paid = models.BooleanField(default=False, verbose_name=_('Status'))

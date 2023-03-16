@@ -97,7 +97,7 @@ Products list
                     </div>
                     <div class="cart-option mb-15">
                         <div class="product-quantity mr-20">
-                            <form action="{% url 'shopapp:cart_add_update' object.pk %}" method="post">
+                            <form action="{% url 'shopapp:cart_add' object.pk %}" method="post">
                                     {% csrf_token %}
                                     {{ form.update }}
                                     {{ form.quantity }}

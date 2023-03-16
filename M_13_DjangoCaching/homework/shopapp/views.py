@@ -27,12 +27,13 @@ class ShopPage(View):
 
 
 class ShowProductsPage(View):
-    def get(self, request: HttpRequest, tag):
+    def get(self, request: HttpRequest, slug=None):
         cart = Cart(request)
         form = CartAddProductForm(request.POST)
-        print(888888888888)
-        category = Category.objects.filter(tag=tag).first()
-        results = Product.objects.filter(archived=False, category=category)
+        print(888888888888, slug)
+        category = Category.objects.filter(slug=slug).first()
+        print(888888888888, category.catalog)
+        results = Product.objects.filter(archived=False, catalog=category.catalog, category=category)
         context = {
             "products": results,
             "categories": Category.objects.filter(catalog=category.catalog.pk),
@@ -45,10 +46,11 @@ class ShowProductsPage(View):
 class CatalogProducts(View):
     def get(self, request, eng_name):
         cart = Cart(request)
+        print(111111111111111)
         form = CartAddProductForm(request.POST)
         catalog = Catalog.objects.filter(eng_name=eng_name).first()
         category = Category.objects.filter(catalog=catalog)
-        results = Product.objects.filter(archived=False, category=category[0])
+        results = Product.objects.filter(archived=False, catalog=catalog)
         context = {
             "products": results,
             "categories": category,
@@ -182,6 +184,7 @@ class OrderCreate(LoginRequiredMixin, View):
     def post(self, request):
         carts = Cart(request)
         form = OrderModelForm(request.POST)
+
         if form.is_valid():
             address = form.cleaned_data.get('delivery_address')
             promocode = form.cleaned_data.get('promocode')
@@ -194,11 +197,15 @@ class OrderCreate(LoginRequiredMixin, View):
                 )
                 OrderItem.objects.create(
                     order=order,
-                    product=cart.product,
-                    price=cart.price,
-                    quantity=cart.quantity,
+                    product=cart['product'],
+                    price=cart['price'],
+                    quantity=cart['quantity'],
                 )
+                product = Product.objects.filter(name=cart['product']).first()
+                product.products_count = product.products_count - cart['quantity']
+                product.save()
 
+        carts.clear()
         url = self.get_success_url()
         return HttpResponseRedirect(url)
 
@@ -324,6 +331,7 @@ class CartAdd(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
+        print(5, [c for c in cart])
         product = get_object_or_404(Product, pk=product_id)
         print(6666666, self.kwargs)
         cart.add(
@@ -353,12 +361,18 @@ class CartUpdate(LoginRequiredMixin, View):
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
+
         form = CartAddProductForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            cart.add(
-                product=product,
-                quantity=cd['quantity'],
-                update_quantity=cd['update'],
-            )
+            dif_count = product.products_count - cd['quantity']
+            if dif_count >= 0:
+                cart.add(
+                    product=product,
+                    quantity=cd['quantity'],
+                    update_quantity=cd['update'],
+                )
         return redirect('shopapp:cart_detail')
+
+        # return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form, 'message': f'Only {product.products_count} products left.'})
+
