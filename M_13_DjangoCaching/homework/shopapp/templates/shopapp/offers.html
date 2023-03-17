@@ -1,0 +1,84 @@
+{% extends 'shopapp/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Offers
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+
+
+<section class="banner__area pt-20 pb-10">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="banner__item p-relative w-img mb-30">
+                    <div class="banner__img">
+                        <a href=""><img src="{% static 'assets/img/offers/header.webp' %}" alt=""></a>
+                    </div>
+                    <div class="banner__content">
+                        <h6><a href="">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'
+                            %}</a></h6>
+                        <p>{% trans 'Discount 20% On Products' %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="banner__item p-relative mb-30 w-img">
+                    <div class="banner__img">
+                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
+                    </div>
+                    <div class="banner__content">
+                        <h6><a href="">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>
+                        <p>{% trans 'Limited Time: Online Only!' %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="banner__item p-relative mb-30 w-img">
+                    <div class="banner__img">
+                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
+                    </div>
+                    <div class="banner__content">
+                        <h6><a href="">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}
+                        </a></h6>
+                        <p>{% trans 'Free Shipping All Order' %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="eld-promo-container">
+        <div class="">
+            <h3 class="">{% trans 'To participate in the promotion:' %}</h3>
+            <ul class="d-flex flex-row" >
+                <li class="">
+
+                        <p class='' style="font-size: 30px;">&#9461;
+                            {% trans 'Select and add to cart an eligible iPhone.' %}
+                        </p>
+
+
+                </li>
+                <li class="">
+
+                        <i class='fa-solid fa-2'></i>
+                        {% trans 'Add the right accessory to your order.' %}
+
+                </li>
+                <li class="">
+
+                        <i class='fa-solid fa-3'></i>
+                        {% trans 'The discount will be applied automatically. Happy and profitable shopping!' %}
+
+                </li>
+            </ul>
+        </div>
+</section>
+
+{% endif %}
+{% endblock %}

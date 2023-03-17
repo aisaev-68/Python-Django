@@ -22,6 +22,7 @@ Orders list
         </div>
     </div>
 </div>
+{% if orders %}
 <div class="col-12">
     <div class="table-content table-responsive">
         <table class="table">
@@ -32,6 +33,8 @@ Orders list
                 <th>{% trans 'Price' %}</th>
                 <th>{% trans 'Count' %}</th>
                 <th>{% trans 'Sum' %}</th>
+                <th>{% trans 'Purchase date' %}</th>
+                <th>{% trans 'Delivery address' %}</th>
             </tr>
             </thead>
             <tbody>
@@ -62,11 +65,30 @@ Orders list
                 <td>
                     <p>{{ order.sum }}</p>
                 </td>
+                <td>
+                    <p>{{ order.created_at }}</p>
+                </td>
+                <td>
+                    <p>
+                        {{ order.delivery_address}}
+                    </p>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+{% else %}
+<div class="col-12 text-center">
+    <i class="fa fa-shopping-basket fa-8x" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+        <h5 class="">{% trans 'You have no orders.' %}</h5>
+        <span class="empty-basket-two">{% trans 'Choose the product you need from the catalog of the online store' %}<br> {% trans 'and add to cart' %}</span>
+        <a href="{% url 'shopapp:shop_page' %}" class="cart-btn m-auto" style="width: 150px;">{% trans 'To catalog' %}</a>
+    </div>
+
+</div>
+{% endif %}
 {% endif %}
 {% endblock %}

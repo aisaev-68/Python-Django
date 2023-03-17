@@ -89,15 +89,16 @@ class ContactForm(forms.Form):
 
 
 class CartAddProductForm(forms.Form):
-    # PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
-    # quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int)
+
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['quantity'].widget.attrs['min'] = 0
+        self.fields['quantity'].widget.attrs['style'] = 'width:80px; height:40px; padding-left:10px;'
+
     quantity = forms.IntegerField()
     update = forms.BooleanField(required=False,
                                 initial=False,
                                 widget=forms.HiddenInput
                                 )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['quantity'].widget.attrs['min'] = 1
-        self.fields['quantity'].widget.attrs['style'] = 'width:80px; height:40px; padding-left:10px;'

@@ -26,7 +26,7 @@ Cart list
 </div>
 <div class="col-12">
     <div class="table-content table-responsive">
-
+        {% if carts %}
         <div class="table-content table-responsive">
 
             <table class="table">
@@ -104,7 +104,17 @@ Cart list
 
             </form>
         </div>
+        {% else %}
+        <div class="col-12 text-center">
+            <i class="fa fa-shopping-basket fa-8x" aria-hidden="true"></i>
+            <div class="d-flex flex-column">
+                <h5 class="">{% trans 'Your basket is empty.' %}</h5>
+                <span class="empty-basket-two">{% trans 'Choose the product you need from the catalog of the online store' %}<br> {% trans 'and add to cart' %}</span>
+                <a href="{% url 'shopapp:shop_page' %}" class="cart-btn m-auto" style="width: 150px;">{% trans 'To catalog' %}</a>
+            </div>
 
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endif %}

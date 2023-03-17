@@ -293,7 +293,7 @@
                                         <span>{% trans 'Sold:' %} {{ product.sold }}/{{ product.products_count }}</span>
                                     </div>
                                     <div class="product__modal-form">
-                                        <form action="{% url 'shopapp:cart_add' product.pk %}" method="post">
+                                        <form action="{% url 'shopapp:cart_update' product.pk %}" method="post">
                                             {% csrf_token %}
                                             {{ form.quantity }}
                                             {{ form.update }}

@@ -164,6 +164,7 @@ class OrderList(LoginRequiredMixin, View):
                     "price": product.price,
                     "count": count,
                     "sum": count * product.price,
+                    'created_at': order.created_at,
                 }
             context.append(dict_order)
         print(888, context)
@@ -223,7 +224,7 @@ class OrderListByUser(LoginRequiredMixin, View):
             for order in orders:
                 orders_data = order.items.all()
                 for order_product in orders_data:
-                    print(6666, order_product.order)
+
                     dict_order = {}
 
                     dict_order = {
@@ -232,10 +233,11 @@ class OrderListByUser(LoginRequiredMixin, View):
                         'price': order_product.price,
                         'count': order_product.quantity,
                         'sum': order_product.get_sum,
+                        'created_at': order.created_at,
+                        'delivery_address': order.delivery_address,
                     }
 
                     context.append(dict_order)
-        print(66666, context)
         return render(request, 'shopapp/orders-list.html', context={"orders": context})
 
 
@@ -361,10 +363,13 @@ class CartUpdate(LoginRequiredMixin, View):
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
-
+        print(1, [c for c in cart])
         form = CartAddProductForm(request.POST)
+        print(2222, form)
         if form.is_valid():
+            print(3333, product)
             cd = form.cleaned_data
+            print(4444, cd)
             dif_count = product.products_count - cd['quantity']
             if dif_count >= 0:
                 cart.add(
@@ -376,3 +381,8 @@ class CartUpdate(LoginRequiredMixin, View):
 
         # return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form, 'message': f'Only {product.products_count} products left.'})
 
+
+class ProductOffer(LoginRequiredMixin, View):
+    # template_name = 'shopapp/offers.html'
+    def get(self, request):
+        return render(request, 'shopapp/offers.html')
