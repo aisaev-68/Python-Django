@@ -33,7 +33,7 @@ class AboutMe(LoginRequiredMixin, DetailView):
             'profile_form': profile_form
         }
 
-        return render(request, 'myAuth/bloger_profile.html', context)
+        return render(request, 'myAuth/about-me.html', context)
 
 
 class RegisterView(View):

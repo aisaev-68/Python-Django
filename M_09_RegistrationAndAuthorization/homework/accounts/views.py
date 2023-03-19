@@ -10,7 +10,7 @@ from .models import Profile
 
 
 class AboutMe(FormView):
-    template_name = 'myAuth/bloger_profile.html'
+    template_name = 'myAuth/about-me.html'
     form_class = forms.RegisterForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('tasks')
