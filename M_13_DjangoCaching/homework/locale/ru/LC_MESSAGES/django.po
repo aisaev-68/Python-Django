@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-19 10:44+0300\n"
+"POT-Creation-Date: 2023-03-19 11:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -719,7 +719,7 @@ msgstr "Секундов"
 #: shopapp/templates/shopapp/offers.html:139
 #: shopapp/templates/shopapp/product_detail.html:85
 msgid "₽"
-msgstr "$"
+msgstr ""
 
 #: shopapp/templates/shopapp/first-page.html:160
 #: shopapp/templates/shopapp/offers.html:148
@@ -826,7 +826,6 @@ msgstr "Архивировать продукт"
 
 #: shopapp/templates/shopapp/product_detail.html:96
 #: shopapp/templates/shopapp/shop-list.html:292
-
 msgid "Availability:"
 msgstr "Доступность:"
 
@@ -854,6 +853,11 @@ msgstr "Продукты отсутствуют"
 msgid "Add new product"
 msgstr "Добавить новый продукт"
 
+#: shopapp/templates/shopapp/shop-list.html:32
+
+msgid "Product categories"
+msgstr "Список продуктов"
+
 #: shopapp/templates/shopapp/shop-list.html:36
 msgid "All"
 msgstr "Все"
@@ -877,8 +881,6 @@ msgstr "Теги"
 #: shopapp/templates/shopapp/update_product.html:10
 msgid "Update product"
 msgstr "Обновить продукт"
-
-
 
 #~ msgid "Contacte"
 #~ msgstr "Контакт"
