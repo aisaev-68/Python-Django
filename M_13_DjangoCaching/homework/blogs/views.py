@@ -1,5 +1,6 @@
 from typing import List
 
+from django.contrib.auth.models import User
 from django.forms import HiddenInput, modelformset_factory
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
@@ -77,3 +78,9 @@ class SendMessage(View):
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {'form': self.form_class})
+
+
+class BlogerProfile(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        return render(request, 'blogs/bloger_profile.html', context={"user": user})

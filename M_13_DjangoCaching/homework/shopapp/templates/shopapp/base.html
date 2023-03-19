@@ -142,7 +142,7 @@
                                     {% for language in LANGUAGES %}
                                     {% if language.0 != LANGUAGE_CODE %}
                                     <button class="text-white" type="submit" name="language" value="{{ language.0 }}">
-                                        <i class="fa fa-language" aria-hidden="true"></i>
+<!--                                        <i class="fa fa-language" aria-hidden="true"></i>-->
                                         {{ language.1 }}
 <!--                                        ({{ language.0 }})-->
                                     </button>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="header__lang border-right">
 
-                                <span class="">
+                                <span class="text-white">
 <!--                                    <i class="fa fa-money" aria-hidden="true"></i>-->
                                     {% trans 'Currency: USD' %}
                                 </span>
@@ -171,9 +171,9 @@
                         <div class="header-inner-end text-md-end">
                             <div class="ovic-menu-wrapper">
                                 <ul>
-                                    <li><a href="about.html">{% trans 'About Us' %}</a></li>
+                                    <li><a href="">{% trans 'About Us' %}</a></li>
                                     <li><a href="{% url 'shopapp:contact' %}">{% trans 'Contact' %}</a></li>
-                                    <li><a href="faq.html">{% trans 'FAQs' %}</a></li>
+                                    <li><a href="">{% trans 'FAQs' %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -311,7 +311,7 @@
                                              {% endfor %}
                                             <li>
                                                 <div class="cart__sub d-flex justify-content-between align-items-center">
-                                                    <h6>{% trans 'Subtotal' %}</h6>
+                                                    <h6>{% trans 'Total' %}</h6>
                                                     <span class="cart__sub-total">{{ cart.get_total_price }}</span>
                                                 </div>
                                             </li>
@@ -370,27 +370,30 @@
                                         </a>
 
                                     </li>
-                                    {% if perms.shopapp.change_product or request.user.is_superuser %}
-                                    <li>
-                                         <a class="text-capitalize" href="">{% trans 'Catalog' %}</a>
-                                        <ul class="submenu">
+                                    {% if request.user.is_authenticated %}
 
+                                    <li>
+                                         <a class="text-capitalize" href="">{% trans 'Shops' %}</a>
+                                        <ul class="submenu">
                                             <li>
-                                                <a href="" class="active">
-                                                    {% trans 'All products' %}
+                                                <a class="text-capitalize" href="{% url 'shopapp:shops' %}">
+                                                    {% trans 'Shops' %}
+                                                </a>
+                                            </li>
+
+                                            {% if perms.shopapp.change_product or request.user.is_superuser %}
+                                            <li>
+                                                <a style="text-transform: full-size-kana;" href=""> {% trans 'Add category' %}
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href=""> {% trans 'Add product categories' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{% url 'shopapp:create_product' %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:create_product' %}">
                                                     {% trans 'Add product' %}
                                                 </a>
                                             </li>
+                                            {% endif %}
                                             <li>
-                                                <a href="{% url 'shopapp:products_list' %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:products_list' %}">
                                                     {% trans 'Product list' %}
                                                 </a>
                                             </li>
@@ -402,14 +405,14 @@
                                     <li>
                                         <a class="text-capitalize" href="">{% trans 'Orders' %}</a>
                                         <ul class="submenu">
-                                            <li>
-                                                <a href="{% url 'shopapp:create_order' %}" class="active">
-                                                    {%trans 'Add order' %}
-                                                </a>
-                                            </li>
+<!--                                            <li>-->
+<!--                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:create_order' %}" class="active">-->
+<!--                                                    {%trans 'Add order' %}-->
+<!--                                                </a>-->
+<!--                                            </li>-->
 
                                             <li>
-                                                <a href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
                                                     {% trans 'History of orders' %}
                                                 </a>
                                             </li>
@@ -431,18 +434,18 @@
 
                                         </ul>
                                     </li>
-                                    {% endif %}
+                                     {% endif %}
                                     <li>
                                         <a class="text-capitalize" href="">{% trans 'Blog' %}</a>
                                         <ul class="submenu">
                                             <li>
-                                                <a href="{% url 'blogs:show_blogs' %}" class="active">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'blogs:show_blogs' %}" class="active">
                                                     {% trans 'All posts' %}
                                                 </a>
                                             </li>
                                             {% if request.user.is_authenticated %}
                                             <li>
-                                                <a href="{% url 'blogs:created_blog' %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'blogs:created_blog' %}">
                                                     {% trans 'Add post' %}
                                                 </a>
                                             </li>
@@ -453,19 +456,15 @@
                                     <li>
                                         <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
                                             <i class="fa fa-credit-card" aria-hidden="true"> </i>
-                                            <span class="count">{{cart.cart_count }}</span>
+                                            <span class="count">0</span>
                                             <span class="text align-self-center">
-                                            <span class="sub">{% trans 'Balance' %}</span>
-                                            {{ cart.total_price }} </span>
+                                            <span class="sub text-capitalize">{% trans 'Balance' %}</span>
+                                            </span>
                                         </a>
 <!--                                       <a href="" class="wc-checkout">{% trans 'Balance' %}</a>-->
                                     </li>
                                     {% endif %}
-<!--                                    <li>-->
-<!--                                        <a class="text-capitalize" href="{% url 'shopapp:contact' %}">-->
-<!--                                            {% trans 'Contact' %}-->
-<!--                                        </a>-->
-<!--                                    </li>-->
+
                                 </ul>
                             </nav>
                         </div>
@@ -488,7 +487,7 @@
         </div>
         <div class="offcanvas__content">
             <div class="offcanvas__logo mb-40">
-                <a href="index.html">
+                <a href="">
                     <img src="assets/img/logo/logo-white.png" alt="logo">
                 </a>
             </div>

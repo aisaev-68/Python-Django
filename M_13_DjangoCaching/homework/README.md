@@ -7,6 +7,8 @@ python manage.py create_orders
 python manage.py create_posts
 python manage.py runserver
 
+python manage.py dumpdata shopapp.Catalog > shopapp/tests/fixtures/catalog-fixtures.json
+python manage.py dumpdata shopapp.Category > shopapp/tests/fixtures/category-fixtures.json
 python manage.py dumpdata shopapp.Product > shopapp/tests/fixtures/products-fixtures.json
 python manage.py dumpdata shopapp.Order > shopapp/tests/fixtures/orders-fixtures.json
 python manage.py dumpdata auth.Group > shopapp/tests/fixtures/grops-fixtures.json

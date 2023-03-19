@@ -96,7 +96,7 @@
 
                     </div>
                 </div>
-                <input class="cart-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Filter' %}">
+<!--                <input class="cart-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Filter' %}">-->
             </form>
         </div>
         <div class="col-xl-9 col-lg-8">
@@ -169,12 +169,12 @@
                                                 {{ form.update }}
 <!--                                                {{ form.quantity }}-->
                                                  <input class="" type="text" value="1" hidden="">
-                                                <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
+                                                <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Add to cart' %}">
                                         </form>
                                         <button type="button"
                                                 class="wc-checkout d-flex align-items-center justify-content-center w-100"
                                                 data-bs-toggle="modal" data-bs-target="#productModal{{ forloop.counter }}">
-                                            Quick View
+                                            {% trans 'Quick View' %}
                                         </button>
                                     </div>
                                 </div>
@@ -289,7 +289,7 @@
                                         </ul>
                                     </div>
                                     <div class="product__stock mb-20">
-                                        <span class="mr-10">{% trans 'Availability :' %}</span>
+                                        <span class="mr-10">{% trans 'Availability:' %}</span>
                                         <span>{% trans 'Sold:' %} {{ product.sold }}/{{ product.products_count }}</span>
                                     </div>
                                     <div class="product__modal-form">

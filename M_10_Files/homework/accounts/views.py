@@ -12,7 +12,7 @@ from .models import Profile
 
 
 class AboutMe(LoginRequiredMixin, DetailView):
-    # template_name = 'myAuth/about-me.html'
+    # template_name = 'myAuth/bloger_profile.html'
     # form_class = forms.RegisterForm
     # redirect_authenticated_user = True
     # success_url = reverse_lazy('tasks')
@@ -33,7 +33,7 @@ class AboutMe(LoginRequiredMixin, DetailView):
             'profile_form': profile_form
         }
 
-        return render(request, 'myAuth/about-me.html', context)
+        return render(request, 'myAuth/bloger_profile.html', context)
 
 
 class RegisterView(View):

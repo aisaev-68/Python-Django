@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 12:03+0300\n"
+"POT-Creation-Date: 2023-03-19 10:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,17 +50,18 @@ msgstr ""
 msgid "Country*"
 msgstr ""
 
-#: accounts/forms.py:112 accounts/forms.py:115 accounts/models.py:16
+#: accounts/forms.py:112 accounts/forms.py:115 accounts/models.py:23
 #: shopapp/templates/shopapp/order_detail.html:17
 msgid "Postal code"
 msgstr ""
 
-#: accounts/forms.py:124 accounts/models.py:17
+#: accounts/forms.py:124 accounts/models.py:24
 #: shopapp/templates/shopapp/order_detail.html:18
 msgid "City"
 msgstr ""
 
-#: accounts/forms.py:133 accounts/models.py:18
+#: accounts/forms.py:133 accounts/models.py:25 shopapp/models.py:17
+#: shopapp/templates/shopapp/all_shops.html:36
 msgid "Address"
 msgstr ""
 
@@ -68,29 +69,29 @@ msgstr ""
 msgid "Phone*"
 msgstr ""
 
-#: accounts/forms.py:153 accounts/models.py:11
+#: accounts/forms.py:153 accounts/models.py:18
 msgid "Avatar"
 msgstr ""
 
-#: accounts/models.py:9 shopapp/models.py:39
+#: accounts/models.py:16 shopapp/models.py:142
 #: shopapp/templates/shopapp/order_detail.html:14
-#: shopapp/templates/shopapp/orders-list.html:14
 msgid "User"
 msgstr ""
 
-#: accounts/models.py:15 shopapp/templates/shopapp/order_detail.html:16
+#: accounts/models.py:22 shopapp/templates/shopapp/order_detail.html:16
 msgid "Country"
 msgstr ""
 
-#: accounts/models.py:19
+#: accounts/models.py:26
 msgid "Phone"
 msgstr ""
 
-#: accounts/models.py:25
+#: accounts/models.py:32 blogs/templates/blogs/bloger_profile.html:12
+#: shopapp/templates/shopapp/base.html:244
 msgid "Profile"
 msgstr ""
 
-#: accounts/models.py:26
+#: accounts/models.py:33
 msgid "Profiles"
 msgstr ""
 
@@ -99,45 +100,52 @@ msgstr ""
 msgid "User profile"
 msgstr ""
 
-#: accounts/templates/accounts/about-me.html:25
-msgid "User name"
-msgstr ""
-
 #: accounts/templates/accounts/about-me.html:26
-msgid "Email:"
-msgstr ""
-
-#: accounts/templates/accounts/about-me.html:27
-msgid "Country:"
-msgstr ""
-
-#: accounts/templates/accounts/about-me.html:28
-msgid "Postal code:"
+#: blogs/templates/blogs/bloger_profile.html:24
+msgid "Username:"
 msgstr ""
 
 #: accounts/templates/accounts/about-me.html:29
+#: blogs/templates/blogs/bloger_profile.html:27
+msgid "Email:"
+msgstr ""
+
+#: accounts/templates/accounts/about-me.html:32
+msgid "Country:"
+msgstr ""
+
+#: accounts/templates/accounts/about-me.html:35
+msgid "Postal code:"
+msgstr ""
+
+#: accounts/templates/accounts/about-me.html:38
 msgid "City:"
 msgstr ""
 
-#: accounts/templates/accounts/about-me.html:30
+#: accounts/templates/accounts/about-me.html:41
 msgid "Address:"
 msgstr ""
 
-#: accounts/templates/accounts/about-me.html:31
+#: accounts/templates/accounts/about-me.html:44
 msgid "Phone:"
 msgstr ""
 
-#: accounts/templates/accounts/about-me.html:34
+#: accounts/templates/accounts/about-me.html:48
 #: accounts/templates/accounts/profile.html:17
 #: accounts/templates/accounts/update_profile.html:16
 #: shopapp/templates/shopapp/update_product.html:16
 msgid "Update"
 msgstr ""
 
-#: accounts/templates/accounts/about-me.html:40
-#: accounts/templates/accounts/profile.html:22
+#: accounts/templates/accounts/about-me.html:51
+#: accounts/templates/accounts/profile.html:19
+msgid "Cancel"
+msgstr ""
+
+#: accounts/templates/accounts/about-me.html:63
+#: accounts/templates/accounts/profile.html:24
+#: blogs/templates/blogs/bloger_profile.html:36
 #: shopapp/templates/shopapp/order_detail.html:51
-#: shopapp/templates/shopapp/orders-list.html:61
 msgid "You are not identified!"
 msgstr ""
 
@@ -145,7 +153,12 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: accounts/templates/accounts/profile.html:18
+msgid "Reset"
+msgstr ""
+
 #: accounts/templates/accounts/register.html:11
+#: shopapp/templates/shopapp/base.html:237
 msgid "Registration"
 msgstr ""
 
@@ -162,7 +175,7 @@ msgstr ""
 msgid "You are not logged in"
 msgstr ""
 
-#: accounts/templates/registration/login.html:9
+#: accounts/templates/registration/login.html:11
 msgid "Please enter your credentials"
 msgstr ""
 
@@ -182,11 +195,11 @@ msgstr ""
 msgid "Profile update error."
 msgstr ""
 
-#: blogs/admin.py:22
+#: blogs/admin.py:22 shopapp/admin.py:77
 msgid "description"
 msgstr ""
 
-#: blogs/admin.py:27 shopapp/admin.py:66 shopapp/admin.py:91
+#: blogs/admin.py:27 shopapp/admin.py:82 shopapp/admin.py:107
 msgid "created_at"
 msgstr ""
 
@@ -198,11 +211,11 @@ msgstr ""
 msgid "Blogs"
 msgstr ""
 
-#: blogs/forms.py:9 blogs/models.py:9
+#: blogs/forms.py:9 blogs/models.py:15
 msgid "Title"
 msgstr ""
 
-#: blogs/forms.py:14 blogs/models.py:19 blogs/models.py:25
+#: blogs/forms.py:14 blogs/models.py:24 blogs/models.py:30
 msgid "Post"
 msgstr ""
 
@@ -214,52 +227,59 @@ msgstr ""
 msgid "Message*"
 msgstr ""
 
-#: blogs/models.py:10 shopapp/admin.py:61 shopapp/models.py:13
+#: blogs/models.py:16 shopapp/models.py:77
+#: shopapp/templates/shopapp/product_detail.html:160
 msgid "Description"
 msgstr ""
 
-#: blogs/models.py:11 shopapp/models.py:15
+#: blogs/models.py:17 shopapp/models.py:80
 msgid "Created by"
 msgstr ""
 
-#: blogs/models.py:12 shopapp/models.py:21
+#: blogs/models.py:18 shopapp/models.py:87
 msgid "Created date"
 msgstr ""
 
-#: blogs/models.py:20 blogs/templates/blogs/blogs.html:37
+#: blogs/models.py:25 blogs/templates/blogs/blogs_list.html:14
 msgid "Posts"
 msgstr ""
 
-#: blogs/models.py:26
+#: blogs/models.py:31
 msgid "Files post"
 msgstr ""
 
-#: blogs/models.py:39
+#: blogs/models.py:44
 msgid "PostImage"
 msgstr ""
 
-#: blogs/models.py:40
+#: blogs/models.py:45
 msgid "PostImages"
 msgstr ""
 
-#: blogs/templates/blogs/blogs.html:36 shopapp/templates/shopapp/base.html:31
-#: shopapp/templates/shopapp/base.html:160
-#: shopapp/templates/shopapp/orders-list.html:55
-#: shopapp/templates/shopapp/products-list.html:31
+#: blogs/templates/blogs/blogs_detail.html:16
+#: blogs/templates/blogs/blogs_list.html:13
+#: blogs/templates/blogs/created_post.html:15
+#: shopapp/templates/shopapp/all_shops.html:19
+#: shopapp/templates/shopapp/base.html:369
+#: shopapp/templates/shopapp/base.html:533
+#: shopapp/templates/shopapp/cart.html:19
+#: shopapp/templates/shopapp/orders-list.html:18
+#: shopapp/templates/shopapp/products-list.html:16
+#: shopapp/templates/shopapp/products-list.html:46
+#: shopapp/templates/shopapp/shop-list.html:18
 #: shopapp/templates/shopapp/update_product.html:21
 msgid "Home"
 msgstr ""
 
-#: blogs/templates/blogs/blogs.html:39
-msgid "Contacte"
+#: blogs/templates/blogs/blogs_detail.html:17
+msgid "Post detail"
 msgstr ""
 
-#: blogs/templates/blogs/blogs.html:41 blogs/templates/blogs/blogs.html:43
-#: shopapp/templates/shopapp/base.html:81
-msgid "Add post"
+#: blogs/templates/blogs/created_post.html:16
+msgid "Create post"
 msgstr ""
 
-#: blogs/templates/blogs/created_post.html:30
+#: blogs/templates/blogs/created_post.html:44
 #: shopapp/templates/shopapp/create_product.html:16
 msgid "Add"
 msgstr ""
@@ -272,31 +292,27 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: shopapp/admin.py:14
+#: shopapp/admin.py:19
 msgid "Archive products"
 msgstr ""
 
-#: shopapp/admin.py:19
+#: shopapp/admin.py:24
 msgid "Unarchive products"
 msgstr ""
 
-#: shopapp/admin.py:45
+#: shopapp/admin.py:60
 msgid "Price options"
 msgstr ""
 
-#: shopapp/admin.py:49
+#: shopapp/admin.py:64
 msgid "Extra options"
 msgstr ""
 
-#: shopapp/admin.py:50
-msgid "archived"
-msgstr ""
-
-#: shopapp/admin.py:52
+#: shopapp/admin.py:67
 msgid "Extra options. Field 'archived' is for soft delete"
 msgstr ""
 
-#: shopapp/admin.py:86
+#: shopapp/admin.py:102
 msgid "user"
 msgstr ""
 
@@ -304,23 +320,32 @@ msgstr ""
 msgid "Shop"
 msgstr ""
 
-#: shopapp/forms.py:13 shopapp/models.py:18
+#: shopapp/forms.py:30 shopapp/models.py:83
 msgid "Image product"
 msgstr ""
 
-#: shopapp/forms.py:43 shopapp/models.py:9 shopapp/models.py:44
-msgid "Products"
+#: shopapp/forms.py:39 shopapp/models.py:52 shopapp/models.py:75
+msgid "Category"
 msgstr ""
 
-#: shopapp/forms.py:60
+#: shopapp/forms.py:73 shopapp/models.py:139
+#: shopapp/templates/shopapp/orders-list.html:38
+msgid "Delivery address"
+msgstr ""
+
+#: shopapp/forms.py:74
+msgid "Promocode"
+msgstr ""
+
+#: shopapp/forms.py:85
 msgid "First name"
 msgstr ""
 
-#: shopapp/forms.py:61
+#: shopapp/forms.py:86
 msgid "Last name"
 msgstr ""
 
-#: shopapp/forms.py:63
+#: shopapp/forms.py:88
 msgid "Message"
 msgstr ""
 
@@ -328,123 +353,261 @@ msgstr ""
 msgid "Creates read only default permission groups for users"
 msgstr ""
 
-#: shopapp/models.py:8 shopapp/templates/shopapp/order_detail.html:26
-msgid "Product"
-msgstr ""
-
-#: shopapp/models.py:12
+#: shopapp/models.py:16 shopapp/models.py:21 shopapp/models.py:44
+#: shopapp/models.py:76 shopapp/templates/shopapp/all_shops.html:35
 msgid "Name"
 msgstr ""
 
-#: shopapp/models.py:14
-msgid "Attributes"
-msgstr ""
-
-#: shopapp/models.py:16
-msgid "Rating"
-msgstr ""
-
-#: shopapp/models.py:17 shopapp/templates/shopapp/base.html:161
-#: shopapp/templates/shopapp/orders-list.html:20
-#: shopapp/templates/shopapp/products-list.html:15
-msgid "Price"
-msgstr ""
-
-#: shopapp/models.py:20 shopapp/templates/shopapp/order_detail.html:33
-msgid "Discount"
-msgstr ""
-
 #: shopapp/models.py:22
-msgid "Count"
+msgid "English name"
 msgstr ""
 
-#: shopapp/models.py:23
-msgid "Status"
-msgstr ""
-
-#: shopapp/models.py:36 shopapp/templates/shopapp/orders-list.html:16
-msgid "Delivery address"
-msgstr ""
-
-#: shopapp/models.py:37 shopapp/templates/shopapp/order_detail.html:21
-#: shopapp/templates/shopapp/orders-list.html:15
-msgid "Promo code"
-msgstr ""
-
-#: shopapp/models.py:38
-msgid "Create order date"
-msgstr ""
-
-#: shopapp/models.py:48
-msgid "Order"
-msgstr ""
-
-#: shopapp/models.py:49 shopapp/templates/shopapp/base.html:62
-msgid "Orders"
-msgstr ""
-
-#: shopapp/templates/shopapp/base.html:35
+#: shopapp/models.py:28 shopapp/models.py:47 shopapp/models.py:73
 msgid "Catalog"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:38
-msgid "Computers"
+#: shopapp/models.py:29
+msgid "Catalogs"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:40
-msgid "Phones"
+#: shopapp/models.py:53
+msgid "Categories"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:43
-msgid "Camcorders"
+#: shopapp/models.py:68 shopapp/templates/shopapp/order_detail.html:26
+msgid "Product"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:47
-msgid "Add product categories"
+#: shopapp/models.py:69 shopapp/models.py:157
+msgid "Products"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:50
+#: shopapp/models.py:79
+msgid "Attributes"
+msgstr ""
+
+#: shopapp/models.py:81
+msgid "Rating"
+msgstr ""
+
+#: shopapp/models.py:82 shopapp/models.py:158
+#: shopapp/templates/shopapp/base.html:534
+#: shopapp/templates/shopapp/cart.html:38
+#: shopapp/templates/shopapp/orders-list.html:34
+#: shopapp/templates/shopapp/products-list.html:30
+msgid "Price"
+msgstr ""
+
+#: shopapp/models.py:85 shopapp/templates/shopapp/order_detail.html:33
+msgid "Discount"
+msgstr ""
+
+#: shopapp/models.py:86
+msgid "Sold"
+msgstr ""
+
+#: shopapp/models.py:88 shopapp/templates/shopapp/orders-list.html:35
+msgid "Count"
+msgstr ""
+
+#: shopapp/models.py:89 shopapp/models.py:143
+msgid "Status"
+msgstr ""
+
+#: shopapp/models.py:90
+msgid "Brand"
+msgstr ""
+
+#: shopapp/models.py:140 shopapp/templates/shopapp/order_detail.html:21
+msgid "Promo code"
+msgstr ""
+
+#: shopapp/models.py:141
+msgid "Create order date"
+msgstr ""
+
+#: shopapp/models.py:148
+msgid "Order"
+msgstr ""
+
+#: shopapp/models.py:149 shopapp/models.py:156
+#: shopapp/templates/shopapp/base.html:406
+#: shopapp/templates/shopapp/orders-list.html:19
+msgid "Orders"
+msgstr ""
+
+#: shopapp/models.py:159 shopapp/templates/shopapp/cart.html:39
+msgid "Quantity"
+msgstr ""
+
+#: shopapp/templates/shopapp/all_shops.html:20
+#: shopapp/templates/shopapp/base.html:376
+#: shopapp/templates/shopapp/base.html:380
+msgid "Shops"
+msgstr ""
+
+#: shopapp/templates/shopapp/all_shops.html:58
+msgid "The list is empty."
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:157
+msgid "Currency: USD"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:161
+msgid "Need Help?"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:174
+msgid "About Us"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:175
+#: shopapp/templates/shopapp/base.html:536
+msgid "Contact"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:176
+msgid "FAQs"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:224
+msgid "My Account"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:233
+msgid "Log In"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:251
+msgid "Log Out"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:267
+msgid "Your Cart:"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:276
+msgid "Your Cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:277
+msgid "Item in Cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:314
+#: shopapp/templates/shopapp/cart.html:40
+msgid "Total"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:319
+msgid "View cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:339
+msgid "Shop by department"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:386
+msgid "Add category"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:391
 #: shopapp/templates/shopapp/create_product.html:10
 msgid "Add product"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:53
+#: shopapp/templates/shopapp/base.html:397
+#: shopapp/templates/shopapp/products-list.html:17
 msgid "Product list"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:65
+#: shopapp/templates/shopapp/base.html:410
 #: shopapp/templates/shopapp/create_order.html:10
 msgid "Add order"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:67
-msgid "My orders"
+#: shopapp/templates/shopapp/base.html:416
+msgid "History of orders"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:75
-#: shopapp/templates/shopapp/base.html:162
+#: shopapp/templates/shopapp/base.html:422
+#: shopapp/templates/shopapp/base.html:426
+msgid "Offers"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:431
+msgid "Promotions"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:439
+#: shopapp/templates/shopapp/base.html:535
 msgid "Blog"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:78
+#: shopapp/templates/shopapp/base.html:443
 msgid "All posts"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:87
-#: shopapp/templates/shopapp/base.html:163
-msgid "Contact"
+#: shopapp/templates/shopapp/base.html:449
+msgid "Add post"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:94
-msgid "Sign Up"
+#: shopapp/templates/shopapp/base.html:461
+#: shopapp/templates/shopapp/base.html:464
+msgid "Balance"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:99
-msgid "Log In"
+#: shopapp/templates/shopapp/cart.html:20
+msgid "Cart"
 msgstr ""
 
-#: shopapp/templates/shopapp/base.html:109
-msgid "Log Out"
+#: shopapp/templates/shopapp/cart.html:36
+msgid "Images"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:37
+#: shopapp/templates/shopapp/products-list.html:28
+msgid "Product name"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:41
+msgid "Remove"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:71
+msgid "Update cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:98
+msgid "Cart totals"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:102
+msgid "Proceed to checkout"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:103
+msgid "Checkout"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:112
+msgid "Your basket is empty."
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:113
+#: shopapp/templates/shopapp/orders-list.html:90
+msgid "Choose the product you need from the catalog of the online store"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:113
+#: shopapp/templates/shopapp/orders-list.html:90
+msgid "and add to cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:114
+#: shopapp/templates/shopapp/orders-list.html:91
+msgid "To catalog"
 msgstr ""
 
 #: shopapp/templates/shopapp/contact.html:9
@@ -490,8 +653,101 @@ msgstr ""
 msgid "Delete product"
 msgstr ""
 
-#: shopapp/templates/shopapp/main.html:11
-msgid "Welcome to the site"
+#: shopapp/templates/shopapp/first-page.html:20
+msgid "Intelligent"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:22
+#, python-format
+msgid "Discount 20%% On Products"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:32
+msgid "On-sale"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:32
+msgid "Best Prices"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:33
+msgid "Limited Time: Online Only!"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:43
+msgid "Hot Sale"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:43
+msgid "Super Laptops 2023"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:45
+msgid "Free Shipping All Order"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:58
+msgid "Top Deals Of The Day"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:61
+msgid "Hurry Up! Offer ends in:"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:66
+msgid "Days"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:67
+msgid "Hours"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:68
+msgid "Mins"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:69
+msgid "Secs"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:151
+#: shopapp/templates/shopapp/first-page.html:290
+#: shopapp/templates/shopapp/offers.html:139
+#: shopapp/templates/shopapp/product_detail.html:85
+msgid "₽"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:160
+#: shopapp/templates/shopapp/offers.html:148
+#: shopapp/templates/shopapp/shop-list.html:293
+msgid "Sold:"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:169
+#: shopapp/templates/shopapp/first-page.html:299
+#: shopapp/templates/shopapp/shop-list.html:172
+#: shopapp/templates/shopapp/shop-list.html:300
+msgid "Add to cart"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:190
+msgid "Top Selling Products"
+msgstr ""
+
+#: shopapp/templates/shopapp/offers.html:31
+msgid "To participate in the promotion:"
+msgstr ""
+
+#: shopapp/templates/shopapp/offers.html:39
+msgid "Select and add to cart an eligible iPhone."
+msgstr ""
+
+#: shopapp/templates/shopapp/offers.html:50
+msgid "Add the right accessory to your order."
+msgstr ""
+
+#: shopapp/templates/shopapp/offers.html:59
+msgid "The discount will be applied automatically."
 msgstr ""
 
 #: shopapp/templates/shopapp/order_detail.html:12
@@ -515,12 +771,10 @@ msgid "Order data"
 msgstr ""
 
 #: shopapp/templates/shopapp/order_detail.html:23
-#: shopapp/templates/shopapp/orders-list.html:9
 msgid "Order list:"
 msgstr ""
 
 #: shopapp/templates/shopapp/order_detail.html:27
-#: shopapp/templates/shopapp/product_detail.html:29
 msgid "Specifications"
 msgstr ""
 
@@ -529,7 +783,6 @@ msgid "Price:"
 msgstr ""
 
 #: shopapp/templates/shopapp/order_detail.html:34
-#: shopapp/templates/shopapp/orders-list.html:18
 msgid "Product Description"
 msgstr ""
 
@@ -543,57 +796,79 @@ msgstr ""
 msgid "Update order"
 msgstr ""
 
-#: shopapp/templates/shopapp/orders-list.html:17
+#: shopapp/templates/shopapp/orders-list.html:32
+msgid "Image"
+msgstr ""
+
+#: shopapp/templates/shopapp/orders-list.html:33
 msgid "Name of product"
 msgstr ""
 
-#: shopapp/templates/shopapp/orders-list.html:19
-#, python-format
-msgid "Discount in %%"
+#: shopapp/templates/shopapp/orders-list.html:36
+msgid "Sum"
 msgstr ""
 
-#: shopapp/templates/shopapp/orders-list.html:57
-msgid "Add new order"
+#: shopapp/templates/shopapp/orders-list.html:37
+msgid "Purchase date"
+msgstr ""
+
+#: shopapp/templates/shopapp/orders-list.html:89
+msgid "You have no orders."
 msgstr ""
 
 #: shopapp/templates/shopapp/product_archived.html:10
-#: shopapp/templates/shopapp/product_detail.html:52
 msgid "Archive product"
 msgstr ""
 
-#: shopapp/templates/shopapp/product_detail.html:40
-msgid "Description:"
+#: shopapp/templates/shopapp/product_detail.html:96
+#: shopapp/templates/shopapp/shop-list.html:292
+msgid "Availability:"
 msgstr ""
 
-#: shopapp/templates/shopapp/product_detail.html:48
-msgid "Back to product list"
+#: shopapp/templates/shopapp/product_detail.html:166
+msgid "Additional information"
 msgstr ""
 
-#: shopapp/templates/shopapp/product_detail.html:50
-#: shopapp/templates/shopapp/update_product.html:10
-msgid "Update product"
-msgstr ""
-
-#: shopapp/templates/shopapp/products-list.html:9
+#: shopapp/templates/shopapp/products-list.html:24
 msgid "The cost of products for"
 msgstr ""
 
-#: shopapp/templates/shopapp/products-list.html:13
-msgid "Product name"
-msgstr ""
-
-#: shopapp/templates/shopapp/products-list.html:14
+#: shopapp/templates/shopapp/products-list.html:29
 msgid "Discount percentage"
 msgstr ""
 
-#: shopapp/templates/shopapp/products-list.html:16
+#: shopapp/templates/shopapp/products-list.html:31
 msgid "Create date"
 msgstr ""
 
-#: shopapp/templates/shopapp/products-list.html:28
+#: shopapp/templates/shopapp/products-list.html:43
 msgid "No production"
 msgstr ""
 
-#: shopapp/templates/shopapp/products-list.html:33
+#: shopapp/templates/shopapp/products-list.html:48
 msgid "Add new product"
+msgstr ""
+
+#: shopapp/templates/shopapp/shop-list.html:36
+msgid "All"
+msgstr ""
+
+#: shopapp/templates/shopapp/shop-list.html:99
+msgid "Filter"
+msgstr ""
+
+#: shopapp/templates/shopapp/shop-list.html:177
+msgid "Quick View"
+msgstr ""
+
+#: shopapp/templates/shopapp/shop-list.html:307
+msgid "Categories:"
+msgstr ""
+
+#: shopapp/templates/shopapp/shop-list.html:311
+msgid "Tags:"
+msgstr ""
+
+#: shopapp/templates/shopapp/update_product.html:10
+msgid "Update product"
 msgstr ""

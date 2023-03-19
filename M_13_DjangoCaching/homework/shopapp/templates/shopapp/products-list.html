@@ -6,6 +6,21 @@ Products list
 {% endblock %}
 
 {% block section %}
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Product list' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <h1 class="title_action">{% trans 'The cost of products for' %} {% now "Y-m-d" %}</h1>
 {% if products %}
 <table class="table-product">

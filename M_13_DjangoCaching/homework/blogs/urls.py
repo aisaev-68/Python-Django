@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import RedirectView
 
-from .views import ShowBlogs, create_blog, BlogDetail, SendMessage
+from .views import ShowBlogs, create_blog, BlogDetail, SendMessage, BlogerProfile
 
 
 app_name = "blogs"
@@ -13,5 +13,6 @@ urlpatterns = [
     path("user/<int:pk>/", ShowBlogs.as_view(), name="show_blogs"),
     path("create/", create_blog, name="created_blog"),
     path("send_message/", SendMessage.as_view(), name="send_message"),
+    path("profile/<int:pk>/", BlogerProfile.as_view(), name="bloger_profile"),
 ]
 

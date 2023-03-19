@@ -22,6 +22,7 @@ from .views import (
     CartUpdate,
     CatalogProducts,
     ProductOffer,
+    ShopView,
 
 )
 
@@ -56,4 +57,5 @@ urlpatterns = [
     path('cart/update/<int:product_id>/', CartUpdate.as_view(), name='cart_update'),
     path('cart/remove/<int:product_id>/', CartDelete.as_view(), name='cart_remove'),
     path('offers/', ProductOffer.as_view(), name='offers'),
+    path('all_shops/', ShopView.as_view(), name='shops'),
 ]

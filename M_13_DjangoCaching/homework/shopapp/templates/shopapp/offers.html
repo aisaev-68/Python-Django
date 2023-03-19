@@ -15,68 +15,160 @@ Offers
 <section class="banner__area pt-20 pb-10">
     <div class="container">
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="col-xl-12 col-lg-4 col-md-6">
                 <div class="banner__item p-relative w-img mb-30">
                     <div class="banner__img">
                         <a href=""><img src="{% static 'assets/img/offers/header.webp' %}" alt=""></a>
                     </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'
-                            %}</a></h6>
-                        <p>{% trans 'Discount 20% On Products' %}</p>
-                    </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-                <div class="banner__item p-relative mb-30 w-img">
-                    <div class="banner__img">
-                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
-                    </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>
-                        <p>{% trans 'Limited Time: Online Only!' %}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
-                <div class="banner__item p-relative mb-30 w-img">
-                    <div class="banner__img">
-                        <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
-                    </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}
-                        </a></h6>
-                        <p>{% trans 'Free Shipping All Order' %}</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
-    <div class="eld-promo-container">
-        <div class="">
-            <h3 class="">{% trans 'To participate in the promotion:' %}</h3>
-            <ul class="d-flex flex-row" >
-                <li class="">
-
-                        <p class='' style="font-size: 30px;">&#9461;
-                            {% trans 'Select and add to cart an eligible iPhone.' %}
-                        </p>
+    <div class="col-12">
+        <div class="container">
+        <div class="row bg-yellow">
+            <h6 class="">{% trans 'To participate in the promotion:' %}</h6>
+            <ul class="d-flex flex-row justify-content-between">
+                <li class="col-4 d-flex flex-row ">
+                    <div class="rounded-circle text-center align-self-center"
+                         style="width:30px; height:30px;border:2px solid #808080;">
+                        <span style="font-size: 20px;">1</span>
+                    </div>
+                    <div class='align-self-center ms-2'>
+                        {% trans 'Select and add to cart an eligible iPhone.' %}
+                    </div>
 
 
                 </li>
-                <li class="">
-
-                        <i class='fa-solid fa-2'></i>
+                <li class="col-4 d-flex flex-row">
+                    <div class="rounded-circle text-center align-self-center"
+                         style="width:30px; height:30px;border:2px solid #808080;">
+                        <span style="font-size: 20px;">2</span>
+                    </div>
+                    <div class='align-self-center ms-2'>
                         {% trans 'Add the right accessory to your order.' %}
-
+                    </div>
                 </li>
-                <li class="">
-
-                        <i class='fa-solid fa-3'></i>
-                        {% trans 'The discount will be applied automatically. Happy and profitable shopping!' %}
-
+                <li class="col-4 d-flex flex-row">
+                    <div class="rounded-circle text-center align-self-center"
+                         style="width:30px; height:30px;border:2px solid #808080;">
+                        <span style="font-size: 20px;">3</span>
+                    </div>
+                    <div class='align-self-center ms-2'>
+                        {% trans 'The discount will be applied automatically.' %}
+                    </div>
                 </li>
             </ul>
+        </div>
+        <div class="row mt-4">
+            <div class="product-bs-slider">
+                <div class="product-slider swiper-container">
+                    <div class="swiper-wrapper">
+                        {% cache 500 offer_list %}
+                        {% for product in products %}
+
+                        <div class="product__item swiper-slide">
+                            <div class="product__thumb fix">
+                                <div class="product-image w-img">
+                                    <a href="">
+                                        {% if 'http' in product.to_json.image.url %}
+                                        <img src="{{ product.image }}"
+                                             style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                             class=""
+                                             alt="product"/>
+                                        {% else %}
+                                        <img src="{{ product.image.url }}"
+                                             style="height: 30vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                             class=""
+                                             alt="product"/>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="product__offer">
+                                    <span class="discount">-{{ product.to_json.discount }} %</span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal"
+                                       data-bs-target="#productModalId">
+                                        <i class="fal fa-eye"></i>
+                                        <i class="fal fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="icon-box icon-box-1">
+                                        <i class="fal fa-heart"></i>
+                                        <i class="fal fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="icon-box icon-box-1">
+                                        <i class="fal fa-layer-group"></i>
+                                        <i class="fal fa-layer-group"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product__content">
+                                <h6 class="mt-3">
+                                    <a href="{% url 'shopapp:product_detail' pk=product.pk %}">
+                                        {{ product.to_json.name|truncatechars:25 }}
+                                    </a>
+                                </h6>
+                                <div class="rating mb-5">
+                                    <ul>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 0.5 %}-half {% elif product.to_json.rating >= 0.5 and product.to_json.rating < 1.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 1.5 %}-half {% elif product.to_json.rating >= 1.5 and product.to_json.rating < 2.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 2.5 %}-half {% elif product.to_json.rating >= 2.5 and product.to_json.rating < 3.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 3.5 %}-half {% elif product.to_json.rating >= 3.5 and product.to_json.rating < 4.0 %}-half {% endif %}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                        <li><a href="#">
+                                            <i class="fa fa-star{% if product.to_json.rating < 4.5 %}-half {% elif product.to_json.rating >= 4.5 and product.to_json.rating <= 5.0 %} -half {% endif %}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                    <span>({% firstof product.to_json.rating '0' %}/5)</span>
+                                </div>
+                                <div class="price mb-10">
+                                    <span><del class="me-2">{{ product.to_json.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
+                                    <!--                                    <span>{{ product.price }} ₽</span>-->
+                                </div>
+                                <div class="progress mb-5">
+                                    <div class="progress-bar bg-danger" role="progressbar"
+                                         style="width: {{ product.to_json.progress }}%"
+                                         aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="progress-rate">
+                                    <span>{% trans 'Sold:' %} {{ product.to_json.sold }}/{{ product.to_json.products_count }}</span>
+                                </div>
+                            </div>
+                            <div class="product__add-cart text-center">
+                                <form action="{% url 'shopapp:cart_add' product.to_json.pk %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form.update }}
+                                    {{ form.quantity }}
+                                    <!--                                    <input class="" type="text" value="1" hidden="">-->
+                                    <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100"
+                                           type="submit" value="Add to cart">
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endcache %}
+
+                    </div>
+                </div>
+                <!-- If we need navigation buttons -->
+                <div class="bs-button bs-button-prev"><i class="fal fa-chevron-left"></i></div>
+                <div class="bs-button bs-button-next"><i class="fal fa-chevron-right"></i></div>
+            </div>
+        </div>
         </div>
 </section>
 

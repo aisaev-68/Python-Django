@@ -9,7 +9,7 @@ Cart list
 
 
 {% block section %}
-{% if request.user.is_authenticated %}
+
 <div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-xxl-12">
@@ -24,9 +24,10 @@ Cart list
         </div>
     </div>
 </div>
+{% if request.user.is_authenticated %}
 <div class="col-12">
     <div class="table-content table-responsive">
-        {% if carts %}
+        {% if cart %}
         <div class="table-content table-responsive">
 
             <table class="table">

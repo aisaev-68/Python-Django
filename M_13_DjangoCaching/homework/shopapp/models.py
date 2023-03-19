@@ -12,6 +12,11 @@ def get_upload_path_by_products(instance, filename):
     return os.path.join('product_images/', now().date().strftime("%Y/%m/%d"), filename)
 
 
+class Shop(models.Model):
+    name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
+    address = models.CharField(max_length=200, db_index=True, verbose_name=_('Address'))
+
+
 class Catalog(models.Model):
     name = models.CharField(max_length=200, db_index=True, verbose_name=_('Name'))
     eng_name = models.CharField(max_length=100, db_index=True, verbose_name=_('English name'))
@@ -41,7 +46,6 @@ class Category(models.Model):
     catalog = models.ForeignKey(Catalog, related_name='categories', on_delete=models.CASCADE,
                                 verbose_name=_('Catalog'))
 
-    # slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
         ordering = ['name', ]

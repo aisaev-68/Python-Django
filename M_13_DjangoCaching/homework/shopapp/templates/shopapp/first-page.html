@@ -16,11 +16,11 @@
                     <div class="banner__img">
                         <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'
-                            %}</a></h6>
-                        <p>{% trans 'Discount 20% On Products' %}</p>
-                    </div>
+<!--                    <div class="banner__content">-->
+<!--                        <h6><a href="">{% trans 'Intelligent' %} <br> {% trans 'New Touch Control'-->
+<!--                            %}</a></h6>-->
+<!--                        <p>{% trans 'Discount 20% On Products' %}</p>-->
+<!--                    </div>-->
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6">
@@ -28,10 +28,10 @@
                     <div class="banner__img">
                         <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>
-                        <p>{% trans 'Limited Time: Online Only!' %}</p>
-                    </div>
+<!--                    <div class="banner__content">-->
+<!--                        <h6><a href="">{% trans 'On-sale' %} <br> {% trans 'Best Prices' %}</a></h6>-->
+<!--                        <p>{% trans 'Limited Time: Online Only!' %}</p>-->
+<!--                    </div>-->
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6">
@@ -39,11 +39,11 @@
                     <div class="banner__img">
                         <a href=""><img src="{% static 'assets/img/banner/bg-blog.jpg' %}" alt=""></a>
                     </div>
-                    <div class="banner__content">
-                        <h6><a href="">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}
-                        </a></h6>
-                        <p>{% trans 'Free Shipping All Order' %}</p>
-                    </div>
+<!--                    <div class="banner__content">-->
+<!--                        <h6><a href="">{% trans 'Hot Sale' %} <br> {% trans 'Super Laptops 2023' %}-->
+<!--                        </a></h6>-->
+<!--                        <p>{% trans 'Free Shipping All Order' %}</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
             <div class="col-xl-12">
                 <div class="section__head d-flex justify-content-between mb-10">
                     <div class="section__title">
-                        <h5 class="st-titile-d">Top Deals Of The Day</h5>
+                        <h5 class="st-titile-d">{% trans 'Top Deals Of The Day' %}</h5>
                     </div>
                     <div class="offer-time">
                         <span class="offer-title d-none d-sm-block">{% trans 'Hurry Up! Offer ends in:' %}</span>
@@ -166,7 +166,7 @@
                                     {{ form.update }}
                                     {{ form.quantity }}
 <!--                                    <input class="" type="text" value="1" hidden="">-->
-                                    <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
+                                    <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Add to cart' %}">
                                 </form>
                             </div>
                         </div>
@@ -296,7 +296,7 @@
                                                 {{ form.update }}
 <!--                                                {{ form.quantity }}-->
                                                  <input class="" type="text" value="1" hidden="">
-                                                <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="Add to cart">
+                                                <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Add to cart' %}">
                                             </form>
                                         </div>
                                     </div>

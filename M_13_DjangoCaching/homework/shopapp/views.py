@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 
 from .cart import Cart
-from .models import Product, Order, Category, Catalog, OrderItem
+from .models import Product, Order, Category, Catalog, OrderItem, Shop
 from .forms import OrderModelForm, ProductModelForm, ContactForm, CartAddProductForm, CategoryModelForm
 
 
@@ -78,7 +78,7 @@ class DetailProduct(DetailView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        context_data['form'] = form = CartAddProductForm(self.request.POST)
+        context_data['form'] = CartAddProductForm(self.request.POST)
         return context_data
 
 
@@ -167,7 +167,7 @@ class OrderList(LoginRequiredMixin, View):
                     'created_at': order.created_at,
                 }
             context.append(dict_order)
-        print(888, context)
+
         return render(request, 'shopapp/orders-list.html', context=context)
 
 
@@ -185,7 +185,6 @@ class OrderCreate(LoginRequiredMixin, View):
     def post(self, request):
         carts = Cart(request)
         form = OrderModelForm(request.POST)
-
         if form.is_valid():
             address = form.cleaned_data.get('delivery_address')
             promocode = form.cleaned_data.get('promocode')
@@ -216,17 +215,12 @@ class OrderListByUser(LoginRequiredMixin, View):
 
     def get(self, request: HttpRequest, *args, **kwargs):
         context = []
-        # orders = Order.objects.select_related("user").prefetch_related("products").filter(
-        #     user=kwargs['pk']).all()
         orders = Order.objects.filter(user=kwargs['pk']).all()
 
         if orders:
             for order in orders:
                 orders_data = order.items.all()
                 for order_product in orders_data:
-
-                    dict_order = {}
-
                     dict_order = {
                         'image': order_product.product.image,
                         'name': order_product.product.name,
@@ -262,7 +256,7 @@ class OrderDetail(LoginRequiredMixin, DetailView):
     # model = Order
     context_object_name = "orders"
     template_name = 'shopapp/order_detail.html'
-    queryset = Order.objects.select_related("user").prefetch_related("products").all()
+    queryset = Order.objects.select_related("user").prefetch_related("items").all()
 
 
 class OrderDelete(LoginRequiredMixin, DeleteView):
@@ -299,7 +293,7 @@ class Contact(View):
 
 class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request):
-        orders = Order.objects.select_related("user").prefetch_related("products").all()
+        orders = Order.objects.select_related("user").prefetch_related("items").all()
         list_orders = []
         for order in orders:
             data = {
@@ -308,7 +302,12 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
                 "promocode": order.promocode,
                 "created_at": parse_datetime(str(order.created_at)).strftime('%Y-%m-%d %H:%M:%S'),
                 "user": order.user.pk,
-                "products": [p.pk for p in order.products.all()]
+                "paid": order.paid,
+                "products": [{'name': p.product.name,
+                             'price': p.price,
+                             'quantity': p.quantity,
+                              'sum': p.get_sum()}
+                             for p in order.items.all()]
             }
             list_orders.append(data)
         return HttpResponse(json.dumps({'all-orders': list_orders}), content_type="application/json")
@@ -333,9 +332,7 @@ class CartAdd(LoginRequiredMixin, View):
 
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
-        print(5, [c for c in cart])
         product = get_object_or_404(Product, pk=product_id)
-        print(6666666, self.kwargs)
         cart.add(
                 product=product,
                 quantity=1,
@@ -350,7 +347,7 @@ class CartDelete(LoginRequiredMixin, View):
             "shopapp:cart_detail",
         )
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         cart = Cart(request)
         product = get_object_or_404(Product, id=self.kwargs['product_id'])
         cart.remove(product)
@@ -363,13 +360,9 @@ class CartUpdate(LoginRequiredMixin, View):
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
-        print(1, [c for c in cart])
         form = CartAddProductForm(request.POST)
-        print(2222, form)
         if form.is_valid():
-            print(3333, product)
             cd = form.cleaned_data
-            print(4444, cd)
             dif_count = product.products_count - cd['quantity']
             if dif_count >= 0:
                 cart.add(
@@ -385,4 +378,16 @@ class CartUpdate(LoginRequiredMixin, View):
 class ProductOffer(LoginRequiredMixin, View):
     # template_name = 'shopapp/offers.html'
     def get(self, request):
-        return render(request, 'shopapp/offers.html')
+        results = Product.objects.filter(archived=False)
+        cart = Cart(request)
+        context = {
+            "products": results,
+            "cart": cart,
+        }
+        return render(request, 'shopapp/offers.html', context=context)
+
+
+class ShopView(LoginRequiredMixin, View):
+    def get(self, request):
+        shops = Shop.objects.all()
+        return render(request, 'shopapp/all_shops.html', context={"shops": shops})

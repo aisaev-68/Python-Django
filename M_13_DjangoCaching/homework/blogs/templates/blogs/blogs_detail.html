@@ -6,13 +6,26 @@
 AllPost list
 {% endblock %}
 
-{% block container %}
-
+{% block article %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Post detail' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="news-detalis-content">
     <ul class="blog-meta">
         <li><a href="blog-details.html"><i class="fal fa-eye"></i>100 Views</a></li>
         <li><a href="blog-details.html"><i class="fal fa-comments"></i> 30 Comments</a></li>
-        <li><a href="blog-details.html"><i class="fal fa-calendar-alt"></i> 24th March 2021</a></li>
+        <li><a href="blog-details.html"><i class="fal fa-calendar-alt"></i>{{ object.created_at }}</a></li>
     </ul>
     <p class="mt-15">{{ object.title }}</p>
     <div class="news-thumb mt-15">
@@ -25,10 +38,17 @@ AllPost list
     <p class="mt-25 mb-50">{{ object.description }}</p>
 
     <div class="">
-        <img class="img-fluid mb-2 d-inline" src="{{ object.created_by.profiles.avatar.url }}"
-             style="width: 33px; height: 33px; object-fit: contain; border-radius: 15px;"
-             alt="post_image"/>
-        <h6 class="d-inline">{{ object.created_by.first_name }} {{ object.created_by.last_name }}</h6>
+
+        <h6 class="d-inline">
+
+            <a href="{% url 'blogs:bloger_profile' object.created_by.pk %}">
+                <img class="img-fluid mb-2 d-inline" src="{{ object.created_by.profiles.avatar.url }}"
+                 style="width: 33px; height: 33px; object-fit: contain; border-radius: 15px;"
+                 alt="post_image"/>
+                {{ object.created_by.first_name }} {{ object.created_by.last_name }}
+            </a>
+
+        </h6>
     </div>
 
 

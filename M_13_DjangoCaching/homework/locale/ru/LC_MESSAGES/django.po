@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-03 12:03+0300\n"
+"POT-Creation-Date: 2023-03-19 10:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,17 +52,18 @@ msgstr "Повторный пароль*"
 msgid "Country*"
 msgstr "Страна*"
 
-#: accounts/forms.py:112 accounts/forms.py:115 accounts/models.py:16
+#: accounts/forms.py:112 accounts/forms.py:115 accounts/models.py:23
 #: shopapp/templates/shopapp/order_detail.html:17
 msgid "Postal code"
 msgstr "Почтовый индекс"
 
-#: accounts/forms.py:124 accounts/models.py:17
+#: accounts/forms.py:124 accounts/models.py:24
 #: shopapp/templates/shopapp/order_detail.html:18
 msgid "City"
 msgstr "Город"
 
-#: accounts/forms.py:133 accounts/models.py:18
+#: accounts/forms.py:133 accounts/models.py:25 shopapp/models.py:17
+#: shopapp/templates/shopapp/all_shops.html:36
 msgid "Address"
 msgstr "Адрес"
 
@@ -70,29 +71,29 @@ msgstr "Адрес"
 msgid "Phone*"
 msgstr "Телефонный номер*"
 
-#: accounts/forms.py:153 accounts/models.py:11
+#: accounts/forms.py:153 accounts/models.py:18
 msgid "Avatar"
 msgstr "Аватар"
 
-#: accounts/models.py:9 shopapp/models.py:39
+#: accounts/models.py:16 shopapp/models.py:142
 #: shopapp/templates/shopapp/order_detail.html:14
-#: shopapp/templates/shopapp/orders-list.html:14
 msgid "User"
 msgstr "Пользователь"
 
-#: accounts/models.py:15 shopapp/templates/shopapp/order_detail.html:16
+#: accounts/models.py:22 shopapp/templates/shopapp/order_detail.html:16
 msgid "Country"
 msgstr "Страна"
 
-#: accounts/models.py:19
+#: accounts/models.py:26
 msgid "Phone"
 msgstr "Телефонный номер*"
 
-#: accounts/models.py:25
+#: accounts/models.py:32 blogs/templates/blogs/bloger_profile.html:12
+#: shopapp/templates/shopapp/base.html:244
 msgid "Profile"
 msgstr "Профиль"
 
-#: accounts/models.py:26
+#: accounts/models.py:33
 msgid "Profiles"
 msgstr "Профили"
 
@@ -101,45 +102,52 @@ msgstr "Профили"
 msgid "User profile"
 msgstr "Профиль пользователя"
 
-#: accounts/templates/accounts/about-me.html:25
-msgid "User name"
+#: accounts/templates/accounts/about-me.html:26
+#: blogs/templates/blogs/bloger_profile.html:24
+msgid "Username:"
 msgstr "Имя пользователя*"
 
-#: accounts/templates/accounts/about-me.html:26
+#: accounts/templates/accounts/about-me.html:29
+#: blogs/templates/blogs/bloger_profile.html:27
 msgid "Email:"
 msgstr "Электронная почта"
 
-#: accounts/templates/accounts/about-me.html:27
+#: accounts/templates/accounts/about-me.html:32
 msgid "Country:"
 msgstr "Страна:"
 
-#: accounts/templates/accounts/about-me.html:28
+#: accounts/templates/accounts/about-me.html:35
 msgid "Postal code:"
 msgstr "Почтовый индекс:"
 
-#: accounts/templates/accounts/about-me.html:29
+#: accounts/templates/accounts/about-me.html:38
 msgid "City:"
 msgstr "Город:"
 
-#: accounts/templates/accounts/about-me.html:30
+#: accounts/templates/accounts/about-me.html:41
 msgid "Address:"
 msgstr "Адрес:"
 
-#: accounts/templates/accounts/about-me.html:31
+#: accounts/templates/accounts/about-me.html:44
 msgid "Phone:"
 msgstr "Телефонный номер:"
 
-#: accounts/templates/accounts/about-me.html:34
+#: accounts/templates/accounts/about-me.html:48
 #: accounts/templates/accounts/profile.html:17
 #: accounts/templates/accounts/update_profile.html:16
 #: shopapp/templates/shopapp/update_product.html:16
 msgid "Update"
 msgstr "Обновить"
 
-#: accounts/templates/accounts/about-me.html:40
-#: accounts/templates/accounts/profile.html:22
+#: accounts/templates/accounts/about-me.html:51
+#: accounts/templates/accounts/profile.html:19
+msgid "Cancel"
+msgstr "Отмена"
+
+#: accounts/templates/accounts/about-me.html:63
+#: accounts/templates/accounts/profile.html:24
+#: blogs/templates/blogs/bloger_profile.html:36
 #: shopapp/templates/shopapp/order_detail.html:51
-#: shopapp/templates/shopapp/orders-list.html:61
 msgid "You are not identified!"
 msgstr "Вы не аутентифицированы!"
 
@@ -147,7 +155,12 @@ msgstr "Вы не аутентифицированы!"
 msgid "Save"
 msgstr "Сохранить"
 
+#: accounts/templates/accounts/profile.html:18
+msgid "Reset"
+msgstr "Сбросить"
+
 #: accounts/templates/accounts/register.html:11
+#: shopapp/templates/shopapp/base.html:237
 msgid "Registration"
 msgstr "Регистрация"
 
@@ -164,7 +177,7 @@ msgstr "Обновление профиле"
 msgid "You are not logged in"
 msgstr "Вы не авторизованы на сайте!"
 
-#: accounts/templates/registration/login.html:9
+#: accounts/templates/registration/login.html:11
 msgid "Please enter your credentials"
 msgstr "Пожалуйста, введите свои учетные данные"
 
@@ -184,11 +197,11 @@ msgstr "Профиль обновлен"
 msgid "Profile update error."
 msgstr "Ошибка обновления профиля"
 
-#: blogs/admin.py:22
+#: blogs/admin.py:22 shopapp/admin.py:77
 msgid "description"
 msgstr "Описание"
 
-#: blogs/admin.py:27 shopapp/admin.py:66 shopapp/admin.py:91
+#: blogs/admin.py:27 shopapp/admin.py:82 shopapp/admin.py:107
 msgid "created_at"
 msgstr "Дата создания"
 
@@ -200,11 +213,11 @@ msgstr "Статья"
 msgid "Blogs"
 msgstr "Блог"
 
-#: blogs/forms.py:9 blogs/models.py:9
+#: blogs/forms.py:9 blogs/models.py:15
 msgid "Title"
 msgstr "Заголовок"
 
-#: blogs/forms.py:14 blogs/models.py:19 blogs/models.py:25
+#: blogs/forms.py:14 blogs/models.py:24 blogs/models.py:30
 msgid "Post"
 msgstr "Статья"
 
@@ -216,52 +229,59 @@ msgstr "Изображение поста"
 msgid "Message*"
 msgstr "Сообщение*"
 
-#: blogs/models.py:10 shopapp/admin.py:61 shopapp/models.py:13
+#: blogs/models.py:16 shopapp/models.py:77
+#: shopapp/templates/shopapp/product_detail.html:160
 msgid "Description"
 msgstr "Описание"
 
-#: blogs/models.py:11 shopapp/models.py:15
+#: blogs/models.py:17 shopapp/models.py:80
 msgid "Created by"
 msgstr "Кем создан"
 
-#: blogs/models.py:12 shopapp/models.py:21
+#: blogs/models.py:18 shopapp/models.py:87
 msgid "Created date"
 msgstr "Дата создания"
 
-#: blogs/models.py:20 blogs/templates/blogs/blogs.html:37
+#: blogs/models.py:25 blogs/templates/blogs/blogs_list.html:14
 msgid "Posts"
 msgstr "Статьи"
 
-#: blogs/models.py:26
+#: blogs/models.py:31
 msgid "Files post"
 msgstr "Файлы поста"
 
-#: blogs/models.py:39
+#: blogs/models.py:44
 msgid "PostImage"
 msgstr "Изображение к статье"
 
-#: blogs/models.py:40
+#: blogs/models.py:45
 msgid "PostImages"
 msgstr "Изображения к статье"
 
-#: blogs/templates/blogs/blogs.html:36 shopapp/templates/shopapp/base.html:31
-#: shopapp/templates/shopapp/base.html:160
-#: shopapp/templates/shopapp/orders-list.html:55
-#: shopapp/templates/shopapp/products-list.html:31
+#: blogs/templates/blogs/blogs_detail.html:16
+#: blogs/templates/blogs/blogs_list.html:13
+#: blogs/templates/blogs/created_post.html:15
+#: shopapp/templates/shopapp/all_shops.html:19
+#: shopapp/templates/shopapp/base.html:369
+#: shopapp/templates/shopapp/base.html:533
+#: shopapp/templates/shopapp/cart.html:19
+#: shopapp/templates/shopapp/orders-list.html:18
+#: shopapp/templates/shopapp/products-list.html:16
+#: shopapp/templates/shopapp/products-list.html:46
+#: shopapp/templates/shopapp/shop-list.html:18
 #: shopapp/templates/shopapp/update_product.html:21
 msgid "Home"
 msgstr "Главная"
 
-#: blogs/templates/blogs/blogs.html:39
-msgid "Contacte"
-msgstr "Контакт"
+#: blogs/templates/blogs/blogs_detail.html:17
+msgid "Post detail"
+msgstr "Детальная информация статьи"
 
-#: blogs/templates/blogs/blogs.html:41 blogs/templates/blogs/blogs.html:43
-#: shopapp/templates/shopapp/base.html:81
-msgid "Add post"
-msgstr "Добавить статью"
+#: blogs/templates/blogs/created_post.html:16
+msgid "Create post"
+msgstr "Сщздание статьи"
 
-#: blogs/templates/blogs/created_post.html:30
+#: blogs/templates/blogs/created_post.html:44
 #: shopapp/templates/shopapp/create_product.html:16
 msgid "Add"
 msgstr "Добавить"
@@ -274,31 +294,27 @@ msgstr "Английский"
 msgid "Russian"
 msgstr "Русский"
 
-#: shopapp/admin.py:14
+#: shopapp/admin.py:19
 msgid "Archive products"
 msgstr "Архивировать продукт"
 
-#: shopapp/admin.py:19
+#: shopapp/admin.py:24
 msgid "Unarchive products"
 msgstr "Разархивировать продукты"
 
-#: shopapp/admin.py:45
+#: shopapp/admin.py:60
 msgid "Price options"
 msgstr "Варианты цены"
 
-#: shopapp/admin.py:49
+#: shopapp/admin.py:64
 msgid "Extra options"
 msgstr "Дополнительные опции"
 
-#: shopapp/admin.py:50
-msgid "archived"
-msgstr "архивирован"
-
-#: shopapp/admin.py:52
+#: shopapp/admin.py:67
 msgid "Extra options. Field 'archived' is for soft delete"
 msgstr "Дополнительные опции"
 
-#: shopapp/admin.py:86
+#: shopapp/admin.py:102
 msgid "user"
 msgstr "пользователь"
 
@@ -306,23 +322,32 @@ msgstr "пользователь"
 msgid "Shop"
 msgstr "Магазин"
 
-#: shopapp/forms.py:13 shopapp/models.py:18
+#: shopapp/forms.py:30 shopapp/models.py:83
 msgid "Image product"
 msgstr "Изображение продукта"
 
-#: shopapp/forms.py:43 shopapp/models.py:9 shopapp/models.py:44
-msgid "Products"
-msgstr "Продукты"
+#: shopapp/forms.py:39 shopapp/models.py:52 shopapp/models.py:75
+msgid "Category"
+msgstr "Категории"
 
-#: shopapp/forms.py:60
+#: shopapp/forms.py:73 shopapp/models.py:139
+#: shopapp/templates/shopapp/orders-list.html:38
+msgid "Delivery address"
+msgstr "Адрес доставки"
+
+#: shopapp/forms.py:74
+msgid "Promocode"
+msgstr "Купон"
+
+#: shopapp/forms.py:85
 msgid "First name"
 msgstr "Имя"
 
-#: shopapp/forms.py:61
+#: shopapp/forms.py:86
 msgid "Last name"
 msgstr "Фамилия"
 
-#: shopapp/forms.py:63
+#: shopapp/forms.py:88
 msgid "Message"
 msgstr "Сообщение"
 
@@ -331,124 +356,263 @@ msgid "Creates read only default permission groups for users"
 msgstr ""
 "Создает группы разрешений по умолчанию только для чтения для пользователей"
 
-#: shopapp/models.py:8 shopapp/templates/shopapp/order_detail.html:26
-msgid "Product"
-msgstr "Продукт"
-
-#: shopapp/models.py:12
+#: shopapp/models.py:16 shopapp/models.py:21 shopapp/models.py:44
+#: shopapp/models.py:76 shopapp/templates/shopapp/all_shops.html:35
 msgid "Name"
 msgstr "Наименование"
 
-#: shopapp/models.py:14
-msgid "Attributes"
-msgstr "Атрибуты"
-
-#: shopapp/models.py:16
-msgid "Rating"
-msgstr "Рейтинг"
-
-#: shopapp/models.py:17 shopapp/templates/shopapp/base.html:161
-#: shopapp/templates/shopapp/orders-list.html:20
-#: shopapp/templates/shopapp/products-list.html:15
-msgid "Price"
-msgstr "Цена"
-
-#: shopapp/models.py:20 shopapp/templates/shopapp/order_detail.html:33
-msgid "Discount"
-msgstr "Скидка"
-
 #: shopapp/models.py:22
-msgid "Count"
-msgstr "Количество"
+msgid "English name"
+msgstr "Английский"
 
-#: shopapp/models.py:23
-msgid "Status"
-msgstr "Статус"
-
-#: shopapp/models.py:36 shopapp/templates/shopapp/orders-list.html:16
-msgid "Delivery address"
-msgstr "Адрес доставки"
-
-#: shopapp/models.py:37 shopapp/templates/shopapp/order_detail.html:21
-#: shopapp/templates/shopapp/orders-list.html:15
-msgid "Promo code"
-msgstr "Купон"
-
-#: shopapp/models.py:38
-msgid "Create order date"
-msgstr "Дата создания заказа"
-
-#: shopapp/models.py:48
-msgid "Order"
-msgstr "Заказ"
-
-#: shopapp/models.py:49 shopapp/templates/shopapp/base.html:62
-msgid "Orders"
-msgstr "Заказы"
-
-#: shopapp/templates/shopapp/base.html:35
+#: shopapp/models.py:28 shopapp/models.py:47 shopapp/models.py:73
 msgid "Catalog"
 msgstr "Каталог"
 
-#: shopapp/templates/shopapp/base.html:38
-msgid "Computers"
-msgstr "Компьютеры"
+#: shopapp/models.py:29
+msgid "Catalogs"
+msgstr "Каталоги"
 
-#: shopapp/templates/shopapp/base.html:40
-msgid "Phones"
-msgstr "Телефоны"
+#: shopapp/models.py:53
+msgid "Categories"
+msgstr "Категории"
 
-#: shopapp/templates/shopapp/base.html:43
-msgid "Camcorders"
-msgstr "Видеокамеры"
+#: shopapp/models.py:68 shopapp/templates/shopapp/order_detail.html:26
+msgid "Product"
+msgstr "Продукт"
 
-#: shopapp/templates/shopapp/base.html:47
-msgid "Add product categories"
+#: shopapp/models.py:69 shopapp/models.py:157
+msgid "Products"
+msgstr "Продукты"
+
+#: shopapp/models.py:79
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: shopapp/models.py:81
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: shopapp/models.py:82 shopapp/models.py:158
+#: shopapp/templates/shopapp/base.html:534
+#: shopapp/templates/shopapp/cart.html:38
+#: shopapp/templates/shopapp/orders-list.html:34
+#: shopapp/templates/shopapp/products-list.html:30
+msgid "Price"
+msgstr "Цена"
+
+#: shopapp/models.py:85 shopapp/templates/shopapp/order_detail.html:33
+msgid "Discount"
+msgstr "Скидка"
+
+#: shopapp/models.py:86
+msgid "Sold"
+msgstr "Продано"
+
+#: shopapp/models.py:88 shopapp/templates/shopapp/orders-list.html:35
+msgid "Count"
+msgstr "Количество"
+
+#: shopapp/models.py:89 shopapp/models.py:143
+msgid "Status"
+msgstr "Статус"
+
+#: shopapp/models.py:90
+msgid "Brand"
+msgstr "Бренд"
+
+#: shopapp/models.py:140 shopapp/templates/shopapp/order_detail.html:21
+msgid "Promo code"
+msgstr "Купон"
+
+#: shopapp/models.py:141
+msgid "Create order date"
+msgstr "Дата создания заказа"
+
+#: shopapp/models.py:148
+msgid "Order"
+msgstr "Заказ"
+
+#: shopapp/models.py:149 shopapp/models.py:156
+#: shopapp/templates/shopapp/base.html:406
+#: shopapp/templates/shopapp/orders-list.html:19
+msgid "Orders"
+msgstr "Заказы"
+
+#: shopapp/models.py:159 shopapp/templates/shopapp/cart.html:39
+msgid "Quantity"
+msgstr "Количество"
+
+#: shopapp/templates/shopapp/all_shops.html:20
+#: shopapp/templates/shopapp/base.html:376
+#: shopapp/templates/shopapp/base.html:380
+msgid "Shops"
+msgstr "Магазин"
+
+#: shopapp/templates/shopapp/all_shops.html:58
+msgid "The list is empty."
+msgstr "Список пуст"
+
+#: shopapp/templates/shopapp/base.html:157
+msgid "Currency: USD"
+msgstr "Валюта: РУБ"
+
+#: shopapp/templates/shopapp/base.html:161
+msgid "Need Help?"
+msgstr "Нужна помощь?"
+
+#: shopapp/templates/shopapp/base.html:174
+msgid "About Us"
+msgstr "О нас"
+
+#: shopapp/templates/shopapp/base.html:175
+#: shopapp/templates/shopapp/base.html:536
+msgid "Contact"
+msgstr "Контакт"
+
+#: shopapp/templates/shopapp/base.html:176
+msgid "FAQs"
+msgstr "Часто задаваемые вопросы"
+
+#: shopapp/templates/shopapp/base.html:224
+msgid "My Account"
+msgstr "Мой профиль"
+
+#: shopapp/templates/shopapp/base.html:233
+msgid "Log In"
+msgstr "Вход"
+
+#: shopapp/templates/shopapp/base.html:251
+msgid "Log Out"
+msgstr "Выход"
+
+#: shopapp/templates/shopapp/base.html:267
+msgid "Your Cart:"
+msgstr "Ваша корзина:"
+
+#: shopapp/templates/shopapp/base.html:276
+msgid "Your Cart"
+msgstr "Ваша корзина"
+
+#: shopapp/templates/shopapp/base.html:277
+msgid "Item in Cart"
+msgstr "Товар в корзине"
+
+#: shopapp/templates/shopapp/base.html:314
+#: shopapp/templates/shopapp/cart.html:40
+msgid "Total"
+msgstr "Общая сумма"
+
+#: shopapp/templates/shopapp/base.html:319
+msgid "View cart"
+msgstr "Посмотреть корзину"
+
+#: shopapp/templates/shopapp/base.html:339
+msgid "Shop by department"
+msgstr "Магазин по отделам"
+
+#: shopapp/templates/shopapp/base.html:386
+#, fuzzy
+msgid "Add category"
 msgstr "Добавить категорию продукта"
 
-#: shopapp/templates/shopapp/base.html:50
+#: shopapp/templates/shopapp/base.html:391
 #: shopapp/templates/shopapp/create_product.html:10
 msgid "Add product"
-msgstr "Добавить новый продукт"
+msgstr "Добавить продукт"
 
-#: shopapp/templates/shopapp/base.html:53
+#: shopapp/templates/shopapp/base.html:397
+#: shopapp/templates/shopapp/products-list.html:17
 msgid "Product list"
 msgstr "Список продуктов"
 
-#: shopapp/templates/shopapp/base.html:65
+#: shopapp/templates/shopapp/base.html:410
 #: shopapp/templates/shopapp/create_order.html:10
 msgid "Add order"
 msgstr "Добавить заказ"
 
-#: shopapp/templates/shopapp/base.html:67
-msgid "My orders"
-msgstr "Мои заказы"
+#: shopapp/templates/shopapp/base.html:416
+msgid "History of orders"
+msgstr "История заказов"
 
-#: shopapp/templates/shopapp/base.html:75
-#: shopapp/templates/shopapp/base.html:162
+#: shopapp/templates/shopapp/base.html:422
+#: shopapp/templates/shopapp/base.html:426
+msgid "Offers"
+msgstr "Акции"
+
+#: shopapp/templates/shopapp/base.html:431
+msgid "Promotions"
+msgstr "Акции"
+
+#: shopapp/templates/shopapp/base.html:439
+#: shopapp/templates/shopapp/base.html:535
 msgid "Blog"
 msgstr "Блог"
 
-#: shopapp/templates/shopapp/base.html:78
+#: shopapp/templates/shopapp/base.html:443
 msgid "All posts"
 msgstr "Все статьи"
 
-#: shopapp/templates/shopapp/base.html:87
-#: shopapp/templates/shopapp/base.html:163
-msgid "Contact"
-msgstr "Контакт"
+#: shopapp/templates/shopapp/base.html:449
+msgid "Add post"
+msgstr "Добавить статью"
 
-#: shopapp/templates/shopapp/base.html:94
-msgid "Sign Up"
-msgstr "Регистрация"
+#: shopapp/templates/shopapp/base.html:461
+#: shopapp/templates/shopapp/base.html:464
+msgid "Balance"
+msgstr "Баланс"
 
-#: shopapp/templates/shopapp/base.html:99
-msgid "Log In"
-msgstr "Вход"
+#: shopapp/templates/shopapp/cart.html:20
+msgid "Cart"
+msgstr "Корзина"
 
-#: shopapp/templates/shopapp/base.html:109
-msgid "Log Out"
-msgstr "Выход"
+#: shopapp/templates/shopapp/cart.html:36
+msgid "Images"
+msgstr "Изображения к статье"
+
+#: shopapp/templates/shopapp/cart.html:37
+#: shopapp/templates/shopapp/products-list.html:28
+msgid "Product name"
+msgstr "Наименование продукта"
+
+#: shopapp/templates/shopapp/cart.html:41
+msgid "Remove"
+msgstr "Удалить"
+
+#: shopapp/templates/shopapp/cart.html:71
+msgid "Update cart"
+msgstr "Обновить заказ"
+
+#: shopapp/templates/shopapp/cart.html:98
+msgid "Cart totals"
+msgstr "Общая сумма заказа"
+
+#: shopapp/templates/shopapp/cart.html:102
+msgid "Proceed to checkout"
+msgstr "Оформить заказ"
+
+#: shopapp/templates/shopapp/cart.html:103
+msgid "Checkout"
+msgstr "Оформить заказ"
+
+#: shopapp/templates/shopapp/cart.html:112
+msgid "Your basket is empty."
+msgstr "Ваша корзина пуста"
+
+#: shopapp/templates/shopapp/cart.html:113
+#: shopapp/templates/shopapp/orders-list.html:90
+msgid "Choose the product you need from the catalog of the online store"
+msgstr "Выберите нужный вам товар из каталога интернет-магазина"
+
+#: shopapp/templates/shopapp/cart.html:113
+#: shopapp/templates/shopapp/orders-list.html:90
+msgid "and add to cart"
+msgstr "и добавьте в корзину"
+
+#: shopapp/templates/shopapp/cart.html:114
+#: shopapp/templates/shopapp/orders-list.html:91
+msgid "To catalog"
+msgstr "Перейти в каталог"
 
 #: shopapp/templates/shopapp/contact.html:9
 msgid "Send message:"
@@ -493,9 +657,102 @@ msgstr "Нет"
 msgid "Delete product"
 msgstr "Удалить продукт"
 
-#: shopapp/templates/shopapp/main.html:11
-msgid "Welcome to the site"
-msgstr "Добро пожаловать на сайт"
+#: shopapp/templates/shopapp/first-page.html:20
+msgid "Intelligent"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:22
+#, python-format
+msgid "Discount 20%% On Products"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:32
+msgid "On-sale"
+msgstr ""
+
+#: shopapp/templates/shopapp/first-page.html:32
+msgid "Best Prices"
+msgstr "Лучщая цена"
+
+#: shopapp/templates/shopapp/first-page.html:33
+msgid "Limited Time: Online Only!"
+msgstr "Ограниченное время: только онлайн!"
+
+#: shopapp/templates/shopapp/first-page.html:43
+msgid "Hot Sale"
+msgstr "Горячая распродажа"
+
+#: shopapp/templates/shopapp/first-page.html:43
+msgid "Super Laptops 2023"
+msgstr "Супер Ноутбуки 2023"
+
+#: shopapp/templates/shopapp/first-page.html:45
+msgid "Free Shipping All Order"
+msgstr "Бесплатная доставка всего заказа"
+
+#: shopapp/templates/shopapp/first-page.html:58
+msgid "Top Deals Of The Day"
+msgstr "Лучшие предложения дня"
+
+#: shopapp/templates/shopapp/first-page.html:61
+msgid "Hurry Up! Offer ends in:"
+msgstr "Торопитесь! Осталось:"
+
+#: shopapp/templates/shopapp/first-page.html:66
+msgid "Days"
+msgstr "Дней"
+
+#: shopapp/templates/shopapp/first-page.html:67
+msgid "Hours"
+msgstr "Часов"
+
+#: shopapp/templates/shopapp/first-page.html:68
+msgid "Mins"
+msgstr "Минут"
+
+#: shopapp/templates/shopapp/first-page.html:69
+msgid "Secs"
+msgstr "Секундов"
+
+#: shopapp/templates/shopapp/first-page.html:151
+#: shopapp/templates/shopapp/first-page.html:290
+#: shopapp/templates/shopapp/offers.html:139
+#: shopapp/templates/shopapp/product_detail.html:85
+msgid "₽"
+msgstr "$"
+
+#: shopapp/templates/shopapp/first-page.html:160
+#: shopapp/templates/shopapp/offers.html:148
+#: shopapp/templates/shopapp/shop-list.html:293
+msgid "Sold:"
+msgstr "Продано:"
+
+#: shopapp/templates/shopapp/first-page.html:169
+#: shopapp/templates/shopapp/first-page.html:299
+#: shopapp/templates/shopapp/shop-list.html:172
+#: shopapp/templates/shopapp/shop-list.html:300
+msgid "Add to cart"
+msgstr "В корзину"
+
+#: shopapp/templates/shopapp/first-page.html:190
+msgid "Top Selling Products"
+msgstr "Самые продаваемые продукты"
+
+#: shopapp/templates/shopapp/offers.html:31
+msgid "To participate in the promotion:"
+msgstr "Для участия в акции:"
+
+#: shopapp/templates/shopapp/offers.html:39
+msgid "Select and add to cart an eligible iPhone."
+msgstr "Выберите и добавьте в корзину подходящий iPhone."
+
+#: shopapp/templates/shopapp/offers.html:50
+msgid "Add the right accessory to your order."
+msgstr "Добавьте нужный аксессуар к вашему заказу."
+
+#: shopapp/templates/shopapp/offers.html:59
+msgid "The discount will be applied automatically."
+msgstr "Скидка будет применена автоматически."
 
 #: shopapp/templates/shopapp/order_detail.html:12
 msgid "Order detail"
@@ -518,12 +775,10 @@ msgid "Order data"
 msgstr "Данные заказа"
 
 #: shopapp/templates/shopapp/order_detail.html:23
-#: shopapp/templates/shopapp/orders-list.html:9
 msgid "Order list:"
 msgstr "Список заказов"
 
 #: shopapp/templates/shopapp/order_detail.html:27
-#: shopapp/templates/shopapp/product_detail.html:29
 msgid "Specifications"
 msgstr "Характеристики"
 
@@ -532,7 +787,6 @@ msgid "Price:"
 msgstr "Цена"
 
 #: shopapp/templates/shopapp/order_detail.html:34
-#: shopapp/templates/shopapp/orders-list.html:18
 msgid "Product Description"
 msgstr "Описание продукта"
 
@@ -546,57 +800,116 @@ msgstr "Вернуться к списку заказов"
 msgid "Update order"
 msgstr "Обновить заказ"
 
-#: shopapp/templates/shopapp/orders-list.html:17
+#: shopapp/templates/shopapp/orders-list.html:32
+msgid "Image"
+msgstr "Изображение к статье"
+
+#: shopapp/templates/shopapp/orders-list.html:33
 msgid "Name of product"
 msgstr "Наименование продукта"
 
-#: shopapp/templates/shopapp/orders-list.html:19
-#, python-format
-msgid "Discount in %%"
-msgstr "Скидка в %%"
+#: shopapp/templates/shopapp/orders-list.html:36
+msgid "Sum"
+msgstr "Сумма"
 
-#: shopapp/templates/shopapp/orders-list.html:57
-msgid "Add new order"
-msgstr "Добавить новый заказ"
+#: shopapp/templates/shopapp/orders-list.html:37
+msgid "Purchase date"
+msgstr "Дата покупки"
+
+#: shopapp/templates/shopapp/orders-list.html:89
+msgid "You have no orders."
+msgstr "У вас нет заказов."
 
 #: shopapp/templates/shopapp/product_archived.html:10
-#: shopapp/templates/shopapp/product_detail.html:52
 msgid "Archive product"
 msgstr "Архивировать продукт"
 
-#: shopapp/templates/shopapp/product_detail.html:40
-msgid "Description:"
-msgstr "Описание"
+#: shopapp/templates/shopapp/product_detail.html:96
+#: shopapp/templates/shopapp/shop-list.html:292
 
-#: shopapp/templates/shopapp/product_detail.html:48
-msgid "Back to product list"
-msgstr "Вернуться к списку продуктов"
+msgid "Availability:"
+msgstr "Доступность:"
 
-#: shopapp/templates/shopapp/product_detail.html:50
+#: shopapp/templates/shopapp/product_detail.html:166
+msgid "Additional information"
+msgstr "Дополнительная информация"
+
+#: shopapp/templates/shopapp/products-list.html:24
+msgid "The cost of products for"
+msgstr "Список продуктов на"
+
+#: shopapp/templates/shopapp/products-list.html:29
+msgid "Discount percentage"
+msgstr "Процентная скидка"
+
+#: shopapp/templates/shopapp/products-list.html:31
+msgid "Create date"
+msgstr "Дата создания"
+
+#: shopapp/templates/shopapp/products-list.html:43
+msgid "No production"
+msgstr "Продукты отсутствуют"
+
+#: shopapp/templates/shopapp/products-list.html:48
+msgid "Add new product"
+msgstr "Добавить новый продукт"
+
+#: shopapp/templates/shopapp/shop-list.html:36
+msgid "All"
+msgstr "Все"
+
+#: shopapp/templates/shopapp/shop-list.html:99
+msgid "Filter"
+msgstr "Фильтр"
+
+#: shopapp/templates/shopapp/shop-list.html:177
+msgid "Quick View"
+msgstr "Просмотр"
+
+#: shopapp/templates/shopapp/shop-list.html:307
+msgid "Categories:"
+msgstr "Категории"
+
+#: shopapp/templates/shopapp/shop-list.html:311
+msgid "Tags:"
+msgstr "Теги"
+
 #: shopapp/templates/shopapp/update_product.html:10
 msgid "Update product"
 msgstr "Обновить продукт"
 
-#: shopapp/templates/shopapp/products-list.html:9
-msgid "The cost of products for"
-msgstr "Список продуктов на"
 
-#: shopapp/templates/shopapp/products-list.html:13
-msgid "Product name"
-msgstr "Наименование продукта"
 
-#: shopapp/templates/shopapp/products-list.html:14
-msgid "Discount percentage"
-msgstr "Процентная скидка"
+#~ msgid "Contacte"
+#~ msgstr "Контакт"
 
-#: shopapp/templates/shopapp/products-list.html:16
-msgid "Create date"
-msgstr "Дата создания"
+#~ msgid "archived"
+#~ msgstr "архивирован"
 
-#: shopapp/templates/shopapp/products-list.html:28
-msgid "No production"
-msgstr "Продукты отсутствуют"
+#~ msgid "Computers"
+#~ msgstr "Компьютеры"
 
-#: shopapp/templates/shopapp/products-list.html:33
-msgid "Add new product"
-msgstr "Добавить новый продукт"
+#~ msgid "Phones"
+#~ msgstr "Телефоны"
+
+#~ msgid "Camcorders"
+#~ msgstr "Видеокамеры"
+
+#~ msgid "Sign Up"
+#~ msgstr "Регистрация"
+
+#~ msgid "Welcome to the site"
+#~ msgstr "Добро пожаловать на сайт"
+
+#, python-format
+#~ msgid "Discount in %%"
+#~ msgstr "Скидка в %%"
+
+#~ msgid "Add new order"
+#~ msgstr "Добавить новый заказ"
+
+#~ msgid "Description:"
+#~ msgstr "Описание"
+
+#~ msgid "Back to product list"
+#~ msgstr "Вернуться к списку продуктов"

@@ -1,0 +1,38 @@
+{% extends "blogs/blogs.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Bloger profile
+{% endblock %}
+
+{% block article %}
+{% if request.user.is_authenticated %}
+<div class="container col-lg-4 mb-5">
+    <h5 class="text-center py-4 text-primary">{% trans 'Profile' %}</h5>
+    <div class="form-control py-4 px-4 border-primary border-1 d-flex flex-column justify-content-center col-md-12 col-lg-offset-3"
+         style="">
+        {% if user.profiles.avatar %}
+        <img class="img-fluid m-auto rounded-circle" src="{{ user.profiles.avatar.url }}" height=100 width=100 style="border:4px solid #d3232e;"><br><br>
+        {% else %}
+        <img class="img-fluid m-auto rounded-circle" src="{% static 'default_avatars.png' %}" height=100
+             width=100 style="border:1px solid #d3232e;"><br><br>
+        {% endif %}
+        <div class="product__desc-info">
+            <ul class="tab-pane">
+            <li>
+                 <h6 class="">{% trans 'Username:' %}</h6> <span class="mx-auto"> {{ user.username }} </span>
+            </li>
+            <li>
+                <h6> {% trans 'Email:' %}</h6> <span class="mx-auto">{{ user.email }} </span>
+            </li>
+        </ul>
+        </div>
+
+
+    </div>
+</div>
+{% else %}
+<h5>{% trans 'You are not identified!' %}</h5>
+{% endif%}
+{% endblock %}

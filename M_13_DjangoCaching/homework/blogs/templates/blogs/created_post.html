@@ -6,6 +6,20 @@ CreatePost
 {% endblock %}
 
 {% block article %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Create post' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 <article>
     <div class="container">
         <div class="row">

@@ -1,0 +1,66 @@
+{% extends 'shopapp/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Shop list
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shopapp:shop_page' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Shops' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="table-content table-responsive">
+        {% if shops %}
+        <div class="table-content table-responsive">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="product-thumbnail">{% trans 'Name' %}</th>
+                    <th class="cart-product-name">{% trans 'Address' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% cache 500 shop_list %}
+                {% for shop in shops %}
+                <tr>
+                    <td class="product-name"><a href="">{{ shop.name }}</a></td>
+                    <td class="product-price"><span class="amount">{{ shop.address }}</span></td>
+
+                {% endfor %}
+                {% endcache %}
+                <br>
+
+                </tbody>
+            </table>
+
+
+        </div>
+        {% else %}
+        <div class="col-12 text-center">
+            <div class="d-flex flex-column">
+                <h5 class="">{% trans 'The list is empty.' %}</h5>
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

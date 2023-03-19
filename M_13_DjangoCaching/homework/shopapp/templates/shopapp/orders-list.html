@@ -1,5 +1,6 @@
 {% extends 'shopapp/base.html' %}
 {% load i18n %}
+{% load cache %}
 
 {% block title %}
 Orders list
@@ -38,6 +39,7 @@ Orders list
             </tr>
             </thead>
             <tbody>
+            {% cache 500 order_history %}
             {% for order in orders %}
             <tr>
                 <td>
@@ -75,13 +77,14 @@ Orders list
                 </td>
             </tr>
             {% endfor %}
+            {% endcache %}
             </tbody>
         </table>
     </div>
 </div>
 {% else %}
 <div class="col-12 text-center">
-    <i class="fa fa-shopping-basket fa-8x" aria-hidden="true"></i>
+    <i class="fa fa-fw fa-shopping-bag fa-8x" aria-hidden="true"></i>
     <div class="d-flex flex-column">
         <h5 class="">{% trans 'You have no orders.' %}</h5>
         <span class="empty-basket-two">{% trans 'Choose the product you need from the catalog of the online store' %}<br> {% trans 'and add to cart' %}</span>
