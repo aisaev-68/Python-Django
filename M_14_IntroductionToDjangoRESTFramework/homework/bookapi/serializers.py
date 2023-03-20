@@ -8,7 +8,12 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'year_birth')
 
 
+class StringListSerializer(serializers.ListSerializer):
+    child = serializers.CharField()
+
+
 class BookSerializer(serializers.ModelSerializer):
+    authors_names = StringListSerializer()
     class Meta:
         model = models.Book
-        fields = ('id', 'title', 'isbn', 'publication_date', 'pages', 'authors')
+        fields = ('id', 'title', 'isbn', 'publication_date', 'pages', 'authors', 'authors_names',)

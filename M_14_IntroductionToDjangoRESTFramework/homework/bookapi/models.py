@@ -1,10 +1,4 @@
-import os
-from decimal import Decimal
-from django.contrib.auth.models import User
 from django.db import models
-from django.shortcuts import reverse
-from django.urls import resolve
-from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 
@@ -42,3 +36,6 @@ class Book(models.Model):
 
     def __str__(self):
         return "{title}".format(title=self.title)
+
+    def authors_names(self) -> list:
+        return ["{a} {b}".format(a=a.first_name, b=a.last_name) for a in self.authors.all()]

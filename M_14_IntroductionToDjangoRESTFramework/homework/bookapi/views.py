@@ -15,6 +15,7 @@ class AuthorListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
         return queryset
 
     def get(self, request):
+        print(11111, request)
         return self.list(request)
 
     def post(self, request, format=None):
