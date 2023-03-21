@@ -1,10 +1,15 @@
 from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+
+from bookapi.models import Book
 from . import serializers
 from . import models
 
 
 class AuthorListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+    """
+    Представление для получения списка авторов и добавления нового автора
+    """
     serializer_class = serializers.AuthorSerializer
 
     def get_queryset(self):
@@ -15,16 +20,20 @@ class AuthorListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
         return queryset
 
     def get(self, request):
-        print(11111, request)
+        """Получение списка авторов книг."""
+
         return self.list(request)
 
     def post(self, request, format=None):
+        """Добавление информации об авторе."""
         return self.create(request)
 
 
 class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+    """
+    Представление для получения списка книг.
+    """
     serializer_class = serializers.BookSerializer
-
     def get_queryset(self):
         queryset = models.Book.objects.all()
         title = self.request.query_params.get('title', None)
@@ -43,7 +52,29 @@ class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
         return queryset
 
     def get(self, request):
+        """Получение списка книг."""
         return self.list(request)
 
     def post(self, request, format=None):
+        """Добавление информации о книге."""
         return self.create(request)
+
+
+class BookDetailAPIView(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+    """
+    Представление для получения детальной информации о книге, редактировании и удалении.
+    """
+    serializer_class = serializers.BookSerializer
+    queryset = Book.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        """Получение детальной информации о книге."""
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        """Редактирование информации о книге."""
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """Удаление информации о книге."""
+        return self.destroy(request, *args, **kwargs)

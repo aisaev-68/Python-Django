@@ -1,16 +1,59 @@
+## Проект Книга
+
+### Функциональные возможности:
+1. Пользователь может получить список авторов книг.
+2. Пользователь может получить список книг.
+3. Пользователь может получить детальную информацию о книге.
+4. Пользователь может удалить книгу.
+5. Пользователь может обновить книгу.
+6. Добавление информации об авторе книги.
+
+
+### Переменные среды
+Переименовать файл .env.example в .env и установите свои данные
+
+### Команды для сборки и запуска
+
+1. Установить зависимости окружения: 
+```
+poetry install
+```
+2. Активация окружения: 
+```
+poetry shell
+```
+3. Миграция данных: 
+```
 python manage.py makemigrations
 python manage.py migrate
+```
+3. Заполнение базы тестовыми данными:
+```
+cd homework
 python manage.py create_author_and_book
-python manage.py runserver
+```
 
-python manage.py dumpdata bookapi.Author > bookapi/tests/fixtures/authors-fixtures.json
-python manage.py dumpdata bookapi.Book > bookapi/tests/fixtures/books-fixtures.json
+4. Запуск приложения в режиме разработки:
+```
+ python manage.py runserver
+```
 
 
+### Работа с сервисом:
+1. Документация API
+```
+http://127.0.0.1:8080/swagger/
+```
+2. Получение списка авторов
+```
+http://127.0.0.1:8080/api/authors/
+```
 
-python manage.py test shopapp/tests
-
-sudo apt install gettext
-
-django-admin makemessages --all --ignore=env
-django-admin compilemessages --ignore=env
+3. Получение списка книг
+```
+http://127.0.0.1:8080/api/books/
+```
+2. Получение детальной информации о книге, редактирование и удаление
+```
+http://127.0.0.1:8080/api/books/detail/<id books>
+```

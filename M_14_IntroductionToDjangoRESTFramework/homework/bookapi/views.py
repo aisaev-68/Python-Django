@@ -1,10 +1,13 @@
 from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from . import serializers
 from . import models
 
 
 class AuthorListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+    """
+    Представление для получения списка авторов и добавления нового автора
+    """
     serializer_class = serializers.AuthorSerializer
 
     def get_queryset(self):
@@ -15,14 +18,16 @@ class AuthorListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
         return queryset
 
     def get(self, request):
-        print(11111, request)
         return self.list(request)
 
     def post(self, request, format=None):
         return self.create(request)
 
 
-class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
+class BookListAPIView(ListModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+    """
+    Представление для получения списка книг и добавления книги.
+    """
     serializer_class = serializers.BookSerializer
 
     def get_queryset(self):
@@ -42,8 +47,11 @@ class BookListAPIView(ListModelMixin, CreateModelMixin, GenericAPIView):
 
         return queryset
 
-    def get(self, request):
-        return self.list(request)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
-    def post(self, request, format=None):
-        return self.create(request)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

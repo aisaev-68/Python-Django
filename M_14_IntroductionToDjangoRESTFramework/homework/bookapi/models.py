@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Author(models.Model):
+    """Book authors model."""
     first_name = models.CharField(max_length=100, verbose_name=_("First name"))
     last_name = models.CharField(max_length=100, verbose_name=_("Last name"))
     year_birth = models.IntegerField(verbose_name=_("Year of birth"))
@@ -18,6 +19,7 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    """Books model."""
     title = models.CharField(max_length=100, verbose_name=_("Title"))
     isbn = models.CharField(
         max_length=20,
