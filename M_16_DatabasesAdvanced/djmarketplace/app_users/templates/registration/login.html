@@ -1,0 +1,37 @@
+{% extends 'shopapp/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Cart list
+{% endblock %}
+
+
+{% block section %}
+
+    <div id="index" class="d-flex justify-content-center card">
+        <div id="login_frame" class="">
+            <div class="login_title">
+                <img src="">
+                <br>
+                <h1></h1>
+                <h3></h3>
+            </div>
+            <form method="post" action="" class="">
+                {% csrf_token %}
+                {% bootstrap_form form layout='horizontal' %}
+
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">{% trans 'Sign in' %}</button>
+                {% endbuttons %}
+
+            </form>
+            <p>{% trans "Forget the password?" %} <a href="">{% trans "Reset" %}</a>.</p>
+            <p>{% trans "No account yet?" %} <a href="">{% trans "register" %}</a>.</p>
+        </div>
+    </div>
+
+
+{% endblock %}
+
