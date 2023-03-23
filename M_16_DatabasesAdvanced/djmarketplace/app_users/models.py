@@ -8,12 +8,12 @@ from PIL import Image
 
 
 def get_upload_path_by_profiles(instance, filename):
-    return os.path.join('post_images/', now().date().strftime("%Y/%m/%d"), filename)
+    return os.path.join('profile_images/', now().date().strftime("%Y/%m/%d"), filename)
 
 
 class Profile(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', verbose_name=_('User'))
+    user: User = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', verbose_name=_('User'))
     avatar = models.ImageField(upload_to=get_upload_path_by_profiles,
                                verbose_name=_('Avatar'),
                                null=True,

@@ -5,7 +5,6 @@ from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-
 from shopapp.models import Shop
 
 
@@ -19,8 +18,8 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ["name", "price"]
 
-    shop = models.ForeignKey(Shop, related_name='products', on_delete=models.CASCADE,
-                             verbose_name=_('Name of shop'))
+    shop = models.ManyToManyField(Shop, related_name='products', on_delete=models.CASCADE,
+                                  verbose_name=_('Name of shop'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -76,7 +75,3 @@ class Product(models.Model):
             "brand": self.brand,
         }
         return product
-
-    @classmethod
-    def get_products_by_category(cls, pk):
-        return cls.objects.filter(archived=False, category=pk)
