@@ -26,7 +26,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         "export_csv",
     ]
 
-    list_display = ["pk", "name", "shop", "description_short", "slug", "attributes", "rating", "created_by", "format_date", "price",
+    list_display = ["pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price",
         "discount", "image", "products_count", "sold", "archived", "brand"]
     list_display_links = "pk", "name"
     ordering = "name", "price"
@@ -45,7 +45,6 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
             "description": _("Extra options. Field 'archived' is for soft delete"),
         })
     ]
-    prepopulated_fields = {'slug': ('name',)}
 
     def description_short(self, obj: Product) -> str:
         if len(obj.description) < 48:

@@ -3,6 +3,7 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveMode
     DestroyModelMixin
 
 from api import serializers
+from app_users.models import Profile
 from product import models
 
 
@@ -11,6 +12,7 @@ class ProfileListAPIView(ListModelMixin, GenericAPIView):
     Представление для получения списка профилей
     """
     serializer_class = serializers.ProfileSerializer
+    queryset = Profile.objects.all()
 
     def get(self, request):
         """Получение списка профилей."""

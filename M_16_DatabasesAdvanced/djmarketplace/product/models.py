@@ -18,11 +18,10 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ["name", "price"]
 
-    shop = models.ManyToManyField(Shop, related_name='products', on_delete=models.CASCADE,
+    shop = models.ManyToManyField(Shop, related_name='products',
                                   verbose_name=_('Name of shop'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
-    slug = models.SlugField(max_length=200, db_index=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name=_('Attributes'))
     created_by = models.ForeignKey(User, verbose_name=_('Created by'), on_delete=models.CASCADE, null=True)
     rating = models.FloatField(verbose_name=_('Rating'), blank=True, default=0.0)

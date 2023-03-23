@@ -18,7 +18,7 @@ class Profile(models.Model):
                                verbose_name=_('Avatar'),
                                null=True,
                                blank=True,
-                               default='avatars/default_avatars.png')
+                               default='media/avatars/default_avatars.png')
     country = models.CharField(max_length=100, verbose_name=_('Country'), blank=True)
     postal_code = models.CharField(max_length=20, verbose_name=_('Postal code'), blank=True)
     city = models.CharField(max_length=100, verbose_name=_('City'), blank=True)
