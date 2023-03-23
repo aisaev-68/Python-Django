@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'app_users.apps.AppUsersConfig',
     'shopapp.apps.ShopappConfig',
+    'payment.apps.PaymentConfig',
+    'order.apps.OrderConfig',
+    'product.apps.ProductConfig',
 ]
 
 MIDDLEWARE = [

@@ -24,6 +24,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=100, verbose_name=_('City'), blank=True)
     address = models.CharField(max_length=200, verbose_name=_('Address'), blank=True)
     phone = models.CharField(max_length=20, db_index=True, verbose_name=_('Phone'), blank=True)
+    balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Balance'))
 
     def __str__(self):
         return f'{self.user.username} Profile'

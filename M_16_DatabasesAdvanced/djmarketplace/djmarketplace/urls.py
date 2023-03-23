@@ -12,13 +12,12 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    # path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
+    path('', RedirectView.as_view(url='/shopapp/', permanent=True)),
     path('admin/', admin.site.urls),
-    # path('register/', RegisterView.as_view(), name='register'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
-    # path('profile/', include('accounts.urls'), name="accounts"),
-    # path('shopapp/', include('shopapp.urls')),
-    # path('blogs/', include('blogs.urls')),
+    path('profile/', include('app_users.urls'), name="accounts"),
+    path('shopapp/', include('shopapp.urls')),
 )
 
 if settings.DEBUG:

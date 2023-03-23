@@ -4,6 +4,6 @@ from .models import Profile
 
 @admin.register(Profile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = "pk", 'avatar', "user", 'country', 'postal_code', 'city', 'address', "phone"
+    list_display = "pk", 'avatar', "user", 'country', 'postal_code', 'city', 'address', "phone", "balance"
     list_display_links = "pk", "user"
     search_fields = "user", 'city'
