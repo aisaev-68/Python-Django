@@ -1,37 +1,29 @@
-{% extends 'shopapp/base.html' %}
-{% load static %}
+{% extends "shopapp/base.html" %}
 {% load i18n %}
-{% load cache %}
 
 {% block title %}
-Cart list
+Log-in
 {% endblock %}
-
-
 {% block section %}
 
-    <div id="index" class="d-flex justify-content-center card">
-        <div id="login_frame" class="">
-            <div class="login_title">
-                <img src="">
-                <br>
-                <h1></h1>
-                <h3></h3>
-            </div>
-            <form method="post" action="" class="">
+<div class="mt-70 d-flex justify-content-center">
+    <div>
+        <h5 class="text-center">{% trans 'Please enter your credentials' %}</h5>
+        <div class="mt-10">
+            <form class="form-control" method="post" action="{% url 'login' %}">
                 {% csrf_token %}
-                {% bootstrap_form form layout='horizontal' %}
-
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">{% trans 'Sign in' %}</button>
-                {% endbuttons %}
-
+                {% for field in form %}
+                <div class="d-flex justify-content-between">
+                    <p class="" style="">{{ field.label_tag }}</p>
+                    <p class="" style="">{{ field }}</p>
+                </div>
+                {% endfor %}
+                <input class="btn btn-primary p-0 px-4" type="submit" value="Войти">
             </form>
-            <p>{% trans "Forget the password?" %} <a href="">{% trans "Reset" %}</a>.</p>
-            <p>{% trans "No account yet?" %} <a href="">{% trans "register" %}</a>.</p>
         </div>
     </div>
 
+</div>
 
 {% endblock %}
 

@@ -1,11 +1,16 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+import json
+
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import HiddenInput
-from django.http import HttpResponseRedirect, HttpRequest
+from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
+from django.utils.dateparse import parse_datetime
 from django.views import View
 from django.views.generic import DeleteView, DetailView, UpdateView
 
+from cart.cart import Cart
+from order.forms import OrderModelForm
 from order.models import Order, OrderItem
 from product.models import Product
 
@@ -150,3 +155,27 @@ class OrderDelete(LoginRequiredMixin, DeleteView):
         else:
             return super().post(request, *args, **kwargs)
 
+
+class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
+    def get(self, request):
+        orders = Order.objects.select_related("user").prefetch_related("items").all()
+        list_orders = []
+        for order in orders:
+            data = {
+                "id": order.pk,
+                "delivery_address": order.delivery_address,
+                "promocode": order.promocode,
+                "created_at": parse_datetime(str(order.created_at)).strftime('%Y-%m-%d %H:%M:%S'),
+                "user": order.user.pk,
+                "paid": order.paid,
+                "products": [{'name': p.product.name,
+                             'price': p.price,
+                             'quantity': p.quantity,
+                              'sum': p.get_sum()}
+                             for p in order.items.all()]
+            }
+            list_orders.append(data)
+        return HttpResponse(json.dumps({'all-orders': list_orders}), content_type="application/json")
+
+    def test_func(self):
+        return self.request.user.is_staff

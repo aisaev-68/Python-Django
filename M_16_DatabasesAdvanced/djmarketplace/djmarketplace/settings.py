@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool, default=False)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('ALLOWED_HOSTS', default='localhost')]
-
+CART_SESSION_ID = 'cart'
 
 # Application definition
 
@@ -24,11 +24,12 @@ INSTALLED_APPS = [
     'drf_yasg',
     'bootstrap4',
     'rest_framework',
-    'app_users.apps.AppUsersConfig',
     'shopapp.apps.ShopappConfig',
+    'app_users.apps.AppUsersConfig',
     'payment.apps.PaymentConfig',
     'order.apps.OrderConfig',
     'product.apps.ProductConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +112,13 @@ BOOTSTRAP4 = {
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('ru', _('Russian')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = config('LANGUAGE_CODE')
 TIME_ZONE = 'UTC'

@@ -1,0 +1,297 @@
+{% extends "shopapp/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block section %}
+<section class="breadcrumb__area box-plr-75">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="breadcrumb__wrapper">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="">{% trans 'Home' %}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Shops</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="col-xl-3 col-lg-4">
+<!--            https://jsonplaceholder.typicode.com/gets-->
+             <form action="" method="get" enctype="text/plain">
+                 {% csrf_token %}
+                <div class="product-widget mb-30">
+                    <h5 class="pt-title">{% trans 'Shops' %}</h5>
+                    <div class="widget-category-list mt-20">
+
+                            {% for shop in shops %}
+                            {% if forloop.counter > 1 %}
+                            <div class="single-widget-category ">
+                                <a type="checkbox" class="" href="{{ shop.get_absolute_url }}">{{ shop.name }}
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                    </div>
+                </div>
+<!--                <div class="product-widget mb-30">-->
+<!--                    <h5 class="pt-title">Filter By Price</h5>-->
+<!--                    <div class="price__slider mt-30">-->
+<!--                        <div id="slider-range"-->
+<!--                             class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">-->
+<!--                            <div class="ui-slider-range ui-corner-all ui-widget-header"-->
+<!--                                 style="left: 0%; width: 100%;">-->
+<!--                            </div>-->
+<!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"-->
+<!--                                  style="left: 21.1538%;"></span>-->
+<!--                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"-->
+<!--                                  style="left: 100%;"></span>-->
+<!--                            <div class="ui-slider-range ui-corner-all ui-widget-header"-->
+<!--                                 style="left: 21.1538%; width: 78.8462%;">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </form>
+        </div>
+        <div class="col-xl-9 col-lg-8">
+            <div class="tab-content" id="productGridTabContent">
+                <div class="tab-pane fade  show active" id="FourCol" role="tabpanel" aria-labelledby="FourCol-tab">
+                    <div class="tp-wrapper">
+                        <div class="row g-0">
+                            {% for product in products %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item product__item-d bg-light">
+                                    <div class="product__thumb fix">
+                                        <div class="product-image w-img">
+                                            <a href="">
+                                                {% if 'http' in product.image.url %}
+                                                <img src="{{ product.image }}"
+                                                     style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% else %}
+                                                <img src="{{ product.image.url }}"
+                                                     style="height: 30vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="product-action">
+                                            <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal"
+                                               data-bs-target="#productModalId">
+                                                <i class="fal fa-eye"></i>
+                                                <i class="fal fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <i class="fal fa-heart"></i>
+                                                <i class="fal fa-heart"></i>
+                                            </a>
+                                            <a href="#" class="icon-box icon-box-1">
+                                                <i class="fal fa-layer-group"></i>
+                                                <i class="fal fa-layer-group"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product__content-3">
+                                        <h6>
+                                            <a href="{% url 'product_detail' pk=product.pk %}">
+                                                {{ product.name|truncatechars:25 }}
+                                            </a>
+                                        </h6>
+                                        <div class="rating mb-5">
+                            <span title="{% firstof product.rating '0' %}/5">
+                            <i class="fa fa-star{% if product.rating < 0.5%}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}"
+                               aria-hidden="true" style="color: #f39c12;"></i>
+                            <i class="fa fa-star{% if product.rating < 1.5%}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}"
+                               aria-hidden="true" style="color: #f39c12;"></i>
+                            <i class="fa fa-star{% if product.rating < 2.5%}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}"
+                               aria-hidden="true" style="color: #f39c12;"></i>
+                            <i class="fa fa-star{% if product.rating < 3.5%}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}"
+                               aria-hidden="true" style="color: #f39c12;"></i>
+                            <i class="fa fa-star{% if product.rating < 4.5%}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}"
+                               aria-hidden="true" style="color: #f39c12;"></i>
+                        </span>
+                                        </div>
+                                        <div class="price mb-10">
+                                            <span>{{ product.price }} ₽</span>
+                                        </div>
+                                    </div>
+                                    <div class="product__add-cart-s text-center">
+                                        <form action="{% url 'cart:cart_add' product.pk %}" method="post">
+                                                {% csrf_token %}
+                                                {{ form.update }}
+<!--                                                {{ form.quantity }}-->
+                                                 <input class="" type="text" value="1" hidden="">
+                                                <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Add to cart' %}">
+                                        </form>
+                                        <button type="button"
+                                                class="wc-checkout d-flex align-items-center justify-content-center w-100"
+                                                data-bs-toggle="modal" data-bs-target="#productModal{{ forloop.counter }}">
+                                            {% trans 'Quick View' %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="basic-pagination text-center pt-30 pb-30">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="blog.html" class="active">1</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">2</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">3</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">5</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">6</a>
+                        </li>
+                        <li>
+                            <a href="shop.html">
+                                <i class="fal fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    {% for product in products %}
+     <div class="modal fade" id="productModal{{ forloop.counter }}" tabindex="-{{ forloop.counter }}" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered product__modal" role="document">
+                <div class="modal-content">
+                    <div class="product__modal-wrapper p-relative">
+                        <div class="product__modal-close p-absolute">
+                            <button data-bs-dismiss="modal"><i class="fal fa-times"></i></button>
+                        </div>
+
+                        <div class="product__modal-inner">
+                            <div class="row">
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="product__modal-box">
+                                    <div class="tab-content" id="modalTabContent">
+                                        <div class="tab-pane fade show active" id="nav{{ forloop.counter }}" role="tabpanel" aria-labelledby="nav{{ forloop.counter }}-tab">
+                                            <div class="product__modal-img w-img">
+                                                <a href="">
+                                                {% if 'http' in product.image.url %}
+                                                <img src="{{ product.image }}"
+                                                     style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% else %}
+                                                <img src="{{ product.image.url }}"
+                                                     style="height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                                     class=""
+                                                     alt="Laptop"/>
+                                                {% endif %}
+                                            </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="product__modal-content">
+                                    <h4>
+                                        <a href="{% url 'product_detail' pk=product.pk %}">
+                                                {{ product.name|truncatechars:25 }}
+                                        </a>
+                                    </h4>
+                                    <div class="product__review d-sm-flex">
+                                        <div class="rating rating__shop mb-10 mr-30">
+                                            <span title="{% firstof product.rating '0' %}/5">
+                                                <i class="fa fa-star{% if product.rating < 0.5%}-o{% elif product.rating >= 0.5 and product.rating < 1 %}-half-o{% endif %}"
+                                                   aria-hidden="true" style="color: #f39c12;"></i>
+                                                <i class="fa fa-star{% if product.rating < 1.5%}-o{% elif product.rating >= 1.5 and product.rating < 2 %}-half-o{% endif %}"
+                                                   aria-hidden="true" style="color: #f39c12;"></i>
+                                                <i class="fa fa-star{% if product.rating < 2.5%}-o{% elif product.rating >= 2.5 and product.rating < 3 %}-half-o{% endif %}"
+                                                   aria-hidden="true" style="color: #f39c12;"></i>
+                                                <i class="fa fa-star{% if product.rating < 3.5%}-o{% elif product.rating >= 3.5 and product.rating < 4 %}-half-o{% endif %}"
+                                                   aria-hidden="true" style="color: #f39c12;"></i>
+                                                <i class="fa fa-star{% if product.rating < 4.5%}-o{% elif product.rating >= 4.5 and product.rating < 5 %}-half-o{% endif %}"
+                                                   aria-hidden="true" style="color: #f39c12;"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="product__price">
+                                        <span>{{ product.price }} ₽</span>
+                                    </div>
+                                    <div class="product__modal-des mt-20 mb-15">
+                                        <ul>
+                                            {% for attribut in product.attributes.values %}
+                                            <li>
+                                                <a href="#"><i class="fas fa-circle"></i> {{ attribut }}</a>
+                                            </li>
+                                           {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="product__stock mb-20">
+                                        <span class="mr-10">{% trans 'Availability:' %}</span>
+                                        <span>{% trans 'Sold:' %} {{ product.sold }}/{{ product.products_count }}</span>
+                                    </div>
+                                    <div class="product__modal-form">
+                                        <form action="{% url 'cart:cart_update' product.pk %}" method="post">
+                                            {% csrf_token %}
+                                            {{ form.quantity }}
+                                            {{ form.update }}
+                                            <button class="cart-btn" type="submit">{% trans 'Add to cart' %}</button>
+
+                                        </form>
+                                    </div>
+                                    <div class="product__stock mb-30">
+                                        <ul>
+                                            <li>
+                                                <span class="cat mr-10">{% trans 'Categories:' %}</span>
+                                                <span>{{ product.category.name }}</span>
+                                            </li>
+                                            <li><a href="#">
+                                                <span class="tag mr-10">{% trans 'Tags:' %}</span>
+                                                <span>{{ product.category.tag }}</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+     {% endfor %}
+</section>
+
+
+{% endblock %}
+
+
+

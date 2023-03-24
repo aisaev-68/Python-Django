@@ -1,11 +1,14 @@
-from django.urls import path
-from django.contrib.auth import views
+from django.urls import path, include
 
-from shopapp.views import ShopView
+from product.views import ShowProductsPage
+from shopapp.views import ShopView, Contact
 
-# from .views import S
-#
-name = 'shopapp'
+name = "shopapp"
 urlpatterns = [
-    path('all_shops/', ShopView.as_view(), name='shops'),
+    path("", ShopView.as_view(), name='shops'),
+    path('products/', include('product.urls'), name="products"),
+    path("contact/", Contact.as_view(), name="contact"),
+    path('cart/', include('cart.urls'), name="cart"),
+    path('profile/', include('app_users.urls'), name="accounts"),
+    path('orders/', include('order.urls'), name="orders"),
 ]

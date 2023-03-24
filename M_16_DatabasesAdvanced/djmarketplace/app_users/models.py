@@ -12,7 +12,6 @@ def get_upload_path_by_profiles(instance, filename):
 
 
 class Profile(models.Model):
-
     user: User = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', verbose_name=_('User'))
     avatar = models.ImageField(upload_to=get_upload_path_by_profiles,
                                verbose_name=_('Avatar'),
@@ -33,7 +32,6 @@ class Profile(models.Model):
         verbose_name = _("Profile")
         verbose_name_plural = _("Profiles")
         ordering = ["user", "address"]
-
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

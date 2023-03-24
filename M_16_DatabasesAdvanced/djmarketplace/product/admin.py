@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from product.admin_mixins import ExportAsCSVMixin
 from product.models import Product
+from shopapp.models import Shop
 
 
 @admin.action(description=_("Archive products"))
@@ -26,6 +27,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         "export_csv",
     ]
 
+
     list_display = ["pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price",
         "discount", "image", "products_count", "sold", "archived", "brand"]
     list_display_links = "pk", "name"
@@ -33,7 +35,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     search_fields = "name",
     fieldsets = [
         (None, {
-            "fields": ("shop", "name", "description", "slug", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
+            "fields": ("shop", "name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),

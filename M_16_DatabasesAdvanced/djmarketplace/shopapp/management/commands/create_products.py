@@ -34,9 +34,8 @@ class Command(BaseCommand):
         shops = [s.pk for s in Shop.objects.all()]
 
         for d in data["data"]:
-            start_numb = random.choices([1, 4, 2, 4, 4, 3, 4])[0]
-            end_numb = random.choices([5, 6, 5, 5])[0]
-            shop = shops[start_numb:end_numb]
+            start_numb = random.choices(range(1, 11))[0]
+            end_numb = random.choices(range(11, 21))[0]
 
             request = requests.get(d['image'])
             shop = shops[start_numb:end_numb]
@@ -61,16 +60,8 @@ class Command(BaseCommand):
                 sold=random.choices([x + 1 for x in range(50)])[0],
                 archived=False,
             )
-            if len(shop) == 1:
-                product.shop.add(shop[0])
-            elif len(shop) == 2:
-                product.shop.add(shop[0], shop[1])
-            elif len(shop) == 3:
-                product.shop.add(shop[0], shop[1], shop[2])
-            elif len(shop) == 4:
-                product.shop.add(shop[0], shop[1], shop[2], shop[3])
-            elif len(shop) == 5:
-                product.shop.add(shop[0], shop[1], shop[2], shop[3], shop[4])
+            for s in shop:
+                product.shop.add(s)
 
 
 

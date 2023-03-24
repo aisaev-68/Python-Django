@@ -35,8 +35,8 @@ urlpatterns += i18n_patterns(
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
-    path('profile/', include('app_users.urls'), name="accounts"),
-    path('shopapp/', include('shopapp.urls')),
+    # path('profile/', include('app_users.urls'), name="accounts"),
+    path('shopapp/', include('shopapp.urls'), name="shopapp"),
 )
 
 if settings.DEBUG:

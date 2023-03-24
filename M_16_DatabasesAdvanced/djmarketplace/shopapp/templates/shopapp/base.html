@@ -3,8 +3,7 @@
 {% load cache %}
 
 <!doctype html>
-{% get_current_language as LANGUAGE_CODE %}
-<html lang="{{ LANGUAGE_CODE|default:'en_us' }}">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -143,9 +142,7 @@
                                     {% for language in LANGUAGES %}
                                     {% if language.0 != LANGUAGE_CODE %}
                                     <button class="text-white" type="submit" name="language" value="{{ language.0 }}">
-<!--                                        <i class="fa fa-language" aria-hidden="true"></i>-->
-                                        {{ language.1 }}
-<!--                                        ({{ language.0 }})-->
+                                        {{ language.1 }} ({{ language.0 }})
                                     </button>
                                     {% endif %}
                                     {% endfor %}
@@ -173,7 +170,7 @@
                             <div class="ovic-menu-wrapper">
                                 <ul>
                                     <li><a href="">{% trans 'About Us' %}</a></li>
-                                    <li><a href="{% url 'shopapp:contact' %}">{% trans 'Contact' %}</a></li>
+                                    <li><a href="{% url 'contact' %}">{% trans 'Contact' %}</a></li>
                                     <li><a href="">{% trans 'FAQs' %}</a></li>
                                 </ul>
                             </div>
@@ -190,7 +187,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
                         <div class="header__info">
                             <div class="logo">
-                                <a href="{% url 'shopapp:shop_page' %}" class="logo-image"><img
+                                <a href="{% url 'shops' %}" class="logo-image"><img
                                         src="{% static 'assets/img/logo/logo1.svg' %}" alt="logo"></a>
                             </div>
                         </div>
@@ -199,19 +196,8 @@
                         <div class="header__search">
                             <form action="#">
                                 <div class="header__search-box">
-                                    <input class="search-input" type="text" placeholder="I'm shopping for...">
+                                    <input class="search-input" type="text" placeholder="I'm shopping for..." style="padding-left: 15px;">
                                     <button class="button" type="submit"><i class="far fa-search"></i></button>
-                                </div>
-                                <div class="header__search-cat">
-<!--                                    {% cache 500 object_list %}-->
-                                    {% with all_catalogs=catalogs %}
-                                    <select class="px-2">
-                                        {% for catalog in all_catalogs %}
-                                        <option class="px-2">{{ catalog.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    {% endwith %}
-<!--                                    {% endcache %}-->
                                 </div>
                             </form>
                         </div>
@@ -240,7 +226,7 @@
                                             {% else %}
                                             <li>
 
-                                                <a href="{% url 'accounts:about-me' request.user.pk %}" class="wc-checkout">
+                                                <a href="{% url 'about-me' request.user.pk %}" class="wc-checkout">
                                                     <i class="fa fa-user" aria-hidden="true"></i>
                                                     {% trans 'Profile' %}
                                                 </a>
@@ -261,7 +247,7 @@
 
 
                             <div class="block-cart action">
-                                <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
+                                <a class="icon-link" href="{% url 'cart:cart_detail' %}">
                                     <i class="flaticon-shopping-bag"></i>
                                     <span class="count">{{cart.cart_count }}</span>
                                     <span class="text align-self-center">
@@ -317,7 +303,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <a href="{% url 'shopapp:cart_detail' %}" class="wc-cart mb-10">{% trans 'View cart' %}</a>
+                                                <a href="{% url 'cart:cart_detail' %}" class="wc-cart mb-10">{% trans 'View cart' %}</a>
                                             </li>
 
                                         </ul>
@@ -333,28 +319,6 @@
     <div class="header__bottom">
         <div class="container">
             <div class="row g-0 align-items-center">
-                <div class="col-lg-3">
-                    <div class="cat__menu-wrapper side-border d-none d-lg-block">
-                        <div class="cat-toggle">
-                            <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i>
-                                {% trans 'Shop by department' %}
-                            </button>
-                            <div class="cat__menu">
-                                <nav id="mobile-menu" style="display: block;">
-                                    <ul>
-                                        {% with all_catalogs=catalogs %}
-                                        {% for catalog in all_catalogs %}
-                                        <li>
-                                            <a class="px-2" href="{{ catalog.get_absolute_url }}">{{ catalog.name|upper }}</a>
-                                        </li>
-                                        {% endfor %}
-                                        {% endwith %}
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-6 col-md-6 col-3">
                     <div class="header__bottom-left d-flex d-xl-block align-items-center">
                         <div class="side-menu d-lg-none mr-20">
@@ -365,7 +329,7 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a href="{% url 'shopapp:shop_page' %}" class="text-capitalize">
+                                        <a href="{% url 'shops' %}" class="text-capitalize">
                                             <i class="fa fa-home" aria-hidden="true"></i>
                                             {% trans 'Home' %}
                                         </a>
@@ -377,24 +341,21 @@
                                          <a class="text-capitalize" href="">{% trans 'Shops' %}</a>
                                         <ul class="submenu">
                                             <li>
-                                                <a class="text-capitalize" href="{% url 'shopapp:shops' %}">
+                                                <a class="text-capitalize" href="{% url 'shops' %}">
                                                     {% trans 'Shops' %}
                                                 </a>
                                             </li>
 
                                             {% if perms.shopapp.change_product or request.user.is_superuser %}
+
                                             <li>
-                                                <a style="text-transform: full-size-kana;" href=""> {% trans 'Add category' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:create_product' %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'create_product' %}">
                                                     {% trans 'Add product' %}
                                                 </a>
                                             </li>
                                             {% endif %}
                                             <li>
-                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:products_list' %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'products_list' %}">
                                                     {% trans 'Product list' %}
                                                 </a>
                                             </li>
@@ -407,49 +368,17 @@
                                         <a class="text-capitalize" href="">{% trans 'Orders' %}</a>
                                         <ul class="submenu">
                                             <li>
-                                                <a style="text-transform: full-size-kana;" href="{% url 'shopapp:orders_user' pk=request.user.pk %}">
+                                                <a style="text-transform: full-size-kana;" href="{% url 'orders_user' pk=request.user.pk %}">
                                                     {% trans 'History of orders' %}
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="text-capitalize" href="">{% trans 'Offers' %}</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="{% url 'shopapp:offers' %}" class="active">
-                                                    {% trans 'Offers' %}
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="">
-                                                    {% trans 'Promotions' %}
-                                                </a>
-                                            </li>
 
-                                        </ul>
-                                    </li>
                                      {% endif %}
-                                    <li>
-                                        <a class="text-capitalize" href="">{% trans 'Blog' %}</a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a style="text-transform: full-size-kana;" href="{% url 'blogs:show_blogs' %}" class="active">
-                                                    {% trans 'All posts' %}
-                                                </a>
-                                            </li>
-                                            {% if request.user.is_authenticated %}
-                                            <li>
-                                                <a style="text-transform: full-size-kana;" href="{% url 'blogs:created_blog' %}">
-                                                    {% trans 'Add post' %}
-                                                </a>
-                                            </li>
-                                            {% endif %}
-                                        </ul>
-                                    </li>
                                     {% if request.user.is_authenticated %}
                                     <li>
-                                        <a class="icon-link" href="{% url 'shopapp:cart_detail' %}">
+                                        <a class="icon-link" href="{% url 'cart:cart_detail' %}">
                                             <i class="fa fa-credit-card" aria-hidden="true"> </i>
                                             <span class="count">0</span>
                                             <span class="text align-self-center">
