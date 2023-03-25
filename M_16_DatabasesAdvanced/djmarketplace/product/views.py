@@ -15,35 +15,18 @@ from shopapp.models import Shop
 
 class ShowProductsPage(View):
     def get(self, request: HttpRequest, pk=None):
-        cart = Cart(request)
+
         form = CartAddProductForm(request.POST)
         shop = Shop.objects.filter(pk=pk).first()
         results = Product.objects.filter(archived=False, shop=shop)
-        print(shop.products.all())
         context = {
             "products": results,
-            "shops": Shop.objects.all(),
-            "cart": cart,
             "form": form,
         }
         return render(request, 'shopapp/shop-list.html', context=context)
 
 
-# class CatalogProducts(View):
-#     def get(self, request, eng_name):
-#         cart = Cart(request)
-#         print(111111111111111)
-#         form = CartAddProductForm(request.POST)
-#         catalog = Catalog.objects.filter(eng_name=eng_name).first()
-#         category = Category.objects.filter(catalog=catalog)
-#         results = Product.objects.filter(archived=False, catalog=catalog)
-#         context = {
-#             "products": results,
-#             "categories": category,
-#             "cart": cart,
-#             "form": form,
-#         }
-#         return render(request, 'shopapp/shop-list.html', context=context)
+
 
 
 class ProductList(ListView):

@@ -13,8 +13,4 @@ urlpatterns = [
     path("detail/<int:pk>/", DetailProduct.as_view(), name="product_detail"),
     path("update/<int:pk>/", UpdateProduct.as_view(), name="update_product"),
     path("archived/<int:pk>/", ArchivedProduct.as_view(), name="product_archived"),
-    # path("update/", ProfileView.as_view(), name="profile"),
-    path("login/", views.LoginView.as_view(), name="login"),
-    # path("logout/", views.LogoutView.as_view(), name="logout"),
-    # path("about_me/<int:pk>/", AboutMe.as_view(), name="about-me"),
 ]

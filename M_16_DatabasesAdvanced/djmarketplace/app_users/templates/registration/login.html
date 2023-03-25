@@ -18,6 +18,7 @@ Log-in
                     <p class="" style="">{{ field }}</p>
                 </div>
                 {% endfor %}
+                <input type="hidden" name="return_to"  value="{{ request.META.HTTP_REFERER }}">
                 <input class="btn btn-primary p-0 px-4" type="submit" value="Войти">
             </form>
         </div>

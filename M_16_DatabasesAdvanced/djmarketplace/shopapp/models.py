@@ -12,6 +12,11 @@ class Shop(models.Model):
     def get_absolute_url(self):
         return reverse("products_by_shop", kwargs={'pk': self.pk})
 
+    class Meta:
+        verbose_name = _("Shop")
+        verbose_name_plural = _("Shops")
+        ordering = ["name",]
+
 
 
 

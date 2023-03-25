@@ -5,6 +5,29 @@ from django.utils.translation import gettext_lazy as _
 from .models import Profile
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label=_("Username"),
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': _('User*'),
+            }
+        ),
+        required=True
+    )
+    password = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': _('Password*'),
+                'help_text': ''
+            }
+        ),
+        required=True
+    )
+
 class UserFormUpdate(forms.ModelForm):
     first_name = forms.CharField(
         max_length=100,

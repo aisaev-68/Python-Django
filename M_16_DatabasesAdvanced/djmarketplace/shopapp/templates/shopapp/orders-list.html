@@ -1,0 +1,97 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Orders list
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="container">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shops' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Orders' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% if orders %}
+<div class="col-12">
+    <div class="table-content table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{% trans 'Image' %}</th>
+                <th>{% trans 'Name of product' %}</th>
+                <th>{% trans 'Price' %}</th>
+                <th>{% trans 'Count' %}</th>
+                <th>{% trans 'Sum' %}</th>
+                <th>{% trans 'Purchase date' %}</th>
+                <th>{% trans 'Delivery address' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% cache 500 order_history %}
+            {% for order in orders %}
+            <tr>
+                <td>
+                    {% if 'http' in order.image.url %}
+                    <img src="{{ order.image }}"
+                         style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                         class=""
+                         alt="Laptop"/>
+                    {% else %}
+                    <img src="{{ order.image.url }}"
+                         style="height: 10vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                         class=""
+                         alt="Laptop"/>
+                    {% endif %}
+                </td>
+                <td>
+                    <p>{{ order.name }}</p>
+                </td>
+                <td>
+                    <p>{{ order.price }}</p>
+                </td>
+                <td>
+                    <p>{{ order.count }}</p>
+                </td>
+                <td>
+                    <p>{{ order.sum }}</p>
+                </td>
+                <td>
+                    <p>{{ order.created_at }}</p>
+                </td>
+                <td>
+                    <p>
+                        {{ order.delivery_address}}
+                    </p>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endcache %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="col-12 text-center">
+    <i class="fa fa-fw fa-shopping-bag fa-8x" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+        <h5 class="">{% trans 'You have no orders.' %}</h5>
+        <span class="empty-basket-two">{% trans 'Choose the product you need from the catalog of the online store' %}<br> {% trans 'and add to cart' %}</span>
+        <a href="{% url 'shops' %}" class="cart-btn m-auto" style="width: 150px;">{% trans 'To catalog' %}</a>
+    </div>
+
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}

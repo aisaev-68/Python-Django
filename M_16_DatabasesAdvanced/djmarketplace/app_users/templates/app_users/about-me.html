@@ -44,10 +44,10 @@ Log-in
                 <h6> {% trans 'Phone:' %}</h6> <span class="mx-auto">{{ user.profiles.phone }}</span>
             </li>
             <li>
-                <a class="cart-btn" href="{% url 'accounts:profile' %}">
+                <a class="cart-btn" href="{% url 'profile' %}">
                     {% trans 'Update' %}
                 </a>
-                <a class="cart-btn ms-3" href="{% url 'accounts:about-me' request.user.pk %}">
+                <a class="cart-btn ms-3" href="{% url 'about-me' request.user.pk %}">
                     {% trans 'Cancel' %}
                 </a>
             </li>

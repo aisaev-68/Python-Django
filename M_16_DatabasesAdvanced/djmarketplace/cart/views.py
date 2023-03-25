@@ -10,7 +10,7 @@ from order.forms import OrderModelForm
 from product.models import Product
 
 
-class CartDetail(LoginRequiredMixin, View):
+class CartDetail(View):
     def get(self, request, *args, **kwargs):
         cart = Cart(request)
         form = OrderModelForm()
@@ -22,26 +22,27 @@ class CartDetail(LoginRequiredMixin, View):
         return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form})
 
 
-class CartAdd(LoginRequiredMixin, View):
+class CartAdd(View):
 
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
         cart.add(
-                product=product,
-                quantity=1,
-                update_quantity=False,
-            )
-        return redirect('shopapp:shop_page')
+            product=product,
+            quantity=1,
+            update_quantity=False,
+        )
+        return redirect('shops')
+        # return render(request, 'shopapp/shop-list.html')
 
 
-class CartDelete(LoginRequiredMixin, View):
+class CartDelete(View):
     def get_success_url(self):
         return reverse_lazy(
-            "shopapp:cart_detail",
+            "cart:cart_detail",
         )
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         cart = Cart(request)
         product = get_object_or_404(Product, id=self.kwargs['product_id'])
         cart.remove(product)
@@ -49,7 +50,7 @@ class CartDelete(LoginRequiredMixin, View):
         return HttpResponseRedirect(url)
 
 
-class CartUpdate(LoginRequiredMixin, View):
+class CartUpdate(View):
 
     def post(self, request, product_id):
         cart = Cart(request)
@@ -64,8 +65,6 @@ class CartUpdate(LoginRequiredMixin, View):
                     quantity=cd['quantity'],
                     update_quantity=cd['update'],
                 )
-        return redirect('shopapp:cart_detail')
+        return redirect('cart:cart_detail')
 
         # return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form, 'message': f'Only {product.products_count} products left.'})
-
-

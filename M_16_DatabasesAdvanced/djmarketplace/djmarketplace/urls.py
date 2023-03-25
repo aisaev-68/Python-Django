@@ -9,6 +9,7 @@ from drf_yasg.views import get_schema_view
 # from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from shopapp.views import Contact
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -34,9 +35,12 @@ urlpatterns += i18n_patterns(
     path('api/', include('api.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-    # path('accounts/', include('django.contrib.auth.urls'), name="accounts"),
-    # path('profile/', include('app_users.urls'), name="accounts"),
     path('shopapp/', include('shopapp.urls'), name="shopapp"),
+    path('profile/', include('app_users.urls'), name="accounts"),
+    path('products/', include('product.urls'), name="products"),
+    path("contact/", Contact.as_view(), name="contact"),
+    path('cart/', include('cart.urls'), name="cart"),
+    path('orders/', include('order.urls'), name="orders"),
 )
 
 if settings.DEBUG:

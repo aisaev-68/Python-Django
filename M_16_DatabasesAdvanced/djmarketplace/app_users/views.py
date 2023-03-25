@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.models import Group
+from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -9,7 +10,32 @@ from django.views import View
 from django.views.generic import DetailView
 from django import forms
 from . import forms
+from .forms import LoginForm
 from .models import Profile
+
+
+
+class UserLogin(View):
+    template_name = "registrtion/login.html"
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'registration/login.html', {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        # prev_url = request.META.get('HTTP_REFERER')
+        # url_origin = request.META.get("HTTP_ORIGIN")
+        print(555555, request.POST['return_to'])
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    # return HttpResponse('Authenticated successfully')
+                    return redirect(request.POST['return_to'])
+                else:
+                    return HttpResponse(_('Disabled account'))
 
 
 class AboutMe(LoginRequiredMixin, DetailView):
@@ -73,7 +99,7 @@ class RegisterView(View):
 
             login(request, user)
 
-            return redirect(reverse('accounts:about-me', kwargs={'pk': str(user.pk)}))
+            return redirect(reverse('about-me', kwargs={'pk': str(user.pk)}))
 
 
         else:
@@ -119,7 +145,7 @@ class ProfileView(LoginRequiredMixin, View):
 
             messages.success(request, _('Update profile.'))
 
-            return redirect(reverse('accounts:about-me', kwargs={'pk': str(user.pk)}))
+            return redirect(reverse('about-me', kwargs={'pk': str(user.pk)}))
 
         else:
             context = {

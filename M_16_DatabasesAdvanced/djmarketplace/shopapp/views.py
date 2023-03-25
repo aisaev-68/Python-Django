@@ -15,10 +15,7 @@ from .models import Shop
 
 class ShopView(View):
     def get(self, request):
-        print(11111111111)
-        shops = Shop.objects.all()
-        print(shops)
-        return render(request, 'shopapp/shop-list.html', context={"shops": shops})
+        return render(request, 'shopapp/shop-list.html')
 
 
 
