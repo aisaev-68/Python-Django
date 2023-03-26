@@ -18,8 +18,6 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ["price"]
 
-    shop = models.ManyToManyField(Shop, related_name='products',
-                                  verbose_name=_('Name of shop'))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name=_('Attributes'))
@@ -74,3 +72,15 @@ class Product(models.Model):
             "brand": self.brand,
         }
         return product
+
+
+class ShopItem(models.Model):
+    class Meta:
+        verbose_name = _("Shop product")
+        verbose_name_plural = _("Shop products")
+
+    shop = models.ForeignKey(Shop, related_name="items", on_delete=models.CASCADE, verbose_name=_("Shops"))
+    product = models.ForeignKey(Product, related_name="shop_items", on_delete=models.CASCADE, verbose_name=_("Products"))
+
+    def __str__(self):
+        return f"{self.shop} {self.product}"

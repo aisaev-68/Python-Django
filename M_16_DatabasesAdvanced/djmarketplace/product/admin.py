@@ -5,8 +5,19 @@ from django.utils.formats import date_format
 from django.utils.translation import gettext_lazy as _
 
 from product.admin_mixins import ExportAsCSVMixin
-from product.models import Product
+from product.models import Product, ShopItem
 from shopapp.models import Shop
+
+
+@admin.register(Shop)
+class ShopAdmin(admin.ModelAdmin):
+    list_display = "pk", "shop_name", "address",
+    list_display_links = "pk", "shop_name"
+    search_fields = "shop_name", 'address'
+
+class ShopItemInline(admin.TabularInline):
+    model = ShopItem
+    extra = 5
 
 
 @admin.action(description=_("Archive products"))
@@ -26,6 +37,9 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         mark_unarchived,
         "export_csv",
     ]
+    inlines = [
+        ShopItemInline,
+    ]
 
 
     list_display = ["pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price",
@@ -35,7 +49,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     search_fields = "name",
     fieldsets = [
         (None, {
-            "fields": ("shop", "name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
+            "fields": ("name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
         }),
         (_("Price options"), {
             "fields": ("price", "discount"),
@@ -60,3 +74,16 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
 
     format_date.short_description = _("created_at")
 
+
+
+
+
+@admin.register(ShopItem)
+class ShopItemAdmin(admin.ModelAdmin):
+    list_display = ["pk", "shop", "product",]
+    list_display_links = "pk", "shop"
+    ordering = "shop", "product"
+    search_fields = "shop",
+    # inlines = [
+    #     ShopItemInline,
+    # ]

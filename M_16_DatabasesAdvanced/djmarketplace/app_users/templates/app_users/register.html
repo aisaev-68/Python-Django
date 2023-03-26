@@ -2,19 +2,36 @@
 {% load i18n %}
 
 {% block section %}
-<div class="container col-lg-6 ">
-
-    <div class="form-control py-2 px-0 d-flex justify-content-center col-md-12 col-lg-offset-3"
+<div class="col-5 m-auto">
+    <h5 class="text-center pt-3">{% trans 'Registration' %}</h5>
+    {% if user_form.errors or profile_form.errors %}
+        <p class="text-center">
+            {% trans 'The entered data is not correct.' % }
+            {% trans 'Please try again.' %}
+        </p>
+    {% else %}
+        <p class="text-center">{% trans 'Please, use the following form to registration:' %}</p>
+    {% endif %}
+    <div class="form-control pt-4"
          style="">
-        <form class="register-form" method="post" enctype="multipart/form-data">
+        <form class="px-3" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h5 class="text-center">{% trans 'Registration' %}</h5>
-            <hr>
-            {{ user_form.as_p }}
+<!--            {{ user_form.as_p }}-->
+            {% for field in user_form %}
+                <div class="d-flex justify-content-between">
+                    <p class="align-self-center" style="">{{ field.label_tag }}</p>
+                    <p class="" style="width: 20vw;">{{ field }}</p>
+                </div>
+            {% endfor %}
 
-            {{ profile_form.as_p }}
-            <hr>
-            <input class="btn-primary" type="submit" value="{% trans 'Register' %}">
+<!--            {{ profile_form.as_p }}-->
+            {% for field in profile_form %}
+                <div class="d-flex justify-content-between">
+                    <p class="align-self-center" style="">{{ field.label_tag }}</p>
+                    <p class="" style="width: 20vw;">{{ field }}</p>
+                </div>
+            {% endfor %}
+            <input class="btn btn-primary px-4 mb-2" type="submit" value="{% trans 'Register' %}">
 
         </form>
     </div>

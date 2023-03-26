@@ -2,28 +2,34 @@
 {% load i18n %}
 
 {% block title %}
-Log-in
+{% trans 'Log-in' %}
 {% endblock %}
+
 {% block section %}
+<div class="col-4 m-auto">
+     <h1 class="text-center">{% trans 'Log-in' %}</h1>
+    {% if form.errors %}
+        <p class="text-center">
+            {% trans 'Your username and password didn't match.' % }
+            {% trans 'Please try again.' %}
+        </p>
+    {% else %}
+        <p class="text-center">{% trans 'Please, use the following form to log-in:' %}</p>
+    {% endif %}
+    <div class="form-control pt-4">
+        <form action="{% url 'login' %}" method="post">
 
-<div class="mt-70 d-flex justify-content-center">
-    <div>
-        <h5 class="text-center">{% trans 'Please enter your credentials' %}</h5>
-        <div class="mt-10">
-            <form class="form-control" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                {% for field in form %}
+            {% csrf_token %}
+            {% for field in form %}
                 <div class="d-flex justify-content-between">
-                    <p class="" style="">{{ field.label_tag }}</p>
-                    <p class="" style="">{{ field }}</p>
+                    <p class="align-self-center" style="">{{ field.label_tag }}</p>
+                    <p class="" style="width: 20vw;">{{ field }}</p>
                 </div>
-                {% endfor %}
-                <input type="hidden" name="return_to"  value="{{ request.META.HTTP_REFERER }}">
-                <input class="btn btn-primary p-0 px-4" type="submit" value="Войти">
-            </form>
-        </div>
+            {% endfor %}
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <p><input class="btn btn-primary px-4" type="submit" value="{% trans 'Log-in' %}"></p>
+        </form>
     </div>
-
 </div>
 
 {% endblock %}

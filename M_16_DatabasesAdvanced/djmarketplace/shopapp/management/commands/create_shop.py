@@ -23,11 +23,11 @@ class Command(BaseCommand):
         self.stdout.write("Create shops")
 
         for _ in range(20):
-            name = Finance(locale=Locale.RU)
+            shop_name = Finance(locale=Locale.RU)
             address = Address(locale=Locale.RU)
 
             Shop.objects.create(
-                name=name.company(),
+                shop_name=shop_name.company(),
                 address=address.address(),
             )
 

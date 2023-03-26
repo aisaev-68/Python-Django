@@ -48,7 +48,7 @@ class OrderCreate(LoginRequiredMixin, View):
 
     def get_success_url(self):
         return reverse(
-            "order:orders_user",
+            "orders_user",
             kwargs={"pk": self.request.user.pk},
         )
 
@@ -89,7 +89,7 @@ class OrderListByUser(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, *args, **kwargs):
         context = []
         orders = Order.objects.filter(user=kwargs['pk']).all()
-
+        print(33333, len(orders))
         if orders:
             for order in orders:
                 orders_data = order.items.all()
@@ -115,7 +115,7 @@ class UpdateOrder(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "order:order_detail",
+            "order_detail",
             kwargs={"pk": self.object.pk},
         )
 
@@ -140,7 +140,7 @@ class OrderDelete(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "order:orders_list",
+            "orders_list",
         )
 
     def form_valid(self, form):

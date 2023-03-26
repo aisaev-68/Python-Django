@@ -9,6 +9,9 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import DetailView
 from django import forms
+
+from cart.cart import Cart
+from cart.forms import CartAddProductForm
 from . import forms
 from .forms import LoginForm
 from .models import Profile
@@ -22,18 +25,14 @@ class UserLogin(View):
         return render(request, 'registration/login.html', {'form': form})
 
     def post(self, request, *args, **kwargs):
-        form = LoginForm(request.POST)
-        # prev_url = request.META.get('HTTP_REFERER')
-        # url_origin = request.META.get("HTTP_ORIGIN")
-        print(555555, request.POST['return_to'])
-        if form.is_valid():
-            cd = form.cleaned_data
+        form_login = LoginForm(request.POST)
+        if form_login.is_valid():
+            cd = form_login.cleaned_data
             user = authenticate(username=cd['username'], password=cd['password'])
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    # return HttpResponse('Authenticated successfully')
-                    return redirect(request.POST['return_to'])
+                    return redirect("cart:cart_detail")
                 else:
                     return HttpResponse(_('Disabled account'))
 

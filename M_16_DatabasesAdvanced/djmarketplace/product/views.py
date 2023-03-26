@@ -1,15 +1,15 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.forms import HiddenInput
 from django.http import HttpResponseRedirect, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView, CreateView, DeleteView, DetailView, ListView
 
 from cart.cart import Cart
 from cart.forms import CartAddProductForm
-from product.forms import ProductModelForm
-from product.models import Product
+from product.forms import ProductModelForm, ShopModelForm
+from product.models import Product, ShopItem
 from shopapp.models import Shop
 
 
@@ -18,15 +18,12 @@ class ShowProductsPage(View):
 
         form = CartAddProductForm(request.POST)
         shop = Shop.objects.filter(pk=pk).first()
-        results = Product.objects.filter(archived=False, shop=shop)
+        results = Product.objects.filter(archived=False)
         context = {
             "products": results,
             "form": form,
         }
         return render(request, 'shopapp/shop-list.html', context=context)
-
-
-
 
 
 class ProductList(ListView):
@@ -79,7 +76,7 @@ class CreateProduct(LoginRequiredMixin, CreateView):
     # model = Product
     form_class = ProductModelForm
     template_name = 'shopapp/create_product.html'
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("products_list")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -89,6 +86,49 @@ class CreateProduct(LoginRequiredMixin, CreateView):
     def get_initial(self):
         self.initial['created_by'] = self.request.user.id
         return self.initial
+
+
+# class CreateProduct(LoginRequiredMixin, View):
+#
+#     success_url = reverse_lazy("products_list")
+#
+#     def get(self, request, *args, **kwargs):
+#         shop_form = ShopModelForm()
+#         form = ProductModelForm()
+#         context = {"shop_form": shop_form, "form": form}
+#         return render(request, "shopapp/create_product.html", context=context)
+#
+#
+#     def post(self, request, *args, **kwargs):
+#         shop_form = ShopModelForm(request.POST)
+#         form = ProductModelForm(request.POST)
+#         shops = request.POST.getlist("shop_name")
+#         print(shop_form.cleaned_data)
+#         if form.is_valid():
+#             print(3333333333333)
+#             # shop_cd = shop_form.cleaned_data["shop_name"]
+#             cd = form.cleaned_data
+#             product = Product.objects.create(
+#                 name=cd["name"],
+#                 brand=cd["brand"],
+#                 description=cd["description"],
+#                 attributes=cd["attributes"],
+#                 rating=cd["rating"],
+#                 created_by=request.user.id,
+#                 price=cd["price"],
+#                 discount=cd["discount"],
+#                 image=cd["image"],
+#                 products_count=cd["products_count"],
+#                 sold=cd["solid"],
+#                 archived=False,
+#             )
+#             for shop in shops:
+#                 ShopItem.objects.create(
+#                     shop_id=shop,
+#                     product_id=product.pk
+#                 )
+#
+#             return redirect(self.success_url)
 
 
 class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):

@@ -11,7 +11,9 @@ class LoginForm(forms.Form):
         max_length=100,
         widget=forms.TextInput(
             attrs={
+                'class': 'form-control',
                 'placeholder': _('User*'),
+                'help_text': ''
             }
         ),
         required=True
@@ -20,7 +22,7 @@ class LoginForm(forms.Form):
         label=_("Password"),
         widget=forms.PasswordInput(
             attrs={
-                'class': 'form-input',
+                'class': 'form-control',
                 'placeholder': _('Password*'),
                 'help_text': ''
             }
@@ -28,8 +30,11 @@ class LoginForm(forms.Form):
         required=True
     )
 
+
+
 class UserFormUpdate(forms.ModelForm):
     first_name = forms.CharField(
+        label=_("First name*"),
         max_length=100,
         widget=forms.TextInput(
             attrs={
@@ -39,6 +44,7 @@ class UserFormUpdate(forms.ModelForm):
         required=True
     )
     last_name = forms.CharField(
+        label=_("Last name*"),
         max_length=100,
         widget=forms.TextInput(
             attrs={
@@ -49,6 +55,7 @@ class UserFormUpdate(forms.ModelForm):
     )
 
     email = forms.EmailField(
+        label=_("Email*"),
         max_length=254,
         widget=forms.EmailInput(attrs={
             "autocomplete": "email",
@@ -64,7 +71,6 @@ class UserFormUpdate(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
-            self.fields[field].label = ''
 
 
 
@@ -75,6 +81,7 @@ class UserFormUpdate(forms.ModelForm):
 
 class UserForm(UserFormUpdate, forms.ModelForm):
     username = forms.CharField(
+        label=_("Username*"),
         max_length=100,
         widget=forms.TextInput(
             attrs={
@@ -84,31 +91,27 @@ class UserForm(UserFormUpdate, forms.ModelForm):
         required=True
     )
     password1 = forms.CharField(
+        label=_("Password*"),
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-input',
                 'placeholder': _('Password*'),
                 'help_text': ''
             }
-        )
+        ),
+        required=True,
     )
     password2 = forms.CharField(
+        label=_("Repeat password*"),
         widget=forms.PasswordInput(
             attrs={
                 'class': 'form-input',
                 'placeholder': _('Repeat password*'),
                 'help_text': ''
             }
-        )
+        ),
+        required=True,
     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields[field].help_text = ''
-            self.fields[field].label = ''
 
     def clean_password(self):
         cd = self.cleaned_data
@@ -116,13 +119,16 @@ class UserForm(UserFormUpdate, forms.ModelForm):
             raise forms.ValidationError('password no match')
         return cd['password1']
 
+
+
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email', ]
+        fields = ["username", "password1", "password2", 'first_name', 'last_name', 'email', ]
 
 
 class ProfileForm(forms.ModelForm):
     country = forms.CharField(
+        label=_("Country"),
         max_length=100,
         widget=forms.TextInput(
             attrs={
@@ -141,6 +147,7 @@ class ProfileForm(forms.ModelForm):
         required=False
     )
     city = forms.CharField(
+        label=_("City"),
         max_length=200,
         widget=forms.TextInput(
             attrs={
@@ -150,6 +157,7 @@ class ProfileForm(forms.ModelForm):
         required=False
     )
     address = forms.CharField(
+        label=_("Address"),
         max_length=200,
         widget=forms.TextInput(
             attrs={
@@ -160,6 +168,7 @@ class ProfileForm(forms.ModelForm):
     )
 
     phone = forms.CharField(
+        label=_("Phone"),
         max_length=20,
         widget=forms.TextInput(
             attrs={
@@ -170,6 +179,7 @@ class ProfileForm(forms.ModelForm):
         required=True
     )
     avatar = forms.ImageField(
+        label=_("Avatar"),
         required=False,
         widget=forms.FileInput(
             attrs={
@@ -183,7 +193,7 @@ class ProfileForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
-                self.fields[field].label = ''
+                # self.fields[field].label = ''
 
 
     class Meta:

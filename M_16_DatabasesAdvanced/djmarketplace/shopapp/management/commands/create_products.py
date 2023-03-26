@@ -10,7 +10,7 @@ import json
 
 from django.utils.timezone import now
 
-from product.models import Product
+from product.models import Product, ShopItem
 from shopapp.models import Shop
 
 new_dir_file = now().date().strftime("%Y/%m/%d")
@@ -61,7 +61,7 @@ class Command(BaseCommand):
                 archived=False,
             )
             for s in shop:
-                product.shop.add(s)
+                ShopItem.objects.create(shop_id=s, product_id=product.pk)
 
 
 
