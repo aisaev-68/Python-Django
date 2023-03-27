@@ -14,7 +14,7 @@ headers = {
 
 # response = requests.request("GET", url, headers=headers, params=querystring)
 #
-# with open('product.json', mode='w', encoding='utf-8') as f:
+# with open('product0.json', mode='w', encoding='utf-8') as f:
 # 	f.write(response.text)
 
 

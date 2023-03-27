@@ -1,3 +1,4 @@
+import decimal
 import os
 import random
 import uuid
@@ -32,37 +33,37 @@ class Command(BaseCommand):
 
         user = User.objects.filter(username='editor').first()
         shops = [s.pk for s in Shop.objects.all()]
-
-        for d in data["data"]:
+        for key, value in data.items():
             start_numb = random.choices(range(1, 11))[0]
             end_numb = random.choices(range(11, 21))[0]
-
-            request = requests.get(d['image'])
             shop = shops[start_numb:end_numb]
-            filename = str(uuid.uuid4())
-            file_name = "{name}.{ext}".format(name=filename, ext='jpg')
-            file_path = "product_images/{new_dir}/{image_name}".format(new_dir=new_dir_file, image_name=file_name)
-            path_absolute = str(Path(uploaded_file_path, file_name))
-            with open(path_absolute, 'wb') as f:
-                f.write(request.content)
 
-            product = Product.objects.create(
-                name=d['name'],
-                brand="Apple",
-                description=d['description'],
-                attributes=d['attributes'],
-                rating=d.get('rating'),
-                created_by=user,
-                price=d['price'],
-                discount=random.choices([5, 10, 15, 20])[0],
-                image=file_path,
-                products_count=50,
-                sold=random.choices([x + 1 for x in range(50)])[0],
-                archived=False,
-            )
-            for s in shop:
-                ShopItem.objects.create(shop_id=s, product_id=product.pk)
+            for d in value:
 
+                request = requests.get(d['image'][0])
+                filename = str(uuid.uuid4())
+                file_name = "{name}.{ext}".format(name=filename, ext='jpg')
+                file_path = "product_images/{new_dir}/{image_name}".format(new_dir=new_dir_file, image_name=file_name)
+                path_absolute = str(Path(uploaded_file_path, file_name))
+                with open(path_absolute, 'wb') as f:
+                    f.write(request.content)
+
+                product = Product.objects.create(
+                    name=d['name'],
+                    brand=key,
+                    description=d['description'],
+                    attributes=d['attributes'],
+                    rating=d.get('rating'),
+                    created_by=user,
+                    price=decimal.Decimal(d['price']),
+                    discount=d['discount'],
+                    image=file_path,
+                    products_count=50,
+                    sold=d['sold'],
+                    archived=d['archived'],
+                )
+                for s in shop:
+                    ShopItem.objects.create(shop_id=s, product_id=product.pk)
 
 
         self.stdout.write(self.style.SUCCESS("Products created"))

@@ -20,9 +20,9 @@ class BillView(View):
             cd = form_invoice.cleaned_data["amount"]
             if user:
                 user_amount = Billing.objects.filter(user=user).filter(amount__gt=0).first()
-                print(9999, user_amount.amount)
-                if user_amount.amount:
 
+                if user_amount:
+                    print(9999, user_amount.amount)
                     Billing.objects.create(
                         amount=cd + user_amount.amount,
                         user=request.user,
