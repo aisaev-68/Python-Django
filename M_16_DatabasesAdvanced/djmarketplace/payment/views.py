@@ -35,8 +35,8 @@ class BillView(View):
                         user=request.user,
                     )
 
-
         return redirect("shops")
+
 
 class InvoiceView(View):
     pass

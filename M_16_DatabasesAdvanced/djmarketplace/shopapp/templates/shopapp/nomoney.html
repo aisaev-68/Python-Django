@@ -1,0 +1,22 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Orders list
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="col-12 text-center">
+    <i class="fa fab fa-cc-visa fa-8x" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+        <h5 class="">{% trans 'You dont have enough funds in your account.' %}</h5>
+        <span class="empty-basket-two">{% trans 'Please recharge your account and try again.' %}</span>
+        <a href="{% url 'shops' %}" class="cart-btn m-auto" style="width: 150px;">{% trans 'To account' %}</a>
+    </div>
+
+</div>
+{% endif %}
+{% endblock %}

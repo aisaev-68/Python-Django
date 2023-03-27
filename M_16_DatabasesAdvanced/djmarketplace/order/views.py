@@ -12,6 +12,7 @@ from django.views.generic import DeleteView, DetailView, UpdateView
 from cart.cart import Cart
 from order.forms import OrderModelForm
 from order.models import Order, OrderItem
+from payment.models import Billing
 from product.models import Product
 
 
@@ -77,6 +78,12 @@ class OrderCreate(LoginRequiredMixin, View):
                 product = Product.objects.filter(name=cart['product']).first()
                 product.products_count = product.products_count - cart['quantity']
                 product.save()
+                payment = Billing.objects.filter(user=request.user).filter(amount__gt=0).first()
+                if (payment.amount - cart['price']) >= 0:
+                    payment.amount -= cart['price']
+                    payment.save()
+                else:
+                    render(request, "shopapp/nomoney.html")
 
         carts.clear()
         url = self.get_success_url()
