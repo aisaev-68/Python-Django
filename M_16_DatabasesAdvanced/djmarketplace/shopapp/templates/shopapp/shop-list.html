@@ -34,7 +34,7 @@
 
                             {% for shop in shops %}
                             <div class="single-widget-category ">
-                                <a type="radio" class="{% if checked %}active{% endif %}" href="{{ shop.get_absolute_url }}">{{ shop.name }}
+                                <a type="radio" class="{% if checked %}active{% endif %}" href="{{ shop.get_absolute_url }}">{{ shop.shop_name }}
                                 </a>
                             </div>
                             {% endfor %}

@@ -7,11 +7,11 @@ Products list
 {% endblock %}
 
 {% block section %}
-<div class="product-details">
+<div class="product-details mt-3">
     <div class="container">
         <div class="row">
-            <div class="col-xl-6">
-                <div class="product__details-nav d-sm-flex align-items-start">
+            <div class="col-xl-4">
+                <div class="product__details-nav d-flex justify-content-center">
                     <!--                    <ul class="nav nav-tabs flex-sm-column justify-content-between" id="productThumbTab" role="tablist">-->
                     <!--                        <li class="nav-item" role="presentation">-->
                     <!--                            <button class="nav-link active" id="thumbOne-tab" data-bs-toggle="tab"-->
@@ -39,14 +39,14 @@ Products list
                             <div class="tab-pane fade show active" id="thumbOne" role="tabpanel"
                                  aria-labelledby="thumbOne-tab">
                                 <div class="product__details-nav-thumb w-img">
-                                    {% if 'http' in object.image.url %}
-                                    <img src="{{ object.image }}"
-                                         style="max-height: 70vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                    {% if 'http' in products.image.url %}
+                                    <img src="{{ products.image }}"
+                                         style="max-height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
                                          class="card-img-top mt-4" class="img-fluid"
                                          alt="Laptop"/>
                                     {% else %}
-                                    <img src="{{ object.image.url }}"
-                                         style="max-height: 70vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                    <img src="{{ products.image.url }}"
+                                         style="max-height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
                                          class="card-img-top mt-4" class="img-fluid"
                                          alt="Laptop"/>
                                     {% endif %}
@@ -56,44 +56,44 @@ Products list
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6">
+            <div class="col-xl-8">
                 <div class="product__details-content">
-                    <h6>{{ object.name }}</h6>
+                    <h6>{{ products.name }}</h6>
                     <div class="pd-rating mb-10">
                         <ul class="rating">
 
                             <li><a href="#">
-                                <i class="fa fa-star{% if object.rating < 0.5 %}-half {% elif object.rating >= 0.5 and object.rating < 1.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                                <i class="fa fa-star{% if products.rating < 0.5 %}-half {% elif products.rating >= 0.5 and products.rating < 1.0 %}-half {% endif %}" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#">
-                                <i class="fa fa-star{% if object.rating < 1.5 %}-half {% elif object.rating >= 1.5 and object.rating < 2.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                                <i class="fa fa-star{% if products.rating < 1.5 %}-half {% elif products.rating >= 1.5 and products.rating < 2.0 %}-half {% endif %}" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#">
-                                <i class="fa fa-star{% if object.rating < 2.5 %}-half {% elif object.rating >= 2.5 and object.rating < 3.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                                <i class="fa fa-star{% if products.rating < 2.5 %}-half {% elif products.rating >= 2.5 and products.rating < 3.0 %}-half {% endif %}" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#">
-                                <i class="fa fa-star{% if object.rating < 3.5 %}-half {% elif object.rating >= 3.5 and object.rating < 4.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                                <i class="fa fa-star{% if products.rating < 3.5 %}-half {% elif products.rating >= 3.5 and products.rating < 4.0 %}-half {% endif %}" aria-hidden="true"></i></a>
                             </li>
                             <li><a href="#">
-                                <i class="fa fa-star{% if object.rating < 4.5 %}-half {% elif object.rating >= 4.5 and object.rating <= 5.0 %} -half {% endif %}" aria-hidden="true"></i></a>
+                                <i class="fa fa-star{% if products.rating < 4.5 %}-half {% elif products.rating >= 4.5 and products.rating <= 5.0 %} -half {% endif %}" aria-hidden="true"></i></a>
                             </li>
                         </ul>
-                        <span>({% firstof object.rating '0' %}/5)</span>
+                        <span>({% firstof products.rating '0' %}/5)</span>
                         <span><a href="#">Add your review</a></span>
                     </div>
                     <div class="price mb-10">
-                        <span>{{ object.price }} {% trans '₽' %}</span>
+                        <span>{{ products.price }} {% trans '₽' %}</span>
                     </div>
                     <div class="features-des mb-20 mt-10">
                         <ul>
-                            {% for attribute in object.attributes.values %}
+                            {% for attribute in products.attributes.values %}
                             <li><a href="product-details.html"><i class="fas fa-circle"></i> {{ attribute }}</a>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
                     <div class="product-stock mb-20">
-                        <h5>{% trans 'Availability:' %} <span> {{ object.to_json.dif_count_products }}</span></h5>
+                        <h5>{% trans 'Availability:' %} <span> {{ products.to_json.dif_count_products }}</span></h5>
                     </div>
                     <div class="cart-option mb-15">
                         <div class="product-quantity mr-20">

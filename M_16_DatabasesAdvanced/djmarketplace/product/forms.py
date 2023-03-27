@@ -20,19 +20,24 @@ class ShopModelForm(ModelForm):
 
 
 class ProductModelForm(ModelForm):
-    image = ImageField(
-        label=_("Image product"),
-        required=False,
-        widget=FileInput()
-    )
-    shop_name = MultipleChoiceField(
-        choices=tuple([(shop.pk, shop.shop_name) for shop in Shop.objects.all()]),
-        widget=CheckboxSelectMultiple,
-    )
-
+    # image = ImageField(
+    #     label=_("Image product"),
+    #     required=False,
+    #     widget=FileInput()
+    # )
+    # shops = ModelMultipleChoiceField(
+    #     queryset=Shop.objects.all(),
+    #     widget=SelectMultiple,
+    #
+    # )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["description"].widget.attrs = {"rows": 3}
+        self.fields["attributes"].widget.attrs = {"rows": 3}
+        self.fields["image"].widget = FileInput()
+        self.fields["shops"].widget = CheckboxSelectMultiple()
+        self.fields["shops"].queryset = Shop.objects.all()
         self.fields['price'].widget.attrs['min'] = 0
         self.fields['price'].widget.attrs['max'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
@@ -42,11 +47,12 @@ class ProductModelForm(ModelForm):
         self.fields['products_count'].widget.attrs['min'] = 0
         self.fields['sold'].widget.attrs['min'] = 0
         self.fields['created_by'].widget = HiddenInput()
+        # self.fields["shops"].widget.attrs['class'] = "form-select"
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+            # self.fields[field].widget.attrs['class'] = 'form-select'
             self.fields[field].help_text = ''
 
     class Meta:
         model = Product
-        fields = ["shop_name", "name", "brand", "description", "attributes", "rating", "price", "created_by", "discount", "image",
+        fields = ["shops", "name", "brand", "description", "attributes", "rating", "price", "created_by", "discount", "image",
                   "products_count", "sold"]

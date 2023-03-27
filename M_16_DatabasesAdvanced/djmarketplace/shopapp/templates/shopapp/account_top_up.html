@@ -1,0 +1,37 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+Account top-up
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="col-3 m-auto">
+    <h5 class="text-center my-3">{% trans 'Account top-up' %}</h5>
+    {% if form.errors %}
+    <p class="text-center">
+        {% trans 'The entered data is not correct.' % }
+        {% trans 'Please try again.' %}
+    </p>
+    {% else %}
+    <p class="text-center">{% trans 'Please, enter the invoice amount:' %}</p>
+    {% endif %}
+    <div class="pt-4" style="">
+        <form class="form-control py-3" method="post" action="{% url 'payment:account_top_up' %}">
+            {% csrf_token %}
+            {% for field in form_invoice %}
+            <div class="d-flex justify-content-between">
+                <p class="" style="">{{ field.label_tag }}</p>
+                <p class="" style="">{{ field }}</p>
+            </div>
+
+            {% endfor %}
+            <input class="btn btn-primary px-3" type="submit" value="{% trans 'Top Up' %}">
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

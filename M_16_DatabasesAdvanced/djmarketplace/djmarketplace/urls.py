@@ -41,6 +41,7 @@ urlpatterns += i18n_patterns(
     path("contact/", Contact.as_view(), name="contact"),
     path('cart/', include('cart.urls'), name="cart"),
     path('orders/', include('order.urls'), name="orders"),
+    path("payment/", include('payment.urls'), name="payment"),
 )
 
 if settings.DEBUG:

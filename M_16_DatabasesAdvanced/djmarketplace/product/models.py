@@ -18,6 +18,7 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ["price"]
 
+    shops = models.ManyToManyField(Shop, related_name="products", through="ShopItem", verbose_name=_("Shops"))
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description = models.TextField(verbose_name=_('Description'), blank=True)
     attributes = models.JSONField(default=dict, blank=True, verbose_name=_('Attributes'))
@@ -53,7 +54,7 @@ class Product(models.Model):
     def to_json(self):
         product = {
             "pk": self.pk,
-            "shop_name": self.shop.name,
+            "shop_name": self.shops,
             "name": self.name,
             "description": self.description,
             "attributes": self.attributes,

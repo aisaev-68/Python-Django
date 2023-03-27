@@ -31,7 +31,6 @@ class LoginForm(forms.Form):
     )
 
 
-
 class UserFormUpdate(forms.ModelForm):
     first_name = forms.CharField(
         label=_("First name*"),

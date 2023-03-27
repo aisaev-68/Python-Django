@@ -1,10 +1,10 @@
 from django.urls import path
 from django.contrib.auth import views
 
-from .views import BillingView, InvoiceView
+from .views import BillView, InvoiceView
 
 app_name = "payment"
 urlpatterns = [
-    path("billing/", BillingView.as_view(), name="billing"),
+    path("", BillView.as_view(), name="account_top_up"),
     path("invoice/", InvoiceView.as_view(), name="invoice"),
 ]

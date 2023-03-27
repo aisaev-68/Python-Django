@@ -16,7 +16,7 @@ Add product
     {% else %}
         <p class="text-center">{% trans 'Please, use the following form to product add:' %}</p>
     {% endif %}
-    <div class="form-control pt-4"
+    <div class="pt-4"
          style="">
         <form class="px-3 d-flex flex-column" method="post" action="{% url 'create_product' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -27,7 +27,7 @@ Add product
 <!--                    <p class="" style="">{{ field }}</p>-->
 <!--                </div>-->
 <!--            {% endfor %}-->
-            <input class="btn btn-primary px-4 mb-2" type="submit" value="{% trans 'Add' %}">
+            <input class="btn btn-primary px-4 my-4" type="submit" value="{% trans 'Add' %}">
         </form>
     </div>
     <div class="back_to">

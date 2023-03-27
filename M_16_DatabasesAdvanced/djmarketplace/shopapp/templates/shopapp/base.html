@@ -378,14 +378,20 @@
                                      {% endif %}
                                     {% if request.user.is_authenticated %}
                                     <li>
-                                        <a class="icon-link" href="{% url 'cart:cart_detail' %}">
+                                        <a class="icon-link" href="">
                                             <i class="fa fa-credit-card" aria-hidden="true"> </i>
-                                            <span class="count">0</span>
+                                            <span class="count">{{ billing.amount }}</span>
                                             <span class="text align-self-center">
                                             <span class="sub text-capitalize">{% trans 'Balance' %}</span>
                                             </span>
                                         </a>
-<!--                                       <a href="" class="wc-checkout">{% trans 'Balance' %}</a>-->
+                                     <ul class="submenu">
+                                            <li>
+                                                <a style="text-transform: full-size-kana;" href="{% url 'payment:account_top_up' %}">
+                                                    {% trans 'Top up balance' %}
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     {% endif %}
 

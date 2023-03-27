@@ -18,7 +18,7 @@ class ShowProductsPage(View):
 
         form = CartAddProductForm(request.POST)
         shop = Shop.objects.filter(pk=pk).first()
-        results = Product.objects.filter(archived=False)
+        results = Product.objects.filter(archived=False, shops=shop)
         context = {
             "products": results,
             "form": form,
@@ -84,8 +84,9 @@ class CreateProduct(LoginRequiredMixin, CreateView):
         return form
 
     def get_initial(self):
-        self.initial['created_by'] = self.request.user.id
-        return self.initial
+        initial = super().get_initial()
+        initial['created_by'] = self.request.user.id
+        return initial
 
 
 # class CreateProduct(LoginRequiredMixin, View):

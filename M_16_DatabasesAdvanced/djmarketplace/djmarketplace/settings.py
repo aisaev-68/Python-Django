@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'drf_yasg',
-    'bootstrap4',
+    # 'bootstrap4',
     'rest_framework',
     'shopapp.apps.ShopappConfig',
     'app_users.apps.AppUsersConfig',
@@ -59,6 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'shopapp.context_processor_cart.cart',
                 'product.context_processor_shop.shop',
+                'payment.context_processor_payment.billing',
             ],
         },
     },
@@ -106,11 +107,11 @@ REST_FRAMEWORK = {
 }
 
 
-BOOTSTRAP4 = {
-    'required_css_class': 'required',
-    'success_css_class': 'has-success',
-    'error_css_class': 'has-error',
-}
+# BOOTSTRAP4 = {
+#     'required_css_class': 'required',
+#     'success_css_class': 'has-success',
+#     'error_css_class': 'has-error',
+# }
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
