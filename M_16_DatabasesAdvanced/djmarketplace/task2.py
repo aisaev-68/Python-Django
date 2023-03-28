@@ -9,9 +9,9 @@ params = (
    ("premium","true"),
    ("country","de"),
    ("render","true"),
-);
+)
 
-response = requests.get('https://app.zenscrape.com/api/v1/get', headers=headers, params=params);
+response = requests.get('https://app.zenscrape.com/api/v1/get', headers=headers, params=params)
 print(response.text)
 
 #https://www.g2.com/products/zapier/reviews
