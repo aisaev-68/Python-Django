@@ -7,7 +7,7 @@ from django.views import View
 from cart.cart import Cart
 from cart.forms import CartAddProductForm
 from order.forms import OrderModelForm
-from product.models import Product
+from product.models import Product, ShopItem
 
 
 class CartDetail(View):
@@ -23,16 +23,23 @@ class CartDetail(View):
 
 
 class CartAdd(View):
-
+    # def get_success_url(self):
+    #     return reverse_lazy(
+    #         "products_by_shop",
+    #         kwargs={"pk": self.kwargs},
+    #     )
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
+        print(6666, request.META['HTTP_REFERER'])
+        # shops = ShopItem.objects.get(product_id=product_id)
         cart.add(
             product=product,
             quantity=1,
             update_quantity=False,
         )
-        return redirect('shops')
+        print(77777, product)
+        return redirect(request.META['HTTP_REFERER'])
         # return render(request, 'shopapp/shop-list.html')
 
 

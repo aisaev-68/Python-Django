@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView, CreateView, DeleteView, DetailView, ListView
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from cart.cart import Cart
 from cart.forms import CartAddProductForm
 from product.forms import ProductModelForm, ShopModelForm
@@ -19,9 +19,20 @@ class ShowProductsPage(View):
         form = CartAddProductForm(request.POST)
         shop = Shop.objects.filter(pk=pk).first()
         results = Product.objects.filter(archived=False, shops=shop)
+        if 'page' in request.GET:
+            page = request.GET['page']
+        else:
+            page = 1
+        paginator = Paginator(results, 8)
+        try:
+            results = paginator.page(page)
+        except PageNotAnInteger:
+            results = paginator.page(1)
+        except EmptyPage:
+            results = paginator.page(paginator.num_pages)
         context = {
-            "products": results,
             "form": form,
+            "page": results,
         }
         return render(request, 'shopapp/shop-list.html', context=context)
 
@@ -30,6 +41,7 @@ class ProductList(ListView):
     # model = Product
     context_object_name = "products"
     template_name = 'shopapp/products-list.html'
+    paginate_by = 8
     queryset = Product.objects.filter(archived=False)
 
 

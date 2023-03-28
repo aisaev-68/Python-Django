@@ -62,33 +62,46 @@ class OrderCreate(LoginRequiredMixin, View):
         if form.is_valid():
             address = form.cleaned_data.get('delivery_address')
             promocode = form.cleaned_data.get('promocode')
+            payment = Billing.objects.filter(user=request.user).filter(amount__gt=0).first()
+
+            if not payment:
+                return render(request, "shopapp/nomoney.html")
+
+
+            if (payment.amount - carts.get_total_price()) < 0:
+                return render(request, "shopapp/nomoney.html")
+
             for cart in carts:
+                print(1111111111111, cart)
+                prod = Product.objects.filter(name=cart["product"]).first()
+                print(222222, prod.products_count, cart["product"])
+                print(444, cart["product"].product_count)
+                if (prod.products_count - cart['quantity']) < 0:
+                    return render(request, "shopapp/noproduct.html")
+
                 order = Order.objects.create(
-                    delivery_address=address,
-                    promocode=promocode,
-                    user=request.user,
-                    paid=True,
+                        delivery_address=address,
+                        promocode=promocode,
+                        user=request.user,
+                        paid=True,
                 )
                 OrderItem.objects.create(
-                    order=order,
-                    product=cart['product'],
-                    price=cart['price'],
-                    quantity=cart['quantity'],
+                        order=order,
+                        product=cart['product'],
+                        price=cart['price'],
+                        quantity=cart['quantity'],
                 )
                 product = Product.objects.filter(name=cart['product']).first()
-                product.products_count = product.products_count - cart['quantity']
+
+
+                product.products_count -= cart['quantity']
                 product.save()
-                payment = Billing.objects.filter(user=request.user).filter(amount__gt=0).first()
-                if (payment.amount - cart['price']) >= 0:
-                    payment.amount -= cart['price']
-                    payment.save()
-                else:
-                    render(request, "shopapp/nomoney.html")
+                payment.amount -= carts.get_total_price()
+                payment.save()
 
-        carts.clear()
-        url = self.get_success_url()
-        return HttpResponseRedirect(url)
-
+            carts.clear()
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
 
 
 class OrderListByUser(LoginRequiredMixin, View):

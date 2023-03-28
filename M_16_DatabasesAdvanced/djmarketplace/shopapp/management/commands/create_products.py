@@ -65,5 +65,6 @@ class Command(BaseCommand):
                 for s in shop:
                     ShopItem.objects.create(shop_id=s, product_id=product.pk)
 
+                self.stdout.write(self.style.SUCCESS(f"Product {product} add"))
 
         self.stdout.write(self.style.SUCCESS("Products created"))

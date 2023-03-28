@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.forms import HiddenInput
 from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render
