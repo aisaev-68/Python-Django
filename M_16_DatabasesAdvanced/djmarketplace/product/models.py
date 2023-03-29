@@ -28,9 +28,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to=get_upload_path_by_products, verbose_name=_('Image product'),
                               default='images/default_image.jpg')
     discount = models.SmallIntegerField(default=0, verbose_name=_('Discount'))
-    sold = models.SmallIntegerField(default=0, verbose_name=_('Sold'))
+    sold = models.PositiveSmallIntegerField(default=0, verbose_name=_('Sold'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
-    products_count = models.IntegerField(verbose_name=_('Count'))
+    products_count = models.PositiveSmallIntegerField(default=0, verbose_name=_('Count'))
     archived = models.BooleanField(default=False, verbose_name=_('Status'))
     brand = models.CharField(max_length=100, verbose_name=_('Brand'))
 

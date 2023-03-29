@@ -75,7 +75,7 @@ class OrderCreate(LoginRequiredMixin, View):
                 print(1111111111111, cart)
                 prod = Product.objects.filter(name=cart["product"]).first()
                 print(222222, prod.products_count, cart["product"])
-                print(444, cart["product"].product_count)
+                print(444, cart["product"])
                 if (prod.products_count - cart['quantity']) < 0:
                     return render(request, "shopapp/noproduct.html")
 
@@ -95,6 +95,7 @@ class OrderCreate(LoginRequiredMixin, View):
 
 
                 product.products_count -= cart['quantity']
+                product.sold += cart['quantity']
                 product.save()
                 payment.amount -= carts.get_total_price()
                 payment.save()

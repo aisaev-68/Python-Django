@@ -13,5 +13,5 @@ params = (
 
 response = requests.get('https://app.zenscrape.com/api/v1/get', headers=headers, params=params)
 print(response.text)
-
+#https://ejudge.lksh.ru/lang_docs/djbook.ru/rel1.9/ref/models/querysets.html
 #https://www.g2.com/products/zapier/reviews

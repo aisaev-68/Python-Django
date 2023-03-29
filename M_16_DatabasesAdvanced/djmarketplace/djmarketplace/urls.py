@@ -13,7 +13,7 @@ from shopapp.views import Contact
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Books API",
+      title="Shop API",
       default_version='v1',
       description="Project Description",
       terms_of_service="https://www.google.com/policies/terms/",
