@@ -18,7 +18,9 @@ class ShowProductsPage(View):
 
         form = CartAddProductForm(request.POST)
         shop = Shop.objects.filter(pk=pk).first()
-        results = Product.objects.filter(archived=False, shops=shop)
+        # results = Product.objects.filter(archived=False, shops=shop)
+        results = shop.products.filter(archived=False).all()
+        prod_count = len(results)
         if 'page' in request.GET:
             page = request.GET['page']
         else:
@@ -33,6 +35,7 @@ class ShowProductsPage(View):
         context = {
             "form": form,
             "page": results,
+            "prod_count": prod_count,
         }
         return render(request, 'shopapp/shop-list.html', context=context)
 

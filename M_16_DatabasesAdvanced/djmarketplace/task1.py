@@ -54,7 +54,7 @@ with open('product6.json', mode='w', encoding='utf-8') as f:
 #                        }
 #             lst.append(product)
 #         prod[key] = lst
-#     with open('json_data-products.json', mode='w', encoding='utf-8') as f:
+#     with open('json_data-products2.json', mode='w', encoding='utf-8') as f:
 #         json.dump(prod, f, ensure_ascii=False, indent=4)
 #
 #

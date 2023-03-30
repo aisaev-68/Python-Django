@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         self.stdout.write("Create products")
-        with open(str(Path(__file__).parent.joinpath('json_data-products.json'))) as json_file:
+        with open(str(Path(__file__).parent.joinpath('json_data-products2.json'))) as json_file:
             data = json.load(json_file)
 
         user = User.objects.filter(username='editor').first()

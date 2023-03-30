@@ -26,21 +26,19 @@
     <div class="d-flex">
         <div class="col-xl-3 col-lg-4">
 <!--            https://jsonplaceholder.typicode.com/gets-->
-             <form action="" method="get" enctype="text/plain">
-                 {% csrf_token %}
                 <div class="product-widget mb-30">
-                    <h5 class="pt-title">{% trans 'Shops' %}</h5>
-                    <div class="widget-category-list mt-20">
+                    <h5 class="pt-title">{% trans 'Shops' %} ({{ prod_count }})</h5>
 
-                            {% for shop in shops %}
-                            <div class="single-widget-category ">
-                                <a type="radio" class="{% if checked %}active{% endif %}" href="{{ shop.get_absolute_url }}">{{ shop.shop_name }}
-                                </a>
-                            </div>
-                            {% endfor %}
+                    <div class="widget-category-list mt-20">
+                        {% for shop in shops %}
+                        <div class="single-widget-category my-1">
+                            <a type="checkbox" href="{{ shop.get_absolute_url }}" class="{% if checked %}active{% endif %}">
+                                {{ shop.shop_name }}
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </form>
         </div>
         <div class="col-xl-9 col-lg-8">
             <div class="tab-content" id="productGridTabContent">
@@ -89,7 +87,7 @@
                                     <div class="product__content-3">
                                         <h6>
                                             <a href="{% url 'product_detail' pk=product.pk %}">
-                                                {{ product.name|truncatechars:25 }}
+                                                {{ product.name|truncatechars:15 }}
                                             </a>
                                         </h6>
                                         <div class="rating mb-5">
@@ -108,7 +106,7 @@
                                             <span>({% firstof product.rating '0' %}/5)</span>
                                         </div>
                                         <div class="price mb-10">
-                                            <span><del class="me-2">{{ product.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
+                                            <span style="font-size: 14px;"><del class="me-2">{{ product.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
                                         </div>
                                         <div class="progress mb-5">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{ product.to_json.progress }}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
@@ -125,11 +123,6 @@
                                                  <input class="" type="text" value="1" hidden="">
                                                 <input class="cart-btn product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100" type="submit" value="{% trans 'Add to cart' %}">
                                         </form>
-                                        <button type="button"
-                                                class="wc-checkout d-flex align-items-center justify-content-center w-100"
-                                                data-bs-toggle="modal" data-bs-target="#productModal{{ forloop.counter }}">
-                                            {% trans 'Quick View' %}
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -151,23 +144,33 @@
                             <a class="page-link p-0" href="?page={{ page.previous_page_number }}">&laquo;</a>
                         </li>
                         {% else %}
-                            <li class="page-item disabled"><span class="page-link p-0" href="#" tabindex="-1" aria-disabled="true">&laquo;</span></li>
+                            <li class="page-item disabled">
+                                <span class="page-link p-0" href="#" tabindex="-1" aria-disabled="true">&laquo;</span>
+                            </li>
                         {% endif %}
 
                         {% for p in page.paginator.page_range %}
                             {% if p > page.number|add:-4 and p < page.number|add:4 %}
                                 {% if page.number == p %}
-                                     <li class="page-item active" aria-current="page"><a class="page-link p-0" href="#">{{ p }} <span class="sr-only">(current)</span></a></li>
+                                     <li class="page-item active" aria-current="page">
+                                         <a class="page-link p-0" href="#">{{ p }} <span class="sr-only">(current)</span></a>
+                                     </li>
                                 {% else %}
-                                    <li class="page-item"><a class="page-link p-0" href="?page={{ p }}">{{ p }}</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link p-0" href="?page={{ p }}">{{ p }}</a>
+                                    </li>
                                 {% endif %}
                              {% endif %}
                         {% endfor %}
 
                         {% if page.has_next %}
-                            <li class="page-item"><a class="page-link p-0" href="?page={{ page.next_page_number }}">&raquo;</a></li>
+                            <li class="page-item">
+                                <a class="page-link p-0" href="?page={{ page.next_page_number }}">&raquo;</a>
+                            </li>
                         {% else %}
-                             <li class="page-item disabled"><span class="page-link p-0" href="#" tabindex="-1" aria-disabled="true">&raquo;</span></li>
+                             <li class="page-item disabled">
+                                 <span class="page-link p-0" href="#" tabindex="-1" aria-disabled="true">&raquo;</span>
+                             </li>
                         {% endif %}
                     </ul>
                 </nav>
