@@ -22,7 +22,7 @@ Products list
     </div>
 </div>
 {% if request.user.is_authenticated %}
-<h3 class="title_action">{% trans 'The cost of products for' %} {% now "Y-m-d" %}</h3>
+<h3 class="title_action">{% trans 'Top selling report' %} {% now "Y-m-d" %}</h3>
 {% if products %}
 <div class="table-content table-responsive">
     <table class="table">
@@ -56,8 +56,3 @@ Products list
 <h3 class="title_login">{% trans 'You are not logged in!' %}</h3>
 {% endif %}
 {% endblock %}
-
-
-
-
-

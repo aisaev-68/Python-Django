@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import HiddenInput
 from django.utils.translation import gettext_lazy as _
 from .models import Profile
 
@@ -71,8 +72,6 @@ class UserFormUpdate(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].help_text = ''
 
-
-
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', ]
@@ -118,8 +117,6 @@ class UserForm(UserFormUpdate, forms.ModelForm):
             raise forms.ValidationError('password no match')
         return cd['password1']
 
-
-
     class Meta:
         model = User
         fields = ["username", "password1", "password2", 'first_name', 'last_name', 'email', ]
@@ -127,7 +124,7 @@ class UserForm(UserFormUpdate, forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     country = forms.CharField(
-        label=_("Country"),
+        label=_("Country*"),
         max_length=100,
         widget=forms.TextInput(
             attrs={
@@ -167,7 +164,7 @@ class ProfileForm(forms.ModelForm):
     )
 
     phone = forms.CharField(
-        label=_("Phone"),
+        label=_("Phone*"),
         max_length=20,
         widget=forms.TextInput(
             attrs={
@@ -187,14 +184,15 @@ class ProfileForm(forms.ModelForm):
         )
     )
 
-
     def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            for field in self.fields:
-                self.fields[field].widget.attrs['class'] = 'form-control'
-                # self.fields[field].label = ''
-
+        super().__init__(*args, **kwargs)
+        self.fields['status'].widget = HiddenInput()
+        self.fields['status'].label = ''
+        # self.fields["status"].widget.attrs = {'readonly': 'readonly'}
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+            # self.fields[field].label = ''
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'country', 'postal_code', 'city', 'address', 'phone']
+        fields = ['avatar', 'country', 'postal_code', 'city', 'address', 'phone', "status"]

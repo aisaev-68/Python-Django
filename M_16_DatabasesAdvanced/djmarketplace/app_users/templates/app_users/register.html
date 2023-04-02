@@ -6,7 +6,7 @@
     <h5 class="text-center pt-3">{% trans 'Registration' %}</h5>
     {% if user_form.errors or profile_form.errors %}
         <p class="text-center">
-            {% trans 'The entered data is not correct.' % }
+            {% trans 'The entered data is not correct.' %}
             {% trans 'Please try again.' %}
         </p>
     {% else %}
@@ -14,7 +14,7 @@
     {% endif %}
     <div class="form-control pt-4"
          style="">
-        <form class="px-3" method="post" enctype="multipart/form-data">
+        <form action="{% url 'profile' %}" class="px-3" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 <!--            {{ user_form.as_p }}-->
             {% for field in user_form %}

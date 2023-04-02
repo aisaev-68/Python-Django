@@ -59,7 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'shopapp.context_processor_cart.cart',
                 'product.context_processor_shop.shop',
-                'payment.context_processor_payment.billing',
+                'app_users.context_processor_accounts.user_profile',
             ],
         },
     },

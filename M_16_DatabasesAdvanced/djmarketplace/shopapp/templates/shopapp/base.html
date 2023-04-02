@@ -206,9 +206,20 @@
                         <div class="header-action justify-content-end">
                             <div class="block-cart action me-3">
                                 <a class="icon-link">
+                                    {% if not request.user.is_authenticated %}
                                     <i class="flaticon-user"></i>
                                     <span class="text align-self-center">
                                     {% trans 'My Account' %} </span>
+                                    {% else %}
+                                    {% if user.profiles.avatar %}
+                                    <img class="img-fluid m-auto rounded-circle" src="{{ user.profiles.avatar.url }}" height=35 width=35 style=""><br><br>
+                                    {% else %}
+                                    <img class="img-fluid m-auto rounded-circle" src="{% static 'default_avatars.png' %}" height=35
+                                    width=35 style=""><br><br>
+                                    {% endif %}
+                                    <span class="text-capitalize align-self-center">
+                                    {{ user }} ({{ user_profile.status }})</span>
+                                    {% endif %}
                                 </a>
                                 <div class="cart">
                                     <div class="cart__mini">
@@ -286,7 +297,7 @@
                                                         <div class="cart__details">
                                                             <h6><a href=""> {{ cart_item.product.name }} </a></h6>
                                                             <div class="cart__price">
-                                                                <span>{{ cart_item.price }}</span>
+                                                                <span>{{ cart_item.new_price }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -359,6 +370,10 @@
                                                     {% trans 'Product list' %}
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a style="text-transform: full-size-kana;" href="{% url 'top_selling_report' %}">
+                                                {% trans 'Top Selling Report' %}
+                                            </li>
 
                                         </ul>
                                     </li>
@@ -380,7 +395,7 @@
                                     <li>
                                         <a class="icon-link" href="">
                                             <i class="fa fa-credit-card" aria-hidden="true"> </i>
-                                            <span class="count">{{ billing.amount }}</span>
+                                            <span class="count">{{ request.user.billings.all.first.get_balance }}</span>
                                             <span class="text align-self-center">
                                             <span class="sub text-capitalize">{% trans 'Balance' %}</span>
                                             </span>
@@ -389,6 +404,11 @@
                                             <li>
                                                 <a style="text-transform: full-size-kana;" href="{% url 'payment:account_top_up' %}">
                                                     {% trans 'Top up balance' %}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a style="text-transform: full-size-kana;" href="{% url 'payment:history_top_up' %}">
+                                                {% trans 'Top up history' %}
                                                 </a>
                                             </li>
                                         </ul>

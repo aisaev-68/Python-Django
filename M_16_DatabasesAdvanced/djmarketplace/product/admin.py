@@ -42,17 +42,17 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     ]
 
 
-    list_display = ["pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price",
+    list_display = ["pk", "name", "description_short", "attributes", "rating", "created_by", "format_date", "price", "new_price",
         "discount", "image", "products_count", "sold", "archived", "brand"]
     list_display_links = "pk", "name"
-    ordering = "name", "price"
+    ordering = "name", "new_price"
     search_fields = "name",
     fieldsets = [
         (None, {
             "fields": ("name", "description", "attributes", "rating", "created_by", "products_count", "sold", "image", "brand"),
         }),
         (_("Price options"), {
-            "fields": ("price", "discount"),
+            "fields": ("price", "new_price", "discount"),
             "classes": ("wide", "collapse"),
         }),
         (_("Extra options"), {

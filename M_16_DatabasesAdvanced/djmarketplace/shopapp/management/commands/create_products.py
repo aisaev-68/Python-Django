@@ -45,6 +45,10 @@ class Command(BaseCommand):
             with open(path_absolute, 'wb') as f:
                 f.write(request.content)
 
+            discount = value.get('discount')
+            price = decimal.Decimal(value.get('price'))
+            new_price = (price - price * discount / 100)
+
             product = Product.objects.create(
                         name=value.get('name'),
                         brand=value.get('brand'),
@@ -52,8 +56,9 @@ class Command(BaseCommand):
                         attributes=value.get('attributes'),
                         rating=value.get('rating'),
                         created_by=user,
-                        price=decimal.Decimal(value.get('price')),
-                        discount=value.get('discount'),
+                        price=price,
+                        new_price=new_price,
+                        discount=discount,
                         image=file_path,
                         products_count=50,
                         sold=value.get('sold'),

@@ -8,6 +8,7 @@ from django.views.generic import UpdateView, CreateView, DeleteView, DetailView,
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from cart.cart import Cart
 from cart.forms import CartAddProductForm
+from order.models import OrderItem
 from product.forms import ProductModelForm, ShopModelForm
 from product.models import Product, ShopItem
 from shopapp.models import Shop
@@ -87,64 +88,61 @@ class ArchivedProduct(LoginRequiredMixin, DeleteView):
             return super().post(request, *args, **kwargs)
 
 
-class CreateProduct(LoginRequiredMixin, CreateView):
-    # model = Product
-    form_class = ProductModelForm
-    template_name = 'shopapp/create_product.html'
-    success_url = reverse_lazy("products_list")
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['created_by'].widget = HiddenInput()
-        return form
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['created_by'] = self.request.user.id
-        return initial
-
-
-# class CreateProduct(LoginRequiredMixin, View):
-#
+# class CreateProduct(LoginRequiredMixin, CreateView):
+#     # model = Product
+#     form_class = ProductModelForm
+#     template_name = 'shopapp/create_product.html'
 #     success_url = reverse_lazy("products_list")
 #
-#     def get(self, request, *args, **kwargs):
-#         shop_form = ShopModelForm()
-#         form = ProductModelForm()
-#         context = {"shop_form": shop_form, "form": form}
-#         return render(request, "shopapp/create_product.html", context=context)
+#     def get_form(self, form_class=None):
+#         form = super().get_form(form_class)
+#         form.fields['created_by'].widget = HiddenInput()
+#         return form
 #
-#
-#     def post(self, request, *args, **kwargs):
-#         shop_form = ShopModelForm(request.POST)
-#         form = ProductModelForm(request.POST)
-#         shops = request.POST.getlist("shop_name")
-#         print(shop_form.cleaned_data)
-#         if form.is_valid():
-#             print(3333333333333)
-#             # shop_cd = shop_form.cleaned_data["shop_name"]
-#             cd = form.cleaned_data
-#             product = Product.objects.create(
-#                 name=cd["name"],
-#                 brand=cd["brand"],
-#                 description=cd["description"],
-#                 attributes=cd["attributes"],
-#                 rating=cd["rating"],
-#                 created_by=request.user.id,
-#                 price=cd["price"],
-#                 discount=cd["discount"],
-#                 image=cd["image"],
-#                 products_count=cd["products_count"],
-#                 sold=cd["solid"],
-#                 archived=False,
-#             )
-#             for shop in shops:
-#                 ShopItem.objects.create(
-#                     shop_id=shop,
-#                     product_id=product.pk
-#                 )
-#
-#             return redirect(self.success_url)
+#     def get_initial(self):
+#         initial = super().get_initial()
+#         initial['created_by'] = self.request.user.id
+#         return initial
+
+
+class CreateProduct(LoginRequiredMixin, View):
+
+    success_url = reverse_lazy("products_list")
+
+    def get(self, request, *args, **kwargs):
+        form = ProductModelForm()
+        context = {"form": form}
+        return render(request, "shopapp/create_product.html", context=context)
+
+
+    def post(self, request, *args, **kwargs):
+        form = ProductModelForm(request.POST)
+        shops = request.POST.getlist("shop_name")
+        if form.is_valid():
+
+            cd = form.cleaned_data
+            product = Product.objects.create(
+                name=cd["name"],
+                brand=cd["brand"],
+                description=cd["description"],
+                attributes=cd["attributes"],
+                rating=cd["rating"],
+                created_by=request.user.id,
+                price=cd["price"],
+                new_price=cd["price"] - cd["price"] * cd["discount"] / 100,
+                discount=cd["discount"],
+                image=cd["image"],
+                products_count=cd["products_count"],
+                sold=cd["solid"],
+                archived=False,
+            )
+            for shop in shops:
+                ShopItem.objects.create(
+                    shop_id=shop,
+                    product_id=product.pk
+                )
+
+            return redirect(self.success_url)
 
 
 class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
@@ -166,3 +164,8 @@ class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
         # self.request.user.groups.filter(name='Edit').exists()
         return self.request.user.is_superuser or self.request.user == product.created_by
 
+
+class TopSellingReport(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        order_items = OrderItem.objects.prefetch_related("order").prefetch_related("product")
+        print(999999999, [(o.order.created_at, o.product.name, o.quantity) for o in order_items])

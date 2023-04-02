@@ -61,7 +61,7 @@ Cart list
                         </a>
                     </td>
                     <td class="product-name"><a href="{% url 'product_detail' pk=item.product.pk %}">{{ item.product.name|truncatechars:25 }}</a></td>
-                    <td class="product-price"><span class="amount">{{ item.price }}</span></td>
+                    <td class="product-price"><span class="amount">{{ item.new_price }}</span></td>
                     <td class="product-quantity">
                         <form action="{% url 'cart:cart_update' item.product.pk %}" method="post">
 

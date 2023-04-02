@@ -61,3 +61,6 @@ sudo apt install gettext
 
 django-admin makemessages --all --ignore=env
 django-admin compilemessages --ignore=env
+
+
+https://ejudge.lksh.ru/lang_docs/djbook.ru/rel1.9/topics/db/queries.html

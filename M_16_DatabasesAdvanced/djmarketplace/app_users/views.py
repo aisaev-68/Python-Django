@@ -17,9 +17,8 @@ from .forms import LoginForm
 from .models import Profile
 
 
-
 class UserLogin(View):
-    template_name = "registrtion/login.html"
+
     def get(self, request):
         form = LoginForm()
         return render(request, 'registration/login.html', {'form': form})
@@ -29,12 +28,15 @@ class UserLogin(View):
         if form_login.is_valid():
             cd = form_login.cleaned_data
             user = authenticate(username=cd['username'], password=cd['password'])
+
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect("cart:cart_detail")
                 else:
                     return HttpResponse(_('Disabled account'))
+            else:
+                return redirect('login')
 
 
 class AboutMe(LoginRequiredMixin, DetailView):
@@ -64,7 +66,6 @@ class RegisterView(View):
 
         return render(request, 'app_users/register.html', context)
 
-
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(
             request.POST,
@@ -79,8 +80,9 @@ class RegisterView(View):
             'user_form': user_form,
             'profile_form': profile_form
         }
-
+        print('aaaaaaaaaaaaaaaa')
         if user_form.is_valid() and profile_form.is_valid():
+            print('ssssssssssss')
             new_user = user_form.save(commit=False)
             profile = profile_form.save(commit=False)
             password = user_form.cleaned_data['password1']
@@ -100,9 +102,7 @@ class RegisterView(View):
 
             return redirect(reverse('about-me', kwargs={'pk': str(user.pk)}))
 
-
         else:
-
             messages.error(request, _('Profile creation error.'))
 
             return render(request, 'app_users/register.html', context)
@@ -140,6 +140,11 @@ class ProfileView(LoginRequiredMixin, View):
             profile = profile_form.save(commit=False)
             profile.user = user
             user.save()
+            db_profile = Profile.objects.filter(user=request.user).first()
+            if not request.FILES.get('avatar'):
+                image = db_profile.avatar
+                profile.avatar = image
+            profile.status = db_profile.status
             profile.save()
 
             messages.success(request, _('Update profile.'))

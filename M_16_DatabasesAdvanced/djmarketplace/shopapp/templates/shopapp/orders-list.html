@@ -29,6 +29,7 @@ Orders list
         <table class="table">
             <thead>
             <tr>
+                <th>{{ 'N' }}</th>
                 <th>{% trans 'Image' %}</th>
                 <th>{% trans 'Name of product' %}</th>
                 <th>{% trans 'Price' %}</th>
@@ -42,6 +43,9 @@ Orders list
             {% cache 500 order_history %}
             {% for order in orders %}
             <tr>
+                <td>
+                    <p>{{ forloop.counter }}</p>
+                </td>
                 <td>
                     {% if 'http' in order.image.url %}
                     <img src="{{ order.image }}"
@@ -93,5 +97,7 @@ Orders list
 
 </div>
 {% endif %}
+{% else %}
+<h3 class="title_login">{% trans 'You are not logged in!' %}</h3>
 {% endif %}
 {% endblock %}

@@ -28,6 +28,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to=get_upload_path_by_products, verbose_name=_('Image product'),
                               default='images/default_image.jpg')
     discount = models.SmallIntegerField(default=0, verbose_name=_('Discount'))
+    new_price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('New price'))
     sold = models.PositiveSmallIntegerField(default=0, verbose_name=_('Sold'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
     products_count = models.PositiveSmallIntegerField(default=0, verbose_name=_('Count'))
@@ -44,8 +45,9 @@ class Product(models.Model):
         return f"{self.name}"
 
     @property
-    def get_old_price(self):
-        return (self.price - round(self.price * self.discount / 100))
+    def get_new_price(self):
+        return self.new_price
+        # return (self.price - round(self.price * self.discount / 100))
 
     @property
     def progress(self):
@@ -61,7 +63,7 @@ class Product(models.Model):
             "created_by": self.created_by,
             "rating": self.rating,
             "price": self.price,
-            "old_price": self.get_old_price,
+            "new_price": self.new_price,
             "image": self.image,
             "discount": self.discount,
             "sold": self.sold,

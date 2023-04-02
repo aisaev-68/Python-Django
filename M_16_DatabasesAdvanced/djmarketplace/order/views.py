@@ -9,6 +9,7 @@ from django.utils.dateparse import parse_datetime
 from django.views import View
 from django.views.generic import DeleteView, DetailView, UpdateView
 
+from app_users.models import Profile
 from cart.cart import Cart
 from order.forms import OrderModelForm
 from order.models import Order, OrderItem
@@ -62,43 +63,47 @@ class OrderCreate(LoginRequiredMixin, View):
         if form.is_valid():
             address = form.cleaned_data.get('delivery_address')
             promocode = form.cleaned_data.get('promocode')
-            payment = Billing.objects.filter(user=request.user).filter(amount__gt=0).first()
+            payment = Billing.objects.filter(user=request.user).filter(balance__gt=0).first()
 
             if not payment:
                 return render(request, "shopapp/nomoney.html")
 
-
-            if (payment.amount - carts.get_total_price()) < 0:
+            if (payment.balance - carts.get_total_price()) < 0:
                 return render(request, "shopapp/nomoney.html")
 
             for cart in carts:
-                print(1111111111111, cart)
                 prod = Product.objects.filter(name=cart["product"]).first()
-                print(222222, prod.products_count, cart["product"])
-                print(444, cart["product"])
                 if (prod.products_count - cart['quantity']) < 0:
                     return render(request, "shopapp/noproduct.html")
 
                 order = Order.objects.create(
-                        delivery_address=address,
-                        promocode=promocode,
-                        user=request.user,
-                        paid=True,
+                    delivery_address=address,
+                    promocode=promocode,
+                    user=request.user,
+                    paid=True,
                 )
                 OrderItem.objects.create(
-                        order=order,
-                        product=cart['product'],
-                        price=cart['price'],
-                        quantity=cart['quantity'],
+                    order=order,
+                    product=cart['product'],
+                    price=cart['new_price'],
+                    quantity=cart['quantity'],
                 )
                 product = Product.objects.filter(name=cart['product']).first()
 
-
-                product.products_count -= cart['quantity']
+                # product.products_count -= cart['quantity']
                 product.sold += cart['quantity']
                 product.save()
-                payment.amount -= carts.get_total_price()
+
+                payment.balance -= cart['new_price'] * cart['quantity']
                 payment.save()
+
+                user_total_count = len([order for order in Order.objects.filter(user=request.user).all()])
+                if 0 < user_total_count < 5:
+                    Profile.objects.filter(user=request.user).update(status="Junior")
+                elif 5 <= user_total_count < 12:
+                    Profile.objects.filter(user=request.user).update(status="Middle")
+                elif user_total_count >= 12:
+                    Profile.objects.filter(user=request.user).update(status="VIP")
 
             carts.clear()
             url = self.get_success_url()
@@ -110,7 +115,7 @@ class OrderListByUser(LoginRequiredMixin, View):
     def get(self, request: HttpRequest, *args, **kwargs):
         context = []
         orders = Order.objects.filter(user=kwargs['pk']).all()
-        print(33333, len(orders))
+
         if orders:
             for order in orders:
                 orders_data = order.items.all()
@@ -126,6 +131,7 @@ class OrderListByUser(LoginRequiredMixin, View):
                     }
 
                     context.append(dict_order)
+
         return render(request, 'shopapp/orders-list.html', context={"orders": context})
 
 
@@ -190,8 +196,8 @@ class OrdersExport(LoginRequiredMixin, UserPassesTestMixin, View):
                 "user": order.user.pk,
                 "paid": order.paid,
                 "products": [{'name': p.product.name,
-                             'price': p.price,
-                             'quantity': p.quantity,
+                              'price': p.price,
+                              'quantity': p.quantity,
                               'sum': p.get_sum()}
                              for p in order.items.all()]
             }

@@ -54,17 +54,29 @@ class Command(BaseCommand):
             clients_group.permissions.add(perm)
 
         self.stdout.write(self.style.SUCCESS("Groups created"))
-
+        person = Person(locale=Locale.RU)
+        address = Address(locale=Locale.RU)
         super_user = User.objects.create_superuser(
             username='admin',
             first_name='Петр',
             last_name='Петрович',
             email='admin@ya.ru',
             password='12345')
+
+        Profile.objects.create(
+            user=super_user,
+            postal_code=address.postal_code(),
+            country=address.country(),
+            city=address.city(),
+            address=address.address(),
+            phone=person.telephone(),
+        )
         moderator_group = Group.objects.get(name="Moderator")
         super_user.groups.add(moderator_group)
         self.stdout.write(self.style.SUCCESS(f"{super_user} added in Moderator group"))
 
+        person = Person(locale=Locale.RU)
+        address = Address(locale=Locale.RU)
         editor_user = User.objects.create_user(
             username='editor',
             first_name='Борис',
@@ -72,6 +84,14 @@ class Command(BaseCommand):
             email='editor@ya.ru',
             password='12345')
 
+        Profile.objects.create(
+            user=editor_user,
+            postal_code=address.postal_code(),
+            country=address.country(),
+            city=address.city(),
+            address=address.address(),
+            phone=person.telephone(),
+        )
         editor_group = Group.objects.get(name="Editor")
         editor_user.groups.add(editor_group)
 
@@ -95,7 +115,6 @@ class Command(BaseCommand):
                 city=address.city(),
                 address=address.address(),
                 phone=person.telephone(),
-                balance=0,
             )
             client_group = Group.objects.get(name="Clients")
             client_user.groups.add(client_group)

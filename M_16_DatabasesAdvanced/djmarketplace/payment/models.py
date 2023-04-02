@@ -9,15 +9,19 @@ class Billing(models.Model):
     user = models.ForeignKey(User, verbose_name=_('Created by'), on_delete=models.CASCADE, null=True,
                              related_name='billings')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Date of payment/Invoice added'))
-    amount = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Replenishment amount'))
+    replenishment_amount = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Replenishment amount'))
+    balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Balance'))
 
     def __str__(self):
-        return '{} {}'.format(self.user, self.amount)
+        return '{} {}'.format(self.user, self.balance)
 
     class Meta:
         ordering = ('-created_at',)
         verbose_name = _("Billing")
         verbose_name_plural = _("Billings")
+
+    def get_balance(self):
+        return self.balance
 
 
 class Invoice(models.Model):

@@ -9,7 +9,7 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name=_('Delivery address'))
     promocode = models.CharField(max_length=20, null=True, blank=True, verbose_name=_('Promo code'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Create order date'))
-    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('User'))
+    user = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name=_('User'), related_name="orders")
     paid = models.BooleanField(default=False, verbose_name=_('Status'))
 
     class Meta:

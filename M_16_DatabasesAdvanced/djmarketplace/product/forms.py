@@ -40,6 +40,8 @@ class ProductModelForm(ModelForm):
         self.fields["shops"].queryset = Shop.objects.all()
         self.fields['price'].widget.attrs['min'] = 0
         self.fields['price'].widget.attrs['max'] = 10000000
+        self.fields['new_price'].widget.attrs['min'] = 0
+        self.fields['new_price'].widget.attrs['max'] = 10000000
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['rating'].widget.attrs['max'] = 5
         self.fields['discount'].widget.attrs['min'] = 0
@@ -54,5 +56,5 @@ class ProductModelForm(ModelForm):
 
     class Meta:
         model = Product
-        fields = ["shops", "name", "brand", "description", "attributes", "rating", "price", "created_by", "discount", "image",
+        fields = ["shops", "name", "brand", "description", "attributes", "rating", "price", "new_price", "created_by", "discount", "image",
                   "products_count", "sold"]

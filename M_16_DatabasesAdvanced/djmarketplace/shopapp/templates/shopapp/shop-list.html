@@ -106,7 +106,7 @@
                                             <span>({% firstof product.rating '0' %}/5)</span>
                                         </div>
                                         <div class="price mb-10">
-                                            <span style="font-size: 14px;"><del class="me-2">{{ product.price }} {% trans '₽' %}</del> {{ product.to_json.old_price }} {% trans '₽' %}</span>
+                                            <span style="font-size: 14px;"><del class="me-2">{{ product.price }} {% trans '₽' %}</del> {{ product.new_price }} {% trans '₽' %}</span>
                                         </div>
                                         <div class="progress mb-5">
                                             <div class="progress-bar bg-danger" role="progressbar" style="width: {{ product.to_json.progress }}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
