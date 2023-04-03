@@ -3,6 +3,7 @@ from app_users.models import Profile
 from order.models import Order, OrderItem
 from product.models import Product
 from shopapp.models import Shop
+from payment.models import Billing
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -10,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'avatar', "user", 'country', 'postal_code', 'city', 'address', "phone", "balance",)
+        fields = ('id', 'avatar', "user", 'country', 'postal_code', 'city', 'address', "phone",)
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -24,7 +25,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     """Сериалайзер модели OrderItem"""
     class Meta:
         model = OrderItem
-        fields = ('id', "product", "price", "quantity",)
+        fields = ('id', "product", "total_price", "quantity",)
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -32,7 +33,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ("id", "name", "shops", "description", "attributes", "rating", "created_by", "created_at", "price",
-                  "discount", "image", "products_count", "sold", "archived", "brand",)
+                  "discount", "new_price", "image", "products_count", "sold", "archived", "brand",)
 
 
 class ShopSerializer(serializers.ModelSerializer):
@@ -42,13 +43,8 @@ class ShopSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'address', )
 
 
-# class StringListSerializer(serializers.ListSerializer):
-#     child = serializers.CharField()
-
-
-# class BookSerializer(serializers.ModelSerializer):
-#     """Сериалайзер модели Книга"""
-#     authors_names = StringListSerializer()
-#     class Meta:
-#         model = models.Book
-#         fields = ('id', 'title', 'isbn', 'publication_date', 'pages', 'authors', 'authors_names',)
+class BillingSerializer(serializers.ModelSerializer):
+    """Сериалайзер модели Billing"""
+    class Meta:
+        model = Billing
+        fields = ('id', 'user', 'created_at', 'replenishment_amount', 'balance' )

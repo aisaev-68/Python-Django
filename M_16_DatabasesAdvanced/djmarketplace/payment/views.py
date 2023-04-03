@@ -24,7 +24,7 @@ class BillView(LoginRequiredMixin, View):
                 user_amount = Billing.objects.filter(user=user).filter(balance__gt=0).first()
 
                 if user_amount:
-                    print(8888, user_amount, request.user)
+
                     Billing.objects.create(
                         replenishment_amount=cd,
                         balance=cd + user_amount.balance,
@@ -33,7 +33,7 @@ class BillView(LoginRequiredMixin, View):
                     user_amount.balance = 0
                     user_amount.save()
                 else:
-                    print(9999, user_amount, request.user)
+
                     Billing.objects.create(
                         replenishment_amount=cd,
                         balance=cd,
@@ -48,7 +48,7 @@ class HistoryBillView(LoginRequiredMixin, View):
         context = {
             "payments": Billing.objects.filter(user=request.user).all()
         }
-        print(111111111111111111, context)
+
         return render(request, "shopapp/balance_history.html", context=context)
 
 

@@ -91,23 +91,6 @@ class ArchivedProduct(LoginRequiredMixin, DeleteView):
             return super().post(request, *args, **kwargs)
 
 
-# class CreateProduct(LoginRequiredMixin, CreateView):
-#     # model = Product
-#     form_class = ProductModelForm
-#     template_name = 'shopapp/create_product.html'
-#     success_url = reverse_lazy("products_list")
-#
-#     def get_form(self, form_class=None):
-#         form = super().get_form(form_class)
-#         form.fields['created_by'].widget = HiddenInput()
-#         return form
-#
-#     def get_initial(self):
-#         initial = super().get_initial()
-#         initial['created_by'] = self.request.user.id
-#         return initial
-
-
 class CreateProduct(LoginRequiredMixin, View):
 
     success_url = reverse_lazy("products_list")
@@ -164,17 +147,12 @@ class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
 
     def test_func(self):
         product = Product.objects.get(pk=self.kwargs['pk'])
-        # self.request.user.groups.filter(name='Edit').exists()
         return self.request.user.is_superuser or self.request.user == product.created_by
 
 
 class TopSellingReport(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
-        # orders = OrderItem.objects.filter(
-        #     order__created_at__lte=datetime.datetime.today(), order__created_at__gt=datetime.datetime.today() - datetime.timedelta(days=7)
-        # ).annotate(total=Sum('quantity')).order_by(
-        #     '-total')[:10]
         products = Product.objects.filter(
             order_items__order__created_at__lte=datetime.datetime.today(), order_items__order__created_at__gt=datetime.datetime.today() - datetime.timedelta(days=7)
         ).annotate(total=Sum('order_items__quantity')).order_by(

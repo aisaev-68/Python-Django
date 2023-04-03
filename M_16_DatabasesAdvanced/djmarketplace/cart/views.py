@@ -23,16 +23,10 @@ class CartDetail(View):
 
 
 class CartAdd(View):
-    # def get_success_url(self):
-    #     return reverse_lazy(
-    #         "products_by_shop",
-    #         kwargs={"pk": self.kwargs},
-    #     )
     def post(self, request: HttpRequest, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=product_id)
-        print(6666, request.META['HTTP_REFERER'])
-        # shops = ShopItem.objects.get(product_id=product_id)
+
         cart.add(
             product=product,
             quantity=1,
@@ -40,7 +34,6 @@ class CartAdd(View):
         )
 
         return redirect(request.META['HTTP_REFERER'])
-        # return render(request, 'shopapp/shop-list.html')
 
 
 class CartDelete(View):
@@ -73,5 +66,3 @@ class CartUpdate(View):
                     update_quantity=cd['update'],
                 )
         return redirect('cart:cart_detail')
-
-        # return render(request, 'shopapp/cart.html', context={'cart': cart, 'form': form, 'message': f'Only {product.products_count} products left.'})

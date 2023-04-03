@@ -80,9 +80,9 @@ class RegisterView(View):
             'user_form': user_form,
             'profile_form': profile_form
         }
-        print('aaaaaaaaaaaaaaaa')
+
         if user_form.is_valid() and profile_form.is_valid():
-            print('ssssssssssss')
+
             new_user = user_form.save(commit=False)
             profile = profile_form.save(commit=False)
             password = user_form.cleaned_data['password1']
