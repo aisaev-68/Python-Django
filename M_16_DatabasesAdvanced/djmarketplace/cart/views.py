@@ -38,7 +38,7 @@ class CartAdd(View):
             quantity=1,
             update_quantity=False,
         )
-        print(77777, product)
+
         return redirect(request.META['HTTP_REFERER'])
         # return render(request, 'shopapp/shop-list.html')
 

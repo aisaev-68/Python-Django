@@ -1,4 +1,7 @@
+import datetime
+
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.db.models import Sum
 from django.forms import HiddenInput
 from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect
@@ -167,5 +170,16 @@ class UpdateProduct(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
 
 class TopSellingReport(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        order_items = OrderItem.objects.prefetch_related("order").prefetch_related("product")
-        print(999999999, [(o.order.created_at, o.product.name, o.quantity) for o in order_items])
+
+        # orders = OrderItem.objects.filter(
+        #     order__created_at__lte=datetime.datetime.today(), order__created_at__gt=datetime.datetime.today() - datetime.timedelta(days=7)
+        # ).annotate(total=Sum('quantity')).order_by(
+        #     '-total')[:10]
+        products = Product.objects.filter(
+            order_items__order__created_at__lte=datetime.datetime.today(), order_items__order__created_at__gt=datetime.datetime.today() - datetime.timedelta(days=7)
+        ).annotate(total=Sum('order_items__quantity')).order_by(
+            '-total')[:10]
+        context = {
+            "products": products
+        }
+        return render(request, "shopapp/top_selling_report.html", context=context)

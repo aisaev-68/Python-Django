@@ -134,13 +134,13 @@ class ProfileView(LoginRequiredMixin, View):
             request.FILES,
             instance=request.user.profiles
         )
-
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save(commit=False)
             profile = profile_form.save(commit=False)
             profile.user = user
             user.save()
             db_profile = Profile.objects.filter(user=request.user).first()
+
             if not request.FILES.get('avatar'):
                 image = db_profile.avatar
                 profile.avatar = image

@@ -12,7 +12,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = "product", "price", "quantity",
+    list_display = "product", "total_price", "quantity",
 
 
 @admin.register(Order)

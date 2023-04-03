@@ -186,8 +186,8 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['status'].widget = HiddenInput()
-        self.fields['status'].label = ''
+        # self.fields['status'].widget = HiddenInput()
+        # self.fields['status'].label = ''
         # self.fields["status"].widget.attrs = {'readonly': 'readonly'}
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
@@ -195,4 +195,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'country', 'postal_code', 'city', 'address', 'phone', "status"]
+        fields = ['avatar', 'country', 'postal_code', 'city', 'address', 'phone', ]

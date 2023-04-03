@@ -43,6 +43,8 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(self.avatar.path)
-        if img.height > 100 or img.width > 100:
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        if img.height > 300 or img.width > 300:
             img.thumbnail((100, 100))
         img.save(self.avatar.path, quality=70, optimize=True)

@@ -40,7 +40,7 @@ Orders list
             </tr>
             </thead>
             <tbody>
-            {% cache 500 order_history %}
+
             {% for order in orders %}
             <tr>
                 <td>
@@ -81,7 +81,6 @@ Orders list
                 </td>
             </tr>
             {% endfor %}
-            {% endcache %}
             </tbody>
         </table>
     </div>

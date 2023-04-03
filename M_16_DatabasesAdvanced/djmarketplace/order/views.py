@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import HiddenInput
+from django.db.models import Sum
 from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -85,7 +86,7 @@ class OrderCreate(LoginRequiredMixin, View):
                 OrderItem.objects.create(
                     order=order,
                     product=cart['product'],
-                    price=cart['new_price'],
+                    total_price=cart['new_price'] * cart['quantity'],
                     quantity=cart['quantity'],
                 )
                 product = Product.objects.filter(name=cart['product']).first()
@@ -96,13 +97,14 @@ class OrderCreate(LoginRequiredMixin, View):
 
                 payment.balance -= cart['new_price'] * cart['quantity']
                 payment.save()
+                queryset = OrderItem.objects.filter(order__user=request.user).aggregate(Sum("total_price"))
+                total = queryset["total_price__sum"]
 
-                user_total_count = len([order for order in Order.objects.filter(user=request.user).all()])
-                if 0 < user_total_count < 5:
+                if 5000 < total < 15000:
                     Profile.objects.filter(user=request.user).update(status="Junior")
-                elif 5 <= user_total_count < 12:
+                elif 15000 <= total < 50000:
                     Profile.objects.filter(user=request.user).update(status="Middle")
-                elif user_total_count >= 12:
+                elif total >= 50000:
                     Profile.objects.filter(user=request.user).update(status="VIP")
 
             carts.clear()
@@ -123,9 +125,9 @@ class OrderListByUser(LoginRequiredMixin, View):
                     dict_order = {
                         'image': order_product.product.image,
                         'name': order_product.product.name,
-                        'price': order_product.price,
+                        'price': order_product.product.new_price,
                         'count': order_product.quantity,
-                        'sum': order_product.get_sum,
+                        'sum': order_product.total_price,
                         'created_at': order.created_at,
                         'delivery_address': order.delivery_address,
                     }
