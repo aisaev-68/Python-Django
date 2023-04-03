@@ -46,19 +46,11 @@ python manage.py runserver
 ```
 http://127.0.0.1:8080/swagger/
 ```
-2. Получение списка авторов
+2. Сайт
 ```
-http://127.0.0.1:8080/api/authors/
+http://127.0.0.1:8080
 ```
 
-3. Получение списка книг
-```
-http://127.0.0.1:8080/api/books/
-```
-2. Получение детальной информации о книге, редактирование и удаление
-```
-http://127.0.0.1:8080/api/books/detail/<id books>
-```
 sudo apt install gettext
 
 django-admin makemessages --all --ignore=env
