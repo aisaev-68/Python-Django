@@ -733,7 +733,7 @@ msgstr "Добавить продукт"
 #: shopapp/templates/shopapp/shop-list.html:115
 #: shopapp/templates/shopapp/shop-list.html:253
 msgid "Sold:"
-msgstr ""
+msgstr "Продано:"
 
 #: shopapp/templates/shopapp/shop-list.html:124
 #: shopapp/templates/shopapp/shop-list.html:260
