@@ -27,7 +27,7 @@ with open('phones.csv', 'r', newline='') as csvfile:
             if (ind + 1) % 2 == 0:
                 data[str(BeautifulSoup(str(d[ind - 1]), 'html.parser').get_text())] = str(BeautifulSoup(str(d[ind]), 'html.parser').get_text())
 
-            print(data)
+        print(data)
 
         break
     #     if len(a) > 1:
