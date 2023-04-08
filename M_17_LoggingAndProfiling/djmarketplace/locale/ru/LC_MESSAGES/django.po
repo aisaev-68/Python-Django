@@ -1,0 +1,758 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-03 20:12+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: app_users/forms.py:11
+msgid "Username"
+msgstr "Пользователь*"
+
+#: app_users/forms.py:16 app_users/forms.py:86
+msgid "User*"
+msgstr "Пользователь*"
+
+#: app_users/forms.py:23
+msgid "Password"
+msgstr "Пароль"
+
+#: app_users/forms.py:27 app_users/forms.py:92 app_users/forms.py:96
+msgid "Password*"
+msgstr "Пароль*"
+
+#: app_users/forms.py:37 app_users/forms.py:41
+msgid "First name*"
+msgstr "Имя*"
+
+#: app_users/forms.py:47 app_users/forms.py:51
+msgid "Last name*"
+msgstr "Фамилия*"
+
+#: app_users/forms.py:58 app_users/forms.py:62
+msgid "Email*"
+msgstr "Email*"
+
+#: app_users/forms.py:82
+msgid "Username*"
+msgstr "Пользователь*"
+
+#: app_users/forms.py:103 app_users/forms.py:107
+msgid "Repeat password*"
+msgstr "Повторный пароль*"
+
+#: app_users/forms.py:127 app_users/forms.py:131
+msgid "Country*"
+msgstr "Страна*"
+
+#: app_users/forms.py:137 app_users/forms.py:140 app_users/models.py:29
+msgid "Postal code"
+msgstr "Почтовый индекс"
+
+#: app_users/forms.py:146 app_users/forms.py:150 app_users/models.py:30
+msgid "City"
+msgstr "Город"
+
+#: app_users/forms.py:156 app_users/forms.py:160 app_users/models.py:31
+#: shopapp/models.py:8
+msgid "Address"
+msgstr "Адрес"
+
+#: app_users/forms.py:167 app_users/forms.py:172
+msgid "Phone*"
+msgstr "Номер телефона*"
+
+#: app_users/forms.py:178 app_users/forms.py:182 app_users/models.py:24
+msgid "Avatar"
+msgstr "Аватар"
+
+#: app_users/models.py:22 order/models.py:12
+msgid "User"
+msgstr "Пользователь"
+
+#: app_users/models.py:28
+msgid "Country"
+msgstr "Страна"
+
+#: app_users/models.py:32
+msgid "Phone"
+msgstr "Номер телефона"
+
+#: app_users/models.py:33 order/models.py:13 product/models.py:35
+msgid "Status"
+msgstr "Статус"
+
+#: app_users/models.py:39 shopapp/templates/shopapp/base.html:242
+msgid "Profile"
+msgstr "Профиль"
+
+#: app_users/models.py:40
+msgid "Profiles"
+msgstr "Профили"
+
+#: app_users/templates/app_users/about-me.html:12
+#: app_users/templates/app_users/profile.html:11
+msgid "User profile"
+msgstr "Профиль пользователя"
+
+#: app_users/templates/app_users/about-me.html:26
+msgid "Username:"
+msgstr "Пользователь:"
+
+#: app_users/templates/app_users/about-me.html:29
+msgid "Email:"
+msgstr "Email:"
+
+#: app_users/templates/app_users/about-me.html:32
+msgid "Country:"
+msgstr "Страна:"
+
+#: app_users/templates/app_users/about-me.html:35
+msgid "Postal code:"
+msgstr "Почтовый индекс:"
+
+#: app_users/templates/app_users/about-me.html:38
+msgid "City:"
+msgstr "Город:"
+
+#: app_users/templates/app_users/about-me.html:41
+msgid "Address:"
+msgstr "Адрес:"
+
+#: app_users/templates/app_users/about-me.html:44
+msgid "Phone:"
+msgstr "Номер телефона:"
+
+#: app_users/templates/app_users/about-me.html:48
+#: app_users/templates/app_users/profile.html:17
+#: app_users/templates/app_users/update_profile.html:16
+#: shopapp/templates/shopapp/cart.html:71
+msgid "Update"
+msgstr "Обновить"
+
+#: app_users/templates/app_users/about-me.html:51
+#: app_users/templates/app_users/profile.html:19
+msgid "Cancel"
+msgstr "Отмена"
+
+#: app_users/templates/app_users/about-me.html:63
+#: app_users/templates/app_users/profile.html:24
+msgid "You are not identified!"
+msgstr "Вы не идентифицированы!"
+
+#: app_users/templates/app_users/create_profile.html:15
+msgid "Save"
+msgstr "Сохранить"
+
+#: app_users/templates/app_users/profile.html:18
+msgid "Reset"
+msgstr "Сбросить"
+
+#: app_users/templates/app_users/register.html:6
+#: shopapp/templates/shopapp/base.html:235
+msgid "Registration"
+msgstr "Регистрация"
+
+#: app_users/templates/app_users/register.html:9
+msgid "The entered data is not correct."
+msgstr "Введенные данные неверны."
+
+#: app_users/templates/app_users/register.html:10
+#: app_users/templates/registration/login.html:14
+#: shopapp/templates/shopapp/account_top_up.html:31
+#: shopapp/templates/shopapp/create_product.html:14
+msgid "Please try again."
+msgstr "Пожалуйста, попробуйте еще раз."
+
+#: app_users/templates/app_users/register.html:13
+msgid "Please, use the following form to registration:"
+msgstr "Пожалуйста, используйте следующую форму для регистрации:"
+
+#: app_users/templates/app_users/register.html:34
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: app_users/templates/app_users/update_profile.html:10
+msgid "Update profile"
+msgstr "Обновить профиль"
+
+#: app_users/templates/app_users/update_profile.html:21
+msgid "You are not logged in"
+msgstr "Вы не авторизованы"
+
+#: app_users/templates/registration/login.html:5
+#: app_users/templates/registration/login.html:10
+#: app_users/templates/registration/login.html:30
+msgid "Log-in"
+msgstr "Вход"
+
+#: app_users/templates/registration/login.html:17
+msgid "Please, use the following form to log-in:"
+msgstr "Пожалуйста, используйте следующую форму для входа:"
+
+#: app_users/views.py:37
+msgid "Disabled account"
+msgstr "Аккаунт отключен"
+
+#: app_users/views.py:98
+msgid "Created profile."
+msgstr "Создан профиль."
+
+#: app_users/views.py:106
+msgid "Profile creation error."
+msgstr "Ошибка создания профиля."
+
+#: app_users/views.py:150
+msgid "Update profile."
+msgstr "Обновить профиль."
+
+#: app_users/views.py:159
+msgid "Profile update error."
+msgstr "Ошибка обновления профиля."
+
+#: djmarketplace/settings.py:119
+msgid "English"
+msgstr "Английский"
+
+#: djmarketplace/settings.py:120
+msgid "Russian"
+msgstr "Русский"
+
+#: order/admin.py:28
+msgid "user"
+msgstr "пользователь"
+
+#: order/admin.py:33 product/admin.py:75
+msgid "created_at"
+msgstr "дата создания"
+
+#: order/forms.py:17 order/models.py:9
+#: shopapp/templates/shopapp/orders-list.html:39
+msgid "Delivery address"
+msgstr "Адрес доставки"
+
+#: order/forms.py:18
+msgid "Promocode"
+msgstr "Промокод"
+
+#: order/models.py:10
+msgid "Promo code"
+msgstr "Промокод"
+
+#: order/models.py:11
+msgid "Create order date"
+msgstr "Дата создания заказа"
+
+#: order/models.py:17
+msgid "Order"
+msgstr "Заказ"
+
+#: order/models.py:18 order/models.py:25
+#: shopapp/templates/shopapp/base.html:383
+msgid "Orders"
+msgstr "Заказы"
+
+#: order/models.py:27 payment/models.py:33 product/models.py:18
+#: product/models.py:86
+msgid "Products"
+msgstr "Продукты"
+
+#: order/models.py:28
+msgid "Total price"
+msgstr "Общая сумма"
+
+#: order/models.py:29 shopapp/templates/shopapp/cart.html:39
+msgid "Quantity"
+msgstr "Количество"
+
+#: payment/models.py:9 payment/models.py:28 product/models.py:25
+msgid "Created by"
+msgstr "Кем создан"
+
+#: payment/models.py:11
+msgid "Date of payment/Invoice added"
+msgstr "Дата платежа/счет добавлен"
+
+#: payment/models.py:12 shopapp/templates/shopapp/balance_history.html:33
+msgid "Replenishment amount"
+msgstr "Сумма пополнения"
+
+#: payment/models.py:13 shopapp/templates/shopapp/base.html:400
+msgid "Balance"
+msgstr "Баланс"
+
+#: payment/models.py:20
+msgid "Billing"
+msgstr "Счет"
+
+#: payment/models.py:21
+msgid "Billings"
+msgstr "Счета"
+
+#: payment/models.py:30
+msgid "Date of payment for the goods"
+msgstr "Дата оплаты товара"
+
+#: payment/models.py:31
+msgid "Payment amount"
+msgstr "К оплате"
+
+#: payment/models.py:43
+msgid "Invoice"
+msgstr "Счет"
+
+#: payment/models.py:44
+msgid "Invoices"
+msgstr "Счеты"
+
+#: product/admin.py:23
+msgid "Archive products"
+msgstr ""
+
+#: product/admin.py:28
+msgid "Unarchive products"
+msgstr ""
+
+#: product/admin.py:54
+msgid "Price options"
+msgstr "Опции стоимости"
+
+#: product/admin.py:58
+msgid "Extra options"
+msgstr "Дополнительные опции"
+
+#: product/admin.py:61
+msgid "Extra options. Field 'archived' is for soft delete"
+msgstr "Дополнительные опции. Поле «в архиве» предназначено для мягкого удаления."
+
+#: product/admin.py:70
+msgid "description"
+msgstr "описание"
+
+#: product/models.py:17
+msgid "Product"
+msgstr "Продукт"
+
+#: product/models.py:21 product/models.py:85 shopapp/models.py:17
+#: shopapp/templates/shopapp/base.html:352
+#: shopapp/templates/shopapp/base.html:356
+#: shopapp/templates/shopapp/shop-list.html:30
+msgid "Shops"
+msgstr "Магазины"
+
+#: product/models.py:22
+msgid "Name"
+msgstr "Название"
+
+#: product/models.py:23 shopapp/templates/shopapp/product_detail.html:160
+msgid "Description"
+msgstr "Описание"
+
+#: product/models.py:24
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: product/models.py:26
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: product/models.py:27 shopapp/templates/shopapp/base.html:484
+#: shopapp/templates/shopapp/cart.html:38
+#: shopapp/templates/shopapp/orders-list.html:35
+#: shopapp/templates/shopapp/products-list.html:32
+#: shopapp/templates/shopapp/top_selling_report.html:32
+msgid "Price"
+msgstr "Цена"
+
+#: product/models.py:28
+msgid "Image product"
+msgstr "Изображение продукта"
+
+#: product/models.py:30
+msgid "Discount"
+msgstr "Скидка"
+
+#: product/models.py:31
+msgid "New price"
+msgstr "Новая цена"
+
+#: product/models.py:32
+msgid "Sold"
+msgstr "Продано"
+
+#: product/models.py:33
+msgid "Created date"
+msgstr "Дата создания"
+
+#: product/models.py:34 shopapp/templates/shopapp/orders-list.html:36
+#: shopapp/templates/shopapp/top_selling_report.html:33
+msgid "Count"
+msgstr "Количество"
+
+#: product/models.py:36
+msgid "Brand"
+msgstr "Бренд"
+
+#: product/models.py:82
+msgid "Shop product"
+msgstr ""
+
+#: product/models.py:83
+msgid "Shop products"
+msgstr ""
+
+#: shopapp/forms.py:7
+msgid "First name"
+msgstr "Имя"
+
+#: shopapp/forms.py:8
+msgid "Last name"
+msgstr "Фамилия"
+
+#: shopapp/forms.py:10
+msgid "Message"
+msgstr "Сообщение"
+
+#: shopapp/management/commands/create_groups.py:16
+msgid "Creates read only default permission groups for users"
+msgstr "Создает группы разрешений по умолчанию только для чтения для пользователей"
+
+#: shopapp/models.py:7
+msgid "Name of shop"
+msgstr "Название магазина"
+
+#: shopapp/models.py:16
+msgid "Shop"
+msgstr "Магазин"
+
+#: shopapp/templates/shopapp/account_top_up.html:18
+#: shopapp/templates/shopapp/balance_history.html:18
+#: shopapp/templates/shopapp/base.html:345
+#: shopapp/templates/shopapp/base.html:483
+#: shopapp/templates/shopapp/cart.html:19
+#: shopapp/templates/shopapp/orders-list.html:18
+#: shopapp/templates/shopapp/products-list.html:16
+#: shopapp/templates/shopapp/products-list.html:50
+#: shopapp/templates/shopapp/shop-list.html:18
+#: shopapp/templates/shopapp/top_selling_report.html:16
+msgid "Home"
+msgstr "Главная"
+
+#: shopapp/templates/shopapp/account_top_up.html:19
+#: shopapp/templates/shopapp/account_top_up.html:27
+msgid "Account top-up"
+msgstr "Пополнение счета"
+
+#: shopapp/templates/shopapp/account_top_up.html:34
+msgid "Please, enter the invoice amount:"
+msgstr "Пожалуйста, введите сумму счета:"
+
+#: shopapp/templates/shopapp/account_top_up.html:46
+msgid "Top Up"
+msgstr "Пополнить"
+
+#: shopapp/templates/shopapp/balance_history.html:19
+#: shopapp/templates/shopapp/base.html:411
+msgid "Top up history"
+msgstr "История пополнения"
+
+#: shopapp/templates/shopapp/balance_history.html:34
+msgid "Replenishment amount date"
+msgstr "Дата пополнения суммы"
+
+#: shopapp/templates/shopapp/balance_history.html:62
+msgid "You have no payments."
+msgstr "У вас нет платежей."
+
+#: shopapp/templates/shopapp/balance_history.html:63
+#: shopapp/templates/shopapp/cart.html:112
+#: shopapp/templates/shopapp/orders-list.html:93
+msgid "Choose the product you need from the catalog of the online store"
+msgstr "Выберите нужный вам товар из каталога интернет-магазина"
+
+#: shopapp/templates/shopapp/balance_history.html:63
+#: shopapp/templates/shopapp/cart.html:112
+#: shopapp/templates/shopapp/orders-list.html:93
+msgid "and add to cart"
+msgstr "и добавьте в корзину"
+
+#: shopapp/templates/shopapp/balance_history.html:64
+#: shopapp/templates/shopapp/cart.html:113
+#: shopapp/templates/shopapp/orders-list.html:94
+msgid "To catalog"
+msgstr "В каталог"
+
+#: shopapp/templates/shopapp/base.html:155
+msgid "Currency: USD"
+msgstr "Валюта:РУБ"
+
+#: shopapp/templates/shopapp/base.html:159
+msgid "Need Help?"
+msgstr "Нужна помощь?"
+
+#: shopapp/templates/shopapp/base.html:172
+msgid "About Us"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:173
+#: shopapp/templates/shopapp/base.html:486
+msgid "Contact"
+msgstr "Контакт"
+
+#: shopapp/templates/shopapp/base.html:174
+msgid "FAQs"
+msgstr ""
+
+#: shopapp/templates/shopapp/base.html:212
+msgid "My Account"
+msgstr "Аккаунт"
+
+#: shopapp/templates/shopapp/base.html:231
+msgid "Log In"
+msgstr "Вход"
+
+#: shopapp/templates/shopapp/base.html:249
+msgid "Log Out"
+msgstr "Выход"
+
+#: shopapp/templates/shopapp/base.html:265
+msgid "Your Cart:"
+msgstr "Ваша корзина:"
+
+#: shopapp/templates/shopapp/base.html:274
+msgid "Your Cart"
+msgstr "Ваша корзина"
+
+#: shopapp/templates/shopapp/base.html:275
+msgid "Item in Cart"
+msgstr "Товар в корзине"
+
+#: shopapp/templates/shopapp/base.html:312
+#: shopapp/templates/shopapp/cart.html:40
+msgid "Total"
+msgstr "Сумма"
+
+#: shopapp/templates/shopapp/base.html:317
+msgid "View cart"
+msgstr "Посмотреть корзину"
+
+#: shopapp/templates/shopapp/base.html:364
+#: shopapp/templates/shopapp/create_product.html:10
+msgid "Add product"
+msgstr "Добавить продукт"
+
+#: shopapp/templates/shopapp/base.html:370
+#: shopapp/templates/shopapp/products-list.html:17
+msgid "Product list"
+msgstr "Список продуктов"
+
+#: shopapp/templates/shopapp/base.html:375
+msgid "Top Selling Report"
+msgstr "Отчет о самых популярных продажах"
+
+#: shopapp/templates/shopapp/base.html:387
+msgid "History of orders"
+msgstr "История заказов"
+
+#: shopapp/templates/shopapp/base.html:406
+msgid "Top up balance"
+msgstr "Пополнить баланс"
+
+#: shopapp/templates/shopapp/base.html:485
+msgid "Blog"
+msgstr "Блог"
+
+#: shopapp/templates/shopapp/cart.html:20
+msgid "Cart"
+msgstr "Корзина"
+
+#: shopapp/templates/shopapp/cart.html:36
+msgid "Images"
+msgstr "Изображения"
+
+#: shopapp/templates/shopapp/cart.html:37
+#: shopapp/templates/shopapp/products-list.html:30
+#: shopapp/templates/shopapp/top_selling_report.html:31
+msgid "Product name"
+msgstr "Название продукта"
+
+#: shopapp/templates/shopapp/cart.html:41
+msgid "Remove"
+msgstr "Удалить"
+
+#: shopapp/templates/shopapp/cart.html:98
+msgid "Cart totals"
+msgstr "Сумма"
+
+#: shopapp/templates/shopapp/cart.html:102
+msgid "Checkout"
+msgstr ""
+
+#: shopapp/templates/shopapp/cart.html:111
+msgid "Your basket is empty."
+msgstr "Ваша корзина пуста."
+
+#: shopapp/templates/shopapp/contact.html:9
+msgid "Send message:"
+msgstr "Отправить сообщение:"
+
+#: shopapp/templates/shopapp/contact.html:21
+msgid "Send"
+msgstr "Отправить"
+
+#: shopapp/templates/shopapp/create_product.html:17
+msgid "Please, use the following form to product add:"
+msgstr "Пожалуйста, используйте следующую форму для добавления товара:"
+
+#: shopapp/templates/shopapp/create_product.html:30
+msgid "Add"
+msgstr "Добавить"
+
+#: shopapp/templates/shopapp/create_product.html:35
+msgid "Back to"
+msgstr "Назад"
+
+#: shopapp/templates/shopapp/create_product.html:41
+#: shopapp/templates/shopapp/delete_product.html:19
+#: shopapp/templates/shopapp/orders-list.html:100
+#: shopapp/templates/shopapp/products-list.html:56
+#: shopapp/templates/shopapp/top_selling_report.html:51
+msgid "You are not logged in!"
+msgstr "Вы не авторизованы!"
+
+#: shopapp/templates/shopapp/delete_product.html:8
+msgid "Delete product"
+msgstr "Удалить продукт"
+
+#: shopapp/templates/shopapp/delete_product.html:13
+msgid "Yes"
+msgstr "Да"
+
+#: shopapp/templates/shopapp/delete_product.html:14
+msgid "No"
+msgstr "Нет"
+
+#: shopapp/templates/shopapp/nomoney.html:15
+msgid "You dont have enough funds in your account."
+msgstr "У вас недостаточно средств на счету."
+
+#: shopapp/templates/shopapp/nomoney.html:16
+msgid "Please recharge your account and try again."
+msgstr "Пожалуйста, пополните свой счет и повторите попытку."
+
+#: shopapp/templates/shopapp/nomoney.html:17
+msgid "To account"
+msgstr "К счету"
+
+#: shopapp/templates/shopapp/noproduct.html:15
+msgid "Not enough goods in stock."
+msgstr "Товара на складе недостаточно."
+
+#: shopapp/templates/shopapp/noproduct.html:16
+msgid "Please, reduce the quantity."
+msgstr "Пожалуйста, уменьшите количество."
+
+#: shopapp/templates/shopapp/noproduct.html:17
+msgid "To cart"
+msgstr "К корзине"
+
+#: shopapp/templates/shopapp/orders-list.html:19
+msgid "History orders"
+msgstr "История заказов"
+
+#: shopapp/templates/shopapp/orders-list.html:33
+msgid "Image"
+msgstr "Изображение"
+
+#: shopapp/templates/shopapp/orders-list.html:34
+msgid "Name of product"
+msgstr "Название продукта"
+
+#: shopapp/templates/shopapp/orders-list.html:37
+msgid "Sum"
+msgstr "Сумма"
+
+#: shopapp/templates/shopapp/orders-list.html:38
+msgid "Purchase date"
+msgstr "Дата покупки"
+
+#: shopapp/templates/shopapp/orders-list.html:92
+msgid "You have no orders."
+msgstr "У вас нет заказов."
+
+#: shopapp/templates/shopapp/product_detail.html:85
+#: shopapp/templates/shopapp/shop-list.html:109
+msgid "₽"
+msgstr ""
+
+#: shopapp/templates/shopapp/product_detail.html:96
+#: shopapp/templates/shopapp/shop-list.html:252
+msgid "Availability:"
+msgstr "Доступно"
+
+#: shopapp/templates/shopapp/product_detail.html:166
+msgid "Additional information"
+msgstr "Дополнительная информация"
+
+#: shopapp/templates/shopapp/products-list.html:25
+msgid "The cost of products for"
+msgstr "Стоимость продукции для"
+
+#: shopapp/templates/shopapp/products-list.html:31
+msgid "Discount percentage"
+msgstr "Процент скидки"
+
+#: shopapp/templates/shopapp/products-list.html:33
+msgid "Create date"
+msgstr "Дата создания"
+
+#: shopapp/templates/shopapp/products-list.html:47
+#: shopapp/templates/shopapp/top_selling_report.html:47
+msgid "No production"
+msgstr "Нет продуктов"
+
+#: shopapp/templates/shopapp/products-list.html:52
+msgid "Add new product"
+msgstr "Добавить продукт"
+
+#: shopapp/templates/shopapp/shop-list.html:115
+#: shopapp/templates/shopapp/shop-list.html:253
+msgid "Sold:"
+msgstr "Продано:"
+
+#: shopapp/templates/shopapp/shop-list.html:124
+#: shopapp/templates/shopapp/shop-list.html:260
+msgid "Add to cart"
+msgstr "В корзину"
+
+#: shopapp/templates/shopapp/shop-list.html:267
+msgid "Categories:"
+msgstr "Категории"
+
+#: shopapp/templates/shopapp/shop-list.html:271
+msgid "Tags:"
+msgstr "Таги"
+
+#: shopapp/templates/shopapp/top_selling_report.html:17
+#: shopapp/templates/shopapp/top_selling_report.html:25
+msgid "Top selling report"
+msgstr "Отчет о самых продаваемых"
+
+#: shopapp/templates/shopapp/top_selling_report.html:30
+msgid "Product ID"
+msgstr "ID продукта"

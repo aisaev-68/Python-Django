@@ -1,0 +1,53 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+
+{% block title %}
+Products list
+{% endblock %}
+
+{% block section %}
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'shops' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'Top selling report' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% if request.user.is_authenticated %}
+<h3 class="title_action">{% trans 'Top selling report' %} {% now "Y-m-d" %}</h3>
+{% if products %}
+<div class="table-content table-responsive">
+    <table class="table">
+    <tr>
+        <th class="text-center">{% trans 'Product ID' %}</th>
+        <th class="text-center">{% trans 'Product name' %}</th>
+        <th class="text-center">{% trans 'Price' %}</th>
+        <th class="text-center">{% trans 'Count' %}</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td class="text-center">{{ product.id }}</td>
+        <td class="px-3"><a class="text-primary" href="{% url 'product_detail' pk=product.pk %}">{{ product.name|title }}</a></td>
+        <td class="text-center">{{ product.new_price }}</td>
+        <td class="text-center">{{ product.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% else %}
+<h3>{% trans 'No production' %}</h3>
+{% endif %}
+
+{% else %}
+<h3 class="title_login">{% trans 'You are not logged in!' %}</h3>
+{% endif %}
+{% endblock %}

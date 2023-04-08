@@ -1,0 +1,177 @@
+{% extends 'shopapp/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+Products list
+{% endblock %}
+
+{% block section %}
+<div class="product-details mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="product__details-nav d-flex justify-content-center">
+
+                    <div class="product__details-thumb">
+                        <div class="tab-content" id="productThumbContent">
+                            <div class="tab-pane fade show active" id="thumbOne" role="tabpanel"
+                                 aria-labelledby="thumbOne-tab">
+                                <div class="product__details-nav-thumb w-img">
+                                    {% if 'http' in products.image.url %}
+                                    <img src="{{ products.image }}"
+                                         style="max-height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                         class="card-img-top mt-4" class="img-fluid"
+                                         alt="Laptop"/>
+                                    {% else %}
+                                    <img src="{{ products.image.url }}"
+                                         style="max-height: 50vh; object-fit: contain; border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                         class="card-img-top mt-4" class="img-fluid"
+                                         alt="Laptop"/>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="product__details-content">
+                    <h6>{{ products.name }}</h6>
+                    <div class="pd-rating mb-10">
+                        <ul class="rating">
+
+                            <li><a href="#">
+                                <i class="fa fa-star{% if products.rating < 0.5 %}-half {% elif products.rating >= 0.5 and products.rating < 1.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                            </li>
+                            <li><a href="#">
+                                <i class="fa fa-star{% if products.rating < 1.5 %}-half {% elif products.rating >= 1.5 and products.rating < 2.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                            </li>
+                            <li><a href="#">
+                                <i class="fa fa-star{% if products.rating < 2.5 %}-half {% elif products.rating >= 2.5 and products.rating < 3.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                            </li>
+                            <li><a href="#">
+                                <i class="fa fa-star{% if products.rating < 3.5 %}-half {% elif products.rating >= 3.5 and products.rating < 4.0 %}-half {% endif %}" aria-hidden="true"></i></a>
+                            </li>
+                            <li><a href="#">
+                                <i class="fa fa-star{% if products.rating < 4.5 %}-half {% elif products.rating >= 4.5 and products.rating <= 5.0 %} -half {% endif %}" aria-hidden="true"></i></a>
+                            </li>
+                        </ul>
+                        <span>({% firstof products.rating '0' %}/5)</span>
+                        <span><a href="#">Add your review</a></span>
+                    </div>
+                    <div class="price mb-10">
+                        <span>{{ products.price }} {% trans '₽' %}</span>
+                    </div>
+                    <div class="features-des mb-20 mt-10">
+                        <ul>
+                            {% for attribute in products.attributes.values %}
+                            <li><a href="product-details.html"><i class="fas fa-circle"></i> {{ attribute }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="product-stock mb-20">
+                        <h5>{% trans 'Availability:' %} <span> {{ products.to_json.dif_count_products }}</span></h5>
+                    </div>
+                    <div class="cart-option mb-15">
+                        <div class="product-quantity mr-20">
+                            <form action="{% url 'cart:cart_add' object.pk %}" method="post">
+                                    {% csrf_token %}
+                                    {{ form.update }}
+                                    {{ form.quantity }}
+<!--                                    <input class="" type="text" value="1" hidden="">-->
+                                    <input class="cart-btn " type="submit" value="{% trans 'Add to cart' %}">
+                                </form>
+                        </div>
+<!--                        <a href="cart.html" class="cart-btn">Add to Cart</a>-->
+                    </div>
+                    <div class="details-meta">
+                        <div class="d-meta-left">
+                            <div class="dm-item mr-20">
+                                <a href="#"><i class="fal fa-heart"></i>Add to wishlist</a>
+                            </div>
+                            <div class="dm-item">
+                                <a href="#"><i class="fal fa-layer-group"></i>Compare</a>
+                            </div>
+                        </div>
+                        <div class="d-meta-left">
+                            <div class="dm-item">
+                                <a href="#"><i class="fal fa-share-alt"></i>Share</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tag-area mt-15">
+                        <div class="product_info">
+                                    <span class="sku_wrapper">
+                                        <span class="title">SKU:</span>
+                                        <span class="sku">DK1002</span>
+                                    </span>
+                            <span class="posted_in">
+                                        <span class="title">Categories:</span>
+                                        <a href="#">iPhone</a>
+                                        <a href="#">Tablets</a>
+                                    </span>
+                            <span class="tagged_as">
+                                        <span class="title">Tags:</span>
+                                        <a href="#">Smartphone</a>,
+                                        <a href="#">Tablets</a>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product-details-end -->
+
+<!-- product-details-des-start -->
+<div class="product-details-des mt-40 mb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="product__details-des-tab">
+                    <ul class="nav nav-tabs" id="productDesTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="des-tab" data-bs-toggle="tab" data-bs-target="#des"
+                                    type="button" role="tab" aria-controls="des" aria-selected="true">
+                                {% trans 'Description' %}
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="aditional-tab" data-bs-toggle="tab" data-bs-target="#aditional"
+                                    type="button" role="tab" aria-controls="aditional" aria-selected="false">
+                                {% trans 'Additional information' %}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="prodductDesTaContent">
+            <div class="tab-pane fade active show" id="des" role="tabpanel" aria-labelledby="des-tab">
+                <div class="product__details-des-wrapper">
+                    <p class="des-text mb-35">
+                        {{ object.description|capfirst }}
+                    </p>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="aditional" role="tabpanel" aria-labelledby="aditional-tab">
+                <div class="product__desc-info">
+                    <ul>
+                         {% for key, value in object.attributes.items %}
+                        <li>
+                            <h6>{{ key }}</h6>
+                            <span>{{ value|capfirst }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

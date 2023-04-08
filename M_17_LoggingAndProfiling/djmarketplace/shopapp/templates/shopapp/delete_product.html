@@ -1,0 +1,21 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% block title %}
+Delete product
+{% endblock %}
+{% block section %}
+{% if request.user.is_authenticated %}
+<h1 class="title_action">{% trans 'Delete product' %} № {{object.pk}}?</h1>
+<form method="Post" class="product__form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="yesno_block">
+        <button class="update_btn btn-reset" type="submit">{% trans 'Yes' %}</button>
+        <div type="button" class="cancel_btn btn-reset"><a class="no_btn-link" href="{% url 'shopapp:order_detail' pk=object.pk %}">{% trans 'No' %}</a></div>
+    </div>
+
+</form>
+{% else %}
+<h3 class="title_login">{% trans 'You are not logged in!' %}</h3>
+{% endif %}
+{% endblock %}

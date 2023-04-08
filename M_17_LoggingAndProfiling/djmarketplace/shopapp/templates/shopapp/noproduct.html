@@ -1,0 +1,22 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% load cache %}
+
+{% block title %}
+No money
+{% endblock %}
+
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="col-12 text-center" style="height: 100%; margin-top: 100px;">
+    <i class="fab fa-cc-visa fa-4x" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+        <h5 class="">{% trans 'Not enough goods in stock.' %}</h5>
+        <span class="empty-basket-two">{% trans 'Please, reduce the quantity.' %}</span>
+        <a href="{% url 'cart:cart_detail' %}" class="cart-btn m-auto" style="width: 150px;">{% trans 'To cart' %}</a>
+    </div>
+
+</div>
+{% endif %}
+{% endblock %}

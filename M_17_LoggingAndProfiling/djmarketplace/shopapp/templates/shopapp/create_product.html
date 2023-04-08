@@ -1,0 +1,43 @@
+{% extends 'shopapp/base.html' %}
+{% load i18n %}
+{% block title %}
+Add product
+{% endblock %}
+
+{% block section %}
+{% if request.user.is_authenticated %}
+<div class="col-5 m-auto">
+    <h5 class="text-center my-3">{% trans 'Add product' %}</h5>
+    {% if form.errors %}
+        <p class="text-center">
+            {% trans 'The entered data is not correct.' % }
+            {% trans 'Please try again.' %}
+        </p>
+    {% else %}
+        <p class="text-center">{% trans 'Please, use the following form to product add:' %}</p>
+    {% endif %}
+    <div class="pt-4"
+         style="">
+        <form class="px-3 d-flex flex-column" method="post" action="{% url 'create_product' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+<!--            {% for field in form %}-->
+<!--                <div class="d-flex justify-content-between">-->
+<!--                    <p class="align-self-center" style="">{{ field.label_tag }}</p>-->
+<!--                    <p class="" style="">{{ field }}</p>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+            <input class="btn btn-primary px-4 my-4" type="submit" value="{% trans 'Add' %}">
+        </form>
+    </div>
+    <div class="back_to">
+        <p>
+            <a class="text-white" href="{% url 'shops' %}">{% trans 'Back to' %}</a>
+        </p>
+    </div>
+
+</div>
+{% else %}
+<h3 class="title_login">{% trans 'You are not logged in!' %}</h3>
+{% endif %}
+{% endblock %}
