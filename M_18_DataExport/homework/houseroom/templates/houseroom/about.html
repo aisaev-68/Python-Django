@@ -1,0 +1,27 @@
+{% extends "houseroom/base.html" %}
+{% load i18n %}
+{% block title %}
+About-US
+{% endblock %}
+
+{% block section %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'sale' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'About-us' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container col-lg-4">
+    <h5 class="text-center">{% trans 'Dukamrket a reliable, dynamically developing full-cycle development company implementing major projects in the field of residential and commercial real estate in the Russian Federation' %}</h5>
+</div>
+</div>
+
+{% endblock %}

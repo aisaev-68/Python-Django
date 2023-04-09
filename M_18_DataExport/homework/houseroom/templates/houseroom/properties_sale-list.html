@@ -1,0 +1,49 @@
+{% extends 'houseroom/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'List of properties for sale' %}
+{% endblock %}
+
+{% block section %}
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="breadcrumb__wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'sale' %}">{% trans 'Home' %}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% trans 'List of properties for sale' %}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<h3 class="title_action">{% trans 'List of properties for sale' %} {% now "Y-m-d" %}</h3>
+{% if sale_rooms %}
+<div class="table-content table-responsive">
+    <table class="table">
+    <tr>
+        <th class="text-center">{% trans 'ID' %}</th>
+        <th class="text-center">{% trans 'City' %}</th>
+        <th class="text-center">{% trans 'Address' %}</th>
+        <th class="text-center">{% trans 'Developer' %}</th>
+    </tr>
+    {% for room in sale_rooms %}
+    <tr>
+        <td class="text-center">{{ room.id }}</td>
+        <td class="px-3"><a class="text-primary" href="">{{ room.city|title }}</a></td>
+        <td class="text-center">{{ room.address }}</td>
+        <td class="text-center">{{ room.developer }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% else %}
+<h3>{% trans 'No house' %}</h3>
+{% endif %}
+
+{% endblock %}
