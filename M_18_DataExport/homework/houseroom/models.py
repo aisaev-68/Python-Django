@@ -6,9 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-def get_upload_path_by_products(instance, filename):
-    return os.path.join('product_images/', now().date().strftime("%Y/%m/%d"), filename)
-
 
 class HouseRoom(models.Model):
     city = models.CharField(max_length=100, verbose_name=_('City'))
@@ -25,6 +22,17 @@ class HouseRoom(models.Model):
         return "HouseRoom {c}, {a}".format(c=self.city, a=self.address)
 
 
+class RoomType(models.Model):
+    type_name = models.CharField(max_length=100, verbose_name=_('Type room'))
+
+    class Meta:
+        verbose_name = _("Type room")
+        verbose_name_plural = _("Type rooms")
+        ordering = ["type_name"]
+
+    def __str__(self):
+        return "RoomType {t}".format(t=self.type_name)
+
 class NumberRoom(models.Model):
     house = models.ForeignKey("HouseRoom", related_name="rooms", on_delete=models.CASCADE, verbose_name=_("House room"))
     room_count = models.IntegerField(verbose_name=_("Number of rooms"))
@@ -33,6 +41,7 @@ class NumberRoom(models.Model):
     kitchen_area = models.FloatField(verbose_name=_('Kitchen area'), blank=True)
     living_space = models.FloatField(verbose_name=_('Living space'), blank=True)
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Price'))
+    room_type = models.ForeignKey("RoomType", on_delete=models.CASCADE, related_name="rooms")
 
     class Meta:
         verbose_name = _("Number of rooms")
@@ -43,14 +52,4 @@ class NumberRoom(models.Model):
         return "NumberRoom {c}".format(c=self.room_count)
 
 
-class RoomType(models.Model):
-    room = models.OneToOneField("NumberRoom", on_delete=models.CASCADE, related_name="rooms")
-    type_name = models.CharField(max_length=100, verbose_name=_('Type room'))
 
-    class Meta:
-        verbose_name = _("Type room")
-        verbose_name_plural = _("Type rooms")
-        ordering = ["type_name"]
-
-    def __str__(self):
-        return "RoomType {t}".format(t=self.type_name)

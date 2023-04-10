@@ -14,7 +14,7 @@ class HouseRoomAdmin(admin.ModelAdmin):
 @admin.register(NumberRoom)
 class NumberRoomAdmin(admin.ModelAdmin):
 
-    list_display = "pk", "house", "room_count", "storey", "total_area", "kitchen_area", "living_space", "price"
+    list_display = "pk", "house", "room_type", "room_count", "storey", "total_area", "kitchen_area", "living_space", "price"
 
     list_display_links = "pk", "price"
     search_fields = "storey", "living_space", "price"
@@ -22,7 +22,7 @@ class NumberRoomAdmin(admin.ModelAdmin):
 
 @admin.register(RoomType)
 class RoomTypeAdmin(admin.ModelAdmin):
-    list_display = "pk", "room", "type_name"
+    list_display = "pk", "type_name"
 
     list_display_links = "pk", "type_name"
     search_fields = "type_name",

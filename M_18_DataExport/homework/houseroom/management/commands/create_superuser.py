@@ -7,11 +7,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # The magic line
-        User.objects.create_user(
-            username=settings.USERNAME,
+
+        User.objects.create_superuser(
+            username=settings.USER_ADMIN,
             email=settings.EMAIL,
             password=settings.PASSWORD,
-            is_staff=True,
-            is_active=True,
-            is_superuser=True
         )

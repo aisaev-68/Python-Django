@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool, default=False)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('ALLOWED_HOSTS', default='localhost')]
-USERNAME = config('USERNAME'),
+USER_ADMIN = config('USER_ADMIN')
 EMAIL = config('EMAIL')
 PASSWORD = config('PASSWORD')
 
