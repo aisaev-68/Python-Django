@@ -27,28 +27,22 @@ News
     <div class="single-smblog mb-30">
         <div class="smblog-thum">
             <div class="blog-image w-img">
-                <a href=""><img src="{{ post.posts.first.image.url }}" alt=""></a>
+                <a href=""><img src="{{ post.news_images.first.image.url }}" alt=""></a>
             </div>
 
         </div>
         <div class="smblog-content smblog-content-3">
 
-            <h6><a href="{% url 'blogs:blog_detail' pk=post.pk %}">{{ post.title|truncatechars:100 }}</a></h6>
-            <span class="author mb-10">
-                posted by
-                <a href="{% url 'blogs:bloger_profile' post.created_by.pk %}">
-                    {{ post.created_by.first_name }} {{ post.created_by.last_name }}
-                </a>
-            </span>
+            <h6><a href="">{{ post.title|truncatechars:100 }}</a></h6>
             <p>{{ post.description|truncatechars:200 }}</p>
-            <div class="smblog-foot pt-15">
-                <div class="post-readmore">
-                    <a href="{% url 'blogs:blog_detail' pk=post.pk %}"> Read More <span class="icon"></span></a>
-                </div>
-                <div class="post-date">
-                    <a href="">{{ post.created_at }}</a>
-                </div>
-            </div>
+<!--            <div class="smblog-foot pt-15">-->
+<!--                <div class="post-readmore">-->
+<!--                    <a href="{% url 'blogs:blog_detail' pk=post.pk %}"> Read More <span class="icon"></span></a>-->
+<!--                </div>-->
+<!--                <div class="post-date">-->
+<!--                    <a href="">{{ post.created_at }}</a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 
