@@ -143,7 +143,7 @@
                                     {% if language.0 != LANGUAGE_CODE %}
                                     <button class="text-white" type="submit" name="language" value="{{ language.0 }}">
                                         {{ language.1 }}
-<!--                                        ({{ language.0 }})-->
+                                        <!--                                        ({{ language.0 }})-->
                                     </button>
                                     {% endif %}
                                     {% endfor %}
@@ -152,8 +152,8 @@
                             <div class="support d-none d-sm-block">
                                 <p>{% trans 'Need Help?' %}
                                     <a href="tel:+89285484431">
-<!--                                        <i class="fa fa-phone" aria-hidden="true"></i>-->
-                                    +7(928)-548-44-31
+                                        <!--                                        <i class="fa fa-phone" aria-hidden="true"></i>-->
+                                        +7(928)-548-44-31
                                     </a>
                                 </p>
                             </div>
@@ -189,7 +189,8 @@
                         <div class="header__search">
                             <form action="#">
                                 <div class="header__search-box">
-                                    <input class="search-input" type="text" placeholder="..." style="padding-left: 15px;">
+                                    <input class="search-input" type="text" placeholder="..."
+                                           style="padding-left: 15px;">
                                     <button class="button" type="submit"><i class="far fa-search"></i></button>
                                 </div>
                             </form>
@@ -220,7 +221,7 @@
                                     </li>
 
                                     <li>
-                                         <a class="text-capitalize" href="">{% trans 'House' %}</a>
+                                        <a class="text-capitalize" href="">{% trans 'House' %}</a>
                                         <ul class="submenu">
                                             <li>
                                                 <a class="text-capitalize" href="">
@@ -237,12 +238,13 @@
                                                     {% trans 'News list' %}
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a style="text-transform: full-size-kana;" href="">
-                                                    {% trans 'News RSS' %}
-                                                </a>
-                                            </li>
+
                                         </ul>
+                                    </li>
+                                    <li>
+                                        <a style="text-transform: full-size-kana;" href="{% url 'news_rss' %}">
+                                            {% trans 'News RSS' %}
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>

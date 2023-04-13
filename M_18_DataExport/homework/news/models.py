@@ -1,4 +1,7 @@
+import os
+
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from PIL import Image
@@ -22,6 +25,9 @@ class News(models.Model):
     def __str__(self):
         return "News {t}".format(t=self.title)
 
+    # def get_absolute_url(self):
+    #     return reverse("news_rss", kwargs={"pk": self.pk})
+
 
 class NewsImage(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='news_images', verbose_name=_('News'))
@@ -40,4 +46,4 @@ class NewsImage(models.Model):
     class Meta:
         verbose_name = _("News image")
         verbose_name_plural = _("News images")
-        ordering = ["news", ]
+        ordering = ["news",]

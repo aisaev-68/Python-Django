@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import DetailView
 
 from houseroom.forms import ContactForm
 from houseroom.models import HouseRoom
@@ -24,3 +25,7 @@ class Contact(View):
 class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, "houseroom/about.html")
+
+class HouseDetail(DetailView):
+    model = HouseRoom
+    template_name = 'houseroom/house_detail.html'

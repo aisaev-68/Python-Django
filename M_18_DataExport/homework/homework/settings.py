@@ -23,8 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'rest_framework',
+    'contrib.sites',
+    'django.contrib.sitemaps',
     'houseroom.apps.HouseroomConfig',
-    'news.apps.NewsConfig'
+    'news.apps.NewsConfig',
+    'news_rss.apps.NewsRssConfig',
 ]
 
 MIDDLEWARE = [

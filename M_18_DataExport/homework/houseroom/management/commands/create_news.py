@@ -33,7 +33,8 @@ class Command(BaseCommand):
             text = Text(locale=Locale.RU)
             internet = Internet()
 
-            url = internet.stock_image(width=1920, height=1080)
+            url = internet.stock_image_url(width=1920, height=1080, keywords=["women", ])
+
             request = requests.get(url)
             filename = str(uuid.uuid4())
             file_name = "{name}.{ext}".format(name=filename, ext='jpg')

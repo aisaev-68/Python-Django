@@ -5,8 +5,6 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 
-
-
 class HouseRoom(models.Model):
     city = models.CharField(max_length=100, verbose_name=_('City'))
     address = models.CharField(max_length=200, verbose_name=_('Address'), blank=True)
@@ -32,6 +30,7 @@ class RoomType(models.Model):
 
     def __str__(self):
         return "RoomType {t}".format(t=self.type_name)
+
 
 class NumberRoom(models.Model):
     house = models.ForeignKey("HouseRoom", related_name="rooms", on_delete=models.CASCADE, verbose_name=_("House room"))

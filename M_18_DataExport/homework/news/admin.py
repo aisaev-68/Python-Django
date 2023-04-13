@@ -3,7 +3,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 
-from news.models import News
+from news.models import News, NewsImage
 
 
 @admin.action(description=_("Published news"))
@@ -25,3 +25,11 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = "pk", "title", "description", "created_at", "published",
     list_display_links = "title",
     search_fields = "title", 'description',
+
+
+@admin.register(NewsImage)
+class NewsImageAdmin(admin.ModelAdmin):
+
+    list_display = "pk", "news", "image",
+    list_display_links = "news",
+    search_fields = "news",

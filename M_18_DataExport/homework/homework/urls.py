@@ -1,5 +1,6 @@
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
@@ -9,6 +10,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 # from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from houseroom.sitemaps import HouseRoomSitemap
 
 from houseroom.views import Contact, About
 
@@ -25,6 +27,8 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
+sitemaps = {'houses': HouseRoomSitemap,}
+
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 ]
@@ -39,6 +43,9 @@ urlpatterns += i18n_patterns(
     # path('__debug__/', include(debug_toolbar.urls)),
     path('houseroom/', include('houseroom.urls'), name="houseroom"),
     path('news/', include('news.urls'), name="news"),
+    path('rss/', include('news_rss.urls'), name="news-rss"),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
 )
 
 if settings.DEBUG:
