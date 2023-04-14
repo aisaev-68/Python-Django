@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
@@ -10,6 +11,7 @@ class HouseRoom(models.Model):
     address = models.CharField(max_length=200, verbose_name=_('Address'), blank=True)
     developer = models.CharField(max_length=100, verbose_name=_('Developer'))
     floors = models.IntegerField(verbose_name=_("Floors"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created date'))
 
     class Meta:
         verbose_name = _("House room")
@@ -18,6 +20,9 @@ class HouseRoom(models.Model):
 
     def __str__(self):
         return "HouseRoom {c}, {a}".format(c=self.city, a=self.address)
+
+    def get_absolute_url(self):
+        return reverse("house_detail", kwargs={"pk": self.pk})
 
 
 class RoomType(models.Model):

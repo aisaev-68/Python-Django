@@ -10,7 +10,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 # from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from houseroom.sitemaps import HouseRoomSitemap
+from houseroom.sitemaps import HouseRoomSitemap, NewsSitemap
 
 from houseroom.views import Contact, About
 
@@ -27,7 +27,11 @@ schema_view = get_schema_view(
    permission_classes=[permissions.AllowAny],
 )
 
-sitemaps = {'houses': HouseRoomSitemap,}
+sitemaps = {
+    # 'about': AboutSitemap,
+    'news_detail': NewsSitemap,
+    'houses': HouseRoomSitemap,
+    }
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),

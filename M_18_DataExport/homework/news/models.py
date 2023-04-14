@@ -25,8 +25,8 @@ class News(models.Model):
     def __str__(self):
         return "News {t}".format(t=self.title)
 
-    # def get_absolute_url(self):
-    #     return reverse("news_rss", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("news_detail", kwargs={"pk": self.pk})
 
 
 class NewsImage(models.Model):

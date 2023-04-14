@@ -12,6 +12,9 @@ USER_ADMIN = config('USER_ADMIN')
 EMAIL = config('EMAIL')
 PASSWORD = config('PASSWORD')
 
+FIXTURE_DIRS =['houseroom/tests/fixtures/']
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -23,11 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'rest_framework',
-    'contrib.sites',
-    'django.contrib.sitemaps',
     'houseroom.apps.HouseroomConfig',
     'news.apps.NewsConfig',
     'news_rss.apps.NewsRssConfig',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [

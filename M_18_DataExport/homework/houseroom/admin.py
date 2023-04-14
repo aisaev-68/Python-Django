@@ -6,7 +6,7 @@ from houseroom.models import HouseRoom, NumberRoom, RoomType
 @admin.register(HouseRoom)
 class HouseRoomAdmin(admin.ModelAdmin):
 
-    list_display = "pk", "city", "address", "developer", "floors"
+    list_display = "pk", "city", "address", "developer", "floors", "created_at"
     list_display_links = "city", "address"
     search_fields = "city", "address", "developer"
 

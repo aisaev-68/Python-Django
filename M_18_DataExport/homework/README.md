@@ -1,21 +1,3 @@
-## Маркетплейс для продажи товаров различными магазинами.
-
-### Функциональные возможности:
-1. Регистрация и аутентификация пользователей.
-2. Личный кабинет пользователя (имя, баланс, текущий статус).
-3. Пополнение баланса в личном кабинете аутентифицированного пользователя
-4. Отображение списка доступных товаров по клику на название магазина.
-5. Формирование корзины и оплата заказа.
-6. Статусная система для пользователей, которая будет зависеть от суммы покупок.
-7. Отчёт по наиболее продаваемым товарам за период времени (поля: идентификатор товара, название товара, количество проданных единиц)
-
-### Логируются следующие события:
-1. Аутентификация пользователя
-2. Пополнение баланса,
-3. Оформление заказа,
-4. Списание баллов с баланса,
-5. Переход пользователя по статусной системе.
-
 
 ### Переменные среды
 Переименовать файл .env.example в .env и установите свои данные
@@ -35,23 +17,27 @@ poetry shell
 python manage.py makemigrations
 python manage.py migrate
 ```
-3. Заполнение базы тестовыми данными:
+4. Заполнение базы тестовыми данными:
 ```
 cd djmarketplace
 python manage.py create_superuser
+python manage.py create_room_type
+python manage.py create_houses
+python manage.py create_news
 ```
-
-4. Запуск приложения в режиме разработки:
+5. Текстуры
+```
+python manage.py dumpdata houseroom.HouseRoom > houseroom/tests/fixtures/houseroom-fixtures.json
+python manage.py dumpdata houseroom.RoomType > houseroom/tests/fixtures/room_type-fixtures.json  
+python manage.py dumpdata houseroom.NumberRoom > houseroom/tests/fixtures/number_room-fixtures.json 
+python manage.py dumpdata news.News > houseroom/tests/fixtures/news-fixtures.json    
+```
+5. Запуск приложения в режиме разработки:
 ```
 python manage.py runserver
 ```
 
-### Работа с сервисом:
-1. Документация API
-```
-http://127.0.0.1:8080/swagger/
-```
-2. Сайт
+6. Сайт
 ```
 http://127.0.0.1:8080
 ```

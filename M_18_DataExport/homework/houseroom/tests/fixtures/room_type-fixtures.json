@@ -1,0 +1,23 @@
+[
+  {
+    "model": "houseroom.roomtype",
+    "pk": 1,
+    "fields": {
+      "type_name": "Студия"
+    }
+  },
+  {
+    "model": "houseroom.roomtype",
+    "pk": 2,
+    "fields": {
+      "type_name": "Квартира"
+    }
+  },
+  {
+    "model": "houseroom.roomtype",
+    "pk": 3,
+    "fields": {
+      "type_name": "Пентхаус"
+    }
+  }
+]
