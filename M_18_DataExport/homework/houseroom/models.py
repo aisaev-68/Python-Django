@@ -38,22 +38,27 @@ class RoomType(models.Model):
 
 
 class NumberRoom(models.Model):
-    house = models.ForeignKey("HouseRoom", related_name="rooms", on_delete=models.CASCADE, verbose_name=_("House room"))
     room_count = models.IntegerField(verbose_name=_("Number of rooms"))
+
+    def __str__(self):
+        return "NumberRoom {t}".format(t=self.room_count)
+
+
+class Room(models.Model):
+    house = models.ForeignKey("HouseRoom", related_name="rooms", on_delete=models.CASCADE, verbose_name=_("House room"))
     storey = models.IntegerField(verbose_name=_("Storey"))
     total_area = models.FloatField(verbose_name=_('Total area'), blank=True)
-    kitchen_area = models.FloatField(verbose_name=_('Kitchen area'), blank=True)
-    living_space = models.FloatField(verbose_name=_('Living space'), blank=True)
-    price = models.DecimalField(default=0, max_digits=8, decimal_places=2, verbose_name=_('Price'))
+    price = models.DecimalField(default=0, max_digits=10, decimal_places=2, verbose_name=_('Price'))
     room_type = models.ForeignKey("RoomType", on_delete=models.CASCADE, related_name="rooms")
+    room_number = models.ForeignKey("NumberRoom", on_delete=models.CASCADE, related_name="number_rooms")
 
     class Meta:
         verbose_name = _("Number of rooms")
         verbose_name_plural = _("Number of rooms")
-        ordering = ["room_count"]
+        ordering = ["price"]
 
     def __str__(self):
-        return "NumberRoom {c}".format(c=self.room_count)
+        return "NumberRoom {c} {t}".format(c=self.storey, t=self.total_area)
 
 
 

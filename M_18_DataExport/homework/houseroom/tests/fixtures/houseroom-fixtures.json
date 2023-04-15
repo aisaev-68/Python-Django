@@ -3,220 +3,451 @@
     "model": "houseroom.houseroom",
     "pk": 1,
     "fields": {
-      "city": "Богородск",
-      "address": "Аллея Новые Черемушки 24-25 565",
-      "developer": "«Каргилл»",
-      "floors": 12,
-      "created_at": "2023-04-14T11:02:01.778Z"
+      "city": "Апшеронск",
+      "address": "Аллея Маршала Рокоссовского 48",
+      "developer": "Алпи",
+      "floors": 6,
+      "created_at": "2023-04-15T12:01:35.461Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 2,
     "fields": {
-      "city": "Пустошка",
-      "address": "ул. Иловайская 665",
-      "developer": "«Магистраль северной столицы»",
-      "floors": 3,
-      "created_at": "2023-04-14T11:02:01.784Z"
+      "city": "Новохоперск",
+      "address": "ул. Шушенская 965",
+      "developer": "Авто Мотор Группа (Арманд)",
+      "floors": 9,
+      "created_at": "2023-04-15T12:02:21.155Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 3,
     "fields": {
-      "city": "Красный Кут",
-      "address": "ул. Олений Вал 853",
-      "developer": "Комплексные энергетические системы",
-      "floors": 8,
-      "created_at": "2023-04-14T11:02:01.788Z"
+      "city": "Баксан",
+      "address": "Аллея Шведская 643",
+      "developer": "«Полиметалл»",
+      "floors": 1,
+      "created_at": "2023-04-15T12:05:50.002Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 4,
     "fields": {
-      "city": "Советск",
-      "address": "Аллея Черемушкинская Б. 140",
-      "developer": "Связь-банк",
-      "floors": 11,
-      "created_at": "2023-04-14T11:02:01.792Z"
+      "city": "Междуреченск",
+      "address": "Аллея Сокольническая 3-я 707",
+      "developer": "Сталепромышленная компания",
+      "floors": 10,
+      "created_at": "2023-04-15T12:07:09.052Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 5,
     "fields": {
-      "city": "Менделеевск",
-      "address": "Аллея Маршала Малиновского 701",
-      "developer": "«Нефтегазиндустрия»",
-      "floors": 14,
-      "created_at": "2023-04-14T11:02:01.796Z"
+      "city": "Электрогорск",
+      "address": "Аллея Индустриальная 432",
+      "developer": "Группа ЛСР",
+      "floors": 12,
+      "created_at": "2023-04-15T12:16:02.432Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 6,
     "fields": {
-      "city": "Гусиноозёрск",
-      "address": "Аллея Сосинская 409",
-      "developer": "Корпорация \"ГриНН\"",
-      "floors": 9,
-      "created_at": "2023-04-14T11:02:01.801Z"
+      "city": "Тамбов",
+      "address": "ул. Локомотивная 475",
+      "developer": "ДжамильКо",
+      "floors": 12,
+      "created_at": "2023-04-15T12:16:24.611Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 7,
     "fields": {
-      "city": "Светлоград",
-      "address": "ул. Шенкурская 1043",
-      "developer": "Энергосбытовая компания «Восток»",
-      "floors": 1,
-      "created_at": "2023-04-14T11:02:01.806Z"
+      "city": "Николаевск-на-Амуре",
+      "address": "Аллея Лосевская 1337",
+      "developer": "СУЭК2",
+      "floors": 11,
+      "created_at": "2023-04-15T12:18:36.261Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 8,
     "fields": {
-      "city": "Черногорск",
-      "address": "Аллея Ватутина 1237",
-      "developer": "Эксперт-Корсо",
-      "floors": 15,
-      "created_at": "2023-04-14T11:02:01.810Z"
+      "city": "Чухлома",
+      "address": "Аллея Левобережная 20",
+      "developer": "Уральский банк реконструкции и развития",
+      "floors": 6,
+      "created_at": "2023-04-15T12:22:08.365Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 9,
     "fields": {
-      "city": "Бакал",
-      "address": "Аллея Дубовой Рощи 650",
-      "developer": "Сталепромышленная компания",
-      "floors": 10,
-      "created_at": "2023-04-14T11:02:01.814Z"
+      "city": "Белозерск",
+      "address": "ул. Загорского 1145",
+      "developer": "«Марвел КТ»",
+      "floors": 2,
+      "created_at": "2023-04-15T12:23:52.146Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 10,
     "fields": {
-      "city": "Лукоянов",
-      "address": "ул. Высотная 627",
-      "developer": "«Военторг»",
-      "floors": 1,
-      "created_at": "2023-04-14T11:02:01.819Z"
+      "city": "Сельцо",
+      "address": "Аллея Ореховая 1253",
+      "developer": "ФК «Пульс»",
+      "floors": 8,
+      "created_at": "2023-04-15T12:26:12.176Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 11,
     "fields": {
-      "city": "Чернушка",
-      "address": "ул. Наставнический Ср. 856",
+      "city": "Ступино",
+      "address": "ул. Высоковольтная 714",
       "developer": "«Империал тобакко продажа и маркетинг»",
-      "floors": 10,
-      "created_at": "2023-04-14T11:02:01.824Z"
+      "floors": 12,
+      "created_at": "2023-04-15T12:26:33.232Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 12,
     "fields": {
-      "city": "Сковородино",
-      "address": "Аллея Дубки 761",
-      "developer": "Юникредитбанк",
-      "floors": 13,
-      "created_at": "2023-04-14T11:02:01.828Z"
+      "city": "Чкаловск",
+      "address": "Аллея Щелковское 86",
+      "developer": "Связной",
+      "floors": 11,
+      "created_at": "2023-04-15T12:34:04.091Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 13,
     "fields": {
-      "city": "Советск",
-      "address": "Аллея Южная 454",
-      "developer": "«Данон Россия»",
-      "floors": 11,
-      "created_at": "2023-04-14T11:02:01.831Z"
+      "city": "Буй",
+      "address": "ул. Лазенки 3-я 1172",
+      "developer": "ДСК «Автобан»",
+      "floors": 13,
+      "created_at": "2023-04-15T12:35:30.144Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 14,
     "fields": {
-      "city": "Азов",
-      "address": "Аллея Крестьянская 286",
-      "developer": "Транспортная группа Fesco",
-      "floors": 3,
-      "created_at": "2023-04-14T11:02:01.835Z"
+      "city": "Чухлома",
+      "address": "Аллея Иловайская 1200",
+      "developer": "Ritzio Entertainment Group",
+      "floors": 13,
+      "created_at": "2023-04-15T12:37:25.993Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 15,
     "fields": {
-      "city": "Почеп",
-      "address": "ул. Троилинская 638",
-      "developer": "Группа «Альфа-банк»",
-      "floors": 12,
-      "created_at": "2023-04-14T11:02:01.838Z"
+      "city": "Спасск",
+      "address": "ул. Зубовская 142",
+      "developer": "Генерирующая компания",
+      "floors": 4,
+      "created_at": "2023-04-15T12:37:55.546Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 16,
     "fields": {
-      "city": "Дальнереченск",
-      "address": "Аллея Пржевальского 720",
-      "developer": "Корпорация С.Холдинг",
-      "floors": 12,
-      "created_at": "2023-04-14T11:02:01.842Z"
+      "city": "Бугульма",
+      "address": "ул. Красных Зорь 1258",
+      "developer": "Трансойл",
+      "floors": 6,
+      "created_at": "2023-04-15T12:38:40.566Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 17,
     "fields": {
-      "city": "Черноголовка",
-      "address": "ул. Изумрудная 485",
-      "developer": "СУЭК2",
-      "floors": 3,
-      "created_at": "2023-04-14T11:02:01.845Z"
+      "city": "Троицк",
+      "address": "ул. Амурская 1259",
+      "developer": "Уральский банк реконструкции и развития",
+      "floors": 8,
+      "created_at": "2023-04-15T12:39:30.439Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 18,
     "fields": {
-      "city": "Туймазы",
-      "address": "ул. Академика Глушко 516",
-      "developer": "«Пермэнергосбыт»",
-      "floors": 12,
-      "created_at": "2023-04-14T11:02:01.848Z"
+      "city": "Заречный",
+      "address": "Аллея Жуков 735",
+      "developer": "Технониколь",
+      "floors": 11,
+      "created_at": "2023-04-15T12:40:13.894Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 19,
     "fields": {
-      "city": "Семёнов",
-      "address": "Аллея Бориса Жигуленкова 207",
-      "developer": "Комплексные энергетические системы",
-      "floors": 8,
-      "created_at": "2023-04-14T11:02:01.852Z"
+      "city": "Трехгорный",
+      "address": "ул. Винницкая 755",
+      "developer": "«Азот»",
+      "floors": 13,
+      "created_at": "2023-04-15T12:40:48.807Z"
     }
   },
   {
     "model": "houseroom.houseroom",
     "pk": 20,
     "fields": {
-      "city": "Дзержинск",
-      "address": "Аллея Венецианова 1182",
-      "developer": "Объединенная металлургическая компания",
+      "city": "Ефремов",
+      "address": "ул. Черепковская 3-я 458",
+      "developer": "«Юнипро»",
+      "floors": 3,
+      "created_at": "2023-04-15T12:41:16.390Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 21,
+    "fields": {
+      "city": "Нижние Серги",
+      "address": "Аллея Парковая 15-я 497",
+      "developer": "Группа НМЖК",
+      "floors": 13,
+      "created_at": "2023-04-15T12:41:57.365Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 22,
+    "fields": {
+      "city": "Пыталово",
+      "address": "ул. Новорублевская 838",
+      "developer": "«Макдоналдс»",
+      "floors": 8,
+      "created_at": "2023-04-15T12:43:08.323Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 23,
+    "fields": {
+      "city": "Дивногорск",
+      "address": "Аллея Сурикова 498",
+      "developer": "Сибирско-Амурская сталь",
+      "floors": 5,
+      "created_at": "2023-04-15T12:43:08.475Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 24,
+    "fields": {
+      "city": "Городец",
+      "address": "Аллея Героев Панфиловцев 675",
+      "developer": "Группа «Росгосстрах»",
+      "floors": 6,
+      "created_at": "2023-04-15T12:43:08.616Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 25,
+    "fields": {
+      "city": "Мыски",
+      "address": "Аллея Плавская 25",
+      "developer": "«Филипс»",
+      "floors": 10,
+      "created_at": "2023-04-15T12:43:08.755Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 26,
+    "fields": {
+      "city": "Алексин",
+      "address": "Аллея Маршала Малиновского 131",
+      "developer": "Группа компаний «Русагро»",
+      "floors": 14,
+      "created_at": "2023-04-15T12:43:08.894Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 27,
+    "fields": {
+      "city": "Майкоп",
+      "address": "Аллея Щукинская 224",
+      "developer": "«Каргилл»",
+      "floors": 1,
+      "created_at": "2023-04-15T12:43:09.021Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 28,
+    "fields": {
+      "city": "Полысаево",
+      "address": "ул. Гоголевская 810",
+      "developer": "«Вирлпул Рус»",
+      "floors": 6,
+      "created_at": "2023-04-15T12:43:09.158Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 29,
+    "fields": {
+      "city": "Салават",
+      "address": "ул. Бутырская 1060",
+      "developer": "НПК «Катрен»",
+      "floors": 10,
+      "created_at": "2023-04-15T12:43:09.300Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 30,
+    "fields": {
+      "city": "Абаза",
+      "address": "Аллея Новые Сады 7-я 80",
+      "developer": "Группа НМЖК",
+      "floors": 3,
+      "created_at": "2023-04-15T12:43:09.426Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 31,
+    "fields": {
+      "city": "Пудож",
+      "address": "ул. Елоховская 1127",
+      "developer": "Dixis",
+      "floors": 13,
+      "created_at": "2023-04-15T12:43:09.557Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 32,
+    "fields": {
+      "city": "Ессентуки",
+      "address": "Аллея Шухова 450",
+      "developer": "Волга-Днепр",
+      "floors": 6,
+      "created_at": "2023-04-15T12:43:09.689Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 33,
+    "fields": {
+      "city": "Володарск",
+      "address": "ул. Безымянная 622",
+      "developer": "«Усть-Луга ойл»",
+      "floors": 7,
+      "created_at": "2023-04-15T12:43:09.829Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 34,
+    "fields": {
+      "city": "Островной",
+      "address": "ул. Горлов 272",
+      "developer": "«КДВ групп»",
+      "floors": 10,
+      "created_at": "2023-04-15T12:43:09.961Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 35,
+    "fields": {
+      "city": "Вязьма",
+      "address": "Аллея Зорге 1124",
+      "developer": "«Шнейдер электрик»",
+      "floors": 11,
+      "created_at": "2023-04-15T12:43:10.098Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 36,
+    "fields": {
+      "city": "Бабушкин",
+      "address": "ул. Мантулинская 1023",
+      "developer": "ГК «Эталон»",
+      "floors": 14,
+      "created_at": "2023-04-15T12:43:10.231Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 37,
+    "fields": {
+      "city": "Сызрань",
+      "address": "ул. Достоевского 261",
+      "developer": "«Юлмарт»",
       "floors": 2,
-      "created_at": "2023-04-14T11:02:01.855Z"
+      "created_at": "2023-04-15T12:43:10.381Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 38,
+    "fields": {
+      "city": "Шахунья",
+      "address": "ул. Енисейская 249",
+      "developer": "«Кордиант»",
+      "floors": 7,
+      "created_at": "2023-04-15T12:43:10.517Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 39,
+    "fields": {
+      "city": "Саянск",
+      "address": "ул. Конюшковский Б. 873",
+      "developer": "ГК «Совкомфлот»",
+      "floors": 5,
+      "created_at": "2023-04-15T12:43:10.650Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 40,
+    "fields": {
+      "city": "Сенгилей",
+      "address": "Аллея Ленинградская 1356",
+      "developer": "РКК «Энергия» имени С. П. Королева",
+      "floors": 3,
+      "created_at": "2023-04-15T12:43:10.791Z"
+    }
+  },
+  {
+    "model": "houseroom.houseroom",
+    "pk": 41,
+    "fields": {
+      "city": "Сурск",
+      "address": "ул. Степана Шутова 68",
+      "developer": "СК «Согласие»",
+      "floors": 12,
+      "created_at": "2023-04-15T12:43:10.925Z"
     }
   }
 ]

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from houseroom.models import RoomType
+from houseroom.models import RoomType, NumberRoom
 
 
 class Command(BaseCommand):
@@ -11,6 +11,11 @@ class Command(BaseCommand):
         for item in ["Студия", "Квартира", "Пентхаус"]:
             RoomType.objects.create(
                 type_name=item
+            )
+
+        for item in range(5):
+            NumberRoom.objects.create(
+                room_count=item + 1
             )
 
         self.stdout.write("Create room type.")

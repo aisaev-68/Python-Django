@@ -10,7 +10,7 @@ class NewsRssFeed(Feed):
     description = _("Latest news")
 
     def items(self):
-        return News.objects.filter(published=False).order_by("-created_at")
+        return News.objects.filter(published=True).order_by("-created_at")
 
     def item_title(self, item):
         return item.title

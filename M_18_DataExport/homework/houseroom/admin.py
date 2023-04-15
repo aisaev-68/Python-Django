@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from houseroom.models import HouseRoom, NumberRoom, RoomType
+from houseroom.models import HouseRoom, NumberRoom, RoomType, Room
 
 
 @admin.register(HouseRoom)
@@ -13,11 +13,17 @@ class HouseRoomAdmin(admin.ModelAdmin):
 
 @admin.register(NumberRoom)
 class NumberRoomAdmin(admin.ModelAdmin):
+    list_display = "pk", "room_count"
 
-    list_display = "pk", "house", "room_type", "room_count", "storey", "total_area", "kitchen_area", "living_space", "price"
+
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+
+    list_display = "pk", "house", "storey", \
+        "total_area", "price", "room_number", "room_type"
 
     list_display_links = "pk", "price"
-    search_fields = "storey", "living_space", "price"
+    search_fields = "storey", "price"
 
 
 @admin.register(RoomType)
